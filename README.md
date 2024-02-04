@@ -6,17 +6,17 @@ VetApp is an ASP.NET Core MVC project designed to streamline the patient managem
 1. **Custom Identity System**:
   VetApp integrates a custom identity system tailored for veterinary professionals. Doctors can securely register, log in, and manage their accounts, ensuring a personalized and secure experience.
 
-2. **Patient Management**:
-  -2.1 Patient Registration
+2. **Patient Management**: <br>
+   2.1 Patient Registration
 Doctors can effortlessly register new patients, capturing essential information such as name, species, breed, and owner details.
-Assign unique identifiers to each patient for quick and easy reference.
+Assign unique identifiers to each patient for quick and easy reference. <br>
   -2.2 Patient Dashboard
 A comprehensive dashboard displays a list of all registered patients for the logged-in doctor.
-Filter and search functionalities make it easy to find specific patients based on various criteria.
+Filter and search functionalities make it easy to find specific patients based on various criteria. <br>
   -2.3 Intervention History
 Track and view the complete history of interventions performed on each patient.
-Detailed logs provide insights into past treatments, medications, and procedures.
-3. **User-Friendly Interface**
+Detailed logs provide insights into past treatments, medications, and procedures. <br>
+3. **User-Friendly Interface** <br>
 VetApp boasts an intuitive and user-friendly interface, ensuring a smooth experience for doctors navigating through patient records and application features.
 ## Technologies Used
 
