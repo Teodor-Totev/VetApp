@@ -1,27 +1,30 @@
-﻿//using Microsoft.AspNetCore.Identity;
-//using System.Text;
-//using VetApp.Data.Models;
-//using VetApp.Services.Interfaces;
-//using VetApp.Web.ViewModels.Account;
+﻿using Microsoft.EntityFrameworkCore;
+using VetApp.Data;
+using VetApp.Data.Models;
+using VetApp.Services.Interfaces;
 
-//namespace VetApp.Services
-//{
-//	public class AccountService : IAccountService
-//	{
-//		private readonly SignInManager<VetUser> signInManager;
-//		private readonly UserManager<VetUser> userManager;
+namespace VetApp.Services
+{
+	public class AccountService : IAccountService
+	{
+		private readonly VetAppDbContext context;
 
-//        public AccountService(SignInManager<VetUser> signInManager, 
-//								UserManager<VetUser> userManager)
-//        {
-//            this.signInManager = signInManager;
-//			this.userManager = userManager;
-//        }
+		public AccountService(VetAppDbContext context)
+		{
+			this.context = context;
+		}
 
-//        public async Task<bool> RegisterUserAsync(RegisterVM model)
-//		{
-			
+		public async Task<string> GetUserFullNameByEmail(string email)
+		{
+			VetUser? user = await context.Users
+				.FirstOrDefaultAsync(u => u.UserName == email);
 
-//		}
-//	}
-//}
+			if (user == null)
+			{
+				return string.Empty;
+			}
+
+			return $"{user.FirstName} {user.LastName}";
+		}
+	}
+}

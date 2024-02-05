@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 using VetApp.Data;
 using VetApp.Data.Models;
+using VetApp.Services;
+using VetApp.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +28,7 @@ builder.Services.AddIdentity<VetUser, IdentityRole>(options =>
 })
 	.AddEntityFrameworkStores<VetAppDbContext>();
 
-//builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 
 var app = builder.Build();

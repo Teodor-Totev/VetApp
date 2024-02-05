@@ -9,9 +9,14 @@
 	public class VetUser : IdentityUser
 	{
 		[Required]
-		[StringLength(NameMaxLength, MinimumLength = NameMinLength)]
-		public string? Name { get; set; }
+		[MaxLength(NameMaxLength)]
+		public string? FirstName { get; set; }
 
+		[Required]
+		[MaxLength(NameMaxLength)]
+		public string? LastName { get; set; }
+
+		[MaxLength(AddresMaxLength)]
 		public string? Address { get; set; }
 	}
 }

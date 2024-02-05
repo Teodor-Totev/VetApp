@@ -1,8 +1,11 @@
 ﻿@using System.Security.Claims
+@using VetApp.Services.Interfaces
 @inject SignInManager<VetUser> signInManager
+@inject IAccountService accService
 
 @{
 	string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+	string userFullName = await this.accService.GetUserFullNameByEmail(User.Identity?.Name!);
 }
 
 <ul class="navbar-nav">
@@ -10,7 +13,7 @@
 	{
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" area-expanden="false">
-				@User.Identity?.Name - <span> @id </span>
+				@userFullName @* - <span> @id </span> *@
 			</a>
 			<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<li>

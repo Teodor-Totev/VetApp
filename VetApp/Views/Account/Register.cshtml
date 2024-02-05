@@ -34,6 +34,18 @@
 			</div>
 
 			<div class="mb-1">
+				<label asp-for="FirstName" class="control-label"></label>
+				<input asp-for="FirstName" class="form-control">
+				<span asp-validation-for="FirstName" class="text-danger"></span>
+			</div>
+
+			<div class="mb-1">
+				<label asp-for="LastName" class="control-label"></label>
+				<input asp-for="LastName" class="form-control">
+				<span asp-validation-for="LastName" class="text-danger"></span>
+			</div>
+
+			<div class="mb-1">
 				<label asp-for="Address" class="control-label"></label>
 				<textarea asp-for="Address" class="form-control" rows="2"></textarea>
 				<span asp-validation-for="Address" class="text-danger"></span>

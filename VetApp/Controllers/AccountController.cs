@@ -1,5 +1,6 @@
 ﻿namespace VetApp.Controllers;
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,17 +13,24 @@ public class AccountController : Controller
 	private UserManager<VetUser> userManager;
 
 	public AccountController(
-		SignInManager<VetUser> signInManager, 
+		SignInManager<VetUser> signInManager,
 		UserManager<VetUser> userManager)
 	{
 		this.signInManager = signInManager;
 		this.userManager = userManager;
 	}
 
-    [HttpGet]
-	public IActionResult Login()
+	[HttpGet]
+	public async Task<IActionResult> Login(string returnUrl = null)
 	{
-		return View();
+		await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+		LoginVM loginVM = new LoginVM()
+		{
+			ReturnUrl = returnUrl
+		};
+
+		return View(loginVM);
 	}
 
 	[HttpPost]
@@ -34,19 +42,18 @@ public class AccountController : Controller
 		}
 
 		var result = await this.signInManager.PasswordSignInAsync(
-            model.Username,
+			model.Username,
 			model.Password,
 			model.RememberMe,
 			false);
 
-		if (result.Succeeded)
+		if (!result.Succeeded)
 		{
-			return RedirectToAction("Index", "Home");
+			ModelState.AddModelError(string.Empty, "Invalit login attempt.");
+			return View(model);
 		}
 
-		ModelState.AddModelError(string.Empty, "Invalit login attempt.");
-
-		return View(model);
+		return RedirectToAction("Index", "Home");
 	}
 
 	[HttpGet]
@@ -58,32 +65,36 @@ public class AccountController : Controller
 	[HttpPost]
 	public async Task<IActionResult> Register(RegisterVM model)
 	{
-		if (ModelState.IsValid)
+		if (!ModelState.IsValid)
 		{
-			var user = new VetUser()
+			return this.View(model);
+		}
+
+		var user = new VetUser()
+		{
+			FirstName = model.FirstName,
+			LastName = model.LastName,
+			Address = model.Address,
+		};
+
+		await userManager.SetEmailAsync(user, model.Email);
+		await userManager.SetUserNameAsync(user, model.Username);
+
+		var result = await this.userManager.CreateAsync(user, model.Password);
+
+		if (!result.Succeeded)
+		{
+			foreach (var err in result.Errors)
 			{
-				Name = model.Username,
-				UserName = model.Username,
-				Email = model.Email,
-				Address = model.Address,
-			};
+				ModelState.AddModelError(string.Empty, err.Description);
+			}
 
-			var result = await this.userManager.CreateAsync(user, model.Password);
+			return View(model);
+		}
 
-            if (result.Succeeded)
-            {
-                await this.signInManager.SignInAsync(user, false);
+		await this.signInManager.SignInAsync(user, false);
 
-                return RedirectToAction("Index", "Home");
-            }
-
-            foreach (var err in result.Errors)
-            {
-                ModelState.AddModelError("", err.Description);
-            }
-        }
-
-		return View(model);
+		return RedirectToAction("Index", "Home");
 	}
 
 	public async Task<IActionResult> Logout()

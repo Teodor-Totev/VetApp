@@ -7,7 +7,7 @@
     {
         [Required]
 		[StringLength(UsernameMaxLength, MinimumLength = UsernameMinLength,
-			ErrorMessage = "Username must be between 2 and 50 characters long!!")]
+			ErrorMessage = "Username must be between 2 and 15 characters long!!")]
 		public string? Username { get; set; }
 
         [Required]
@@ -26,5 +26,17 @@
 
         [DataType(DataType.MultilineText)]
         public string? Address { get; set; }
-    }
+
+		[Required]
+		[StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength,
+			ErrorMessage = "Username must be between 2 and 15 characters long!!")]
+		[Display(Name = "First Name")]
+		public string? FirstName { get; set; }
+
+		[Required]
+		[StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength,
+			ErrorMessage = "Username must be between 2 and 15 characters long!!")]
+		[Display(Name = "Last Name")]
+		public string? LastName { get; set; }
+	}
 }

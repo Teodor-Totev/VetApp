@@ -4,6 +4,6 @@ namespace VetApp.Services.Interfaces
 {
 	public interface IAccountService
 	{
-		Task<bool> RegisterUserAsync(RegisterVM model);
+		Task<string> GetUserFullNameByEmail(string email);
 	}
 }

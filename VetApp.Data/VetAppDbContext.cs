@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
+using System.Reflection;
 using VetApp.Data.Models;
 
 public class VetAppDbContext : IdentityDbContext<VetUser>
@@ -12,4 +12,11 @@ public class VetAppDbContext : IdentityDbContext<VetUser>
     {
         
     }
+
+	protected override void OnModelCreating(ModelBuilder builder)
+	{
+		builder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(VetAppDbContext)) ?? Assembly.GetExecutingAssembly());
+
+		base.OnModelCreating(builder);
+	}
 }
