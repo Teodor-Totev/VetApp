@@ -1,7 +1,5 @@
 # VetApp - MVC ASP.NET CORE Project
 
-Brief description of your project.
-
 ## Technologies Used
 
 - ASP.NET Core
