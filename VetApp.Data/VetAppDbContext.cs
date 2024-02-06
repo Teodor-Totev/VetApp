@@ -1,9 +1,11 @@
 ﻿namespace VetApp.Data;
 
+using System.Reflection;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+
 using VetApp.Data.Models;
 
 public class VetAppDbContext : IdentityDbContext<VetUser, IdentityRole<Guid>, Guid>
@@ -16,8 +18,20 @@ public class VetAppDbContext : IdentityDbContext<VetUser, IdentityRole<Guid>, Gu
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
-		builder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(VetAppDbContext)) ?? Assembly.GetExecutingAssembly());
+        Assembly configAssembly = Assembly.GetAssembly(typeof(VetAppDbContext)) ??
+                                  Assembly.GetExecutingAssembly();
+
+		builder.ApplyConfigurationsFromAssembly(configAssembly);
+
+        builder.Entity<PatientUser>()
+            .HasKey(pu => new { pu.UserId, pu.PatientId });
 
 		base.OnModelCreating(builder);
 	}
+
+    public DbSet<Owner> Owners { get; set; } = null!;
+
+    public DbSet<Patient> Patients { get; set; } = null!;
+
+    public DbSet<PatientUser> PatientsUsers { get; set; } = null!;
 }

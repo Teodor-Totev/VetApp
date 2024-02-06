@@ -1,7 +1,7 @@
 ﻿namespace VetApp.Data.Models
 {
 	using System.ComponentModel.DataAnnotations;
-
+	using System.ComponentModel.DataAnnotations.Schema;
 	using VetApp.Data.Models.Enums;
 
 	using static Common.EntityValidationConstants.Patient;
@@ -10,12 +10,11 @@
 	{
         public Patient()
         {
-            this.Id = Guid.NewGuid();
             this.PatientsUsers = new HashSet<PatientUser>();
 		}
 
         [Key]
-		public Guid Id { get; set; }
+		public int Id { get; set; }
 
         [Required]
         [MaxLength(NameMaxLength)]
@@ -39,9 +38,10 @@
 
         public string? ChronicIllnesses { get; set; }
 
-        public virtual Owner Owner{ get; set; } = null!;
-
 		public Guid OwnerId { get; set; }
+
+        [ForeignKey("OwnerId")]
+        public virtual Owner Owner{ get; set; } = null!;
 
         public virtual ICollection<PatientUser> PatientsUsers { get; set; }
     }

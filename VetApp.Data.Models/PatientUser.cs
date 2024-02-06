@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static VetApp.Common.EntityValidationConstants;
 
 namespace VetApp.Data.Models
 {
 	public class PatientUser
 	{
-        public Guid PatientId { get; set; }
+        public int PatientId { get; set; }
 
-        public virtual Patient Patient { get; set; } = null!;
+		[ForeignKey(nameof(PatientId))]
+		public virtual Patient Patient { get; set; } = null!;
 
         public Guid UserId { get; set; }
 
-        public virtual VetUser User { get; set; } = null!;
+		[ForeignKey(nameof(UserId))]
+		public virtual VetUser User { get; set; } = null!;
     }
 }

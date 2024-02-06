@@ -19,6 +19,7 @@ builder.Services.AddDbContext<VetAppDbContext>(options =>
 
 builder.Services.AddDefaultIdentity<VetUser>(options =>
 {
+	options.SignIn.RequireConfirmedAccount = false;
 	options.Password.RequiredUniqueChars = 0;
 	options.Password.RequireNonAlphanumeric = false;
 	options.Password.RequireDigit = false;
@@ -29,7 +30,6 @@ builder.Services.AddDefaultIdentity<VetUser>(options =>
 	.AddEntityFrameworkStores<VetAppDbContext>();
 
 builder.Services.AddScoped<IAccountService, AccountService>();
-
 
 var app = builder.Build();
 
