@@ -1,4 +1,4 @@
-# VetApp - MVC ASP.NET CORE Project
+# VetApp
 
 ## Technologies Used
 
