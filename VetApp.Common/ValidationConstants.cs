@@ -2,14 +2,6 @@
 
 public static class ValidationConstants
 {
-	public static class AppUser
-	{
-		public const int NameMaxLength = 15;
-		public const int NameMinLength = 2;
-
-		public const int AddresMaxLength = 200;
-	}
-
 	public static class LoginViewModel
 	{
 		public const int UsernameMaxLength = 15;

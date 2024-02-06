@@ -3,17 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetApp", "VetApp\VetApp.csproj", "{F3D9CF3E-5768-48D3-AD7D-D8FBF7AA73A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetApp", "VetApp\VetApp.csproj", "{F3D9CF3E-5768-48D3-AD7D-D8FBF7AA73A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetApp.Data", "VetApp.Data\VetApp.Data.csproj", "{19721C05-A417-41A4-A7BD-F772B6482D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetApp.Data", "VetApp.Data\VetApp.Data.csproj", "{19721C05-A417-41A4-A7BD-F772B6482D87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetApp.Data.Models", "VetApp.Data.Models\VetApp.Data.Models.csproj", "{EDC1905F-1B2E-4A37-8ED9-1043DAD04033}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetApp.Data.Models", "VetApp.Data.Models\VetApp.Data.Models.csproj", "{EDC1905F-1B2E-4A37-8ED9-1043DAD04033}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetApp.Common", "VetApp.Common\VetApp.Common.csproj", "{292C2F88-E47D-4496-A8FF-3A15B0F34167}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetApp.Common", "VetApp.Common\VetApp.Common.csproj", "{292C2F88-E47D-4496-A8FF-3A15B0F34167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetApp.Services", "VetApp.Services\VetApp.Services.csproj", "{66E46CC3-7421-4D83-ABDC-C107C699D1C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetApp.Services", "VetApp.Services\VetApp.Services.csproj", "{66E46CC3-7421-4D83-ABDC-C107C699D1C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetApp.Web.ViewModels", "VetApp.Web.ViewModels\VetApp.Web.ViewModels.csproj", "{DEF1516E-9AC0-4571-882E-FDEFBECC9E6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetApp.Web.ViewModels", "VetApp.Web.ViewModels\VetApp.Web.ViewModels.csproj", "{DEF1516E-9AC0-4571-882E-FDEFBECC9E6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{250083BF-DB8A-4509-9C93-04EDF7D668EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{EDCC8CFB-ECB5-47DD-94C7-C6F7FCDD2339}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +52,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F3D9CF3E-5768-48D3-AD7D-D8FBF7AA73A6} = {EDCC8CFB-ECB5-47DD-94C7-C6F7FCDD2339}
+		{19721C05-A417-41A4-A7BD-F772B6482D87} = {250083BF-DB8A-4509-9C93-04EDF7D668EF}
+		{EDC1905F-1B2E-4A37-8ED9-1043DAD04033} = {250083BF-DB8A-4509-9C93-04EDF7D668EF}
+		{DEF1516E-9AC0-4571-882E-FDEFBECC9E6F} = {EDCC8CFB-ECB5-47DD-94C7-C6F7FCDD2339}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F12106E0-3005-4A3F-88D7-564AD7ECE3B2}

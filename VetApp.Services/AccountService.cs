@@ -14,10 +14,10 @@ namespace VetApp.Services
 			this.context = context;
 		}
 
-		public async Task<string> GetUserFullNameByEmail(string email)
+		public async Task<string> GetUserFullNameByUsername(string username)
 		{
 			VetUser? user = await context.Users
-				.FirstOrDefaultAsync(u => u.UserName == email);
+				.FirstOrDefaultAsync(u => u.UserName == username);
 
 			if (user == null)
 			{

@@ -1,11 +1,12 @@
 ﻿namespace VetApp.Data;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using VetApp.Data.Models;
 
-public class VetAppDbContext : IdentityDbContext<VetUser>
+public class VetAppDbContext : IdentityDbContext<VetUser, IdentityRole<Guid>, Guid>
 {
     public VetAppDbContext(DbContextOptions<VetAppDbContext> options)
         : base(options)

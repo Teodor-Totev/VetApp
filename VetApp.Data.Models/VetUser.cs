@@ -4,10 +4,15 @@
 
 	using Microsoft.AspNetCore.Identity;
 
-	using static Common.ValidationConstants.AppUser;
+	using static Common.EntityValidationConstants.AppUser;
 
-	public class VetUser : IdentityUser
+	public class VetUser : IdentityUser<Guid>
 	{
+		public VetUser()
+		{
+			this.PatientsUsers = new HashSet<PatientUser>();
+		}
+
 		[Required]
 		[MaxLength(NameMaxLength)]
 		public string? FirstName { get; set; }
@@ -18,5 +23,7 @@
 
 		[MaxLength(AddresMaxLength)]
 		public string? Address { get; set; }
+
+		public virtual ICollection<PatientUser> PatientsUsers { get; set; }
 	}
 }

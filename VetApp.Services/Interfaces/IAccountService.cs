@@ -4,6 +4,6 @@ namespace VetApp.Services.Interfaces
 {
 	public interface IAccountService
 	{
-		Task<string> GetUserFullNameByEmail(string email);
+		Task<string> GetUserFullNameByUsername(string username);
 	}
 }

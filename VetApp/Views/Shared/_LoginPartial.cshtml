@@ -5,7 +5,7 @@
 
 @{
 	string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-	string userFullName = await this.accService.GetUserFullNameByEmail(User.Identity?.Name!);
+	string userFullName = await this.accService.GetUserFullNameByUsername(User.Identity?.Name!);
 }
 
 <ul class="navbar-nav">
