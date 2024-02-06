@@ -13,6 +13,7 @@ VetApp is an ASP.NET Core MVC project designed to streamline the patient managem
 - **Tracking Past Problems and Interventions**
 
 - **User-Friendly Interface:**
+  
    VetApp boasts an intuitive and user-friendly interface, ensuring a smooth experience for doctors navigating through patient records and application features.
 
 ### Contributing
