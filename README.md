@@ -6,6 +6,9 @@
 - Microsoft SQL Server
 - Entity Framework
 - ASP.NET Core Identity
+- HTML
+- CSS
+- Bootstrap
 
 ## Project Overview
 
