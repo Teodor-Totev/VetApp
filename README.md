@@ -3,9 +3,9 @@
 ## Technologies Used
 
 - ASP.NET Core
-- Microsoft SQL Server
-- Entity Framework
 - ASP.NET Core Identity
+- Entity Framework
+- Microsoft SQL Server
 - HTML
 - CSS
 - Bootstrap
