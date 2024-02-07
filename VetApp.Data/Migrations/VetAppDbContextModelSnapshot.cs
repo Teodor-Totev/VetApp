@@ -184,6 +184,29 @@ namespace VetApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Owners");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
+                            Address = "гр.Стара Загора",
+                            Name = "Иван",
+                            PhoneNumber = "+359876123123"
+                        },
+                        new
+                        {
+                            Id = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
+                            Address = "гр.Димитровград",
+                            Name = "Марко",
+                            PhoneNumber = "+359878255255"
+                        },
+                        new
+                        {
+                            Id = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
+                            Address = "гр.Хасково",
+                            Name = "Пенка",
+                            PhoneNumber = "+359988989898"
+                        });
                 });
 
             modelBuilder.Entity("VetApp.Data.Models.Patient", b =>
@@ -231,6 +254,35 @@ namespace VetApp.Data.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Patients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Gender = 0,
+                            Name = "Ласи",
+                            Neutered = 0,
+                            OwnerId = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
+                            Type = "Куче"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Gender = 0,
+                            Name = "Том",
+                            Neutered = 0,
+                            OwnerId = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
+                            Type = "Котка"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Gender = 1,
+                            Name = "Джери",
+                            Neutered = 0,
+                            OwnerId = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
+                            Type = "Мишка"
+                        });
                 });
 
             modelBuilder.Entity("VetApp.Data.Models.PatientUser", b =>
@@ -246,6 +298,8 @@ namespace VetApp.Data.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("PatientsUsers");
+
+                    b.HasComment("User Patints");
                 });
 
             modelBuilder.Entity("VetApp.Data.Models.VetUser", b =>
@@ -274,17 +328,13 @@ namespace VetApp.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasDefaultValue("Test");
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasDefaultValue("Test");
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static VetApp.Common.EntityValidationConstants;
 
 namespace VetApp.Data.Models
 {
+	[Comment("User Patints")]
 	public class PatientUser
 	{
-        public int PatientId { get; set; }
+        public int PatientId { get; set; } 
 
 		[ForeignKey(nameof(PatientId))]
 		public virtual Patient Patient { get; set; } = null!;
