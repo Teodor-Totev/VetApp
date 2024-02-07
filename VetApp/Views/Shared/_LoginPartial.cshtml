@@ -13,16 +13,12 @@
 	{
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" area-expanden="false">
-				@userFullName @* - <span> @id </span> *@
+				@userFullName
 			</a>
-			<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-				<li>
-					<a class="dropdown-item" asp-action="Logout" asp-controller="Account">
-						Logout
-					</a>
-				</li>
-			</ul>
-		</li>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
+			</div>
+		</li> 
 	}
 	else
 	{

@@ -1,0 +1,112 @@
+﻿@model CreateVM
+
+@{
+	ViewData["Title"] = "Create Patient";
+}
+
+<div class="d-flex align-items-center justify-content-center">
+	<div @* class="row d-flex align-items-center justify-content-center" *@>
+		<div class="col-md-4 card p-3">
+			<h2 class="card-title text-center text-info">User Registration</h2>
+			<form asp-action="Register" asp-controller="Account" method="post">
+				<div asp-validation-summary="ModelOnly"></div>
+				<div class="mb-1">
+					<label asp-for="Name" class="control-label"></label>
+					<input asp-for="Name" class="form-control">
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+
+				<div class="mb-1">
+					<label asp-for="Type" class="control-label">Email</label>
+					<input asp-for="Type" class="form-control">
+					<span asp-validation-for="Type" class="text-danger"></span>
+				</div>
+
+				<div class="mb-1">
+					Male
+					@Html.RadioButtonFor(model => model.Gender, "Male")
+					Female
+					@Html.RadioButtonFor(model => model.Gender, "Female")
+				</div>
+
+				<div class="mb-1">
+					<label asp-for="Age" class="control-label"></label>
+					<input asp-for="Age" class="form-control">
+					<span asp-validation-for="Age" class="text-danger"></span>
+				</div>
+
+				<div class="mb-1">
+					<label asp-for="Gender" class="form-label">Category</label>
+					@* <select asp-for="BoardId" class="form-control"> *@
+						@foreach (var gender in Model.Genders)
+						{
+							@* value = "@board.Id" *@
+							<option >@gender.Gender</option>
+						}
+					</select>
+					@* <span asp-validation-for="BoardId" class="text-danger"></span> *@
+				</div>
+
+				<div class="mb-1">
+					<label asp-for="MicroChip" class="control-label"></label>
+					<input asp-for="MicroChip" class="form-control">
+					<span asp-validation-for="MicroChip" class="text-danger"></span>
+				</div>
+
+				@* <div class="mb-1">
+					<label asp-for="Gender" class="control-label"></label>
+					<input asp-for="Gender" class="form-control">
+					<span asp-validation-for="Gender" class="text-danger"></span>
+				</div> *@
+
+				<div class="mb-1">
+					<label asp-for="Characteristics" class="control-label"></label>
+					<textarea asp-for="Characteristics" class="form-control" rows="2"></textarea>
+					<span asp-validation-for="Characteristics" class="text-danger"></span>
+				</div>
+
+				<div class="mb-1">
+					<label asp-for="ChronicIllnesses" class="control-label"></label>
+					<textarea asp-for="ChronicIllnesses" class="form-control" rows="2"></textarea>
+					<span asp-validation-for="ChronicIllnesses" class="text-danger"></span>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div @* class="row" *@>
+		<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+			<form asp-action="Create" method="post">
+				<div class="mb-3">
+					<label asp-for="OwnerName" class="form-label">Title</label>
+					<input asp-for="OwnerName" class="form-control" aria-required="true" />
+					<span asp-validation-for="OwnerName" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="OwnerPhoneNumber" class="form-label">Description</label>
+					<input asp-for="OwnerPhoneNumber" class="form-control" aria-required="true" />
+					<span asp-validation-for="OwnerPhoneNumber" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="OwnerAddress" class="form-label">Description</label>
+					<input asp-for="OwnerAddress" class="form-control" aria-required="true" />
+					<span asp-validation-for="OwnerAddress" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="OwnerEmail" class="form-label">Description</label>
+					<input asp-for="OwnerEmail" class="form-control" aria-required="true" />
+					<span asp-validation-for="OwnerEmail" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<input class="btn btn-primary" type="submit" value="Add" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

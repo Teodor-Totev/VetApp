@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VetApp.Common\VetApp.Common.csproj" />
+    <ProjectReference Include="..\VetApp.Data.Models\VetApp.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

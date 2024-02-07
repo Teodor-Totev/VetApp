@@ -16,8 +16,10 @@
 			public const int NameMinLength = 2;
 
 			public const int TypeMaxLength = 15;
+			public const int TypeMinLength = 2;
 
-			public const int MicroChipMinLength = 50;
+			public const int MicroChipMaxLength = 50;
+			public const int MicroChipMinLength = 5;
 		}
 
 		public static class Owner
