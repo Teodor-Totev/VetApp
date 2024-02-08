@@ -21,8 +21,8 @@
 			ErrorMessage = "Type must be between 2 and 15 characters long.")]
 		public string Type { get; set; } = null!;
 
-		[DataType(DataType.DateTime)]
-		public DateTime? Age { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime? BirthDate { get; set; }
 
 		[StringLength(MicroChipMaxLength, MinimumLength = MicroChipMinLength,
 			ErrorMessage = "Microchip must be between 5 and 50 characters long.")]
@@ -32,28 +32,30 @@
 		[Required]
 		public string Gender { get; set; } = null!;
 
-		public string[] Genders = new[] { "Male", "Female" };
-
+		[Required]
 		public string Neutered { get; set; } = null!;
 
-		public string[] Neutereds = new[] { "Yes", "No", "Homeless" };
-
-		public string? Characteristics { get; set; }
+        public string? Characteristics { get; set; }
 
 		public string? ChronicIllnesses { get; set; }
 
 		[Required]
 		[StringLength(OwnerNameMaxLength, MinimumLength = OwnerNameMinLength)]
+		[Display(Name = "Name")]
 		public string OwnerName { get; set; } = null!;
 
 		[Required]
 		[StringLength(OwnerAddressMaxLength, MinimumLength = OwnerAddressMinLength)]
+		[Display(Name = "Address")]
 		public string OwnerAddress { get; set; } = null!;
 
 		[Required]
 		[StringLength(OwnerPhoneMaxLength, MinimumLength = OwnerPhoneMinLength)]
+		[Display(Name = "PhoneNumber")]
 		public string OwnerPhoneNumber { get; set; } = null!;
 
+		[DataType(DataType.EmailAddress)]
+		[Display(Name = "Email")]
 		public string? OwnerEmail { get; set; }
 	}
 }

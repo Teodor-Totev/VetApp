@@ -16,13 +16,15 @@ namespace VetApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var gender = new
-            {
-                Male = "Male",
-                Female = "Female"
-            };
-
-            return View();
+			return View();
         }
-    }
+
+		[HttpPost]
+		public IActionResult Create(CreateVM model)
+		{
+			
+
+			return View(model);
+		}
+	}
 }
