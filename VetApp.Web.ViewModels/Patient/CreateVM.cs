@@ -2,18 +2,17 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
-	using VetApp.Data.Models.Enums;
-	using static Common.EntityValidationConstants.Patient;
+	using static Common.EntityValidationConstants.PatientValidations;
+	using static Common.EntityValidationConstants.OwnerValidations;
 
 	public class CreateVM
 	{
-        public CreateVM()
-        {
-			this.Genders = new HashSet<PatientGender>();
-        }
+		public CreateVM()
+		{
+		}
 
-        [Required]
-		[StringLength(NameMaxLength, MinimumLength = NameMinLength, 
+		[Required]
+		[StringLength(NameMaxLength, MinimumLength = NameMinLength,
 			ErrorMessage = "Name must be between 2 and 25 characters long.")]
 		public string Name { get; set; } = null!;
 
@@ -31,26 +30,30 @@
 		public string? MicroChip { get; set; }
 
 		[Required]
-		[EnumDataType(typeof(GenderType))]
-		public GenderType Gender { get; set; }
+		public string Gender { get; set; } = null!;
 
-		public NeuteredType Neutered { get; set; }
+		public string[] Genders = new[] { "Male", "Female" };
+
+		public string Neutered { get; set; } = null!;
+
+		public string[] Neutereds = new[] { "Yes", "No", "Homeless" };
 
 		public string? Characteristics { get; set; }
 
 		public string? ChronicIllnesses { get; set; }
 
 		[Required]
+		[StringLength(OwnerNameMaxLength, MinimumLength = OwnerNameMinLength)]
 		public string OwnerName { get; set; } = null!;
 
 		[Required]
-        public string OwnerAddress { get; set; } = null!;
+		[StringLength(OwnerAddressMaxLength, MinimumLength = OwnerAddressMinLength)]
+		public string OwnerAddress { get; set; } = null!;
 
 		[Required]
+		[StringLength(OwnerPhoneMaxLength, MinimumLength = OwnerPhoneMinLength)]
 		public string OwnerPhoneNumber { get; set; } = null!;
 
-		public string? OwnerEmail { get; set;}
-
-        public ICollection<PatientGender> Genders { get; set; }
-    }
+		public string? OwnerEmail { get; set; }
+	}
 }

@@ -33,5 +33,7 @@ public class VetAppDbContext : IdentityDbContext<VetUser, IdentityRole<Guid>, Gu
 
     public DbSet<Patient> Patients { get; set; } = null!;
 
-    public DbSet<PatientUser> PatientsUsers { get; set; } = null!;
+	public DbSet<Examination> Examinations { get; set; } = null!;
+
+	public DbSet<PatientUser> PatientsUsers { get; set; } = null!;
 }

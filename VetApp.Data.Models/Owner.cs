@@ -1,7 +1,8 @@
 ﻿namespace VetApp.Data.Models
 {
 	using System.ComponentModel.DataAnnotations;
-	using static Common.EntityValidationConstants.Owner;
+	using System.ComponentModel.DataAnnotations.Schema;
+	using static Common.EntityValidationConstants.OwnerValidations;
 
 	public class Owner
 	{
@@ -15,18 +16,23 @@
 		public Guid Id { get; set; }
 
 		[Required]
-		[MaxLength(NameMaxLength)]
+		[MaxLength(OwnerNameMaxLength)]
 		public string Name { get; set; } = null!;
 
 		[Required]
-		[MaxLength(PhoneMaxLength)]
+		[MaxLength(OwnerPhoneMaxLength)]
 		public string PhoneNumber { get; set; } = null!;
 
 		[Required]
-		[MaxLength(AddressMaxLength)]
+		[MaxLength(OwnerAddressMaxLength)]
 		public string Address { get; set; } = null!;
 
         public string? Email { get; set; }
+
+        public int? PatientId { get; set; }
+
+		[ForeignKey(nameof(PatientId))]
+        public Patient? Patient { get; set; }
 
         public virtual ICollection<Patient> Patients { get; set; }
 	}

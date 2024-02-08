@@ -4,107 +4,247 @@
 	ViewData["Title"] = "Create Patient";
 }
 
-<div class="d-flex align-items-center justify-content-center">
-	<div @* class="row d-flex align-items-center justify-content-center" *@>
-		<div class="col-md-4 card p-3">
-			<h2 class="card-title text-center text-info">User Registration</h2>
-			<form asp-action="Register" asp-controller="Account" method="post">
-				<div asp-validation-summary="ModelOnly"></div>
-				<div class="mb-1">
-					<label asp-for="Name" class="control-label"></label>
-					<input asp-for="Name" class="form-control">
-					<span asp-validation-for="Name" class="text-danger"></span>
-				</div>
 
-				<div class="mb-1">
-					<label asp-for="Type" class="control-label">Email</label>
-					<input asp-for="Type" class="form-control">
-					<span asp-validation-for="Type" class="text-danger"></span>
-				</div>
-
-				<div class="mb-1">
-					Male
-					@Html.RadioButtonFor(model => model.Gender, "Male")
-					Female
-					@Html.RadioButtonFor(model => model.Gender, "Female")
-				</div>
-
-				<div class="mb-1">
-					<label asp-for="Age" class="control-label"></label>
-					<input asp-for="Age" class="form-control">
-					<span asp-validation-for="Age" class="text-danger"></span>
-				</div>
-
-				<div class="mb-1">
-					<label asp-for="Gender" class="form-label">Category</label>
-					@* <select asp-for="BoardId" class="form-control"> *@
-						@foreach (var gender in Model.Genders)
-						{
-							@* value = "@board.Id" *@
-							<option >@gender.Gender</option>
-						}
-					</select>
-					@* <span asp-validation-for="BoardId" class="text-danger"></span> *@
-				</div>
-
-				<div class="mb-1">
-					<label asp-for="MicroChip" class="control-label"></label>
-					<input asp-for="MicroChip" class="form-control">
-					<span asp-validation-for="MicroChip" class="text-danger"></span>
-				</div>
-
-				@* <div class="mb-1">
-					<label asp-for="Gender" class="control-label"></label>
-					<input asp-for="Gender" class="form-control">
-					<span asp-validation-for="Gender" class="text-danger"></span>
-				</div> *@
-
-				<div class="mb-1">
-					<label asp-for="Characteristics" class="control-label"></label>
-					<textarea asp-for="Characteristics" class="form-control" rows="2"></textarea>
-					<span asp-validation-for="Characteristics" class="text-danger"></span>
-				</div>
-
-				<div class="mb-1">
-					<label asp-for="ChronicIllnesses" class="control-label"></label>
-					<textarea asp-for="ChronicIllnesses" class="form-control" rows="2"></textarea>
-					<span asp-validation-for="ChronicIllnesses" class="text-danger"></span>
-				</div>
-			</form>
+@*<div class="col-md-4 card p-3">
+	<h2 class="card-title text-center text-info">Patients</h2>
+	<form asp-action="Create" asp-controller="Patient" method="post">
+		<div asp-validation-summary="ModelOnly"></div>
+		<div class="mb-1">
+			<label asp-for="Name" class="control-label"></label>
+			<input asp-for="Name" class="form-control">
+			<span asp-validation-for="Name" class="text-danger"></span>
 		</div>
+
+		<div class="mb-1">
+			<label asp-for="Type" class="control-label"></label>
+			<input asp-for="Type" class="form-control">
+			<span asp-validation-for="Type" class="text-danger"></span>
+		</div>
+
+		<div class="mb-1">
+			@foreach (var gender in Model.Genders)
+			{
+				<input type="radio" asp-for="Gender" value="@gender" />
+
+				@gender
+
+				<br />
+			}
+			@* Male
+			@Html.RadioButtonFor(model => model.Gender, "Male")
+			Female
+			@Html.RadioButtonFor(model => model.Gender, "Female") 
+		</div>
+
+		<div class="mb-1">
+			<label asp-for="Age" class="control-label"></label>
+			<input asp-for="Age" class="form-control">
+			<span asp-validation-for="Age" class="text-danger"></span>
+		</div>
+
+		@* <div class="mb-1">
+		<label asp-for="Gender" class="form-label">Category</label>
+		@* <select asp-for="BoardId" class="form-control">
+		@foreach (var gender in Model.Neutered)
+		{
+		@* value = "@board.Id"
+		<option >@gender.Gender</option>
+		}
+		</select>
+		@* <span asp-validation-for="BoardId" class="text-danger"></span>
+		</div> 
+
+		<div class="mb-1">
+			<label asp-for="MicroChip" class="control-label"></label>
+			<input asp-for="MicroChip" class="form-control">
+			<span asp-validation-for="MicroChip" class="text-danger"></span>
+		</div>
+
+		@* <div class="mb-1">
+		<label asp-for="Gender" class="control-label"></label>
+		<input asp-for="Gender" class="form-control">
+		<span asp-validation-for="Gender" class="text-danger"></span>
+		</div> 
+
+		<div class="mb-1">
+			<label asp-for="Characteristics" class="control-label"></label>
+			<textarea asp-for="Characteristics" class="form-control" rows="2"></textarea>
+			<span asp-validation-for="Characteristics" class="text-danger"></span>
+		</div>
+
+		<div class="mb-1">
+			<label asp-for="ChronicIllnesses" class="control-label"></label>
+			<textarea asp-for="ChronicIllnesses" class="form-control" rows="2"></textarea>
+			<span asp-validation-for="ChronicIllnesses" class="text-danger"></span>
+		</div>
+
+
+		<div class="col-md-4 card p-3">
+			<h2 class="card-title text-center text-info">Owner</h2>
+			<div class="mb-1">
+				<label asp-for="OwnerName" class="control-label"></label>
+				<input asp-for="OwnerName" class="form-control">
+				<span asp-validation-for="OwnerName" class="text-danger"></span>
+			</div>
+
+			<div class="mb-1">
+				<label asp-for="OwnerEmail" class="control-label">Email</label>
+				<input asp-for="OwnerEmail" class="form-control">
+				<span asp-validation-for="OwnerEmail" class="text-danger"></span>
+			</div>
+
+			<div class="mb-1">
+				<label asp-for="OwnerPhoneNumber" class="control-label"></label>
+				<input asp-for="OwnerPhoneNumber" class="form-control">
+				<span asp-validation-for="OwnerPhoneNumber" class="text-danger"></span>
+			</div>
+
+			<div class="mb-1">
+				<label asp-for="OwnerAddress" class="control-label"></label>
+				<input asp-for="OwnerAddress" class="form-control">
+				<span asp-validation-for="OwnerAddress" class="text-danger"></span>
+			</div>
+		</div>
+
+		<div class="col-4">
+			<input type="submit" value="Login" class="btn btn-primary btn-sm float-end" />
+		</div>
+	</form>
+
+</div> *@
+
+<div class="row">
+	<div class="col-md-6">
+		<h2>Owner Information</h2>
+
+		<form asp-action="Create" method="post">
+			<div class="form-group">
+				<label asp-for="OwnerName"></label>
+				<input asp-for="OwnerName" class="form-control" />
+				<span asp-validation-for="OwnerName" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="OwnerAddress"></label>
+				<input asp-for="OwnerAddress" class="form-control" />
+				<span asp-validation-for="OwnerAddress" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="OwnerPhoneNumber"></label>
+				<input asp-for="OwnerPhoneNumber" class="form-control" />
+				<span asp-validation-for="OwnerPhoneNumber" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="OwnerEmail"></label>
+				<input asp-for="OwnerEmail" class="form-control" />
+				<span asp-validation-for="OwnerEmail" class="text-danger"></span>
+			</div>
+		</form>
 	</div>
 
-	<div @* class="row" *@>
-		<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-			<form asp-action="Create" method="post">
-				<div class="mb-3">
-					<label asp-for="OwnerName" class="form-label">Title</label>
-					<input asp-for="OwnerName" class="form-control" aria-required="true" />
-					<span asp-validation-for="OwnerName" class="text-danger"></span>
-				</div>
-				<div class="mb-3">
-					<label asp-for="OwnerPhoneNumber" class="form-label">Description</label>
-					<input asp-for="OwnerPhoneNumber" class="form-control" aria-required="true" />
-					<span asp-validation-for="OwnerPhoneNumber" class="text-danger"></span>
-				</div>
-				<div class="mb-3">
-					<label asp-for="OwnerAddress" class="form-label">Description</label>
-					<input asp-for="OwnerAddress" class="form-control" aria-required="true" />
-					<span asp-validation-for="OwnerAddress" class="text-danger"></span>
-				</div>
-				<div class="mb-3">
-					<label asp-for="OwnerEmail" class="form-label">Description</label>
-					<input asp-for="OwnerEmail" class="form-control" aria-required="true" />
-					<span asp-validation-for="OwnerEmail" class="text-danger"></span>
-				</div>
+	<div class="col-md-6">
+		<h2>Patient Information</h2>
 
-				<div class="mb-3">
-					<input class="btn btn-primary" type="submit" value="Add" />
+		<form asp-action="Create" method="post">
+			<div class="form-group">
+				<label asp-for="Name"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+
+			<!-- Other patient form inputs omitted for brevity -->
+			<div class="form-group">
+				<label asp-for="Type"></label>
+				<input asp-for="Type" class="form-control" />
+				<span asp-validation-for="Type" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Age"></label>
+				<input asp-for="Age" class="form-control" type="date" />
+				<span asp-validation-for="Age" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="MicroChip"></label>
+				<input asp-for="MicroChip" class="form-control" />
+				<span asp-validation-for="MicroChip" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Gender"></label>
+				<select asp-for="Gender" class="form-control" asp-items="@(new SelectList(Model.Genders))">
+					<option value="">-- Select Gender --</option>
+				</select>
+				<span asp-validation-for="Gender" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Characteristics"></label>
+				<input asp-for="Characteristics" class="form-control" />
+				<span asp-validation-for="Characteristics" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="ChronicIllnesses"></label>
+				<input asp-for="ChronicIllnesses" class="form-control" />
+				<span asp-validation-for="ChronicIllnesses" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Neutered"></label>
+				<div>
+					@foreach (var neuteredOption in Model.Neutereds)
+					{
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" asp-for="Neutered" value="@neuteredOption">
+							<label class="form-check-label">@neuteredOption</label>
+						</div>
+					}
+					<span asp-validation-for="Neutered" class="text-danger"></span>
 				</div>
-			</form>
-		</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Create</button>
+		</form>
 	</div>
 </div>
+
+
+
+	@* <div class="col">
+	<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+	<form asp-action="Create" method="post">
+	<div class="mb-3">
+	<label asp-for="OwnerName" class="form-label">Title</label>
+	<input asp-for="OwnerName" class="form-control" aria-required="true" />
+	<span asp-validation-for="OwnerName" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+	<label asp-for="OwnerPhoneNumber" class="form-label">Description</label>
+	<input asp-for="OwnerPhoneNumber" class="form-control" aria-required="true" />
+	<span asp-validation-for="OwnerPhoneNumber" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+	<label asp-for="OwnerAddress" class="form-label">Description</label>
+	<input asp-for="OwnerAddress" class="form-control" aria-required="true" />
+	<span asp-validation-for="OwnerAddress" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+	<label asp-for="OwnerEmail" class="form-label">Description</label>
+	<input asp-for="OwnerEmail" class="form-control" aria-required="true" />
+	<span asp-validation-for="OwnerEmail" class="text-danger"></span>
+	</div>
+
+	<div class="mb-3">
+	<input class="btn btn-primary" type="submit" value="Add" />
+	</div>
+	</form>
+	</div>
+	</div> *@
+
 
 
 @section Scripts {

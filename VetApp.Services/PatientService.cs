@@ -18,15 +18,5 @@ namespace VetApp.Services
 			this.context = context;
         }
 
-        public ICollection<PatientGender> GetPatientGender()
-		{
-			return context
-				.Patients
-				.Select(x => new PatientGender()
-				{
-					Gender = x.Gender.ToString(),
-				})
-				.ToArray();
-		}
 	}
 }

@@ -2,15 +2,15 @@
 {
 	using System.ComponentModel.DataAnnotations;
 	using System.ComponentModel.DataAnnotations.Schema;
-	using VetApp.Data.Models.Enums;
 
-	using static Common.EntityValidationConstants.Patient;
+	using static Common.EntityValidationConstants.PatientValidations;
 
 	public class Patient
 	{
         public Patient()
         {
             this.PatientsUsers = new HashSet<PatientUser>();
+            this.Examinations = new HashSet<Examination>();
 		}
 
         [Key]
@@ -24,17 +24,18 @@
         [MaxLength(TypeMaxLength)]
         public string Type { get; set; } = null!;
 
-		public DateTime? Age { get; set; }
+		public DateTime? BirthDate { get; set; }
 
 		[MaxLength(MicroChipMinLength)]
         public string? MicroChip { get; set; }
 
         [Required]
-		public GenderType Gender { get; set; }
+		public string Gender { get; set; } = null!;
 
-		public NeuteredType Neutered { get; set; }
+        [Required]
+		public string Neutered { get; set; } = null!;
 
-        public string? Characteristics { get; set; }
+		public string? Characteristics { get; set; }
 
         public string? ChronicIllnesses { get; set; }
 
@@ -44,5 +45,7 @@
         public virtual Owner Owner{ get; set; } = null!;
 
         public virtual ICollection<PatientUser> PatientsUsers { get; set; }
+
+        public virtual ICollection<Examination> Examinations { get; set; }
     }
 }

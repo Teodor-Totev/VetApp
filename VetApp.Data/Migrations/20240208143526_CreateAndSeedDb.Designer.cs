@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetApp.Data;
 
@@ -11,9 +12,10 @@ using VetApp.Data;
 namespace VetApp.Data.Migrations
 {
     [DbContext(typeof(VetAppDbContext))]
-    partial class VetAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240208143526_CreateAndSeedDb")]
+    partial class CreateAndSeedDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,25 +193,22 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2024, 1, 19, 16, 43, 4, 143, DateTimeKind.Local).AddTicks(4784),
+                            CreatedOn = new DateTime(2024, 1, 19, 16, 35, 26, 612, DateTimeKind.Local).AddTicks(3277),
                             Description = "Пълна кръвна картина",
-                            PatientId = 1,
                             State = "Primary"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2023, 8, 8, 16, 43, 4, 143, DateTimeKind.Local).AddTicks(4855),
+                            CreatedOn = new DateTime(2023, 8, 8, 16, 35, 26, 612, DateTimeKind.Local).AddTicks(3330),
                             Description = "Изследване за паразити",
-                            PatientId = 2,
                             State = "Secondary"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2023, 2, 8, 16, 43, 4, 143, DateTimeKind.Local).AddTicks(4861),
+                            CreatedOn = new DateTime(2023, 2, 8, 16, 35, 26, 612, DateTimeKind.Local).AddTicks(3337),
                             Description = "Преглед за кожно заболяване",
-                            PatientId = 3,
                             State = "Primary"
                         });
                 });
@@ -253,7 +252,6 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
                             Address = "гр.Стара Загора",
                             Name = "Иван",
-                            PatientId = 1,
                             PhoneNumber = "+359876123123"
                         },
                         new
@@ -261,7 +259,6 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
                             Address = "гр.Димитровград",
                             Name = "Марко",
-                            PatientId = 2,
                             PhoneNumber = "+359878255255"
                         },
                         new
@@ -269,7 +266,6 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
                             Address = "гр.Хасково",
                             Name = "Пенка",
-                            PatientId = 3,
                             PhoneNumber = "+359988989898"
                         });
                 });

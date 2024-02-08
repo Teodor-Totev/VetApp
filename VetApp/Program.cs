@@ -31,6 +31,8 @@ builder.Services.AddDefaultIdentity<VetUser>(options =>
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 
+builder.Services.AddScoped<IPatientService, PatientService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

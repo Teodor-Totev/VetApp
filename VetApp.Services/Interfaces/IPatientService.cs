@@ -9,6 +9,6 @@ namespace VetApp.Services.Interfaces
 {
 	public interface IPatientService
 	{
-		ICollection<PatientGender> GetPatientGender();
+		
 	}
 }

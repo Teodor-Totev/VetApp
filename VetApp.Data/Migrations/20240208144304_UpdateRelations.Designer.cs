@@ -12,8 +12,8 @@ using VetApp.Data;
 namespace VetApp.Data.Migrations
 {
     [DbContext(typeof(VetAppDbContext))]
-    [Migration("20240207132731_CreateAndSeedDb")]
-    partial class CreateAndSeedDb
+    [Migration("20240208144304_UpdateRelations")]
+    partial class UpdateRelations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -159,6 +159,63 @@ namespace VetApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("VetApp.Data.Models.Examination", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Examinations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2024, 1, 19, 16, 43, 4, 143, DateTimeKind.Local).AddTicks(4784),
+                            Description = "Пълна кръвна картина",
+                            PatientId = 1,
+                            State = "Primary"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2023, 8, 8, 16, 43, 4, 143, DateTimeKind.Local).AddTicks(4855),
+                            Description = "Изследване за паразити",
+                            PatientId = 2,
+                            State = "Secondary"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2023, 2, 8, 16, 43, 4, 143, DateTimeKind.Local).AddTicks(4861),
+                            Description = "Преглед за кожно заболяване",
+                            PatientId = 3,
+                            State = "Primary"
+                        });
+                });
+
             modelBuilder.Entity("VetApp.Data.Models.Owner", b =>
                 {
                     b.Property<Guid>("Id")
@@ -167,23 +224,28 @@ namespace VetApp.Data.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Owners");
 
@@ -193,6 +255,7 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
                             Address = "гр.Стара Загора",
                             Name = "Иван",
+                            PatientId = 1,
                             PhoneNumber = "+359876123123"
                         },
                         new
@@ -200,6 +263,7 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
                             Address = "гр.Димитровград",
                             Name = "Марко",
+                            PatientId = 2,
                             PhoneNumber = "+359878255255"
                         },
                         new
@@ -207,6 +271,7 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
                             Address = "гр.Хасково",
                             Name = "Пенка",
+                            PatientId = 3,
                             PhoneNumber = "+359988989898"
                         });
                 });
@@ -219,7 +284,7 @@ namespace VetApp.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime?>("Age")
+                    b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Characteristics")
@@ -228,28 +293,30 @@ namespace VetApp.Data.Migrations
                     b.Property<string>("ChronicIllnesses")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MicroChip")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Neutered")
-                        .HasColumnType("int");
+                    b.Property<string>("Neutered")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -261,29 +328,29 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Gender = 0,
+                            Gender = "Male",
                             Name = "Ласи",
-                            Neutered = 0,
+                            Neutered = "No",
                             OwnerId = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
                             Type = "Куче"
                         },
                         new
                         {
                             Id = 2,
-                            Gender = 0,
+                            Gender = "Male",
                             Name = "Том",
-                            Neutered = 0,
+                            Neutered = "Homeless",
                             OwnerId = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
                             Type = "Котка"
                         },
                         new
                         {
                             Id = 3,
-                            Gender = 1,
+                            Gender = "Female",
                             Name = "Джери",
-                            Neutered = 0,
+                            Neutered = "Yes",
                             OwnerId = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
-                            Type = "Мишка"
+                            Type = "Хамстер"
                         });
                 });
 
@@ -330,13 +397,13 @@ namespace VetApp.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -435,6 +502,24 @@ namespace VetApp.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("VetApp.Data.Models.Examination", b =>
+                {
+                    b.HasOne("VetApp.Data.Models.Patient", "Patient")
+                        .WithMany("Examinations")
+                        .HasForeignKey("PatientId");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("VetApp.Data.Models.Owner", b =>
+                {
+                    b.HasOne("VetApp.Data.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId");
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("VetApp.Data.Models.Patient", b =>
                 {
                     b.HasOne("VetApp.Data.Models.Owner", "Owner")
@@ -472,6 +557,8 @@ namespace VetApp.Data.Migrations
 
             modelBuilder.Entity("VetApp.Data.Models.Patient", b =>
                 {
+                    b.Navigation("Examinations");
+
                     b.Navigation("PatientsUsers");
                 });
 

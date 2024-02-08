@@ -4,7 +4,7 @@
 
 	using Microsoft.AspNetCore.Identity;
 
-	using static Common.EntityValidationConstants.AppUser;
+	using static Common.EntityValidationConstants.AppUserValidations;
 
 	public class VetUser : IdentityUser<Guid>
 	{
