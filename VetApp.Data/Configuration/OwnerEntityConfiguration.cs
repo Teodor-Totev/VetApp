@@ -23,7 +23,6 @@ namespace VetApp.Data.Configuration
 				Address = "гр.Стара Загора",
 				Name = "Иван",
 				PhoneNumber = "+359876123123",
-				PatientId = 1
 			};
 			owners.Add(owner);
 
@@ -33,7 +32,6 @@ namespace VetApp.Data.Configuration
 				Address = "гр.Димитровград",
 				Name = "Марко",
 				PhoneNumber = "+359878255255",
-				PatientId = 2
 			};
 			owners.Add(owner);
 
@@ -43,7 +41,6 @@ namespace VetApp.Data.Configuration
 				Address = "гр.Хасково",
 				Name = "Пенка",
 				PhoneNumber = "+359988989898",
-				PatientId = 3
 			};
 			owners.Add(owner);
 

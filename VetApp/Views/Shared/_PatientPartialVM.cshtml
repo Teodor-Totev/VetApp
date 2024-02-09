@@ -1,0 +1,30 @@
+﻿@model ICollection<PatientVM>
+
+@{
+	ViewData["Title"] = "All Patients";
+}
+
+
+<table class="table table-secondary">
+	<thead>
+		<tr>
+			<th scope="col">Patients</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="table-dark">
+			<td>
+				@foreach (var patient in Model)
+				{
+					@patient.Name
+					@patient.Type
+					@patient.Gender
+					@patient.BirthDate
+					@patient.MicroChip
+					@patient.Neutered
+					@patient.OwnerName
+				}
+			</td>
+	</tbody>
+</table>
+

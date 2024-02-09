@@ -29,11 +29,6 @@
 
         public string? Email { get; set; }
 
-        public int? PatientId { get; set; }
-
-		[ForeignKey(nameof(PatientId))]
-        public Patient? Patient { get; set; }
-
         public virtual ICollection<Patient> Patients { get; set; }
 	}
 }

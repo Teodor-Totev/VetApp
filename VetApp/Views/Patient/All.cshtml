@@ -1,0 +1,81 @@
+﻿@model ICollection<AllPatientsVM>
+
+@{
+	ViewData["Title"] = "All Patients";
+}
+
+@if (!Model.Any())
+{
+	<h3 class="text-center">No patients yet!</h3>
+}
+else
+{
+	<table class="table table-secondary">
+		<thead>
+			<tr>
+				<th>
+					Name
+				</th>
+				<th>
+					Type
+					@* @Html.DisplayNameFor(model => model.Movies![0].ReleaseDate) *@
+				</th>
+				<th>
+					BirthDate
+					@* @Html.DisplayNameFor(model => model.Movies![0].Genre) *@
+				</th>
+				<th>
+					Gender
+					@* @Html.DisplayNameFor(model => model.Movies![0].Price) *@
+				</th>
+				<th>
+					Neutered
+					@* @Html.DisplayNameFor(model => model.Movies![0].Rating) *@
+				</th>
+				<th>
+					Microchip
+					@* @Html.DisplayNameFor(model => model.Movies![0].Rating) *@
+				</th>
+				<th>
+					OwnerName
+					@* @Html.DisplayNameFor(model => model.Movies![0].Rating) *@
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr class="table-dark">
+					<td>
+						@Html.DisplayFor(modelItem => item.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Type)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.BirthDate)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Gender)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Neutered)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.MicroChip)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.OwnerName)
+					</td>
+					<td>
+						<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+						<a class="btn btn-info text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
+						<a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+

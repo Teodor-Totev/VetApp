@@ -12,8 +12,8 @@ using VetApp.Data;
 namespace VetApp.Data.Migrations
 {
     [DbContext(typeof(VetAppDbContext))]
-    [Migration("20240208144304_UpdateRelations")]
-    partial class UpdateRelations
+    [Migration("20240208214148_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -193,7 +193,7 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2024, 1, 19, 16, 43, 4, 143, DateTimeKind.Local).AddTicks(4784),
+                            CreatedOn = new DateTime(2024, 1, 19, 23, 41, 48, 487, DateTimeKind.Local).AddTicks(4552),
                             Description = "Пълна кръвна картина",
                             PatientId = 1,
                             State = "Primary"
@@ -201,7 +201,7 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2023, 8, 8, 16, 43, 4, 143, DateTimeKind.Local).AddTicks(4855),
+                            CreatedOn = new DateTime(2023, 8, 8, 23, 41, 48, 487, DateTimeKind.Local).AddTicks(4606),
                             Description = "Изследване за паразити",
                             PatientId = 2,
                             State = "Secondary"
@@ -209,7 +209,7 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2023, 2, 8, 16, 43, 4, 143, DateTimeKind.Local).AddTicks(4861),
+                            CreatedOn = new DateTime(2023, 2, 8, 23, 41, 48, 487, DateTimeKind.Local).AddTicks(4611),
                             Description = "Преглед за кожно заболяване",
                             PatientId = 3,
                             State = "Primary"
@@ -235,17 +235,12 @@ namespace VetApp.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
 
                     b.ToTable("Owners");
 
@@ -255,7 +250,6 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
                             Address = "гр.Стара Загора",
                             Name = "Иван",
-                            PatientId = 1,
                             PhoneNumber = "+359876123123"
                         },
                         new
@@ -263,7 +257,6 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
                             Address = "гр.Димитровград",
                             Name = "Марко",
-                            PatientId = 2,
                             PhoneNumber = "+359878255255"
                         },
                         new
@@ -271,7 +264,6 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
                             Address = "гр.Хасково",
                             Name = "Пенка",
-                            PatientId = 3,
                             PhoneNumber = "+359988989898"
                         });
                 });
@@ -506,15 +498,6 @@ namespace VetApp.Data.Migrations
                 {
                     b.HasOne("VetApp.Data.Models.Patient", "Patient")
                         .WithMany("Examinations")
-                        .HasForeignKey("PatientId");
-
-                    b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("VetApp.Data.Models.Owner", b =>
-                {
-                    b.HasOne("VetApp.Data.Models.Patient", "Patient")
-                        .WithMany()
                         .HasForeignKey("PatientId");
 
                     b.Navigation("Patient");

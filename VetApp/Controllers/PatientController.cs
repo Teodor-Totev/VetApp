@@ -4,7 +4,7 @@ using VetApp.Web.ViewModels.Patient;
 
 namespace VetApp.Controllers
 {
-    public class PatientController : Controller
+    public class PatientController : BaseController
     {
         private readonly IPatientService patientService;
 
@@ -20,9 +20,24 @@ namespace VetApp.Controllers
         }
 
 		[HttpPost]
-		public IActionResult Create(CreateVM model)
+		public async Task<IActionResult> Create(CreateVM model)
 		{
-			
+            if (!ModelState.IsValid)
+            {
+				return View(model);
+			}
+
+            var userId = GetUserId();
+
+            await patientService.CreateAsync(model, userId);
+
+			return RedirectToAction("Index", "Home");
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> All()
+		{
+            ICollection<AllPatientsVM> model = await patientService.GetAllPatientsAsync();
 
 			return View(model);
 		}

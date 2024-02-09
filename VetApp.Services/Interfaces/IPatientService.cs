@@ -9,6 +9,8 @@ namespace VetApp.Services.Interfaces
 {
 	public interface IPatientService
 	{
-		
+		Task CreateAsync(CreateVM model, string userId);
+
+		Task<ICollection<AllPatientsVM>> GetAllPatientsAsync();
 	}
 }

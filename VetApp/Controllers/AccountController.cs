@@ -53,7 +53,7 @@ public class AccountController : Controller
 			return View(model);
 		}
 
-		return Redirect(model.ReturnUrl ?? "/Home/Index");
+		return Redirect(model.ReturnUrl ?? "/Patient/All");
 	}
 
 	[HttpGet]
@@ -94,7 +94,7 @@ public class AccountController : Controller
 
 		await this.signInManager.SignInAsync(user, false);
 
-		return RedirectToAction("Index", "Home");
+		return RedirectToAction("All", "Patient");
 	}
 
 	public async Task<IActionResult> Logout()
