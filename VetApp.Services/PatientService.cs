@@ -1,15 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using VetApp.Data;
 using VetApp.Data.Models;
 using VetApp.Services.Interfaces;
 using VetApp.Web.ViewModels.Patient;
-using VetApp.Web.ViewModels.Patient.Enum;
 
 namespace VetApp.Services
 {
@@ -82,6 +75,25 @@ namespace VetApp.Services
 			//		Neutered = p.Neutered,
 			//		MicroChip = p.MicroChip,
 			//		Type = p.Type,
+		}
+
+		public async Task<ICollection<AllPatientsVM>> GetUserPatientsAsync(string userId)
+		{
+			return await context
+				.Patients
+				.Where(p => p.PatientsUsers.Any(pu => pu.UserId.ToString() == userId))
+				.Select(p => new AllPatientsVM()
+				{
+					Id = p.Id,
+					Name = p.Name,
+					Type = p.Type,
+					Gender = p.Gender,
+					BirthDate = p.BirthDate,
+					MicroChip = p.MicroChip,
+					Neutered = p.Neutered,
+					OwnerName = p.Owner.Name
+				})
+				.ToArrayAsync();
 		}
 	}
 }

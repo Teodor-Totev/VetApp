@@ -41,5 +41,14 @@ namespace VetApp.Controllers
 
 			return View(model);
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> AllUserPatients()
+		{
+			var userId = GetUserId();
+			ICollection<AllPatientsVM> model = await patientService.GetUserPatientsAsync(userId);
+
+			return View(model);
+		}
 	}
 }

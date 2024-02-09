@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace VetApp.Web.ViewModels.Patient
 
 		public string Name { get; set; } = null!;
 
+		[Display(Name = "OwnerName")]
 		public string OwnerName { get; set; } = null!;
 
 		public string Type { get; set; } = null!;
