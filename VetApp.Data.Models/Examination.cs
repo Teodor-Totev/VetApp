@@ -19,9 +19,9 @@
 		[MaxLength(StateMaxLength)]
 		public string State { get; set; } = null!;
 
-        public int? PatientId { get; set; }
+        public int PatientId { get; set; }
 
 		[ForeignKey(nameof(PatientId))]
-		public Patient? Patient { get; set; }
-    }
+		public Patient Patient { get; set; } = null!;
+	}
 }

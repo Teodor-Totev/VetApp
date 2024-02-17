@@ -16,7 +16,7 @@ namespace VetApp.Services
 
 		public async Task<string> GetUserFullNameByUsername(string username)
 		{
-			VetUser? user = await context.Users
+			ApplicationUser? user = await context.Users
 				.FirstOrDefaultAsync(u => u.UserName == username);
 
 			if (user == null)

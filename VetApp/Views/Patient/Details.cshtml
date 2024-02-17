@@ -1,0 +1,54 @@
+﻿@model PatientVM
+
+@{
+	ViewData["Title"] = "All Examinations";
+}
+
+@if (!Model.Examinations.Any())
+{
+	<h3 class="text-center">No examinations yet!</h3>
+}
+else
+{
+	<table class="table table-secondary">
+		<thead>
+			<tr>
+				<th>
+					Created On
+				</th>
+				<th>
+					Description
+				</th>
+				<th>
+					State
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Examinations)
+			{
+				<tr class="table-dark">
+					<td>
+						@Html.DisplayFor(modelItem => item.CreatedOn)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.State)
+					</td>
+					@* <td>
+						<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+					</td>
+					<td>
+						<a class="btn btn-info text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
+					</td>
+					<td>
+						<a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+					</td> *@
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VetApp.Data.Models;
 using VetApp.Web.ViewModels.Patient;
 
 namespace VetApp.Services.Interfaces
@@ -14,5 +15,7 @@ namespace VetApp.Services.Interfaces
 		Task<ICollection<AllPatientsVM>> GetAllPatientsAsync();
 
 		Task<ICollection<AllPatientsVM>> GetUserPatientsAsync(string userId);
+
+		Task<PatientVM> GetPatientExaminationsAsync(int id);
 	}
 }

@@ -14,6 +14,6 @@ namespace VetApp.Data.Models
         public Guid UserId { get; set; }
 
 		[ForeignKey(nameof(UserId))]
-		public virtual VetUser User { get; set; } = null!;
+		public virtual ApplicationUser User { get; set; } = null!;
     }
 }

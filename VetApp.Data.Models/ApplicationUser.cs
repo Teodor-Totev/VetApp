@@ -6,9 +6,9 @@
 
 	using static Common.EntityValidationConstants.AppUserValidations;
 
-	public class VetUser : IdentityUser<Guid>
+	public class ApplicationUser : IdentityUser<Guid>
 	{
-		public VetUser()
+		public ApplicationUser()
 		{
 			this.PatientsUsers = new HashSet<PatientUser>();
 		}

@@ -17,7 +17,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<VetAppDbContext>(options =>
 	options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<VetUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
 	options.SignIn.RequireConfirmedAccount = false;
 	options.Password.RequiredUniqueChars = 0;

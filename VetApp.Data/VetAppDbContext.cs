@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 using VetApp.Data.Models;
 
-public class VetAppDbContext : IdentityDbContext<VetUser, IdentityRole<Guid>, Guid>
+public class VetAppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
     public VetAppDbContext(DbContextOptions<VetAppDbContext> options)
         : base(options)

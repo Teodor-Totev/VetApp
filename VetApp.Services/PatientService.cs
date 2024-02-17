@@ -32,7 +32,7 @@ namespace VetApp.Services
 				Gender = model.Gender,
 				BirthDate = model.BirthDate,
 				Neutered = model.Neutered,
-				MicroChip = model.MicroChip,
+				Microchip = model.Microchip,
 				Characteristics = model.Characteristics,
 				ChronicIllnesses = model.ChronicIllnesses,
 				Owner = owner
@@ -62,7 +62,7 @@ namespace VetApp.Services
 					Type = p.Type,
 					Gender = p.Gender,
 					BirthDate = p.BirthDate,
-					MicroChip = p.MicroChip,
+					Microchip = p.Microchip,
 					Neutered = p.Neutered,
 					OwnerName = p.Owner.Name
 				})
@@ -77,6 +77,26 @@ namespace VetApp.Services
 			//		Type = p.Type,
 		}
 
+		public async Task<PatientVM> GetPatientExaminationsAsync(int id)
+		{
+			var res = await context.Examinations
+				.Where(e => e.PatientId == id)
+				.Select(e => new PatientExaminationVM
+				{
+					Id = e.Id,
+					PatientId = e.PatientId,
+					CreatedOn = e.CreatedOn,
+					State = e.State,
+					Description = e.Description
+				})
+				.ToArrayAsync();
+
+			return new PatientVM
+			{
+				Examinations = res
+			};
+		}
+
 		public async Task<ICollection<AllPatientsVM>> GetUserPatientsAsync(string userId)
 		{
 			return await context
@@ -89,7 +109,7 @@ namespace VetApp.Services
 					Type = p.Type,
 					Gender = p.Gender,
 					BirthDate = p.BirthDate,
-					MicroChip = p.MicroChip,
+					Microchip = p.Microchip,
 					Neutered = p.Neutered,
 					OwnerName = p.Owner.Name
 				})

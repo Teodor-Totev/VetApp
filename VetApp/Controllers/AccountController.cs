@@ -9,12 +9,12 @@ using VetApp.Web.ViewModels.Account;
 
 public class AccountController : Controller
 {
-	private SignInManager<VetUser> signInManager;
-	private UserManager<VetUser> userManager;
+	private SignInManager<ApplicationUser> signInManager;
+	private UserManager<ApplicationUser> userManager;
 
 	public AccountController(
-		SignInManager<VetUser> signInManager,
-		UserManager<VetUser> userManager)
+		SignInManager<ApplicationUser> signInManager,
+		UserManager<ApplicationUser> userManager)
 	{
 		this.signInManager = signInManager;
 		this.userManager = userManager;
@@ -70,7 +70,7 @@ public class AccountController : Controller
 			return this.View(model);
 		}
 
-		var user = new VetUser()
+		var user = new ApplicationUser()
 		{
 			FirstName = model.FirstName,
 			LastName = model.LastName,

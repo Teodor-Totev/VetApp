@@ -4,9 +4,9 @@ using VetApp.Data.Models;
 
 namespace VetApp.Data.Configuration
 {
-	public class VetUserConfiguration : IEntityTypeConfiguration<VetUser>
+	public class VetUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
 	{
-		public void Configure(EntityTypeBuilder<VetUser> builder)
+		public void Configure(EntityTypeBuilder<ApplicationUser> builder)
 		{
 			//builder
 			//	.HasData(GenerateDoctors());

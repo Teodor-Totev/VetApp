@@ -27,7 +27,7 @@
 		[StringLength(MicroChipMaxLength, MinimumLength = MicroChipMinLength,
 			ErrorMessage = "Microchip must be between 5 and 50 characters long.")]
 		[Display(Name = "Microchip")]
-		public string? MicroChip { get; set; }
+		public string? Microchip { get; set; }
 
 		[Required]
 		public string Gender { get; set; } = null!;

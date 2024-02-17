@@ -27,7 +27,7 @@
 		public DateTime? BirthDate { get; set; }
 
 		[MaxLength(MicroChipMinLength)]
-        public string? MicroChip { get; set; }
+        public string? Microchip { get; set; }
 
         [Required]
 		public string Gender { get; set; } = null!;

@@ -35,6 +35,8 @@ else
 					OwnerName
 				</th>
 				<th></th>
+				<th>Прегледи</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -57,14 +59,18 @@ else
 						@Html.DisplayFor(modelItem => item.Neutered)
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.MicroChip)
+						@Html.DisplayFor(modelItem => item.Microchip)
 					</td>
 					<td>
 						@Html.DisplayFor(modelItem => item.OwnerName)
 					</td>
 					<td>
 						<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+					</td>
+					<td>
 						<a class="btn btn-info text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
+					</td>
+					<td>
 						<a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 					</td>
 				</tr>

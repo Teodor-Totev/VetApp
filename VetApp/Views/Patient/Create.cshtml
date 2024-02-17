@@ -97,98 +97,98 @@
 </form> *@
 
 <form asp-action="Create" asp-controller="Patient" method="post">
-<table class="table table-secondary">
-	<thead>
-		<tr>
-			<th scope="col">Patient Information</th>
-			<th scope="col">Owner Information</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="table-dark">
-			<td>
-				<div class="mb-1">
-					<label asp-for="Name" class="control-label"></label>
-					<input asp-for="Name" class="form-control">
-					<span asp-validation-for="Name" class="text-danger"></span>
-				</div>
+	<table class="table table-secondary">
+		<thead>
+			<tr>
+				<th scope="col">Patient Information</th>
+				<th scope="col">Owner Information</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="table-dark">
+				<td>
+					<div class="mb-1">
+						<label asp-for="Name" class="control-label"></label>
+						<input asp-for="Name" class="form-control">
+						<span asp-validation-for="Name" class="text-danger"></span>
+					</div>
 
-				<div class="mb-1">
-					<label asp-for="Type" class="control-label"></label>
-					<input asp-for="Type" class="form-control">
-					<span asp-validation-for="Type" class="text-danger"></span>
-				</div>
+					<div class="mb-1">
+						<label asp-for="Type" class="control-label"></label>
+						<input asp-for="Type" class="form-control">
+						<span asp-validation-for="Type" class="text-danger"></span>
+					</div>
 
-				<div class="mb-1">
-					Male
-					@Html.RadioButtonFor(model => model.Gender, "Male")
-					Female
-					@Html.RadioButtonFor(model => model.Gender, "Female")
-				</div>
+					<div class="mb-1">
+						Male
+						@Html.RadioButtonFor(model => model.Gender, "Male")
+						Female
+						@Html.RadioButtonFor(model => model.Gender, "Female")
+					</div>
 
-				<div class="mb-1">
-					<label asp-for="BirthDate" class="control-label"></label>
-					<input asp-for="BirthDate" class="form-control">
-					<span asp-validation-for="BirthDate" class="text-danger"></span>
-				</div>
+					<div class="mb-1">
+						<label asp-for="BirthDate" class="control-label"></label>
+						<input asp-for="BirthDate" class="form-control">
+						<span asp-validation-for="BirthDate" class="text-danger"></span>
+					</div>
 
-				<div class="mb-1">
-					<label asp-for="Neutered" class="text-center" style="margin-right:5px">Кастрация: </label>
-					Yes
-					@Html.RadioButtonFor(model => model.Neutered, "Yes")
-					No
-					@Html.RadioButtonFor(model => model.Neutered, "No")
-					Homeless
-					@Html.RadioButtonFor(model => model.Neutered, "Homeless")
-					<span asp-validation-for="Neutered" class="text-danger"></span>
-				</div>
+					<div class="mb-1">
+						<label asp-for="Neutered" class="text-center" style="margin-right:5px">Кастрация: </label>
+						Yes
+						@Html.RadioButtonFor(model => model.Neutered, "Yes")
+						No
+						@Html.RadioButtonFor(model => model.Neutered, "No")
+						Homeless
+						@Html.RadioButtonFor(model => model.Neutered, "Homeless")
+						<span asp-validation-for="Neutered" class="text-danger"></span>
+					</div>
 
-				<div class="mb-1">
-					<label asp-for="MicroChip" class="control-label"></label>
-					<input asp-for="MicroChip" class="form-control">
-					<span asp-validation-for="MicroChip" class="text-danger"></span>
-				</div>
+					<div class="mb-1">
+						<label asp-for="Microchip" class="control-label"></label>
+						<input asp-for="Microchip" class="form-control">
+						<span asp-validation-for="Microchip" class="text-danger"></span>
+					</div>
 
-				<div class="mb-1">
-					<label asp-for="Characteristics" class="control-label"></label>
-					<textarea asp-for="Characteristics" class="form-control" rows="2"></textarea>
-					<span asp-validation-for="Characteristics" class="text-danger"></span>
-				</div>
+					<div class="mb-1">
+						<label asp-for="Characteristics" class="control-label"></label>
+						<textarea asp-for="Characteristics" class="form-control" rows="2"></textarea>
+						<span asp-validation-for="Characteristics" class="text-danger"></span>
+					</div>
 
-				<div class="mb-1">
-					<label asp-for="ChronicIllnesses" class="control-label"></label>
-					<textarea asp-for="ChronicIllnesses" class="form-control" rows="2"></textarea>
-					<span asp-validation-for="ChronicIllnesses" class="text-danger"></span>
-				</div>
-			</td>
-			<td>
-				<div class="mb-1">
-					<label asp-for="OwnerName" class="control-label"></label>
-					<input asp-for="OwnerName" class="form-control">
-					<span asp-validation-for="OwnerName" class="text-danger"></span>
-				</div>
+					<div class="mb-1">
+						<label asp-for="ChronicIllnesses" class="control-label"></label>
+						<textarea asp-for="ChronicIllnesses" class="form-control" rows="2"></textarea>
+						<span asp-validation-for="ChronicIllnesses" class="text-danger"></span>
+					</div>
+				</td>
+				<td>
+					<div class="mb-1">
+						<label asp-for="OwnerName" class="control-label"></label>
+						<input asp-for="OwnerName" class="form-control">
+						<span asp-validation-for="OwnerName" class="text-danger"></span>
+					</div>
 
-				<div class="mb-1">
-					<label asp-for="OwnerEmail" class="control-label">Email</label>
-					<input asp-for="OwnerEmail" class="form-control">
-					<span asp-validation-for="OwnerEmail" class="text-danger"></span>
-				</div>
+					<div class="mb-1">
+						<label asp-for="OwnerEmail" class="control-label">Email</label>
+						<input asp-for="OwnerEmail" class="form-control">
+						<span asp-validation-for="OwnerEmail" class="text-danger"></span>
+					</div>
 
-				<div class="mb-1">
-					<label asp-for="OwnerPhoneNumber" class="control-label"></label>
-					<input asp-for="OwnerPhoneNumber" class="form-control">
-					<span asp-validation-for="OwnerPhoneNumber" class="text-danger"></span>
-				</div>
+					<div class="mb-1">
+						<label asp-for="OwnerPhoneNumber" class="control-label"></label>
+						<input asp-for="OwnerPhoneNumber" class="form-control">
+						<span asp-validation-for="OwnerPhoneNumber" class="text-danger"></span>
+					</div>
 
-				<div class="mb-1">
-					<label asp-for="OwnerAddress" class="control-label"></label>
-					<input asp-for="OwnerAddress" class="form-control">
-					<span asp-validation-for="OwnerAddress" class="text-danger"></span>
-				</div>
-			</td>
-	</tbody>
-</table>
-				<button type="submit" class="btn btn-primary btn-md float-end">Create</button>
+					<div class="mb-1">
+						<label asp-for="OwnerAddress" class="control-label"></label>
+						<input asp-for="OwnerAddress" class="form-control">
+						<span asp-validation-for="OwnerAddress" class="text-danger"></span>
+					</div>
+				</td>
+		</tbody>
+	</table>
+	<button type="submit" class="btn btn-primary btn-md float-end">Create</button>
 </form>
 
 @section Scripts {

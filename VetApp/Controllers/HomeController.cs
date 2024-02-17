@@ -10,8 +10,15 @@ namespace VetApp.Controllers
 		[AllowAnonymous]
 		public IActionResult Index()
 		{
-			return View();
-		}
+            if (User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("All", "Patient");
+            }
+            else
+            {
+                return View();
+            }
+        }
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
