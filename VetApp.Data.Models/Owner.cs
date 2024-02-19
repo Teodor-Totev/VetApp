@@ -1,10 +1,9 @@
 ﻿namespace VetApp.Data.Models
 {
-	using System.ComponentModel.DataAnnotations;
-	using System.ComponentModel.DataAnnotations.Schema;
-	using static Common.EntityValidationConstants.OwnerValidations;
+    using System.ComponentModel.DataAnnotations;
+    using static Common.EntityValidationConstants.OwnerValidations;
 
-	public class Owner
+    public class Owner
 	{
 		public Owner()
 		{

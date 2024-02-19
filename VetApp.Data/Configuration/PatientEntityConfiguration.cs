@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VetApp.Data.Models;
-
-namespace VetApp.Data.Configuration
+﻿namespace VetApp.Data.Configuration
 {
-	public class PatientEntityConfiguration : IEntityTypeConfiguration<Patient>
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using VetApp.Data.Models;
+
+    public class PatientEntityConfiguration : IEntityTypeConfiguration<Patient>
 	{
 		public void Configure(EntityTypeBuilder<Patient> builder)
 		{

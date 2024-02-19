@@ -86,8 +86,6 @@ namespace VetApp.Services
 					Id = e.Id,
 					PatientId = e.PatientId,
 					CreatedOn = e.CreatedOn,
-					State = e.State,
-					Description = e.Description
 				})
 				.ToArrayAsync();
 

@@ -41,11 +41,11 @@
 
 		public Guid OwnerId { get; set; }
 
-        [ForeignKey("OwnerId")]
+        [ForeignKey(nameof(OwnerId))]
         public virtual Owner Owner{ get; set; } = null!;
 
-        public virtual ICollection<PatientUser> PatientsUsers { get; set; }
-
         public virtual ICollection<Examination> Examinations { get; set; }
+
+        public virtual ICollection<PatientUser> PatientsUsers { get; set; }
     }
 }
