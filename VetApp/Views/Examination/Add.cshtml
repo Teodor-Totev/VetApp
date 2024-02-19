@@ -1,0 +1,69 @@
+﻿@model AddExaminationFM
+
+@{
+	ViewBag.Title = "Create Examination";
+}
+
+<div class="container">
+	<h2>Patient Information</h2>
+	<div class="row">
+		<partial name="_ExaminationPartialVM" />
+	</div>
+
+	<hr />
+
+	<form asp-action="Add" asp-controller="Examination" method="post">
+		<h2>Examination Form</h2>
+		<div class="row">
+			<div class="col-md-6">
+				@using (Html.BeginForm())
+				{
+					@Html.AntiForgeryToken()
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.User)
+						@Html.TextAreaFor(model => model.User, new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Weight)
+						@Html.TextAreaFor(model => model.Weight, new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.MedicalHistory)
+						@Html.TextAreaFor(model => model.MedicalHistory, new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.MedicalHistory, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.SpecificCondition)
+						@Html.TextAreaFor(model => model.SpecificCondition, new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.SpecificCondition, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Research)
+						@Html.TextAreaFor(model => model.Research, new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.Research, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Diagnosis)
+						@Html.TextAreaFor(model => model.Diagnosis, new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.Diagnosis, "", new { @class = "text-danger" })
+					</div>
+
+					<button type="submit" class="btn btn-primary">Save</button>
+				}
+			</div>
+		</div>
+	</form>
+</div>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

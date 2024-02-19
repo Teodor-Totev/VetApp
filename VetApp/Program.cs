@@ -33,6 +33,8 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 
 builder.Services.AddScoped<IPatientService, PatientService>();
 
+builder.Services.AddScoped<IExaminationService, ExaminationService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

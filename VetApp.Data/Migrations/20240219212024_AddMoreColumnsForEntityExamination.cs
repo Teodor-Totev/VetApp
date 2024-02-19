@@ -39,25 +39,29 @@ namespace VetApp.Data.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "CurrentCondition",
                 table: "Examinations",
-                type: "nvarchar(max)",
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "Diagnosis",
                 table: "Examinations",
-                type: "nvarchar(max)",
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "Exit",
                 table: "Examinations",
-                type: "nvarchar(max)",
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "MedicalHistory",
                 table: "Examinations",
-                type: "nvarchar(max)",
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
@@ -69,31 +73,36 @@ namespace VetApp.Data.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "Reason",
                 table: "Examinations",
-                type: "nvarchar(max)",
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "Research",
                 table: "Examinations",
-                type: "nvarchar(max)",
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "SpecificCondition",
                 table: "Examinations",
-                type: "nvarchar(max)",
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "Surgery",
                 table: "Examinations",
-                type: "nvarchar(max)",
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "Therapy",
                 table: "Examinations",
-                type: "nvarchar(max)",
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
@@ -114,21 +123,21 @@ namespace VetApp.Data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedOn", "User" },
-                values: new object[] { new DateTime(2024, 2, 19, 23, 6, 40, 546, DateTimeKind.Local).AddTicks(2830), "D-r Pesho Petrov" });
+                values: new object[] { new DateTime(2024, 2, 19, 23, 20, 24, 234, DateTimeKind.Local).AddTicks(3733), "D-r Pesho Petrov" });
 
             migrationBuilder.UpdateData(
                 table: "Examinations",
                 keyColumn: "Id",
                 keyValue: 2,
                 columns: new[] { "CreatedOn", "User" },
-                values: new object[] { new DateTime(2024, 2, 19, 23, 6, 40, 546, DateTimeKind.Local).AddTicks(2890), "D-r Gosho Georgiev" });
+                values: new object[] { new DateTime(2024, 2, 19, 23, 20, 24, 234, DateTimeKind.Local).AddTicks(3791), "D-r Gosho Georgiev" });
 
             migrationBuilder.UpdateData(
                 table: "Examinations",
                 keyColumn: "Id",
                 keyValue: 3,
                 columns: new[] { "CreatedOn", "User" },
-                values: new object[] { new DateTime(2024, 2, 19, 23, 6, 40, 546, DateTimeKind.Local).AddTicks(2894), "D-r Dimitrichko Dimitrov" });
+                values: new object[] { new DateTime(2024, 2, 19, 23, 20, 24, 234, DateTimeKind.Local).AddTicks(3796), "D-r Dimitrichko Dimitrov" });
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Examinations_Patients_PatientId",

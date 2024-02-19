@@ -86,6 +86,7 @@ namespace VetApp.Services
 					Id = e.Id,
 					PatientId = e.PatientId,
 					CreatedOn = e.CreatedOn,
+					Doctor = e.User
 				})
 				.ToArrayAsync();
 
@@ -97,8 +98,7 @@ namespace VetApp.Services
 
 		public async Task<ICollection<AllPatientsVM>> GetUserPatientsAsync(string userId)
 		{
-			return await context
-				.Patients
+			return await context.Patients
 				.Where(p => p.PatientsUsers.Any(pu => pu.UserId.ToString() == userId))
 				.Select(p => new AllPatientsVM()
 				{

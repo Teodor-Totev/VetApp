@@ -1,0 +1,24 @@
+﻿@model PatientVM
+
+@{
+    ViewData["Title"] = "All Patients";
+}
+
+<div class="col-md-6">
+    <dl class="row">
+        <dt class="col-sm-4">Name:</dt>
+        <dd class="col-sm-8">@Model.Name</dd>
+
+        <dt class="col-sm-4">Type:</dt>
+        <dd class="col-sm-8">@Model.Type</dd>
+
+        <dt class="col-sm-4">Gender:</dt>
+        <dd class="col-sm-8">@Model.Gender</dd>
+
+        <dt class="col-sm-4">Neutered:</dt>
+        <dd class="col-sm-8">@Model.Neutered</dd>
+
+        <dt class="col-sm-4">Type:</dt>
+        <dd class="col-sm-8">@Model.Type</dd>
+    </dl>
+</div>

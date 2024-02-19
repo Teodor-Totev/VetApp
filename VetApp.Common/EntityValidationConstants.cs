@@ -36,11 +36,8 @@
 
 		public static class ExaminationValidations
 		{
-			public const int DescMaxLength = 200;
-			public const int DescMinLength = 5;
-
-			public const int StateMaxLength = 50;
-			public const int StateMinLength = 5;
+			public const int TextMaxLength = 300;
+			public const int TextMinLength = 5;
 		}
 	}
 }

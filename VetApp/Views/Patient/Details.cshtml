@@ -17,29 +17,22 @@ else
 					Created On
 				</th>
 				<th>
-					Description
-				</th>
-				<th>
-					State
+					Приемащ доктор
 				</th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach (var item in Model.Examinations)
 			{
+				<a class="btn btn-warning text-white float-end" asp-controller="Examination" asp-action="Add" asp-route-id="@item.Id">Add</a>
 				<tr class="table-dark">
 					<td>
 						@Html.DisplayFor(modelItem => item.CreatedOn)
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.Description)
+						@Html.DisplayFor(modelItem => item.Doctor)
 					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.State)
-					</td>
-					@* <td>
-						<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-					</td>
+					@*
 					<td>
 						<a class="btn btn-info text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
 					</td>
@@ -47,6 +40,7 @@ else
 						<a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 					</td> *@
 				</tr>
+
 			}
 		</tbody>
 	</table>

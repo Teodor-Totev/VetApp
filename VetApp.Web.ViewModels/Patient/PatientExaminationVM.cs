@@ -10,14 +10,8 @@ namespace VetApp.Web.ViewModels.Patient
 		[DataType(DataType.Date)]
         public DateTime CreatedOn { get; set; }
 
-		[Required]
-		[MaxLength(DescMaxLength)]
-		public string Description { get; set; } = null!;
+        public string Doctor { get; set; } = null!;
 
-		[Required]
-		[MaxLength(StateMaxLength)]
-		public string State { get; set; } = null!;
-
-		public int PatientId { get; set; }
+        public int PatientId { get; set; }
 	}
 }

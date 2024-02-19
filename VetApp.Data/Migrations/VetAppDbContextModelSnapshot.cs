@@ -249,16 +249,20 @@ namespace VetApp.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CurrentCondition")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Diagnosis")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Exit")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("MedicalHistory")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime?>("NextExamination")
                         .HasColumnType("datetime2");
@@ -267,19 +271,24 @@ namespace VetApp.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Research")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("SpecificCondition")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Surgery")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Therapy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("User")
                         .IsRequired()
@@ -298,21 +307,21 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2024, 2, 19, 23, 6, 40, 546, DateTimeKind.Local).AddTicks(2830),
+                            CreatedOn = new DateTime(2024, 2, 19, 23, 20, 24, 234, DateTimeKind.Local).AddTicks(3733),
                             PatientId = 1,
                             User = "D-r Pesho Petrov"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2024, 2, 19, 23, 6, 40, 546, DateTimeKind.Local).AddTicks(2890),
+                            CreatedOn = new DateTime(2024, 2, 19, 23, 20, 24, 234, DateTimeKind.Local).AddTicks(3791),
                             PatientId = 2,
                             User = "D-r Gosho Georgiev"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2024, 2, 19, 23, 6, 40, 546, DateTimeKind.Local).AddTicks(2894),
+                            CreatedOn = new DateTime(2024, 2, 19, 23, 20, 24, 234, DateTimeKind.Local).AddTicks(3796),
                             PatientId = 3,
                             User = "D-r Dimitrichko Dimitrov"
                         });

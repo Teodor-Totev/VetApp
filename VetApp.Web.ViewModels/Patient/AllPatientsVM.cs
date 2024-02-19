@@ -14,6 +14,7 @@ namespace VetApp.Web.ViewModels.Patient
 		public string Type { get; set; } = null!;
 
 		[Display(Name = "Birth Date")]
+		[DataType(DataType.Date)]
 		public DateTime? BirthDate { get; set; }
 
 		public string? Microchip { get; set; }

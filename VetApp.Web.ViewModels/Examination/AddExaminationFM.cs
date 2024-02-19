@@ -1,12 +1,15 @@
-﻿namespace VetApp.Data.Models
+﻿namespace VetApp.Web.ViewModels.Examination
 {
-	using System.ComponentModel.DataAnnotations;
-	using System.ComponentModel.DataAnnotations.Schema;
-	using static Common.EntityValidationConstants.ExaminationValidations;
+    using System.ComponentModel.DataAnnotations;
+    using static Common.EntityValidationConstants.ExaminationValidations;
 
-	public class Examination
-	{
-        [Key]
+    public class AddExaminationFM
+    {
+        public AddExaminationFM()
+        {
+            this.CreatedOn = DateTime.Now;
+        }
+
         public int Id { get; set; }
 
         public string User { get; set; } = null!;
@@ -43,10 +46,5 @@
         public string? Exit { get; set; }
 
         public DateTime? NextExamination { get; set; }
-
-        public int PatientId { get; set; }
-
-		[ForeignKey(nameof(PatientId))]
-		public virtual Patient Patient { get; set; } = null!;
     }
 }
