@@ -5,9 +5,32 @@
 }
 
 <div class="container">
-	<h2>Patient Information</h2>
-	<div class="row">
-		<partial name="_ExaminationPartialVM" />
+	<div class="col-md-6">
+		<dl class="row">
+			<dt class="col-sm-4">Name:</dt>
+			<dd class="col-sm-8">@Model.Patient.Name</dd>
+
+			<dt class="col-sm-4">Type:</dt>
+			<dd class="col-sm-8">@Model.Patient.Type</dd>
+
+			<dt class="col-sm-4">Birthdate:</dt>
+			<dd class="col-sm-8">@Model.Patient.BirthDate</dd>
+
+			<dt class="col-sm-4">Gender:</dt>
+			<dd class="col-sm-8">@Model.Patient.Gender</dd>
+
+			<dt class="col-sm-4">Neutered:</dt>
+			<dd class="col-sm-8">@Model.Patient.Neutered</dd>
+
+			<dt class="col-sm-4">Microchip:</dt>
+			<dd class="col-sm-8">@Model.Patient.Microchip</dd>
+
+			<dt class="col-sm-4">Chronic illnesses:</dt>
+			<dd class="col-sm-8">@Model.Patient.ChronicIllnesses</dd>
+
+			<dt class="col-sm-4">Characteristics:</dt>
+			<dd class="col-sm-8">@Model.Patient.Characteristics</dd>
+		</dl>
 	</div>
 
 	<hr />
@@ -66,4 +89,5 @@
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+	<partial name="_ExaminationPartialVM" />
 }

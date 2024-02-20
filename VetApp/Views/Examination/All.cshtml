@@ -1,0 +1,42 @@
+﻿@model IEnumerable<PatientExaminationVM>
+
+@{
+	ViewData["Title"] = "All Examinations";
+	int patientId = 0;
+}
+
+@if (!Model.Any())
+{
+	<h3 class="text-center">No examinations yet!</h3>
+}
+else
+{
+	<table class="table table-secondary">
+		<thead>
+			<tr>
+				<th>
+					Created On
+				</th>
+				<th>
+					Приемащ лекар
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				patientId = item.Id;
+				<tr class="table-dark">
+					<td>
+						@Html.DisplayFor(modelItem => item.CreatedOn)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Doctor)
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+<a class="btn btn-warning text-white float-end" asp-controller="Examination" asp-action="Add" asp-route-patientId="@patientId">Add</a>

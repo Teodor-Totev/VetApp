@@ -1,6 +1,7 @@
 ﻿namespace VetApp.Services
 {
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using VetApp.Data;
     using VetApp.Data.Models;
     using VetApp.Services.Interfaces;
@@ -24,5 +25,19 @@
 
             await context.SaveChangesAsync();
         }
-    }
+
+		public async Task<ICollection<PatientExaminationVM>> GetPatientExaminationsAsync(int patientId)
+		{
+			return await context.Examinations
+				.Where(e => e.PatientId == patientId)
+				.Select(e => new PatientExaminationVM
+				{
+					Id = e.Id,
+					PatientId = e.PatientId,
+					CreatedOn = e.CreatedOn,
+					Doctor = e.User
+				})
+				.ToArrayAsync();
+		}
+	}
 }

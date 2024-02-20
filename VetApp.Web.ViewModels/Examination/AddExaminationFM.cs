@@ -1,7 +1,8 @@
 ﻿namespace VetApp.Web.ViewModels.Examination
 {
     using System.ComponentModel.DataAnnotations;
-    using static Common.EntityValidationConstants.ExaminationValidations;
+	using VetApp.Web.ViewModels.Patient;
+	using static Common.EntityValidationConstants.ExaminationValidations;
 
     public class AddExaminationFM
     {
@@ -46,5 +47,9 @@
         public string? Exit { get; set; }
 
         public DateTime? NextExamination { get; set; }
+
+        public int PatientId { get; set; }
+
+        public PatientVM Patient { get; set; }
     }
 }

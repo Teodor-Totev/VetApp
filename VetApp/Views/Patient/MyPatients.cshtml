@@ -1,7 +1,7 @@
-﻿@model ICollection<AllPatientsVM>
+﻿@model ICollection<PatientVM>
 
 @{
-	ViewData["Title"] = "All Patients";
+	ViewData["Title"] = "My Patients";
 }
 
 @if (!Model.Any())
@@ -32,11 +32,14 @@ else
 					Microchip
 				</th>
 				<th>
-					OwnerName
+					Chronic illnesses
 				</th>
-				<th></th>
-				<th>Прегледи</th>
-				<th></th>
+				<th>
+					Characteristics
+				</th>
+				<th>
+					Examinations
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -62,17 +65,20 @@ else
 						@Html.DisplayFor(modelItem => item.Microchip)
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.OwnerName)
+						@Html.DisplayFor(modelItem => item.ChronicIllnesses)
 					</td>
 					<td>
-						<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+						@Html.DisplayFor(modelItem => item.Characteristics)
 					</td>
+					@* <td>
+			<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+			</td> *@
 					<td>
-						<a class="btn btn-info text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
+						<a class="btn btn-info text-white" asp-action="Details" asp-route-patientId="@item.Id">Examinations</a>
 					</td>
-					<td>
-						<a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-					</td>
+					@* <td>
+			<a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+			</td> *@
 				</tr>
 			}
 		</tbody>

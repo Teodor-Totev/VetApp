@@ -12,10 +12,10 @@ namespace VetApp.Services.Interfaces
 	{
 		Task CreateAsync(CreateVM model, string userId);
 
-		Task<ICollection<AllPatientsVM>> GetAllPatientsAsync();
+		Task<ICollection<PatientVM>> GetAllPatientsAsync();
 
-		Task<ICollection<AllPatientsVM>> GetUserPatientsAsync(string userId);
+		Task<ICollection<PatientVM>> GetUserPatientsAsync(string userId);
 
-		Task<PatientVM> GetPatientExaminationsAsync(int id);
+
 	}
 }

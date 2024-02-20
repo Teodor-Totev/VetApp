@@ -14,12 +14,13 @@
         }
 
         [HttpGet]
-		public IActionResult Add()
+		public IActionResult Add(int patientId)
 		{
             string doctorName = User.Identity.Name;
             var model = new AddExaminationFM
             {
-                User = doctorName
+                User = doctorName,
+                PatientId = id
             };
             return View(model);
 		}
@@ -31,5 +32,13 @@
 
             return RedirectToAction("All", "Patient");
         }
-    }
+
+		[HttpGet]
+		public async Task<IActionResult> All(int patientId)
+		{
+			IEnumerable<PatientExaminationVM> patientExaminations = await examinationService.GetPatientExaminationsAsync(patientId);
+
+			return View(patientExaminations);
+		}
+	}
 }

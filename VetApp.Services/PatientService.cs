@@ -51,11 +51,11 @@ namespace VetApp.Services
 			await context.SaveChangesAsync();
 		}
 
-		public async Task<ICollection<AllPatientsVM>> GetAllPatientsAsync()
+		public async Task<ICollection<PatientVM>> GetAllPatientsAsync()
 		{
 			return await context
 				.Patients
-				.Select(p => new AllPatientsVM()
+				.Select(p => new PatientVM()
 				{
 					Id = p.Id,
 					Name = p.Name,
@@ -64,43 +64,17 @@ namespace VetApp.Services
 					BirthDate = p.BirthDate,
 					Microchip = p.Microchip,
 					Neutered = p.Neutered,
-					OwnerName = p.Owner.Name
+					ChronicIllnesses = p.ChronicIllnesses,
+					Characteristics = p.Characteristics
 				})
 				.ToArrayAsync();
-
-			//OwnerName = p.Owner.Name,
-			//		Name = p.Name,
-			//		Gender = p.Gender,
-			//		BirthDate = p.BirthDate,
-			//		Neutered = p.Neutered,
-			//		MicroChip = p.MicroChip,
-			//		Type = p.Type,
 		}
 
-		public async Task<PatientVM> GetPatientExaminationsAsync(int id)
-		{
-			var res = await context.Examinations
-				.Where(e => e.PatientId == id)
-				.Select(e => new PatientExaminationVM
-				{
-					Id = e.Id,
-					PatientId = e.PatientId,
-					CreatedOn = e.CreatedOn,
-					Doctor = e.User
-				})
-				.ToArrayAsync();
-
-			return new PatientVM
-			{
-				Examinations = res
-			};
-		}
-
-		public async Task<ICollection<AllPatientsVM>> GetUserPatientsAsync(string userId)
+		public async Task<ICollection<PatientVM>> GetUserPatientsAsync(string userId)
 		{
 			return await context.Patients
 				.Where(p => p.PatientsUsers.Any(pu => pu.UserId.ToString() == userId))
-				.Select(p => new AllPatientsVM()
+				.Select(p => new PatientVM()
 				{
 					Id = p.Id,
 					Name = p.Name,
@@ -109,7 +83,6 @@ namespace VetApp.Services
 					BirthDate = p.BirthDate,
 					Microchip = p.Microchip,
 					Neutered = p.Neutered,
-					OwnerName = p.Owner.Name
 				})
 				.ToArrayAsync();
 		}

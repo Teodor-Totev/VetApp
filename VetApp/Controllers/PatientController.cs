@@ -37,7 +37,7 @@ namespace VetApp.Controllers
 		[HttpGet]
 		public async Task<IActionResult> All()
 		{
-            ICollection<AllPatientsVM> model = await patientService.GetAllPatientsAsync();
+            ICollection<PatientVM> model = await patientService.GetAllPatientsAsync();
 
 			return View(model);
 		}
@@ -46,17 +46,11 @@ namespace VetApp.Controllers
 		public async Task<IActionResult> MyPatients()
 		{
 			var userId = GetUserId();
-			ICollection<AllPatientsVM> model = await patientService.GetUserPatientsAsync(userId);
+			ICollection<PatientVM> model = await patientService.GetUserPatientsAsync(userId);
 
 			return View(model);
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> Details(int id)
-		{
-			var patientExaminations = await patientService.GetPatientExaminationsAsync(id);
-
-			return View(patientExaminations);
-		}
+		
 	}
 }
