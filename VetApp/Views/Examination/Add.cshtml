@@ -1,7 +1,9 @@
 ﻿@model AddExaminationFM
+@inject IAccountService accService
 
 @{
 	ViewBag.Title = "Create Examination";
+	string doctorName = await accService.GetUserFullNameByUsername(User.Identity?.Name!);
 }
 
 <div class="container">
@@ -36,58 +38,93 @@
 	<hr />
 
 	<form asp-action="Add" asp-controller="Examination" method="post">
-		<h2>Examination Form</h2>
-		<div class="row">
-			<div class="col-md-6">
-				@using (Html.BeginForm())
-				{
-					@Html.AntiForgeryToken()
+		<table class="table table-secondary">
+			<thead>
+				<th scope="col">Create Examination</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr class="table-dark">
+					<td>
+						<dl class="row">
+							<dt class="col-sm-2">Doctor:</dt>
+							<dd class="col-sm-8">@doctorName</dd>
+							<input type="hidden" asp-for="User" value="@doctorName" />
+						</dl>
 
-					<div class="form-group">
-						@Html.LabelFor(model => model.User)
-						@Html.TextAreaFor(model => model.User, new { @class = "form-control" })
-						@Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
-					</div>
+						<div class="mb-1">
+							<label asp-for="Weight" class="control-label"></label>
+							<input asp-for="Weight" class="form-control">
+							<span asp-validation-for="Weight" class="text-danger"></span>
+						</div>
 
-					<div class="form-group">
-						@Html.LabelFor(model => model.Weight)
-						@Html.TextAreaFor(model => model.Weight, new { @class = "form-control" })
-						@Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
-					</div>
+						<div class="mb-1">
+							<label asp-for="Reason" class="control-label"></label>
+							<input asp-for="Reason" class="form-control">
+							<span asp-validation-for="Reason" class="text-danger"></span>
+						</div>
 
-					<div class="form-group">
-						@Html.LabelFor(model => model.MedicalHistory)
-						@Html.TextAreaFor(model => model.MedicalHistory, new { @class = "form-control" })
-						@Html.ValidationMessageFor(model => model.MedicalHistory, "", new { @class = "text-danger" })
-					</div>
+						<div class="mb-1">
+							<label asp-for="MedicalHistory" class="control-label">Medical history</label>
+							<input asp-for="MedicalHistory" class="form-control">
+							<span asp-validation-for="MedicalHistory" class="text-danger"></span>
+						</div>
 
-					<div class="form-group">
-						@Html.LabelFor(model => model.SpecificCondition)
-						@Html.TextAreaFor(model => model.SpecificCondition, new { @class = "form-control" })
-						@Html.ValidationMessageFor(model => model.SpecificCondition, "", new { @class = "text-danger" })
-					</div>
+						<div class="mb-1">
+							<label asp-for="CurrentCondition" class="control-label">Current condition</label>
+							<input asp-for="CurrentCondition" class="form-control">
+							<span asp-validation-for="CurrentCondition" class="text-danger"></span>
+						</div>
 
-					<div class="form-group">
-						@Html.LabelFor(model => model.Research)
-						@Html.TextAreaFor(model => model.Research, new { @class = "form-control" })
-						@Html.ValidationMessageFor(model => model.Research, "", new { @class = "text-danger" })
-					</div>
+						<div class="mb-1">
+							<label asp-for="SpecificCondition" class="control-label">Specific condition</label>
+							<input asp-for="SpecificCondition" class="form-control">
+							<span asp-validation-for="SpecificCondition" class="text-danger"></span>
+						</div>
 
-					<div class="form-group">
-						@Html.LabelFor(model => model.Diagnosis)
-						@Html.TextAreaFor(model => model.Diagnosis, new { @class = "form-control" })
-						@Html.ValidationMessageFor(model => model.Diagnosis, "", new { @class = "text-danger" })
-					</div>
+						<div class="mb-1">
+							<label asp-for="Research" class="control-label"></label>
+							<input asp-for="Research" class="form-control">
+							<span asp-validation-for="Research" class="text-danger"></span>
+						</div>
+					</td>
+					<td>
+						<div class="mb-1">
+							<label asp-for="Diagnosis" class="control-label"></label>
+							<textarea asp-for="Diagnosis" class="form-control" rows="2"></textarea>
+							<span asp-validation-for="Diagnosis" class="text-danger"></span>
+						</div>
 
-					<button type="submit" class="btn btn-primary">Save</button>
-				}
-			</div>
-		</div>
+						<div class="mb-1">
+							<label asp-for="Surgery" class="control-label"></label>
+							<textarea asp-for="Surgery" class="form-control" rows="2"></textarea>
+							<span asp-validation-for="Surgery" class="text-danger"></span>
+						</div>
+
+						<div class="mb-1">
+							<label asp-for="Therapy" class="control-label"></label>
+							<input asp-for="Therapy" class="form-control">
+							<span asp-validation-for="Therapy" class="text-danger"></span>
+						</div>
+
+						<div class="mb-1">
+							<label asp-for="Exit" class="control-label"></label>
+							<input asp-for="Exit" class="form-control">
+							<span asp-validation-for="Exit" class="text-danger"></span>
+						</div>
+
+						<div class="mb-1">
+							<label asp-for="NextExamination" class="control-label">Next examination</label>
+							<input asp-for="NextExamination" class="form-control">
+							<span asp-validation-for="NextExamination" class="text-danger"></span>
+						</div>
+					</td>
+			</tbody>
+		</table>
+		<button type="submit" class="btn btn-primary btn-md float-end">Create</button>
 	</form>
 </div>
 
-
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
-	<partial name="_ExaminationPartialVM" />
 }

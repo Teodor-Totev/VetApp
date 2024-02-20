@@ -70,6 +70,27 @@ namespace VetApp.Services
 				.ToArrayAsync();
 		}
 
+		public async Task<PatientVM> GetPatientByIdAsync(int patientId)
+		{
+			PatientVM patient = await context.Patients
+				.Where(p => p.Id == patientId)
+				.Select(p => new PatientVM()
+				{
+					Id = p.Id,
+					Name = p.Name,
+					Type = p.Type,
+					Gender = p.Gender,
+					BirthDate = p.BirthDate,
+					Microchip = p.Microchip,
+					Neutered = p.Neutered,
+					ChronicIllnesses = p.ChronicIllnesses,
+					Characteristics = p.Characteristics
+				})
+				.FirstAsync();
+
+			return patient;
+		}
+
 		public async Task<ICollection<PatientVM>> GetUserPatientsAsync(string userId)
 		{
 			return await context.Patients

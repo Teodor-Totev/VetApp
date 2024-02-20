@@ -16,13 +16,32 @@
             this.context = context;
         }
 
-        public async Task AddAsync(AddExaminationFM model)
+        public async Task AddAsync(AddExaminationFM model, int patientId)
         {
+            var patient = await context.Patients
+                .FindAsync(patientId);
+
             var e = new Examination()
             {
-                User = model.User
+                Id = model.Id,
+                User = model.User,
+                Weight = model.Weight,
+                Reason = model.Reason,
+                MedicalHistory = model.MedicalHistory,
+                CurrentCondition = model.CurrentCondition,
+                SpecificCondition = model.SpecificCondition,
+                Research = model.Research,
+                Diagnosis = model.Diagnosis,
+                Surgery = model.Surgery,
+                Therapy = model.Therapy,
+                Exit = model.Exit,
+                NextExamination = model.NextExamination,
+                PatientId = patientId,
             };
 
+            patient.Examinations.Add(e);
+
+            await context.Examinations.AddAsync(e);
             await context.SaveChangesAsync();
         }
 

@@ -74,7 +74,7 @@ else
 			<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
 			</td> *@
 					<td>
-						<a class="btn btn-info text-white" asp-action="Details" asp-route-patientId="@item.Id">Examinations</a>
+						<a class="btn btn-info text-white" asp-controller="Examination" asp-action="All" asp-route-patientId="@item.Id">Examinations</a>
 					</td>
 					@* <td>
 			<a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>

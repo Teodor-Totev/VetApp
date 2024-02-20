@@ -7,36 +7,44 @@
 	public class ExaminationController : BaseController
 	{
 		private readonly IExaminationService examinationService;
+        private readonly IPatientService patientService;
 
-        public ExaminationController(IExaminationService examinationService)
+        public ExaminationController(IExaminationService examinationService,
+			IPatientService patientService)
         {
             this.examinationService = examinationService;
+            this.patientService = patientService;
         }
 
         [HttpGet]
-		public IActionResult Add(int patientId)
+		public async Task<IActionResult> Add(int patientId)
 		{
-            string doctorName = User.Identity.Name;
+            var patient = await patientService.GetPatientByIdAsync(patientId);
             var model = new AddExaminationFM
             {
-                User = doctorName,
-                PatientId = id
-            };
+                PatientId = patientId,
+                Patient = patient
+			};
             return View(model);
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> Add(AddExaminationFM model)
+        public async Task<IActionResult> Add(AddExaminationFM model, int patientId)
         {
-            await this.examinationService.AddAsync(model);
+            await this.examinationService.AddAsync(model, patientId);
 
-            return RedirectToAction("All", "Patient");
+            return RedirectToAction("All", patientId);
         }
 
 		[HttpGet]
 		public async Task<IActionResult> All(int patientId)
 		{
 			IEnumerable<PatientExaminationVM> patientExaminations = await examinationService.GetPatientExaminationsAsync(patientId);
+
+            if (!patientExaminations.Any())
+            {
+                return RedirectToAction("Add", patientId);
+            }
 
 			return View(patientExaminations);
 		}

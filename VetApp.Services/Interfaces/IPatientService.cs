@@ -16,6 +16,6 @@ namespace VetApp.Services.Interfaces
 
 		Task<ICollection<PatientVM>> GetUserPatientsAsync(string userId);
 
-
+		Task<PatientVM> GetPatientByIdAsync(int patientId); 
 	}
 }

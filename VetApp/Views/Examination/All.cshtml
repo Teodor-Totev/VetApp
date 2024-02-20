@@ -2,7 +2,7 @@
 
 @{
 	ViewData["Title"] = "All Examinations";
-	int patientId = 0;
+	int patientId = Model.Select(m => m.PatientId).FirstOrDefault();
 }
 
 @if (!Model.Any())
@@ -18,14 +18,13 @@ else
 					Created On
 				</th>
 				<th>
-					Приемащ лекар
+					Doctor
 				</th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach (var item in Model)
 			{
-				patientId = item.Id;
 				<tr class="table-dark">
 					<td>
 						@Html.DisplayFor(modelItem => item.CreatedOn)
