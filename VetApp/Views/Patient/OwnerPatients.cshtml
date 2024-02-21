@@ -1,16 +1,18 @@
 ﻿@using VetApp.Web.ViewModels.Patient
-@model PatientOwnerVM
+@model ICollection<PatientOwnerVM>
 
 @{
 	ViewData["Title"] = "Owner Patients";
 }
 
-@if (!Model.Patients.Any())
+@if (!Model.Any())
 {
-	<h3 class="text-center">No patients yet!</h3>
+	<h3 class="text-center">No owners with this phone number</h3>
 }
 else
 {
+	foreach (var owner in Model)
+	{
 	<table class="table table-secondary">
 		<thead>
 			<tr>
@@ -31,15 +33,15 @@ else
 		<tbody>
 			<tr class="table-dark">
 				<td>
-					@Html.DisplayFor(modelItem => Model.OwnerName)
+					@owner.OwnerName
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => Model.Address)
+					@owner.Address
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => Model.PhoneNumber)
+					@owner.PhoneNumber
 				</td>
-				@foreach (var patient in Model.Patients)
+				@foreach (var patient in owner.Patients)
 				{
 					<td>
 						<a class="btn btn-info text-white" asp-controller="Patient" asp-action="Details" asp-route-patientId="@patient.Id">@patient.Name</a>
@@ -48,5 +50,6 @@ else
 			</tr>
 		</tbody>
 	</table>
+	}
 }
 

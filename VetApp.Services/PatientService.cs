@@ -100,7 +100,9 @@ namespace VetApp.Services
 					OwnerName = o.Name,
 					Address = o.Address,
 					PhoneNumber = o.PhoneNumber,
-					Patients = context.Patients.Select(p => new PatientVM()
+					Patients = context.Patients
+					.Where(p => p.OwnerId == o.Id)
+					.Select(p => new PatientVM()
 					{
 						Id = p.Id,
 						Name = p.Name,
