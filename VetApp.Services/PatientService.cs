@@ -91,6 +91,28 @@ namespace VetApp.Services
 			return patient;
 		}
 
+		public async Task<ICollection<PatientOwnerVM>> GetPatientsByPhoneNumberAsync(string phoneNumber)
+		{
+			return await context.Owners
+				.Where(o => o.PhoneNumber.Contains(phoneNumber))
+				.Select(o => new PatientOwnerVM()
+				{
+					OwnerName = o.Name,
+					Address = o.Address,
+					PhoneNumber = o.PhoneNumber,
+					Patients = context.Patients.Select(p => new PatientVM()
+					{
+						Id = p.Id,
+						Name = p.Name,
+						Type = p.Type,
+						Gender = p.Gender,
+						Neutered = p.Neutered
+					})
+					.ToArray()
+				})
+				.ToArrayAsync();
+		}
+
 		public async Task<ICollection<PatientVM>> GetUserPatientsAsync(string userId)
 		{
 			return await context.Patients

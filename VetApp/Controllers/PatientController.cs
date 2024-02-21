@@ -51,6 +51,11 @@ namespace VetApp.Controllers
 			return View(model);
 		}
 
-		
+		public async Task<IActionResult> OwnerPatients(string phoneNumber)
+		{
+			var model = await patientService.GetPatientsByPhoneNumberAsync(phoneNumber);
+
+			return View(model);
+		}
 	}
 }

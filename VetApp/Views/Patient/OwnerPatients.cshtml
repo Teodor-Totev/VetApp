@@ -1,0 +1,52 @@
+﻿@using VetApp.Web.ViewModels.Patient
+@model PatientOwnerVM
+
+@{
+	ViewData["Title"] = "Owner Patients";
+}
+
+@if (!Model.Patients.Any())
+{
+	<h3 class="text-center">No patients yet!</h3>
+}
+else
+{
+	<table class="table table-secondary">
+		<thead>
+			<tr>
+				<th>
+					Name
+				</th>
+				<th>
+					Address
+				</th>
+				<th>
+					PhoneNumber
+				</th>
+				<th>
+					Patients
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="table-dark">
+				<td>
+					@Html.DisplayFor(modelItem => Model.OwnerName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => Model.Address)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => Model.PhoneNumber)
+				</td>
+				@foreach (var patient in Model.Patients)
+				{
+					<td>
+						<a class="btn btn-info text-white" asp-controller="Patient" asp-action="Details" asp-route-patientId="@patient.Id">@patient.Name</a>
+					</td>
+				}
+			</tr>
+		</tbody>
+	</table>
+}
+

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VetApp.Data.Models;
-using VetApp.Web.ViewModels.Patient;
-
-namespace VetApp.Services.Interfaces
+﻿namespace VetApp.Services.Interfaces
 {
+	using VetApp.Web.ViewModels.Patient;
+
 	public interface IPatientService
 	{
 		Task CreateAsync(CreateVM model, string userId);
@@ -16,6 +10,8 @@ namespace VetApp.Services.Interfaces
 
 		Task<ICollection<PatientVM>> GetUserPatientsAsync(string userId);
 
-		Task<PatientVM> GetPatientByIdAsync(int patientId); 
+		Task<PatientVM> GetPatientByIdAsync(int patientId);
+
+		Task<ICollection<PatientOwnerVM>> GetPatientsByPhoneNumberAsync(string phoneNumber);
 	}
 }

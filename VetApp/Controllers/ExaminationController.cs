@@ -32,7 +32,6 @@
         {
             await this.examinationService.AddAsync(model, patientId);
 
-            //return RedirectToAction("All", model.Patient.Id);
 			return RedirectToAction("All", new { patientId });
 		}
 

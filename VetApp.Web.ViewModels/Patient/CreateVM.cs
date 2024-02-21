@@ -22,6 +22,7 @@
 		public string Type { get; set; } = null!;
 
 		[DataType(DataType.Date)]
+		[Display(Name = "Birthdate")]
 		public DateTime? BirthDate { get; set; }
 
 		[StringLength(MicroChipMaxLength, MinimumLength = MicroChipMinLength,

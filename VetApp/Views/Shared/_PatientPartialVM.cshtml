@@ -4,26 +4,41 @@
 	ViewData["Title"] = "All Patients";
 }
 
-
-<table class="table table-secondary">
-	<thead>
-		<tr>
-			<th scope="col">Patients</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="table-dark">
-			<td>
-				@foreach (var patient in Model)
-				{
-					@patient.Name
-					@patient.Type
-					@patient.Gender
-					@patient.BirthDate
-					@patient.Microchip
-					@patient.Neutered
-				}
-			</td>
-	</tbody>
-</table>
-
+@foreach (var item in Model)
+{
+	<tr class="table-dark">
+		<td>
+			@item.Name
+		</td>
+		<td>
+			@item.Type
+		</td>
+		<td>
+			@item.BirthDate
+		</td>
+		<td>
+			@item.Gender
+		</td>
+		<td>
+			@item.Neutered
+		</td>
+		<td>
+			@item.Microchip
+		</td>
+		<td>
+			@item.ChronicIllnesses
+		</td>
+		<td>
+			@item.Characteristics
+		</td>
+		@* <td>
+	<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+	</td> *@
+		<td>
+			<a class="btn btn-info text-white" asp-controller="Examination" asp-action="All" asp-route-patientId="@item.Id">Examinations</a>
+		</td>
+		@* <td>
+	<a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+	</td> *@
+	</tr>
+}
