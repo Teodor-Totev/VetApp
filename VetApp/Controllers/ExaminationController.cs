@@ -22,7 +22,6 @@
             var patient = await patientService.GetPatientByIdAsync(patientId);
             var model = new AddExaminationFM
             {
-                PatientId = patientId,
                 Patient = patient
 			};
             return View(model);
@@ -33,8 +32,9 @@
         {
             await this.examinationService.AddAsync(model, patientId);
 
-            return RedirectToAction("All", patientId);
-        }
+            //return RedirectToAction("All", model.Patient.Id);
+			return RedirectToAction("All", new { patientId });
+		}
 
 		[HttpGet]
 		public async Task<IActionResult> All(int patientId)

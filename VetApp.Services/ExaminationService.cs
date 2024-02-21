@@ -23,8 +23,8 @@
 
             var e = new Examination()
             {
-                Id = model.Id,
                 User = model.User,
+                CreatedOn = model.CreatedOn,
                 Weight = model.Weight,
                 Reason = model.Reason,
                 MedicalHistory = model.MedicalHistory,
@@ -37,6 +37,7 @@
                 Exit = model.Exit,
                 NextExamination = model.NextExamination,
                 PatientId = patientId,
+                Patient = patient
             };
 
             patient.Examinations.Add(e);

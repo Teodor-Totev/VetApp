@@ -37,7 +37,7 @@
 
 	<hr />
 
-	<form asp-action="Add" asp-controller="Examination" method="post">
+	<form asp-action="Add" asp-controller="Examination" asp-route-patientId="@Model.Patient.Id" method="post">
 		<table class="table table-secondary">
 			<thead>
 				<th scope="col">Create Examination</th>

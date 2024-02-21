@@ -48,8 +48,6 @@
 
         public DateTime? NextExamination { get; set; }
 
-        public int PatientId { get; set; }
-
-        public PatientVM Patient { get; set; }
+        public PatientVM Patient { get; set; } = null!;
     }
 }

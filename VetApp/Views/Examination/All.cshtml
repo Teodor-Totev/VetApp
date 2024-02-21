@@ -4,20 +4,20 @@
 	ViewData["Title"] = "All Examinations";
 }
 
-<table class="table table-secondary">
-	<thead>
-		<tr>
-			<th>
-				Created On
-			</th>
-			<th>
-				Doctor
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		@if (Model.Examinations.Any())
-		{
+@if (Model.Examinations.Any())
+{
+	<table class="table table-secondary">
+		<thead>
+			<tr>
+				<th>
+					Created On
+				</th>
+				<th>
+					Doctor
+				</th>
+			</tr>
+		</thead>
+		<tbody>
 			@foreach (var item in Model.Examinations)
 			{
 				<tr class="table-dark">
@@ -29,12 +29,11 @@
 					</td>
 				</tr>
 			}
-		}
-		else
-		{
-			<h3 class="text-center">No examinations yet!</h3>
-		}
-	</tbody>
-</table>
-
-<a class="btn btn-warning text-white float-end" asp-controller="Examination" asp-action="Add" asp-route-patientId="@Model.Id">Add</a>
+		</tbody>
+	</table>
+}
+else
+{
+	<h3 class="text-center">No examinations yet!</h3>
+}
+<a class="btn btn-warning text-white d-block" asp-controller="Examination" asp-action="Add" asp-route-patientId="@Model.Id">Add</a>

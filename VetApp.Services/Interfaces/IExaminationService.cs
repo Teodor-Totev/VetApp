@@ -7,7 +7,5 @@
 		Task AddAsync(AddExaminationFM model, int patientId);
 
 		Task<IEnumerable<ExaminationVM>> GetPatientExaminationsAsync(int patientId);
-
-		
 	}
 }
