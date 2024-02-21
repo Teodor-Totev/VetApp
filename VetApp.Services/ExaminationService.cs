@@ -45,14 +45,13 @@
             await context.SaveChangesAsync();
         }
 
-		public async Task<ICollection<PatientExaminationVM>> GetPatientExaminationsAsync(int patientId)
+		public async Task<IEnumerable<ExaminationVM>> GetPatientExaminationsAsync(int patientId)
 		{
 			return await context.Examinations
 				.Where(e => e.PatientId == patientId)
-				.Select(e => new PatientExaminationVM
+				.Select(e => new ExaminationVM
 				{
 					Id = e.Id,
-					PatientId = e.PatientId,
 					CreatedOn = e.CreatedOn,
 					Doctor = e.User
 				})

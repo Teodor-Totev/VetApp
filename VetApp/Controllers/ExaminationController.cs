@@ -39,14 +39,15 @@
 		[HttpGet]
 		public async Task<IActionResult> All(int patientId)
 		{
-			IEnumerable<PatientExaminationVM> patientExaminations = await examinationService.GetPatientExaminationsAsync(patientId);
+			IEnumerable<ExaminationVM> patientExaminations = await examinationService.GetPatientExaminationsAsync(patientId);
 
-            if (!patientExaminations.Any())
+            var model = new PatientExaminationVM
             {
-                return RedirectToAction("Add", patientId);
-            }
+                Id = patientId,
+                Examinations = patientExaminations
+            };
 
-			return View(patientExaminations);
+			return View(model);
 		}
 	}
 }
