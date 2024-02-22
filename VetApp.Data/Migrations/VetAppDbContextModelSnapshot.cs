@@ -301,7 +301,7 @@ namespace VetApp.Data.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Examinations");
+                    b.ToTable("Examinations", (string)null);
 
                     b.HasData(
                         new
@@ -353,7 +353,7 @@ namespace VetApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Owners");
+                    b.ToTable("Owners", (string)null);
 
                     b.HasData(
                         new
@@ -425,7 +425,7 @@ namespace VetApp.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
 
                     b.HasData(
                         new
@@ -469,7 +469,7 @@ namespace VetApp.Data.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("PatientsUsers");
+                    b.ToTable("PatientsUsers", (string)null);
 
                     b.HasComment("User Patints");
                 });

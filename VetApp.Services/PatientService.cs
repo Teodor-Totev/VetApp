@@ -40,7 +40,7 @@ namespace VetApp.Services
 
 			PatientUser ps = new PatientUser()
 			{
-				UserId = Guid.Parse(userId),
+				DoctorId = Guid.Parse(userId),
 				PatientId = patient.Id
 			};
 
@@ -118,7 +118,7 @@ namespace VetApp.Services
 		public async Task<ICollection<PatientVM>> GetUserPatientsAsync(string userId)
 		{
 			return await context.Patients
-				.Where(p => p.PatientsUsers.Any(pu => pu.UserId.ToString() == userId))
+				.Where(p => p.PatientsUsers.Any(pu => pu.DoctorId.ToString() == userId))
 				.Select(p => new PatientVM()
 				{
 					Id = p.Id,

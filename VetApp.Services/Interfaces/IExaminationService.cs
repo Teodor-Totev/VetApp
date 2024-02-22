@@ -4,7 +4,7 @@
 
     public interface IExaminationService
 	{
-		Task AddAsync(AddExaminationFM model, int patientId);
+		Task AddAsync(AddExaminationFM model, int patientId, string doctorId);
 
 		Task<IEnumerable<ExaminationVM>> GetPatientExaminationsAsync(int patientId);
 	}

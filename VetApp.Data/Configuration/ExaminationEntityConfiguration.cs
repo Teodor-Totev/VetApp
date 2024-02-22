@@ -21,23 +21,23 @@
 			examination = new()
 			{
 				Id = 1,
-                User = "D-r Pesho Petrov",
-                PatientId = 1,
+                DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
+				PatientId = 1,
 			};
 			examinations.Add(examination);
 
 			examination = new()
 			{
 				Id = 2,
-                User = "D-r Gosho Georgiev",
-                PatientId = 2,
+				DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
+				PatientId = 2,
 			};
 			examinations.Add(examination);
 
 			examination = new()
 			{
 				Id = 3,
-				User = "D-r Dimitrichko Dimitrov",
+				DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
 				PatientId = 3,
 			};
 			examinations.Add(examination);

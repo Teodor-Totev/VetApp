@@ -16,14 +16,14 @@
             this.context = context;
         }
 
-        public async Task AddAsync(AddExaminationFM model, int patientId)
+        public async Task AddAsync(AddExaminationFM model, int patientId, string doctorId)
         {
             var patient = await context.Patients
                 .FindAsync(patientId);
 
             var e = new Examination()
             {
-                User = model.User,
+                DoctorId = Guid.Parse(doctorId),
                 CreatedOn = model.CreatedOn,
                 Weight = model.Weight,
                 Reason = model.Reason,
@@ -54,7 +54,7 @@
 				{
 					Id = e.Id,
 					CreatedOn = e.CreatedOn,
-					Doctor = e.User
+					DoctorName = e.Doctor.UserName
 				})
 				.ToArrayAsync();
 		}

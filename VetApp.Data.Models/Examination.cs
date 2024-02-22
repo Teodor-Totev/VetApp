@@ -1,5 +1,6 @@
 ﻿namespace VetApp.Data.Models
 {
+	using Microsoft.AspNetCore.Identity;
 	using System.ComponentModel.DataAnnotations;
 	using System.ComponentModel.DataAnnotations.Schema;
 	using static Common.EntityValidationConstants.ExaminationValidations;
@@ -9,14 +10,12 @@
         [Key]
         public int Id { get; set; }
 
-        public string User { get; set; } = null!;
-
         public DateTime CreatedOn { get; set; }
 
-        public int? Weight { get; set; }
+        public int Weight { get; set; }
 
         [MaxLength(TextMaxLength)]
-        public string? Reason { get; set; }
+        public string Reason { get; set; } = null!;
 
         [MaxLength(TextMaxLength)]
         public string? MedicalHistory { get; set; }
@@ -44,7 +43,12 @@
 
         public DateTime? NextExamination { get; set; }
 
-        public int PatientId { get; set; }
+        public Guid DoctorId { get; set; }
+
+        [ForeignKey(nameof(DoctorId))]
+        public ApplicationUser Doctor { get; set; } = null!;
+
+		public int PatientId { get; set; }
 
 		[ForeignKey(nameof(PatientId))]
 		public virtual Patient Patient { get; set; } = null!;

@@ -11,6 +11,7 @@
 		public ApplicationUser()
 		{
 			this.PatientsUsers = new HashSet<PatientUser>();
+			this.Examinations = new HashSet<Examination>();
 		}
 
 		[Required]
@@ -25,5 +26,7 @@
 		public string? Address { get; set; }
 
 		public virtual ICollection<PatientUser> PatientsUsers { get; set; }
+
+		public virtual ICollection<Examination> Examinations { get; set; }
 	}
 }

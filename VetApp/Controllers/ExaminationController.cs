@@ -30,7 +30,8 @@
 		[HttpPost]
         public async Task<IActionResult> Add(AddExaminationFM model, int patientId)
         {
-            await this.examinationService.AddAsync(model, patientId);
+            string doctorId = base.GetUserId();
+            await this.examinationService.AddAsync(model, patientId, doctorId);
 
 			return RedirectToAction("All", new { patientId });
 		}

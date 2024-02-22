@@ -9,6 +9,6 @@
 		[DataType(DataType.Date)]
 		public DateTime CreatedOn { get; set; }
 
-		public string Doctor { get; set; } = null!;
+		public string DoctorName { get; set; } = null!;
 	}
 }

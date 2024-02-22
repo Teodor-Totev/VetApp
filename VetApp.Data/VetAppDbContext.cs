@@ -24,7 +24,7 @@ public class VetAppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<G
 		builder.ApplyConfigurationsFromAssembly(configAssembly);
 
         builder.Entity<PatientUser>()
-            .HasKey(pu => new { pu.UserId, pu.PatientId });
+            .HasKey(pu => new { pu.DoctorId, pu.PatientId });
 
 		base.OnModelCreating(builder);
 	}

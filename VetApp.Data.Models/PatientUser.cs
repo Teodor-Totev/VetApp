@@ -11,9 +11,9 @@ namespace VetApp.Data.Models
 		[ForeignKey(nameof(PatientId))]
 		public virtual Patient Patient { get; set; } = null!;
 
-        public Guid UserId { get; set; }
+        public Guid DoctorId { get; set; }
 
-		[ForeignKey(nameof(UserId))]
-		public virtual ApplicationUser User { get; set; } = null!;
+		[ForeignKey(nameof(DoctorId))]
+		public virtual ApplicationUser Doctor { get; set; } = null!;
     }
 }
