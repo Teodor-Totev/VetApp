@@ -17,10 +17,10 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public int? Weight { get; set; }
+        public int Weight { get; set; }
 
         [MaxLength(TextMaxLength)]
-        public string? Reason { get; set; }
+        public string Reason { get; set; } = null!;
 
         [MaxLength(TextMaxLength)]
         public string? MedicalHistory { get; set; }
