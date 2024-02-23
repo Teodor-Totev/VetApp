@@ -1,43 +1,19 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
-using VetApp.Data;
-using VetApp.Data.Models;
 using VetApp.Services;
 using VetApp.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = builder.Configuration.GetConnectionString("default");
+builder.Services.AddApplicationDbContext(builder.Configuration);
+builder.Services.AddApplicationIdentity(builder.Configuration);
 
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<VetAppDbContext>(options =>
-	options.UseSqlServer(connectionString));
-
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
-{
-	options.SignIn.RequireConfirmedAccount = false;
-	options.Password.RequiredUniqueChars = 0;
-	options.Password.RequireNonAlphanumeric = false;
-	options.Password.RequireDigit = false;
-	options.Password.RequireUppercase = false;
-	options.Password.RequireLowercase = false;
-	options.Password.RequiredLength = 4;
-})
-	.AddEntityFrameworkStores<VetAppDbContext>();
-
 builder.Services.AddScoped<IAccountService, AccountService>();
-
 builder.Services.AddScoped<IPatientService, PatientService>();
-
 builder.Services.AddScoped<IExaminationService, ExaminationService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
 	app.UseExceptionHandler("/Home/Error");
@@ -57,4 +33,4 @@ app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+await app.RunAsync();
