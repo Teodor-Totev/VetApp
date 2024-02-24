@@ -35,6 +35,7 @@
 					Weight = 12,
 					DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
 					PatientId = 1,
+					StatusId = 1
 				};
 				examinations.Add(examination);
 
@@ -46,6 +47,7 @@
 					Weight = 10,
 					DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
 					PatientId = 2,
+					StatusId = 1
 				};
 				examinations.Add(examination);
 
@@ -57,6 +59,7 @@
 					Weight = 30,
 					DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
 					PatientId = 3,
+					StatusId = 1
 				};
 				examinations.Add(examination);
 			}

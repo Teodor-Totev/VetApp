@@ -43,6 +43,10 @@
 
         public DateTime? NextExamination { get; set; }
 
+        public int StatusId { get; set; }
+
+        public Status Status { get; set; } = null!;
+
         public Guid DoctorId { get; set; }
 
         [ForeignKey(nameof(DoctorId))]
