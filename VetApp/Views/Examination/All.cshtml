@@ -13,19 +13,37 @@
 					Created On
 				</th>
 				<th>
+					Weight
+				</th>
+				<th>
+					Reason
+				</th>
+				<th>
 					Doctor
+				</th>
+				<th>
+					Diagnosis
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var item in Model.Examinations)
+			@foreach (var examination in Model.Examinations)
 			{
 				<tr class="table-dark">
 					<td>
-						@Html.DisplayFor(modelItem => item.CreatedOn)
+						@Html.DisplayFor(modelItem => examination.CreatedOn)
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.DoctorName)
+						@Html.DisplayFor(modelItem => examination.Weight)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => examination.Reason)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => examination.DoctorName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => examination.Diagnosis)
 					</td>
 				</tr>
 			}

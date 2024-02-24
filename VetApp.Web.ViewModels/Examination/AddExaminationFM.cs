@@ -18,7 +18,7 @@
 
         public string DoctorId { get; set; } = null!;
 
-        public string User { get; set; } = null!;
+        public string DoctorName { get; set; } = null!;
 
 		public PatientVM Patient { get; set; } = null!;
 

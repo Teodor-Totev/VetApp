@@ -53,8 +53,11 @@
 				.Select(e => new ExaminationVM
 				{
 					Id = e.Id,
+                    Weight = e.Weight,
+                    Reason = e.Reason,
+                    Diagnosis = e.Diagnosis,
 					CreatedOn = e.CreatedOn,
-					DoctorName = e.Doctor.UserName
+					DoctorName = e.Doctor.FirstName + " " + e.Doctor.LastName,
 				})
 				.ToArrayAsync();
 		}
