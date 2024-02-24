@@ -39,5 +39,11 @@
 			public const int TextMaxLength = 300;
 			public const int TextMinLength = 5;
 		}
+
+		public static class StatusValidations
+		{
+			public const int NameMaxLength = 50;
+			public const int NameMinLength = 2;
+		}
 	}
 }
