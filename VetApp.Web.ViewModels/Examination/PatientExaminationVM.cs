@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using static VetApp.Common.EntityValidationConstants.ExaminationValidations;
-
-namespace VetApp.Web.ViewModels.Examination
+﻿namespace VetApp.Web.ViewModels.Examination
 {
-    public class PatientExaminationVM
+	public class PatientExaminationVM
     {
         public PatientExaminationVM()
         {

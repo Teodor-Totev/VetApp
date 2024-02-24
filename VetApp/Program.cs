@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IExaminationService, ExaminationService>();
+builder.Services.AddScoped<IStatusService, StatusService>();
 
 var app = builder.Build();
 
