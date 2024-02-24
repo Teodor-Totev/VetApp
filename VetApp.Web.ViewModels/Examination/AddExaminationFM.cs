@@ -1,21 +1,30 @@
 ﻿namespace VetApp.Web.ViewModels.Examination
 {
     using System.ComponentModel.DataAnnotations;
+	using VetApp.Data.Models;
 	using VetApp.Web.ViewModels.Patient;
+	using VetApp.Web.ViewModels.Status;
 	using static Common.EntityValidationConstants.ExaminationValidations;
 
     public class AddExaminationFM
     {
         public AddExaminationFM()
         {
-            this.CreatedOn = DateTime.Now;
+            this.Statuses = new HashSet<StatusVM>();
+			this.CreatedOn = DateTime.Now;
         }
 
         public int Id { get; set; }
 
+        public string DoctorId { get; set; } = null!;
+
         public string User { get; set; } = null!;
 
-        public DateTime CreatedOn { get; set; }
+		public PatientVM Patient { get; set; } = null!;
+
+		public int StatusId { get; set; }
+
+		public DateTime CreatedOn { get; set; }
 
         public int Weight { get; set; }
 
@@ -48,6 +57,6 @@
 
         public DateTime? NextExamination { get; set; }
 
-        public PatientVM Patient { get; set; } = null!;
+        public ICollection<StatusVM> Statuses { get; set; }
     }
 }

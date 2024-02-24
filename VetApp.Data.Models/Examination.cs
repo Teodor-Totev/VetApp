@@ -45,6 +45,7 @@
 
         public int StatusId { get; set; }
 
+        [ForeignKey(nameof(StatusId))]
         public Status Status { get; set; } = null!;
 
         public Guid DoctorId { get; set; }

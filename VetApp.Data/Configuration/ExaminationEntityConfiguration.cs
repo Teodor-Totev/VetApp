@@ -7,16 +7,10 @@
 
 	public class ExaminationEntityConfiguration : IEntityTypeConfiguration<Examination>
 	{
-		private readonly VetAppDbContext context;
-
-		public ExaminationEntityConfiguration(VetAppDbContext context)
-		{
-			this.context = context;
-		}
 
 		public void Configure(EntityTypeBuilder<Examination> builder)
 		{
-			builder
+				builder
 				.HasData(GenerateExaminations());
 		}
 
@@ -24,8 +18,7 @@
 		{
 			ICollection<Examination> examinations = new HashSet<Examination>();
 
-			if (!context.Examinations.Any())
-			{
+			
 				Examination examination;
 				examination = new()
 				{
@@ -47,7 +40,7 @@
 					Weight = 10,
 					DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
 					PatientId = 2,
-					StatusId = 1
+					StatusId = 2
 				};
 				examinations.Add(examination);
 
@@ -59,10 +52,10 @@
 					Weight = 30,
 					DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
 					PatientId = 3,
-					StatusId = 1
+					StatusId = 3
 				};
 				examinations.Add(examination);
-			}
+			
 
 			return examinations.ToArray();
 		}

@@ -8,21 +8,25 @@
 	{
 		private readonly IExaminationService examinationService;
         private readonly IPatientService patientService;
+        private readonly IStatusService statusService;
 
         public ExaminationController(IExaminationService examinationService,
-			IPatientService patientService)
+			IPatientService patientService, IStatusService statusService)
         {
             this.examinationService = examinationService;
             this.patientService = patientService;
+            this.statusService = statusService;
         }
 
         [HttpGet]
 		public async Task<IActionResult> Add(int patientId)
 		{
             var patient = await patientService.GetPatientByIdAsync(patientId);
+            var statuses = await statusService.GetStatusesAsync();
             var model = new AddExaminationFM
             {
-                Patient = patient
+                Patient = patient,
+                Statuses = statuses
 			};
             return View(model);
 		}

@@ -36,11 +36,11 @@
                 Therapy = model.Therapy,
                 Exit = model.Exit,
                 NextExamination = model.NextExamination,
+                StatusId = model.StatusId,
                 PatientId = patientId,
-                Patient = patient
             };
 
-            patient.Examinations.Add(e);
+            patient!.Examinations.Add(e);
 
             await context.Examinations.AddAsync(e);
             await context.SaveChangesAsync();

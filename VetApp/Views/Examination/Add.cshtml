@@ -8,7 +8,7 @@
 
 <div class="container">
 	<div class="col-md-6" id="PatientInfo">
-		<partial name="_ExaminationPartialVM" />
+		<partial name="_ExaminationPatientPartialView" />
 	</div>
 
 	<hr />
@@ -16,8 +16,8 @@
 	<form asp-action="Add" asp-controller="Examination" asp-route-patientId="@Model.Patient.Id" method="post">
 		<table class="table table-secondary">
 			<thead>
-				<th scope="col">Create Examination</th>
-				<th></th>
+			<th scope="col">Create Examination</th>
+			<th></th>
 			</thead>
 			<tbody>
 				<tr class="table-dark">
@@ -63,7 +63,10 @@
 							<input asp-for="Research" class="form-control">
 							<span asp-validation-for="Research" class="text-danger"></span>
 						</div>
+
+						
 					</td>
+
 					<td>
 						<div class="mb-1">
 							<label asp-for="Diagnosis" class="control-label"></label>
@@ -94,6 +97,17 @@
 							<input asp-for="NextExamination" class="form-control">
 							<span asp-validation-for="NextExamination" class="text-danger"></span>
 						</div>
+
+						<div class="mb-1">
+							<label asp-for="StatusId" class="form-label">Status</label>
+							<select asp-for="StatusId" class="form-control">
+								@foreach (var status in Model.Statuses)
+								{
+									<option value="@status.Id">@status.Name</option>
+								}
+							</select>
+							<span asp-validation-for="StatusId" class="text-danger"></span>
+						</div>
 					</td>
 			</tbody>
 		</table>
@@ -105,4 +119,3 @@
 	<partial name="_ValidationScriptsPartial" />
 }
 
-							
