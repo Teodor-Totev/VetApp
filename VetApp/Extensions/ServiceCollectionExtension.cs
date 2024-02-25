@@ -3,11 +3,19 @@
 	using Microsoft.EntityFrameworkCore;
 	using VetApp.Data;
 	using VetApp.Data.Models;
+	using VetApp.Services.Interfaces;
+	using VetApp.Services;
 
 	public static class ServiceCollectionExtension
 	{
 		public static IServiceCollection AddApplicationServices(this IServiceCollection services)
 		{
+			services.AddScoped<IAccountService, AccountService>();
+			services.AddScoped<IPatientService, PatientService>();
+			services.AddScoped<IExaminationService, ExaminationService>();
+			services.AddScoped<IStatusService, StatusService>();
+			services.AddScoped<IOwnerService, OwnerService>();
+
 			return services;
 		}
 

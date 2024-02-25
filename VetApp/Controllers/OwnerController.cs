@@ -1,12 +1,23 @@
 ﻿namespace VetApp.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
+	using VetApp.Services.Interfaces;
 
 	public class OwnerController : Controller
 	{
-		public IActionResult Index()
+		private readonly IOwnerService ownerService;
+
+        public OwnerController(IOwnerService ownerService)
+        {
+            this.ownerService = ownerService;
+        }
+
+		[HttpPost]
+        public async Task<IActionResult> All(string phoneNumber)
 		{
-			return View();
+			var model = await ownerService.GetOwnersWithTheirPatientsByPhoneNumberAsync(phoneNumber);
+
+			return View(model);
 		}
 	}
 }

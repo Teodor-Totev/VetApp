@@ -1,0 +1,73 @@
+﻿@model ICollection<OwnerPatient>
+
+@{
+	ViewData["Title"] = "Owner Patients";
+}
+
+@if (!Model.Any())
+{
+	<h3 class="text-center">No owners with this phone number</h3>
+}
+else
+{
+	foreach (var owner in Model)
+	{
+		<table class="table table-secondary">
+			<thead>
+				<tr>
+					<th>
+						Name
+					</th>
+					<th>
+						Address
+					</th>
+					<th>
+						PhoneNumber
+					</th>
+					<th>
+						Animals
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="table-dark">
+					<td>
+						@owner.OwnerName
+					</td>
+					<td>
+						@owner.Address
+					</td>
+					<td>
+						@owner.PhoneNumber
+					</td>
+					<td>
+						<!-- Dropdown menu for patients -->
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Patients
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								@foreach (var patient in owner.Patients)
+								{
+									<a class="dropdown-item" asp-controller="Patient" asp-action="Details" asp-route-patientId="@patient.Id">@patient.Name</a>
+								}
+							</div>
+						</div>
+					@* </td>
+					<td class="dropdown-menu">
+
+						@foreach (var patient in owner.Patients)
+						{
+							<h6 class="dropdown-header">Dropdown header</h6>
+							<a class="dropdown-item" asp-controller="Patient" asp-action="Details" asp-route-patientId="@patient.Id">@patient.Name</a>
+							 <td>
+				<a class="btn btn-info text-white" asp-controller="Patient" asp-action="Details" asp-route-patientId="@patient.Id">@patient.Name</a>
+				</td> 
+						}
+					</td> *@
+				</tr>
+			</tbody>
+		</table>
+	}
+}
+
