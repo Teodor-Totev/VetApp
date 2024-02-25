@@ -4,11 +4,11 @@
 
 	public interface IPatientService
 	{
-		Task CreateAsync(CreateVM model, string userId);
+		Task CreateAsync(CreateVM model);
 
 		Task<ICollection<PatientVM>> GetAllPatientsAsync();
 
-		Task<ICollection<PatientVM>> GetUserPatientsAsync(string userId);
+		Task<ICollection<PatientVM>> GetUserPatientsAsync(string doctorId);
 
 		Task<PatientVM> GetPatientByIdAsync(int patientId);
 

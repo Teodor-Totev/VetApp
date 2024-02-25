@@ -15,7 +15,7 @@ namespace VetApp.Services
 			this.context = context;
 		}
 
-		public async Task CreateAsync(CreateVM model, string userId)
+		public async Task CreateAsync(CreateVM model)
 		{
 			Owner owner = new Owner()
 			{
@@ -38,13 +38,7 @@ namespace VetApp.Services
 				Owner = owner
 			};
 
-			PatientUser ps = new PatientUser()
-			{
-				DoctorId = Guid.Parse(userId),
-				PatientId = patient.Id
-			};
-
-			patient.PatientsUsers.Add(ps);
+			owner.Patients.Add(patient);
 
 			await context.Owners.AddAsync(owner);
 			await context.Patients.AddAsync(patient);
@@ -115,10 +109,10 @@ namespace VetApp.Services
 				.ToArrayAsync();
 		}
 
-		public async Task<ICollection<PatientVM>> GetUserPatientsAsync(string userId)
+		public async Task<ICollection<PatientVM>> GetUserPatientsAsync(string doctorId)
 		{
 			return await context.Patients
-				.Where(p => p.PatientsUsers.Any(pu => pu.DoctorId.ToString() == userId))
+				.Where(p => p.PatientsUsers.Any(pu => pu.DoctorId.ToString() == doctorId))
 				.Select(p => new PatientVM()
 				{
 					Id = p.Id,

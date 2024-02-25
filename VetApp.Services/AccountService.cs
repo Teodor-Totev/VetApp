@@ -24,7 +24,7 @@ namespace VetApp.Services
 				return string.Empty;
 			}
 
-			return $"{user.FirstName} {user.LastName}";
+			return $"Dr. {user.FirstName} {user.LastName}";
 		}
 	}
 }

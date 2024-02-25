@@ -7,6 +7,7 @@ namespace VetApp.Controllers
     public class PatientController : BaseController
     {
         private readonly IPatientService patientService;
+		
 
         public PatientController(IPatientService patientService)
         {
@@ -27,11 +28,17 @@ namespace VetApp.Controllers
 				return View(model);
 			}
 
-            var userId = GetUserId();
+            await patientService.CreateAsync(model);
+			var owner = await patientService
+				.GetPatientsByPhoneNumberAsync(model.OwnerPhoneNumber);
 
-            await patientService.CreateAsync(model, userId);
+			var patientId = owner
+				.Select(o => o.Patients
+						.Where(p => p.Name == model.Name)
+						.Select(p => p.Id))
+				.FirstOrDefault();
 
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("Add", "Examination", new { patientId });
 		}
 
 		[HttpGet]
