@@ -8,7 +8,6 @@ namespace VetApp.Controllers
     public class PatientController : BaseController
     {
         private readonly IPatientService patientService;
-		
 
         public PatientController(IPatientService patientService)
         {
@@ -60,13 +59,6 @@ namespace VetApp.Controllers
 		{
 			var userId = GetUserId();
 			ICollection<PatientVM> model = await patientService.GetUserPatientsAsync(userId);
-
-			return View(model);
-		}
-
-		public async Task<IActionResult> OwnerPatients(string phoneNumber)
-		{
-			var model = await patientService.GetPatientsByPhoneNumberAsync(phoneNumber);
 
 			return View(model);
 		}

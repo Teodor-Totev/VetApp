@@ -17,6 +17,8 @@ namespace VetApp.Services
 
 		public async Task CreateAsync(CreateVM model, Patient patient)
 		{
+			var checkOwner = await context.Owners.FirstOrDefaultAsync(o => o.PhoneNumber == model.OwnerPhoneNumber);
+
 			Owner owner = new Owner()
 			{
 				PhoneNumber = model.OwnerPhoneNumber,
@@ -26,9 +28,16 @@ namespace VetApp.Services
 			};
 
 			patient.OwnerId = owner.Id;
-			owner.Patients.Add(patient);
+			if (checkOwner != null)
+			{
+				checkOwner.Patients.Add(patient);
+			}
+			else
+			{
+				owner.Patients.Add(patient);
+				await context.Owners.AddAsync(owner);
+			}
 
-			await context.Owners.AddAsync(owner);
 			await context.Patients.AddAsync(patient);
 			await context.SaveChangesAsync();
 		}
@@ -73,29 +82,7 @@ namespace VetApp.Services
 			return patient;
 		}
 
-		public async Task<ICollection<PatientOwnerVM>> GetPatientsByPhoneNumberAsync(string phoneNumber)
-		{
-			return await context.Owners
-				.Where(o => o.PhoneNumber.Contains(phoneNumber))
-				.Select(o => new PatientOwnerVM()
-				{
-					OwnerName = o.Name,
-					Address = o.Address,
-					PhoneNumber = o.PhoneNumber,
-					Patients = context.Patients
-					.Where(p => p.OwnerId == o.Id)
-					.Select(p => new PatientVM()
-					{
-						Id = p.Id,
-						Name = p.Name,
-						Type = p.Type,
-						Gender = p.Gender,
-						Neutered = p.Neutered
-					})
-					.ToArray()
-				})
-				.ToArrayAsync();
-		}
+
 
 		public async Task<ICollection<PatientVM>> GetUserPatientsAsync(string doctorId)
 		{

@@ -13,6 +13,6 @@
 
 		Task<PatientVM> GetPatientByIdAsync(int patientId);
 
-		Task<ICollection<PatientOwnerVM>> GetPatientsByPhoneNumberAsync(string phoneNumber);
+		
 	}
 }

@@ -1,17 +1,10 @@
-using VetApp.Services;
-using VetApp.Services.Interfaces;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationDbContext(builder.Configuration);
 builder.Services.AddApplicationIdentity(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IPatientService, PatientService>();
-builder.Services.AddScoped<IExaminationService, ExaminationService>();
-builder.Services.AddScoped<IStatusService, StatusService>();
 
 var app = builder.Build();
 
