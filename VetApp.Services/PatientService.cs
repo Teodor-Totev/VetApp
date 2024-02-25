@@ -15,7 +15,7 @@ namespace VetApp.Services
 			this.context = context;
 		}
 
-		public async Task CreateAsync(CreateVM model)
+		public async Task CreateAsync(CreateVM model, Patient patient)
 		{
 			Owner owner = new Owner()
 			{
@@ -25,19 +25,7 @@ namespace VetApp.Services
 				Email = model.OwnerEmail,
 			};
 
-			Patient patient = new Patient()
-			{
-				Name = model.Name,
-				Type = model.Type,
-				Gender = model.Gender,
-				BirthDate = model.BirthDate,
-				Neutered = model.Neutered,
-				Microchip = model.Microchip,
-				Characteristics = model.Characteristics,
-				ChronicIllnesses = model.ChronicIllnesses,
-				Owner = owner
-			};
-
+			patient.OwnerId = owner.Id;
 			owner.Patients.Add(patient);
 
 			await context.Owners.AddAsync(owner);

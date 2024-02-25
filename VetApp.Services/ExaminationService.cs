@@ -21,6 +21,9 @@
 			var patient = await context.Patients
 				.FindAsync(patientId);
 
+			var doctor = await context.Users
+				.FindAsync(Guid.Parse(doctorId));
+
 			var e = new Examination()
 			{
 				DoctorId = Guid.Parse(doctorId),
@@ -40,17 +43,18 @@
 				PatientId = patientId,
 			};
 
+
 			PatientUser ps = new PatientUser()
 			{
 				DoctorId = Guid.Parse(doctorId),
 				PatientId = patientId
 			};
 
-			if (patient != null)
+			if (!context.PatientsUsers.Contains(ps))
 			{
-				patient.PatientsUsers.Add(ps);
-				patient.Examinations.Add(e);
+				await context.PatientsUsers.AddAsync(ps);
 			}
+			patient.Examinations.Add(e);
 
 			await context.Examinations.AddAsync(e);
 			await context.SaveChangesAsync();

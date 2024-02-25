@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VetApp.Data.Models;
 using VetApp.Services.Interfaces;
 using VetApp.Web.ViewModels.Patient;
 
@@ -28,17 +29,22 @@ namespace VetApp.Controllers
 				return View(model);
 			}
 
-            await patientService.CreateAsync(model);
-			var owner = await patientService
-				.GetPatientsByPhoneNumberAsync(model.OwnerPhoneNumber);
+			//Create the patient here to access the Id for redirection
+			Patient patient = new Patient()
+			{
+				Name = model.Name,
+				Type = model.Type,
+				Gender = model.Gender,
+				BirthDate = model.BirthDate,
+				Neutered = model.Neutered,
+				Microchip = model.Microchip,
+				Characteristics = model.Characteristics,
+				ChronicIllnesses = model.ChronicIllnesses,
+			};
 
-			var patientId = owner
-				.Select(o => o.Patients
-						.Where(p => p.Name == model.Name)
-						.Select(p => p.Id))
-				.FirstOrDefault();
+			await patientService.CreateAsync(model, patient);
 
-			return RedirectToAction("Add", "Examination", new { patientId });
+			return RedirectToAction("Add", "Examination", new { patientId = patient.Id });
 		}
 
 		[HttpGet]
