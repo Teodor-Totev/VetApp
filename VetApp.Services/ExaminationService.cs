@@ -74,6 +74,8 @@
                     Diagnosis = e.Diagnosis,
                     CreatedOn = e.CreatedOn,
                     DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
+                    Surgery = e.Surgery,
+                    Therapy = e.Therapy
                 })
                 .ToArrayAsync();
         }

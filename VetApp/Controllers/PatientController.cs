@@ -57,6 +57,7 @@ namespace VetApp.Controllers
 		}
 
 		[HttpGet]
+		//This method receive patientId
 		public async Task<IActionResult> Details(int id)
 		{
 			PatientVM patient = await patientService.GetPatientByIdAsync(id);

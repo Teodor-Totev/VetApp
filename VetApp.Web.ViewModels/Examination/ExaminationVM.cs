@@ -16,5 +16,9 @@
         public string? Diagnosis { get; set; }
 
 		public string Reason { get; set; } = null!;
+
+		public string? Surgery { get; set; }
+
+		public string? Therapy { get; set; }
 	}
 }

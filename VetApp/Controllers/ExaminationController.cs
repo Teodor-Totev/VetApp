@@ -38,7 +38,7 @@
             string doctorId = base.GetUserId();
             await this.examinationService.AddAsync(model, patientId, doctorId);
 
-			return RedirectToAction("All", new { patientId });
+			return RedirectToAction("Index", "Home");
 		}
 
 		[HttpGet]
