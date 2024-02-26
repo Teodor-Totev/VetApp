@@ -10,25 +10,25 @@
 }
 else
 {
-	foreach (var owner in Model)
-	{
-		<table class="table table-secondary">
-			<thead>
-				<tr>
-					<th>
-						Name
-					</th>
-					<th>
-						Address
-					</th>
-					<th>
-						PhoneNumber
-					</th>
-					<th>
-						Animals
-					</th>
-				</tr>
-			</thead>
+	<table class="table table-secondary">
+		<thead>
+			<tr>
+				<th>
+					Name
+				</th>
+				<th>
+					Address
+				</th>
+				<th>
+					PhoneNumber
+				</th>
+				<th>
+					Animals
+				</th>
+			</tr>
+		</thead>
+		@foreach (var owner in Model)
+		{
 			<tbody>
 				<tr class="table-dark">
 					<td>
@@ -41,7 +41,7 @@ else
 						@owner.PhoneNumber
 					</td>
 					<td>
-						<select class="form-control" onchange="handlePatientSelection(this)">
+						<select class="form-control" style="max-width: 8em" onclick="handlePatientSelection(this)">
 							<option value="">Select a patient</option>
 							@foreach (var patient in owner.Patients)
 							{
@@ -51,8 +51,8 @@ else
 					</td>
 				</tr>
 			</tbody>
-		</table>
-	}
+		}
+	</table>
 }
 
 @section scripts {
@@ -67,4 +67,4 @@ else
 			}
 		}
 	</script>
-}
+} 
