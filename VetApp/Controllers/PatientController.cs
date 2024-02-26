@@ -54,9 +54,9 @@ namespace VetApp.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Details(int patientId)
+		public async Task<IActionResult> Details(int id)
 		{
-			PatientVM model = await patientService.GetPatientByIdAsync(patientId);
+			PatientVM model = await patientService.GetPatientByIdAsync(id);
 
 			return View(model);
 		}

@@ -63,10 +63,7 @@ namespace VetApp.Services
 					Type = p.Type,
 					Gender = p.Gender,
 					BirthDate = p.BirthDate,
-					Microchip = p.Microchip,
 					Neutered = p.Neutered,
-					ChronicIllnesses = p.ChronicIllnesses,
-					Characteristics = p.Characteristics
 				})
 				.ToArrayAsync();
 		}

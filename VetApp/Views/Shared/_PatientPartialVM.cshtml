@@ -22,15 +22,6 @@
 		<td>
 			@item.Neutered
 		</td>
-		<td>
-			@item.Microchip
-		</td>
-		<td>
-			@item.ChronicIllnesses
-		</td>
-		<td>
-			@item.Characteristics
-		</td>
 		@* <td>
 	<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
 	</td> *@
@@ -38,7 +29,7 @@
 			<a class="btn btn-info text-white" asp-controller="Examination" asp-action="All" asp-route-patientId="@item.Id">Examinations</a>
 		</td>
 		<td>
-			<a class="btn btn-primary text-white" asp-controller="Patient" asp-action="Details" asp-route-patientId="@item.Id">Details</a>
+			<a class="btn btn-primary text-white" asp-controller="Patient" asp-action="Details" asp-route-id="@item.Id">Details</a>
 		</td>
 	</tr>
 }

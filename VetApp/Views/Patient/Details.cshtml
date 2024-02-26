@@ -4,31 +4,30 @@
 	ViewData["Title"] = "Patient Info";
 }
 
-<div class="card text-white bg-secondary mb-3" style="max-width: 25rem;">
-	<div class="card-header">@Model.Name</div>
+<div class="card text-white bg-secondary mb-3" style="max-width: 25rem; margin: 0 auto">
+	<h4 class="card-header">@Model.Type</h4>
 	<div class="card-body">
-		<h4 class="card-title">@Model.Type</h4>
 		<dl class="row">
-			<dt class="col-sm-5">Name:</dt>
-			<dd class="col-sm-8">@Model.Name</dd>
+			<dt class="col-sm-5 card-title">Name:</dt>
+			<dd class="col-sm-5 card-title">@Model.Name</dd>
 
-			<dt class="col-sm-5">BirthDate:</dt>
-			<dd class="col-sm-8">@Model.BirthDate</dd>
+			<dt class="col-sm-5 card-title">BirthDate:</dt>
+			<dd class="col-sm-5 card-title">@Model.BirthDate</dd>
 
-			<dt class="col-sm-5">Gender:</dt>
-			<dd class="col-sm-8">@Model.Gender</dd>
+			<dt class="col-sm-5 card-title">Gender:</dt>
+			<dd class="col-sm-5 card-title">@Model.Gender</dd>
 
-			<dt class="col-sm-5">Neutered:</dt>
-			<dd class="col-sm-8">@Model.Neutered</dd>
+			<dt class="col-sm-5 card-title">Neutered:</dt>
+			<dd class="col-sm-5 card-title">@Model.Neutered</dd>
 
-			<dt class="col-sm-5">Microchip:</dt>
-			<dd class="col-sm-8">@Model.Microchip</dd>
+			<dt class="col-sm-5 card-title">Microchip:</dt>
+			<dd class="col-sm-5 card-title">@Model.Microchip</dd>
 
-			<dt class="col-sm-5">ChronicIllnesses:</dt>
-			<dd class="col-sm-8">@Model.ChronicIllnesses</dd>
+			<dt class="col-sm-5 card-title">ChronicIllnesses:</dt>
+			<dd class="col-sm-5 card-title">@Model.ChronicIllnesses</dd>
 
-			<dt class="col-sm-5">Characteristics:</dt>
-			<dd class="col-sm-8">@Model.Characteristics</dd>
+			<dt class="col-sm-5 card-title">Characteristics:</dt>
+			<dd class="col-sm-5 card-title">@Model.Characteristics</dd>
 		</dl>
 	</div>
 </div>
