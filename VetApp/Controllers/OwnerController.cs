@@ -3,7 +3,7 @@
 	using Microsoft.AspNetCore.Mvc;
 	using VetApp.Services.Interfaces;
 
-	public class OwnerController : Controller
+	public class OwnerController : BaseController
 	{
 		private readonly IOwnerService ownerService;
 

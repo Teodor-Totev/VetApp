@@ -3,6 +3,7 @@
 	using Microsoft.AspNetCore.Mvc;
     using VetApp.Services.Interfaces;
     using VetApp.Web.ViewModels.Examination;
+	using VetApp.Web.ViewModels.Patient;
 
 	public class ExaminationController : BaseController
 	{
@@ -50,6 +51,14 @@
                 Id = patientId,
                 Examinations = patientExaminations
             };
+
+			return View(model);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Dashboard()
+		{
+			var model = await examinationService.GetExaminationsGroupedByStatus();
 
 			return View(model);
 		}

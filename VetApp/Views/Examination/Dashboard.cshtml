@@ -1,0 +1,24 @@
+﻿@model Dictionary<string, List<ExaminationDashboardVM>>
+
+@{
+    ViewData["Title"] = "Doctor Dashboard";
+}
+
+<h2>Welcome, Doctor!</h2>
+
+<div class="row">
+    @foreach (var statusGroup in Model)
+    {
+        <div class="col-md-4">
+            <h3>@statusGroup.Key</h3>
+            <ul class="list-group">
+                @foreach (var examination in statusGroup.Value)
+                {
+                    <li class="list-group-item">
+                        @examination.DoctorName | @examination.PatientName - @examination.PatientType
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>

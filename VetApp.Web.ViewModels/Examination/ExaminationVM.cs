@@ -6,7 +6,7 @@
 	{
 		public int Id { get; set; }
 
-		[DataType(DataType.Date)]
+        [DataType(DataType.Date)]
 		public DateTime CreatedOn { get; set; }
 
 		public int Weight { get; set; }

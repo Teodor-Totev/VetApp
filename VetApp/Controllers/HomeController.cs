@@ -12,7 +12,7 @@ namespace VetApp.Controllers
 		{
             if (User.Identity!.IsAuthenticated)
             {
-                return RedirectToAction("All", "Patient");
+                return RedirectToAction("Dashboard", "Examination");
             }
             else
             {
