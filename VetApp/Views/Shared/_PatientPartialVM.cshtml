@@ -37,8 +37,8 @@
 		<td>
 			<a class="btn btn-info text-white" asp-controller="Examination" asp-action="All" asp-route-patientId="@item.Id">Examinations</a>
 		</td>
-		@* <td>
-	<a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-	</td> *@
+		<td>
+			<a class="btn btn-primary text-white" asp-controller="Patient" asp-action="Details" asp-route-patientId="@item.Id">Details</a>
+		</td>
 	</tr>
 }

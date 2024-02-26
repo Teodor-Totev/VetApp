@@ -17,9 +17,9 @@ namespace VetApp.Services
 
 		public async Task CreateAsync(CreateVM model, Patient patient)
 		{
-			var checkOwner = await context.Owners.FirstOrDefaultAsync(o => o.PhoneNumber == model.OwnerPhoneNumber);
+			var existingOwner = await context.Owners.FirstOrDefaultAsync(o => o.PhoneNumber == model.OwnerPhoneNumber && o.Name == model.Name);
 
-			Owner owner = new Owner()
+			Owner newOwner = new Owner()
 			{
 				PhoneNumber = model.OwnerPhoneNumber,
 				Address = model.OwnerAddress,
@@ -27,15 +27,25 @@ namespace VetApp.Services
 				Email = model.OwnerEmail,
 			};
 
-			patient.OwnerId = owner.Id;
-			if (checkOwner != null)
+			patient.Name = model.Name;
+			patient.Type = model.Type;
+			patient.Gender = model.Gender;
+			patient.BirthDate = model.BirthDate;
+			patient.Neutered = model.Neutered;
+			patient.Microchip = model.Microchip;
+			patient.Characteristics = model.Characteristics;
+			patient.ChronicIllnesses = model.ChronicIllnesses;
+
+			if (existingOwner != null)
 			{
-				checkOwner.Patients.Add(patient);
+				patient.OwnerId = existingOwner.Id;
+				existingOwner.Patients.Add(patient);
 			}
 			else
 			{
-				owner.Patients.Add(patient);
-				await context.Owners.AddAsync(owner);
+				patient.OwnerId = newOwner.Id;
+				newOwner.Patients.Add(patient);
+				await context.Owners.AddAsync(newOwner);
 			}
 
 			await context.Patients.AddAsync(patient);

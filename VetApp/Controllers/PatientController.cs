@@ -29,17 +29,7 @@ namespace VetApp.Controllers
 			}
 
 			//Create the patient here to access the Id for redirection
-			Patient patient = new Patient()
-			{
-				Name = model.Name,
-				Type = model.Type,
-				Gender = model.Gender,
-				BirthDate = model.BirthDate,
-				Neutered = model.Neutered,
-				Microchip = model.Microchip,
-				Characteristics = model.Characteristics,
-				ChronicIllnesses = model.ChronicIllnesses,
-			};
+			Patient patient = new Patient();
 
 			await patientService.CreateAsync(model, patient);
 
@@ -59,6 +49,14 @@ namespace VetApp.Controllers
 		{
 			var userId = GetUserId();
 			ICollection<PatientVM> model = await patientService.GetUserPatientsAsync(userId);
+
+			return View(model);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Details(int patientId)
+		{
+			PatientVM model = await patientService.GetPatientByIdAsync(patientId);
 
 			return View(model);
 		}
