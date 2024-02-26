@@ -41,33 +41,30 @@ else
 						@owner.PhoneNumber
 					</td>
 					<td>
-						<!-- Dropdown menu for patients -->
-						<div class="dropdown">
-							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Patients
-							</button>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								@foreach (var patient in owner.Patients)
-								{
-									<a class="dropdown-item" asp-controller="Patient" asp-action="Details" asp-route-patientId="@patient.Id">@patient.Name</a>
-								}
-							</div>
-						</div>
-					@* </td>
-					<td class="dropdown-menu">
-
-						@foreach (var patient in owner.Patients)
-						{
-							<h6 class="dropdown-header">Dropdown header</h6>
-							<a class="dropdown-item" asp-controller="Patient" asp-action="Details" asp-route-patientId="@patient.Id">@patient.Name</a>
-							 <td>
-				<a class="btn btn-info text-white" asp-controller="Patient" asp-action="Details" asp-route-patientId="@patient.Id">@patient.Name</a>
-				</td> 
-						}
-					</td> *@
+						<select class="form-control" onchange="handlePatientSelection(this)">
+							<option value="">Select a patient</option>
+							@foreach (var patient in owner.Patients)
+							{
+								<option value="@patient.Id">@patient.Name</option>
+							}
+						</select>
+					</td>
 				</tr>
 			</tbody>
 		</table>
 	}
 }
 
+@section scripts {
+	<script>
+		function handlePatientSelection(selectElement) {
+			var selectedPatientId = selectElement.value;
+			// Perform actions based on the selected patient ID
+			// For example, display patient details or navigate to patient page
+			if (selectedPatientId) {
+				// Redirect to the patient details page
+				window.location.href = '/Patient/Details/' + selectedPatientId;
+			}
+		}
+	</script>
+}
