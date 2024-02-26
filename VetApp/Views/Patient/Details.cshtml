@@ -1,33 +1,80 @@
-﻿@model PatientVM
+﻿@model PatientDetailVM
 
 @{
 	ViewData["Title"] = "Patient Info";
 }
 
-<div class="card text-white bg-secondary mb-3" style="max-width: 25rem; margin: 0 auto">
-	<h4 class="card-header">@Model.Type</h4>
+<div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
+	<h4 class="card-header">@Model.Patient.Type</h4>
 	<div class="card-body">
 		<dl class="row">
 			<dt class="col-sm-5 card-title">Name:</dt>
-			<dd class="col-sm-5 card-title">@Model.Name</dd>
+			<dd class="col-sm-5 card-text">@Model.Patient.Name</dd>
 
 			<dt class="col-sm-5 card-title">BirthDate:</dt>
-			<dd class="col-sm-5 card-title">@Model.BirthDate</dd>
+			<dd class="col-sm-5 card-text">@Model.Patient.BirthDate</dd>
 
 			<dt class="col-sm-5 card-title">Gender:</dt>
-			<dd class="col-sm-5 card-title">@Model.Gender</dd>
+			<dd class="col-sm-5 card-text">@Model.Patient.Gender</dd>
 
 			<dt class="col-sm-5 card-title">Neutered:</dt>
-			<dd class="col-sm-5 card-title">@Model.Neutered</dd>
+			<dd class="col-sm-5 card-text">@Model.Patient.Neutered</dd>
 
 			<dt class="col-sm-5 card-title">Microchip:</dt>
-			<dd class="col-sm-5 card-title">@Model.Microchip</dd>
+			<dd class="col-sm-5 card-text">@Model.Patient.Microchip</dd>
 
 			<dt class="col-sm-5 card-title">ChronicIllnesses:</dt>
-			<dd class="col-sm-5 card-title">@Model.ChronicIllnesses</dd>
+			<dd class="col-sm-5 card-text">@Model.Patient.ChronicIllnesses</dd>
 
 			<dt class="col-sm-5 card-title">Characteristics:</dt>
-			<dd class="col-sm-5 card-title">@Model.Characteristics</dd>
+			<dd class="col-sm-5 card-text">@Model.Patient.Characteristics</dd>
 		</dl>
 	</div>
+</div>
+
+<div class="card border-secondary mb-3" style="margin: 10px 0px">
+
+	<table class="table table-secondary">
+		<thead>
+			<tr>
+				<th>
+					Created On
+				</th>
+				<th>
+					Weight
+				</th>
+				<th>
+					Reason
+				</th>
+				<th>
+					Doctor
+				</th>
+				<th>
+					Diagnosis
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var examination in Model.Examinations)
+			{
+				<tr class="table-dark">
+					<td>
+						@examination.CreatedOn
+					</td>
+					<td>
+						@examination.Weight
+					</td>
+					<td>
+						@examination.Reason
+					</td>
+					<td>
+						@examination.DoctorName
+					</td>
+					<td>
+						@examination.Diagnosis
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>

@@ -1,12 +1,13 @@
 ﻿namespace VetApp.Services
 {
     using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
+
     using VetApp.Data;
     using VetApp.Data.Models;
     using VetApp.Services.Interfaces;
     using VetApp.Web.ViewModels.Examination;
-    using Web.ViewModels.Patient;
 
     public class ExaminationService : IExaminationService
     {
@@ -61,7 +62,7 @@
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ExaminationVM>> GetPatientExaminationsAsync(int patientId)
+        public async Task<ICollection<ExaminationVM>> GetPatientExaminationsAsync(int patientId)
         {
             return await context.Examinations
                 .Where(e => e.PatientId == patientId)
@@ -72,7 +73,7 @@
                     Reason = e.Reason,
                     Diagnosis = e.Diagnosis,
                     CreatedOn = e.CreatedOn,
-                    DoctorName = e.Doctor.FirstName + " " + e.Doctor.LastName,
+                    DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
                 })
                 .ToArrayAsync();
         }

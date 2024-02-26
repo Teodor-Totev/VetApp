@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VetApp.Data.Models;
 using VetApp.Services.Interfaces;
+using VetApp.Web.ViewModels.Examination;
 using VetApp.Web.ViewModels.Patient;
 
 namespace VetApp.Controllers
@@ -8,10 +9,12 @@ namespace VetApp.Controllers
     public class PatientController : BaseController
     {
         private readonly IPatientService patientService;
+		private readonly IExaminationService examinationService;
 
-        public PatientController(IPatientService patientService)
+		public PatientController(IPatientService patientService, IExaminationService examinationService)
         {
             this.patientService = patientService;
+			this.examinationService = examinationService;
         }
 
         [HttpGet]
@@ -56,7 +59,15 @@ namespace VetApp.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
-			PatientVM model = await patientService.GetPatientByIdAsync(id);
+			PatientVM patient = await patientService.GetPatientByIdAsync(id);
+			ICollection<ExaminationVM> examinations = await examinationService.GetPatientExaminationsAsync(id);
+
+			PatientDetailVM model = new PatientDetailVM()
+			{
+				Patient = patient,
+				Examinations = examinations
+			};
+
 
 			return View(model);
 		}

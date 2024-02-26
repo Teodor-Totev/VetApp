@@ -6,7 +6,7 @@
 	{
 		Task AddAsync(AddExaminationFM model, int patientId, string doctorId);
 
-		Task<IEnumerable<ExaminationVM>> GetPatientExaminationsAsync(int patientId);
+		Task<ICollection<ExaminationVM>> GetPatientExaminationsAsync(int patientId);
 
         Task<Dictionary<string, List<ExaminationDashboardVM>>> GetExaminationsGroupedByStatus();
 
