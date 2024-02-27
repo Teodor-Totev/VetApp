@@ -9,7 +9,7 @@
         [DataType(DataType.Date)]
 		public DateTime CreatedOn { get; set; }
 
-		public int Weight { get; set; }
+		public double Weight { get; set; }
 
 		public string DoctorName { get; set; } = null!;
 

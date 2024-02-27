@@ -12,7 +12,7 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public int Weight { get; set; }
+        public double Weight { get; set; }
 
         [MaxLength(TextMaxLength)]
         public string Reason { get; set; } = null!;
