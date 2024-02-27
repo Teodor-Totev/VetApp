@@ -20,6 +20,11 @@ namespace VetApp.Controllers
             }
         }
 
+		public IActionResult GetWeight(double weight)
+		{
+			return Ok(new { weight });
+		}
+
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{
