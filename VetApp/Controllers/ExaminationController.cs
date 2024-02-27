@@ -76,7 +76,32 @@
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
+		[HttpGet]
+		public IActionResult Upload()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Upload(List<IFormFile> files)
+		{
+			var path = Path.Combine(Environment.CurrentDirectory, "Files");
+
+			foreach (var file in files.Where(f => f.Length > 0))
+			{
+				string filename = Path.Combine(path, file.FileName);
+
+				using (var stream = new FileStream(filename, FileMode.Create))
+				{
+					await file.CopyToAsync(stream);
+				}
+			}
+			var bytes = files.Sum(f => f.Length);
+			return Ok(new { count = files.Count, bytes, path });
+		}
+
+
+		[HttpGet]
 		public async Task<IActionResult> Dashboard()
 		{
 			var model = await examinationService.GetExaminationsGroupedByStatus();

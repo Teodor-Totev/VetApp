@@ -10,6 +10,11 @@
 	<partial name="_PatientPartialView" />
 </div>
 
+<form method="post" enctype="multipart/form-data" asp-controller="Examination" asp-action="Upload">
+	<input type="file" name="files" multiple>
+	<button class="btn btn-primary btn-sm" type="submit" value="Upload">Upload</button>
+</form>
+
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
 	<h4 class="card-header">Create Examination</h4>
 	<form asp-action="Add" asp-controller="Examination" asp-route-patientId="@Model.Patient.Id" method="post">
@@ -107,7 +112,7 @@
 			</table>
 		</div>
 		<div class="card-footer d-flex align-items-center justify-content-end">
-			<button type="submit" class="btn btn-primary btn-md ">Create</button>
+			<button type="submit" class="btn btn-primary btn-sm">Create</button>
 		</div>
 	</form>
 </div>
@@ -115,4 +120,5 @@
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 }
+
 
