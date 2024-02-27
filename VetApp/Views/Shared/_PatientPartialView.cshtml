@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "All Patients";
+}
+
+<div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
+	<h4 class="card-header">@Model.Patient.Name</h4>
+	<div class="card-body">
+		<dl class="row">
+			<dt class="col-sm-5 card-title">Type:</dt>
+			<dd class="col-sm-5 card-text">@Model.Patient.Type</dd>
+
+			<dt class="col-sm-5 card-title">BirthDate:</dt>
+			<dd class="col-sm-5 card-text">@Model.Patient.BirthDate</dd>
+
+			<dt class="col-sm-5 card-title">Gender:</dt>
+			<dd class="col-sm-5 card-text">@Model.Patient.Gender</dd>
+
+			<dt class="col-sm-5 card-title">Neutered:</dt>
+			<dd class="col-sm-5 card-text">@Model.Patient.Neutered</dd>
+
+			<dt class="col-sm-5 card-title">Microchip:</dt>
+			<dd class="col-sm-5 card-text">@Model.Patient.Microchip</dd>
+
+			<dt class="col-sm-5 card-title">ChronicIllnesses:</dt>
+			<dd class="col-sm-5 card-text">@Model.Patient.ChronicIllnesses</dd>
+
+			<dt class="col-sm-5 card-title">Characteristics:</dt>
+			<dd class="col-sm-5 card-text">@Model.Patient.Characteristics</dd>
+		</dl>
+	</div>
+</div>

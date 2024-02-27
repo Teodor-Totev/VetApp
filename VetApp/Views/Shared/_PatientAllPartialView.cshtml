@@ -1,6 +1,4 @@
-﻿@model ICollection<PatientVM>
-
-@{
+﻿@{
 	ViewData["Title"] = "All Patients";
 }
 
@@ -22,9 +20,6 @@
 		<td>
 			@item.Neutered
 		</td>
-		@* <td>
-	<a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-	</td> *@
 		<td>
 			<a class="btn btn-info text-white" asp-controller="Examination" asp-action="All" asp-route-patientId="@item.Id">Examinations</a>
 		</td>
