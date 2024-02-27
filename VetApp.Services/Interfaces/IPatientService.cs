@@ -12,7 +12,5 @@
 		Task<ICollection<PatientVM>> GetUserPatientsAsync(string doctorId);
 
 		Task<PatientVM> GetPatientByIdAsync(int patientId);
-
-		
 	}
 }

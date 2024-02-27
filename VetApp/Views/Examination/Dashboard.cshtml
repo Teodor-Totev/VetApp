@@ -1,25 +1,34 @@
 ﻿@model Dictionary<string, List<ExaminationDashboardVM>>
 
 @{
-    ViewData["Title"] = "Doctor Dashboard";
+	ViewData["Title"] = "Doctor Dashboard";
 }
-
-<h2>Welcome, Doctor!</h2>
-
-<div class="row">
-    @foreach (var statusGroup in Model)
-    {
-        <div class="col-md-4">
-            <h3>@statusGroup.Key</h3>
-            <ul class="list-group">
-                @foreach (var examination in statusGroup.Value)
-                {
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        @examination.DoctorName | @examination.PatientName - @examination.PatientType
-                        <a class="btn btn-primary btn-sm" asp-action="Details" asp-controller="Patient" asp-route-id="@examination.PatientId">Details</a>
-                    </li>
-                }
-            </ul>
-        </div>
-    }
+<div class="card border-secondary mb-3" style="margin: 10px 0px">
+	<h3 class="card-header text-center">Welcome, Doctor!</h3>
+	<div class="card-body">
+		<div class="row">
+			@foreach (var statusGroup in Model)
+			{
+				<div class="col-md-4">
+					<h3 class="card-header">@statusGroup.Key</h3>
+					<ul class="list-group">
+						@foreach (var examination in statusGroup.Value)
+						{
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<p class="mb-0">@examination.DoctorName | @examination.PatientName - @examination.PatientType</p>
+								<p class="mb-0">
+									<a class="btn btn-info btn-sm" asp-action="Details" asp-controller="Patient" asp-route-id="@examination.PatientId">Details</a>
+									@if (statusGroup.Key == "In Progress" ||
+														statusGroup.Key == "Hospital")
+									{
+										<a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id">Edit</a>
+									}
+								</p>
+							</li>
+						}
+					</ul>
+				</div>
+			}
+		</div>
+	</div>
 </div>

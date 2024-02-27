@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using VetApp.Data;
-using VetApp.Data.Models;
-using VetApp.Services.Interfaces;
-using VetApp.Web.ViewModels.Patient;
-
-namespace VetApp.Services
+﻿namespace VetApp.Services
 {
+	using Microsoft.EntityFrameworkCore;
+
+	using VetApp.Data;
+	using VetApp.Data.Models;
+	using VetApp.Services.Interfaces;
+	using VetApp.Web.ViewModels.Patient;
+
 	public class PatientService : IPatientService
 	{
 		private readonly VetAppDbContext context;
@@ -17,7 +18,9 @@ namespace VetApp.Services
 
 		public async Task CreateAsync(CreateVM model, Patient patient)
 		{
-			var existingOwner = await context.Owners.FirstOrDefaultAsync(o => o.PhoneNumber == model.OwnerPhoneNumber && o.Name == model.Name);
+			var existingOwner = await context.Owners
+				.FirstOrDefaultAsync(o => o.PhoneNumber == model.OwnerPhoneNumber && 
+										  o.Name == model.Name);
 
 			Owner newOwner = new Owner()
 			{

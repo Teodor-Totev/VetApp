@@ -4,89 +4,74 @@
 	ViewData["Title"] = "Patient Info";
 }
 
-<div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
-	<h4 class="card-header">@Model.Patient.Type</h4>
-	<div class="card-body">
-		<dl class="row">
-			<dt class="col-sm-5 card-title">Name:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Name</dd>
-
-			<dt class="col-sm-5 card-title">BirthDate:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.BirthDate</dd>
-
-			<dt class="col-sm-5 card-title">Gender:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Gender</dd>
-
-			<dt class="col-sm-5 card-title">Neutered:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Neutered</dd>
-
-			<dt class="col-sm-5 card-title">Microchip:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Microchip</dd>
-
-			<dt class="col-sm-5 card-title">ChronicIllnesses:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.ChronicIllnesses</dd>
-
-			<dt class="col-sm-5 card-title">Characteristics:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Characteristics</dd>
-		</dl>
-	</div>
+<div class="col-md-6" id="PatientInfo">
+	<partial name="_PatientPartialView" />
 </div>
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
-
-	<table class="table table-secondary">
-		<thead>
-			<tr>
-				<th>
-					Created On
-				</th>
-				<th>
-					Weight
-				</th>
-				<th>
-					Reason
-				</th>
-				<th>
-					Doctor
-				</th>
-				<th>
-					Diagnosis
-				</th>
-				<th>
-					Surgery
-				</th>
-				<th>
-					Therapy
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var examination in Model.Examinations)
-			{
-				<tr class="table-dark">
-					<td>
-						@examination.CreatedOn
-					</td>
-					<td>
-						@examination.Weight
-					</td>
-					<td>
-						@examination.Reason
-					</td>
-					<td>
-						@examination.DoctorName
-					</td>
-					<td>
-						@examination.Diagnosis
-					</td>
-					<td>
-						@examination.Surgery
-					</td>
-					<td>
-						@examination.Therapy
-					</td>
+	<h4 class="card-header">Examinations</h4>
+	<div class="card-body">
+		@if (Model.Examinations.Any()){
+		<table class="table table-secondary">
+			<thead>
+				<tr>
+					<th>
+						Created On
+					</th>
+					<th>
+						Weight
+					</th>
+					<th>
+						Reason
+					</th>
+					<th>
+						Doctor
+					</th>
+					<th>
+						Diagnosis
+					</th>
+					<th>
+						Surgery
+					</th>
+					<th>
+						Therapy
+					</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var examination in Model.Examinations)
+				{
+					<tr class="table-dark">
+						<td>
+							@examination.CreatedOn
+						</td>
+						<td>
+							@examination.Weight
+						</td>
+						<td>
+							@examination.Reason
+						</td>
+						<td>
+							@examination.DoctorName
+						</td>
+						<td>
+							@examination.Diagnosis
+						</td>
+						<td>
+							@examination.Surgery
+						</td>
+						<td>
+							@examination.Therapy
+						</td>
+					</tr>
+				}
+			</tbody>
+			</table>
+		}
+		else
+		{
+			<h3 class="text-center">No examinations yet!</h3>
+		}
+	</div>
+
 </div>
