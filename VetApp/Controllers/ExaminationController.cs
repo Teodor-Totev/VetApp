@@ -4,6 +4,7 @@
     using VetApp.Services.Interfaces;
     using VetApp.Web.ViewModels.Examination;
 	using VetApp.Web.ViewModels.Patient;
+	using VetApp.Web.ViewModels.Status;
 
 	public class ExaminationController : BaseController
 	{
@@ -24,7 +25,7 @@
 		{
             var patient = await patientService.GetPatientByIdAsync(patientId);
             var statuses = await statusService.GetStatusesAsync();
-            var model = new AddExaminationFM
+            var model = new ExaminationFM
             {
                 Patient = patient,
                 Statuses = statuses
@@ -33,7 +34,7 @@
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> Add(AddExaminationFM model, int patientId)
+        public async Task<IActionResult> Add(ExaminationFM model, int patientId)
         {
             string doctorId = base.GetUserId();
             await this.examinationService.AddAsync(model, patientId, doctorId);
@@ -55,7 +56,27 @@
 			return View(model);
 		}
 
-		[HttpGet]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int examinationId)
+        {
+            ExaminationFM model = await examinationService.GetExaminationByIdAsync(examinationId);
+			PatientVM patient = await patientService.GetPatientByIdAsync(model.PatientId);
+            ICollection<StatusVM> statuses = await statusService.GetStatusesAsync();
+			model.Patient = patient;
+            model.Statuses = statuses;
+
+			return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ExaminationFM model, int examinationId)
+        {
+            await examinationService.EditExaminationAsync(model, examinationId);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
 		public async Task<IActionResult> Dashboard()
 		{
 			var model = await examinationService.GetExaminationsGroupedByStatus();

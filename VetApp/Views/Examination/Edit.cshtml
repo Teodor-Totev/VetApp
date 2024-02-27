@@ -1,0 +1,117 @@
+﻿@model ExaminationFM
+
+@{
+	ViewBag.Title = "Edit Examination";
+}
+
+<div class="col-md-6" id="PatientInfo">
+	<partial name="_PatientPartialView" />
+</div>
+
+<div class="card border-secondary mb-3" style="margin: 10px 0px">
+	<h4 class="card-header">Create Examination</h4>
+	<form asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@Model.Id" method="post">
+		<div class="card-body pb-0">
+			<table class="table table-secondary">
+				<tbody>
+					<tr class="table-dark">
+						<td>
+							<dl class="row">
+								<dt class="col-sm-2">Doctor:</dt>
+								<dd class="col-sm-8">@Model.DoctorName</dd>
+							</dl>
+
+							<div class="mb-1">
+								<label asp-for="Weight" class="control-label"></label>
+								<input asp-for="Weight" class="form-control">
+								<span asp-validation-for="Weight" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="Reason" class="control-label"></label>
+								<input asp-for="Reason" class="form-control">
+								<span asp-validation-for="Reason" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="MedicalHistory" class="control-label">Medical history</label>
+								<input asp-for="MedicalHistory" class="form-control">
+								<span asp-validation-for="MedicalHistory" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="CurrentCondition" class="control-label">Current condition</label>
+								<input asp-for="CurrentCondition" class="form-control">
+								<span asp-validation-for="CurrentCondition" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="SpecificCondition" class="control-label">Specific condition</label>
+								<input asp-for="SpecificCondition" class="form-control">
+								<span asp-validation-for="SpecificCondition" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="Research" class="control-label"></label>
+								<input asp-for="Research" class="form-control">
+								<span asp-validation-for="Research" class="text-danger"></span>
+							</div>
+
+
+						</td>
+
+						<td>
+							<div class="mb-1">
+								<label asp-for="Diagnosis" class="control-label"></label>
+								<textarea asp-for="Diagnosis" class="form-control" rows="2"></textarea>
+								<span asp-validation-for="Diagnosis" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="Surgery" class="control-label"></label>
+								<textarea asp-for="Surgery" class="form-control" rows="2"></textarea>
+								<span asp-validation-for="Surgery" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="Therapy" class="control-label"></label>
+								<input asp-for="Therapy" class="form-control">
+								<span asp-validation-for="Therapy" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="Exit" class="control-label"></label>
+								<input asp-for="Exit" class="form-control">
+								<span asp-validation-for="Exit" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="NextExamination" class="control-label">Next examination</label>
+								<input asp-for="NextExamination" class="form-control">
+								<span asp-validation-for="NextExamination" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="StatusId" class="form-label">Status</label>
+								<select asp-for="StatusId" class="form-control">
+									@foreach (var status in Model.Statuses)
+									{
+										<option value="@status.Id">@status.Name</option>
+									}
+								</select>
+								<span asp-validation-for="StatusId" class="text-danger"></span>
+							</div>
+						</td>
+				</tbody>
+			</table>
+		</div>
+		<div class="card-footer d-flex align-items-center justify-content-end">
+			<button type="submit" class="btn btn-primary btn-sm">Save</button>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+

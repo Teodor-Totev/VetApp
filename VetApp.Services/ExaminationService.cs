@@ -1,15 +1,15 @@
 ﻿namespace VetApp.Services
 {
-    using System.Threading.Tasks;
+	using System.Threading.Tasks;
 
-    using Microsoft.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore;
 
-    using VetApp.Data;
-    using VetApp.Data.Models;
-    using VetApp.Services.Interfaces;
-    using VetApp.Web.ViewModels.Examination;
+	using VetApp.Data;
+	using VetApp.Data.Models;
+	using VetApp.Services.Interfaces;
+	using VetApp.Web.ViewModels.Examination;
 
-    public class ExaminationService : IExaminationService
+	public class ExaminationService : IExaminationService
     {
         private readonly VetAppDbContext context;
 
@@ -18,7 +18,7 @@
             this.context = context;
         }
 
-        public async Task AddAsync(AddExaminationFM model, int patientId, string doctorId)
+        public async Task AddAsync(ExaminationFM model, int patientId, string doctorId)
         {
             var patient = await context.Patients
                 .FindAsync(patientId);
@@ -65,7 +65,7 @@
         public async Task<ICollection<ExaminationVM>> GetPatientExaminationsAsync(int patientId)
         {
             return await context.Examinations
-                .Where(e => e.PatientId == patientId)
+                .Where(e => e.PatientId == patientId && e.Status.Name == "Done")
                 .Select(e => new ExaminationVM
                 {
                     Id = e.Id,
@@ -102,5 +102,58 @@
 
             return examinationsGroupedByStatus;
         }
-    }
+
+		public async Task<ExaminationFM> GetExaminationByIdAsync(int examinationId)
+		{
+            ExaminationFM examination = await this.context.Examinations
+                .Where(e => e.Id == examinationId)
+                .Select(e => new ExaminationFM()
+                {
+                    Id = e.Id,
+                    DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
+					Weight = e.Weight,
+					Reason = e.Reason,
+					CreatedOn = e.CreatedOn,
+					MedicalHistory = e.MedicalHistory,
+					CurrentCondition = e.CurrentCondition,
+					SpecificCondition = e.SpecificCondition,
+					Research = e.Research,
+					Diagnosis = e.Diagnosis,
+					Surgery = e.Surgery,
+					Therapy = e.Therapy,
+					Exit = e.Exit,
+					NextExamination = e.NextExamination,
+					StatusId = e.StatusId,
+                    PatientId = e.PatientId,
+				})
+                .FirstAsync();
+
+            return examination;
+		}
+
+		public async Task EditExaminationAsync(ExaminationFM model, int examinationId)
+		{
+            Examination targetExamination = await context.Examinations.FindAsync(examinationId);
+
+            if (targetExamination == null)
+            {
+                throw new InvalidOperationException("Examination does not exist");
+            }
+
+            targetExamination.Weight = model.Weight;
+			targetExamination.Reason = model.Reason;
+			targetExamination.MedicalHistory = model.MedicalHistory;
+			targetExamination.CurrentCondition = model.CurrentCondition;
+			targetExamination.SpecificCondition = model.SpecificCondition;
+			targetExamination.Research = model.Research;
+			targetExamination.Diagnosis = model.Diagnosis;
+			targetExamination.Surgery = model.Surgery;
+			targetExamination.Therapy = model.Therapy;
+			targetExamination.Exit = model.Exit;
+			targetExamination.NextExamination = model.NextExamination;
+            targetExamination.StatusId = model.StatusId;
+
+			await this.context.SaveChangesAsync();
+		}
+	}
 }
