@@ -19,7 +19,7 @@
 		public async Task CreateAsync(CreateVM model, Patient patient)
 		{
 			var existingOwner = await context.Owners
-				.FirstOrDefaultAsync(o => o.PhoneNumber == model.OwnerPhoneNumber && 
+				.FirstOrDefaultAsync(o => o.PhoneNumber == model.OwnerPhoneNumber &&
 										  o.Name == model.Name);
 
 			Owner newOwner = new Owner()
@@ -55,8 +55,25 @@
 			await context.SaveChangesAsync();
 		}
 
-		public async Task<ICollection<PatientVM>> GetAllPatientsAsync()
+		public async Task<ICollection<PatientVM>> GetAllPatientsAsync(string name)
 		{
+			if (name != null)
+			{
+
+				return await context.Patients
+					.Where(p => p.Name == name)
+					.Select(p => new PatientVM()
+					{
+						Id = p.Id,
+						Name = p.Name,
+						Type = p.Type,
+						Gender = p.Gender,
+						BirthDate = p.BirthDate,
+						Neutered = p.Neutered,
+					})
+					.ToArrayAsync();
+			}
+
 			return await context
 				.Patients
 				.Select(p => new PatientVM()
@@ -111,6 +128,6 @@
 				.ToArrayAsync();
 		}
 
-		
+
 	}
 }

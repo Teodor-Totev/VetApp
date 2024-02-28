@@ -4,40 +4,54 @@
 	ViewData["Title"] = "All Patients";
 }
 
-@if (!Model.Any())
-{
-	<h3 class="text-center">No patients yet!</h3>
-}
-else
-{ 
-	<table class="table table-secondary">
-		<thead>
-			<tr>
-				<th>
-					Name
-				</th>
-				<th>
-					Type
-				</th>
-				<th>
-					BirthDate
-				</th>
-				<th>
-					Gender
-				</th>
-				<th>
-					Neutered
-				</th>
-				<th>
-					Examinations
-				</th>
-				<th>
-					Details
-				</th>
-			</tr>
-		</thead>
-		<tbody id="Patients">
-			<partial name="_PatientAllPartialView" />
-		</tbody>
-	</table>
-} 
+<form class="d-flex" asp-controller="Patient" asp-action="All" method="post" style="max-width: 20rem; margin: 10px 0px">
+	<input class="form-control me-sm-2" type="search" pattern="[^\d\s]+" placeholder="Search by name" spellcheck="false" data-ms-editor="true" name="name">
+	<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+</form>
+
+<div class="card border-secondary mb-3" style="margin: 10px 0px">
+	<h3 class="card-header text-center">Patients</h3>
+	<div class="card-body">
+
+		@if (!Model.Any())
+		{
+			<h3 class="text-center">No patients yet!</h3>
+		}
+		else
+		{
+			<table class="table table-secondary">
+				<thead>
+					<tr>
+						<th>
+							Name
+						</th>
+						<th>
+							Type
+						</th>
+						<th>
+							BirthDate
+						</th>
+						<th>
+							Gender
+						</th>
+						<th>
+							Neutered
+						</th>
+						<th>
+							Add Examination
+						</th>
+						<th>
+							Edit
+						</th>
+						<th>
+							Details
+						</th>
+					</tr>
+				</thead>
+				<tbody id="Patients">
+					<partial name="_PatientAllPartialView" />
+				</tbody>
+			</table>
+		}
+	</div>
+</div>

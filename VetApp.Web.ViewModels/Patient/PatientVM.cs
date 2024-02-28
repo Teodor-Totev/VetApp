@@ -10,7 +10,6 @@
 
 		public string Type { get; set; } = null!;
 
-		[DataType(DataType.Date)]
 		public DateTime? BirthDate { get; set; }
 
 		public string? Microchip { get; set; }

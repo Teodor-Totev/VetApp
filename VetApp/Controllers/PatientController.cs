@@ -39,10 +39,9 @@ namespace VetApp.Controllers
 			return RedirectToAction("Add", "Examination", new { patientId = patient.Id });
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All(string name)
 		{
-            ICollection<PatientVM> model = await patientService.GetAllPatientsAsync();
+			ICollection<PatientVM> model = await patientService.GetAllPatientsAsync(name);
 
 			return View(model);
 		}

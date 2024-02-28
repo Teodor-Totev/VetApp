@@ -7,7 +7,7 @@
 	{
 		Task CreateAsync(CreateVM model, Patient patient);
 
-		Task<ICollection<PatientVM>> GetAllPatientsAsync();
+		Task<ICollection<PatientVM>> GetAllPatientsAsync(string name);
 
 		Task<ICollection<PatientVM>> GetUserPatientsAsync(string doctorId);
 

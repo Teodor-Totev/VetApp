@@ -11,61 +11,74 @@
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
 	<h4 class="card-header">Examinations</h4>
 	<div class="card-body">
-		@if (Model.Examinations.Any()){
-		<table class="table table-secondary">
-			<thead>
-				<tr>
-					<th>
-						Created On
-					</th>
-					<th>
-						Weight
-					</th>
-					<th>
-						Reason
-					</th>
-					<th>
-						Doctor
-					</th>
-					<th>
-						Diagnosis
-					</th>
-					<th>
-						Surgery
-					</th>
-					<th>
-						Therapy
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var examination in Model.Examinations)
-				{
-					<tr class="table-dark">
-						<td>
-							@examination.CreatedOn
-						</td>
-						<td>
-							@examination.Weight
-						</td>
-						<td>
-							@examination.Reason
-						</td>
-						<td>
-							@examination.DoctorName
-						</td>
-						<td>
-							@examination.Diagnosis
-						</td>
-						<td>
-							@examination.Surgery
-						</td>
-						<td>
-							@examination.Therapy
-						</td>
+		@if (Model.Examinations.Any())
+		{
+			<table class="table table-secondary">
+				<thead>
+					<tr>
+						<th>
+							Created On
+						</th>
+						<th>
+							Weight
+						</th>
+						<th>
+							Reason
+						</th>
+						<th>
+							Doctor
+						</th>
+						<th>
+							Diagnosis
+						</th>
+						<th>
+							Surgery
+						</th>
+						<th>
+							Therapy
+						</th>
+						<th>
+							Status
+						</th>
+						<th>
+							Details
+						</th>
 					</tr>
-				}
-			</tbody>
+				</thead>
+				<tbody>
+					@foreach (var examination in Model.Examinations)
+					{
+						<tr class="table-dark">
+							<td>
+								@examination.CreatedOn
+							</td>
+							<td>
+								@examination.Weight
+							</td>
+							<td>
+								@examination.Reason
+							</td>
+							<td>
+								@examination.DoctorName
+							</td>
+							<td>
+								@examination.Diagnosis
+							</td>
+							<td>
+								@examination.Surgery
+							</td>
+							<td>
+								@examination.Therapy
+							</td>
+							<td>
+								@examination.Status
+							</td>
+							<td>
+								<a class="btn btn-outline-primary text-white" asp-controller="Examination" asp-action="Details" asp-route-id="@examination.Id">Details</a>
+							</td>
+						</tr>
+					}
+				</tbody>
 			</table>
 		}
 		else
