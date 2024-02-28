@@ -10,10 +10,19 @@
 	<partial name="_PatientPartialView" />
 </div>
 
-<form method="post" enctype="multipart/form-data" asp-controller="Examination" asp-action="Upload">
-	<input type="file" name="files" multiple>
-	<button class="btn btn-primary btn-sm" type="submit" value="Upload">Upload</button>
-</form>
+<div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
+	<form method="post" enctype="multipart/form-data" asp-controller="Examination" asp-action="Upload" style="padding: 10px">
+		<div class="mb-3">
+			<input type="file" name="files" multiple class="form-control" />
+		</div>
+		<div class="mb-3">
+			<input class="btn btn-primary btn-sm" type="submit" value="Upload" />
+		</div>
+		<span class="text-success">
+			@ViewBag.FileMessage
+		</span>
+	</form>
+</div>
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
 	<h4 class="card-header">Create Examination</h4>
