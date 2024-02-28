@@ -65,7 +65,7 @@
         public async Task<ICollection<ExaminationVM>> GetPatientExaminationsAsync(int patientId)
         {
             return await context.Examinations
-                .Where(e => e.PatientId == patientId && e.Status.Name == "Done")
+                .Where(e => e.PatientId == patientId)
                 .Select(e => new ExaminationVM
                 {
                     Id = e.Id,
@@ -75,7 +75,8 @@
                     CreatedOn = e.CreatedOn,
                     DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
                     Surgery = e.Surgery,
-                    Therapy = e.Therapy
+                    Therapy = e.Therapy,
+                    Status = e.Status.Name
                 })
                 .ToArrayAsync();
         }

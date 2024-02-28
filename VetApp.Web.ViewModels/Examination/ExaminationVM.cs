@@ -20,5 +20,7 @@
 		public string? Surgery { get; set; }
 
 		public string? Therapy { get; set; }
-	}
+
+		public string Status { get; set; } = null!;
+    }
 }

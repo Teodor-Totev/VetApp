@@ -7,7 +7,7 @@
 	<h3 class="card-header text-center">Welcome, Doctor!</h3>
 	<div class="card-body">
 		<div class="row">
-			@foreach (var statusGroup in Model)
+			@foreach (var statusGroup in Model.Where(s => s.Key != "Done"))
 			{
 				<div class="col-md-4">
 					<h3 class="card-header">@statusGroup.Key</h3>

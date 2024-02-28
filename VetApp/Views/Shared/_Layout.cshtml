@@ -19,10 +19,7 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarColor01">
 					@await Component.InvokeAsync(nameof(MainMenuComponent))
-					<form class="d-flex" asp-controller="Owner" asp-action="All" method="post">
-						<input class="form-control me-sm-2" type="search" placeholder="Search" spellcheck="false" data-ms-editor="true" name="phoneNumber">
-						<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-					</form>
+					
 					<partial name="_LoginPartial" />
 				</div>
 			</div>
