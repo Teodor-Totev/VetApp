@@ -4,56 +4,72 @@
 	ViewData["Title"] = "Owner Patients";
 }
 
-@if (!Model.Any())
-{
-	<h3 class="text-center">No owners with this phone number</h3>
-}
-else
-{
-	<table class="table table-secondary">
-		<thead>
-			<tr>
-				<th>
-					Name
-				</th>
-				<th>
-					Address
-				</th>
-				<th>
-					PhoneNumber
-				</th>
-				<th>
-					Animals
-				</th>
-			</tr>
-		</thead>
-		@foreach (var owner in Model)
+<form class="d-flex" asp-controller="Owner" asp-action="All" method="post" style="max-width: 20rem; margin: 10px 0px">
+	<input class="form-control me-sm-2" type="search" pattern="\d*" placeholder="Search by phone number" spellcheck="false" data-ms-editor="true" name="phoneNumber">
+	<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+</form>
+
+<div class="card border-secondary mb-3" style="margin: 10px 0px">
+	<h3 class="card-header text-center">Owners</h3>
+	<div class="card-body">
+		@if (!Model.Any())
 		{
-			<tbody>
-				<tr class="table-dark">
-					<td>
-						@owner.OwnerName
-					</td>
-					<td>
-						@owner.Address
-					</td>
-					<td>
-						@owner.PhoneNumber
-					</td>
-					<td>
-						<select class="form-control" style="max-width: 8em" onclick="handlePatientSelection(this)">
-							<option value="">Select a patient</option>
-							@foreach (var patient in owner.Patients)
-							{
-								<option value="@patient.Id">@patient.Name</option>
-							}
-						</select>
-					</td>
-				</tr>
-			</tbody>
+			<h3 class="text-center">No owners with this phone number</h3>
 		}
-	</table>
-}
+		else
+		{
+			<table class="table table-secondary">
+				<thead>
+					<tr>
+						<th>
+							Name
+						</th>
+						<th>
+							Address
+						</th>
+						<th>
+							PhoneNumber
+						</th>
+						<th>
+							Animals
+						</th>
+						<th>
+							Add pet
+						</th>
+					</tr>
+				</thead>
+				@foreach (var owner in Model)
+				{
+					<tbody>
+						<tr class="table-dark">
+							<td>
+								@owner.OwnerName
+							</td>
+							<td>
+								@owner.Address
+							</td>
+							<td>
+								@owner.PhoneNumber
+							</td>
+							<td>
+								<select class="form-control" style="max-width: 8em" onclick="handlePatientSelection(this)">
+									<option value="">Select a patient</option>
+									@foreach (var patient in owner.Patients)
+									{
+										<option value="@patient.Id">@patient.Name</option>
+									}
+								</select>
+							</td>
+							<td>
+								<a class="btn btn-outline-primary text-white" asp-controller="Examination" asp-action="Details" asp-route-id="">Add</a>
+							</td>
+						</tr>
+					</tbody>
+				}
+			</table>
+		}
+	</div>
+</div>
 
 @section scripts {
 	<script>

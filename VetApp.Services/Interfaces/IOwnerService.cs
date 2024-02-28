@@ -4,6 +4,6 @@
 
 	public interface IOwnerService
 	{
-		Task<ICollection<OwnerPatient>> GetOwnersWithTheirPatientsByPhoneNumberAsync(string phoneNumber);
+		Task<ICollection<OwnerPatient>> GetOwnersAsync(string phoneNumber);
 	}
 }

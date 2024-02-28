@@ -12,10 +12,9 @@
             this.ownerService = ownerService;
         }
 
-		[HttpPost]
         public async Task<IActionResult> All(string phoneNumber)
 		{
-			var model = await ownerService.GetOwnersWithTheirPatientsByPhoneNumberAsync(phoneNumber);
+			var model = await ownerService.GetOwnersAsync(phoneNumber);
 
 			return View(model);
 		}
