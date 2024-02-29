@@ -8,7 +8,7 @@
 	@if (User.Identity?.IsAuthenticated ?? false)
 	{
 		<li class="nav-item">
-			<a class="nav-link active" asp-controller="Patient" asp-action="Create">Create</a>
+			<a class="nav-link active" asp-controller="Patient" asp-action="Add">Create</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link active" asp-controller="Patient" asp-action="All">Patients</a>
@@ -16,15 +16,5 @@
 		<li class="nav-item">
 			<a class="nav-link active" asp-controller="Owner" asp-action="All">Owners</a>
 		</li>
-		@* <li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Statuses</a>
-			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">In Progress</a>
-				<a class="dropdown-item" href="#">Hospital</a>
-				<a class="dropdown-item" href="#">Done</a>
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">Separated link</a>
-			</div>
-		</li> *@
 	}
 </ul>

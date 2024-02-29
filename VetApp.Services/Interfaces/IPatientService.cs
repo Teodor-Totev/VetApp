@@ -5,12 +5,10 @@
 
 	public interface IPatientService
 	{
-		Task CreateAsync(CreateVM model, Patient patient);
+		Task CreateAsync(PatientFormModel model, Patient patient);
 
-		Task<ICollection<PatientVM>> GetAllPatientsAsync(string name);
+		Task<ICollection<PatientViewModel>> GetAllPatientsAsync(string patientName, string ownerName, string doctorId);
 
-		Task<ICollection<PatientVM>> GetUserPatientsAsync(string doctorId);
-
-		Task<PatientVM> GetPatientByIdAsync(int patientId);
+		Task<PatientViewModel> GetPatientByIdAsync(int patientId);
 	}
 }

@@ -18,13 +18,13 @@ namespace VetApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Add()
         {
 			return View();
         }
 
 		[HttpPost]
-		public async Task<IActionResult> Create(CreateVM model)
+		public async Task<IActionResult> Add(CreateViewModel model)
 		{
             if (!ModelState.IsValid)
             {
@@ -39,30 +39,21 @@ namespace VetApp.Controllers
 			return RedirectToAction("Add", "Examination", new { patientId = patient.Id });
 		}
 
-		public async Task<IActionResult> All(string name)
+		public async Task<IActionResult> All(string patientName, string ownerName, string doctorId)
 		{
-			ICollection<PatientVM> model = await patientService.GetAllPatientsAsync(name);
+			ICollection<PatientViewModel> model = await patientService.GetAllPatientsAsync(patientName, ownerName, doctorId);
+			ViewBag.UserId = base.GetUserId();
 
 			return View(model);
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> MyPatients()
+		public async Task<IActionResult> Details(int patientId)
 		{
-			var userId = GetUserId();
-			ICollection<PatientVM> model = await patientService.GetUserPatientsAsync(userId);
+			PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
+			ICollection<ExaminationViewModel> examinations = await examinationService.GetPatientExaminationsAsync(patientId);
 
-			return View(model);
-		}
-
-		[HttpGet]
-		//This method receive patientId
-		public async Task<IActionResult> Details(int id)
-		{
-			PatientVM patient = await patientService.GetPatientByIdAsync(id);
-			ICollection<ExaminationVM> examinations = await examinationService.GetPatientExaminationsAsync(id);
-
-			PatientDetailVM model = new PatientDetailVM()
+			PatientDetailsViewModel model = new PatientDetailsViewModel()
 			{
 				Patient = patient,
 				Examinations = examinations

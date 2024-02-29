@@ -1,8 +1,6 @@
 ﻿namespace VetApp.Web.ViewModels.Patient
 {
-	using System.ComponentModel.DataAnnotations;
-
-	public class PatientVM
+	public class PatientViewModel
 	{
 		public int Id { get; set; }
 
@@ -21,5 +19,9 @@
 		public string? Characteristics { get; set; }
 
 		public string? ChronicIllnesses { get; set; }
-	}
+
+		public string OwnerId { get; set; } = null!;
+
+		public string DoctorId { get; set; } = null!;
+    }
 }

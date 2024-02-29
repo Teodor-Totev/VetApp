@@ -1,12 +1,12 @@
-﻿@model CreateVM
+﻿@model PatientFormModel
 
 @{
 	ViewData["Title"] = "Create Patient";
 }
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
-	<h4 class="card-header text-center">Create Patient</h4>
-	<form asp-action="Create" asp-controller="Patient" method="post">
+	<h4 class="card-header text-center">Add Patient</h4>
+	<form asp-action="Add" asp-controller="Patient" method="post">
 		<div class="card-body">
 			<table class="table table-secondary">
 				<thead>
@@ -76,27 +76,27 @@
 						</td>
 						<td>
 							<div class="mb-1">
-								<label asp-for="OwnerName" class="control-label"></label>
-								<input asp-for="OwnerName" class="form-control" placeholder="Name">
-								<span asp-validation-for="OwnerName" class="text-danger"></span>
+								<label asp-for="@Model.Owner.Name" class="control-label"></label>
+								<input asp-for="@Model.Owner.Name" class="form-control" placeholder="Name">
+								<span asp-validation-for="@Model.Owner.Name" class="text-danger"></span>
 							</div>
 
 							<div class="mb-1">
-								<label asp-for="OwnerEmail" class="control-label">Email</label>
-								<input asp-for="OwnerEmail" class="form-control" placeholder="Email">
-								<span asp-validation-for="OwnerEmail" class="text-danger"></span>
+								<label asp-for="@Model.Owner.Email" class="control-label">Email</label>
+								<input asp-for="@Model.Owner.Email" class="form-control" placeholder="Email">
+								<span asp-validation-for="@Model.Owner.Email" class="text-danger"></span>
 							</div>
 
 							<div class="mb-1">
-								<label asp-for="OwnerPhoneNumber" class="control-label"></label>
-								<input asp-for="OwnerPhoneNumber" class="form-control" placeholder="Phone Number">
-								<span asp-validation-for="OwnerPhoneNumber" class="text-danger"></span>
+								<label asp-for="@Model.Owner.PhoneNumber" class="control-label"></label>
+								<input asp-for="@Model.Owner.PhoneNumber" class="form-control" placeholder="Phone Number">
+								<span asp-validation-for="@Model.Owner.PhoneNumber" class="text-danger"></span>
 							</div>
 
 							<div class="mb-1">
-								<label asp-for="OwnerAddress" class="control-label"></label>
-								<input asp-for="OwnerAddress" class="form-control" placeholder="Address">
-								<span asp-validation-for="OwnerAddress" class="text-danger"></span>
+								<label asp-for="@Model.Owner.Address" class="control-label"></label>
+								<input asp-for="@Model.Owner.Address" class="form-control" placeholder="Address">
+								<span asp-validation-for="@Model.Owner.Address" class="text-danger"></span>
 							</div>
 						</td>
 				</tbody>

@@ -1,11 +1,11 @@
-﻿@model PatientDetailVM
+﻿@model PatientDetailsViewModel
 
 @{
 	ViewData["Title"] = "Patient Info";
 }
 
 <div class="col-md-6" id="PatientInfo">
-	<partial name="_PatientPartialView" />
+	<partial name="_PatientPartial" />
 </div>
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
@@ -20,22 +20,10 @@
 							Created On
 						</th>
 						<th>
-							Weight
-						</th>
-						<th>
 							Reason
 						</th>
 						<th>
 							Doctor
-						</th>
-						<th>
-							Diagnosis
-						</th>
-						<th>
-							Surgery
-						</th>
-						<th>
-							Therapy
 						</th>
 						<th>
 							Status
@@ -50,10 +38,7 @@
 					{
 						<tr class="table-dark">
 							<td>
-								@examination.CreatedOn
-							</td>
-							<td>
-								@examination.Weight
+								@examination.CreatedOn.ToString("dd/MM/yyyy")
 							</td>
 							<td>
 								@examination.Reason
@@ -62,19 +47,10 @@
 								@examination.DoctorName
 							</td>
 							<td>
-								@examination.Diagnosis
-							</td>
-							<td>
-								@examination.Surgery
-							</td>
-							<td>
-								@examination.Therapy
-							</td>
-							<td>
 								@examination.Status
 							</td>
 							<td>
-								<a class="btn btn-outline-primary text-white" asp-controller="Examination" asp-action="Details" asp-route-id="@examination.Id">Details</a>
+								<a class="btn btn-outline-primary text-white" asp-controller="Examination" asp-action="Details" asp-route-examinationId="@examination.Id">Details</a>
 							</td>
 						</tr>
 					}

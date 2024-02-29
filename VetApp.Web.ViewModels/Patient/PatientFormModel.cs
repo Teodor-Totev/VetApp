@@ -2,12 +2,13 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
-	using static Common.EntityValidationConstants.PatientValidations;
-	using static Common.EntityValidationConstants.OwnerValidations;
+	using static Common.ViewModelValidationConstants.PatientViewModelConstants;
+	using static Common.ViewModelValidationConstants.OwnerViewModelConstants;
+	using VetApp.Web.ViewModels.Owner;
 
-	public class CreateVM
+	public class PatientFormModel
 	{
-		public CreateVM()
+		public PatientFormModel()
 		{
 		}
 
@@ -40,23 +41,6 @@
 
 		public string? ChronicIllnesses { get; set; }
 
-		[Required]
-		[StringLength(OwnerNameMaxLength, MinimumLength = OwnerNameMinLength)]
-		[Display(Name = "Name")]
-		public string OwnerName { get; set; } = null!;
-
-		[Required]
-		[StringLength(OwnerAddressMaxLength, MinimumLength = OwnerAddressMinLength)]
-		[Display(Name = "Address")]
-		public string OwnerAddress { get; set; } = null!;
-
-		[Required]
-		[StringLength(OwnerPhoneMaxLength, MinimumLength = OwnerPhoneMinLength)]
-		[Display(Name = "PhoneNumber")]
-		public string OwnerPhoneNumber { get; set; } = null!;
-
-		[DataType(DataType.EmailAddress)]
-		[Display(Name = "Email")]
-		public string? OwnerEmail { get; set; }
-	}
+		public OwnerFormModel Owner { get; set; } = null!;
+    }
 }

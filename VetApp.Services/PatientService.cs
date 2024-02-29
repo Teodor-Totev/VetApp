@@ -16,18 +16,18 @@
 			this.context = context;
 		}
 
-		public async Task CreateAsync(CreateVM model, Patient patient)
+		public async Task CreateAsync(PatientFormModel model, Patient patient)
 		{
 			var existingOwner = await context.Owners
-				.FirstOrDefaultAsync(o => o.PhoneNumber == model.OwnerPhoneNumber &&
+				.FirstOrDefaultAsync(o => o.PhoneNumber == model.Owner.PhoneNumber &&
 										  o.Name == model.Name);
 
 			Owner newOwner = new Owner()
 			{
-				PhoneNumber = model.OwnerPhoneNumber,
-				Address = model.OwnerAddress,
-				Name = model.OwnerName,
-				Email = model.OwnerEmail,
+				PhoneNumber = model.Owner.PhoneNumber,
+				Address = model.Owner.Address,
+				Name = model.Owner.Name,
+				Email = model.Owner.Email,
 			};
 
 			patient.Name = model.Name;
@@ -55,28 +55,27 @@
 			await context.SaveChangesAsync();
 		}
 
-		public async Task<ICollection<PatientVM>> GetAllPatientsAsync(string name)
+		public async Task<ICollection<PatientViewModel>> GetAllPatientsAsync(string patientName, string ownerName, string doctorId)
 		{
-			if (name != null)
-			{
+			IQueryable<Patient> query = context.Patients;
 
-				return await context.Patients
-					.Where(p => p.Name == name)
-					.Select(p => new PatientVM()
-					{
-						Id = p.Id,
-						Name = p.Name,
-						Type = p.Type,
-						Gender = p.Gender,
-						BirthDate = p.BirthDate,
-						Neutered = p.Neutered,
-					})
-					.ToArrayAsync();
+			if (!string.IsNullOrEmpty(patientName))
+			{
+				query = query.Where(p => p.Name == patientName);
 			}
 
-			return await context
-				.Patients
-				.Select(p => new PatientVM()
+			if (!string.IsNullOrEmpty(ownerName))
+			{
+				query = query.Where(p => p.Owner.Name == ownerName);
+			}
+
+			if (!string.IsNullOrEmpty(doctorId))
+			{
+				query = query.Where(p => p.PatientsUsers.Any(pu => pu.DoctorId.ToString() == doctorId));
+			}
+
+			return await query
+				.Select(p => new PatientViewModel()
 				{
 					Id = p.Id,
 					Name = p.Name,
@@ -84,15 +83,16 @@
 					Gender = p.Gender,
 					BirthDate = p.BirthDate,
 					Neutered = p.Neutered,
+					OwnerId = p.OwnerId.ToString(),
 				})
 				.ToArrayAsync();
 		}
 
-		public async Task<PatientVM> GetPatientByIdAsync(int patientId)
+		public async Task<PatientViewModel> GetPatientByIdAsync(int patientId)
 		{
-			PatientVM patient = await context.Patients
+			PatientViewModel patient = await context.Patients
 				.Where(p => p.Id == patientId)
-				.Select(p => new PatientVM()
+				.Select(p => new PatientViewModel()
 				{
 					Id = p.Id,
 					Name = p.Name,
@@ -108,26 +108,5 @@
 
 			return patient;
 		}
-
-
-
-		public async Task<ICollection<PatientVM>> GetUserPatientsAsync(string doctorId)
-		{
-			return await context.Patients
-				.Where(p => p.PatientsUsers.Any(pu => pu.DoctorId.ToString() == doctorId))
-				.Select(p => new PatientVM()
-				{
-					Id = p.Id,
-					Name = p.Name,
-					Type = p.Type,
-					Gender = p.Gender,
-					BirthDate = p.BirthDate,
-					Microchip = p.Microchip,
-					Neutered = p.Neutered,
-				})
-				.ToArrayAsync();
-		}
-
-
 	}
 }

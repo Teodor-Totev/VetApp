@@ -1,16 +1,23 @@
-﻿@model ICollection<PatientVM>
+﻿@model ICollection<PatientViewModel>
 
 @{
 	ViewData["Title"] = "All Patients";
+	string doctorId = ViewBag.UserId;
 }
 
 <form class="d-flex" asp-controller="Patient" asp-action="All" method="post" style="max-width: 20rem; margin: 10px 0px">
-	<input class="form-control me-sm-2" type="search" pattern="[^\d\s]+" placeholder="Search by name" spellcheck="false" data-ms-editor="true" name="name">
+	<input class="form-control me-sm-2" type="search" pattern="[^\d\s]+" placeholder="Search by name" spellcheck="false" data-ms-editor="true" name="patientName">
 	<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 </form>
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
-	<h3 class="card-header text-center">Patients</h3>
+	<h3 class="card-header text-center">
+		Patients
+		<span class="float-end">
+			<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="All" asp-route-doctorId="@doctorId">Mine</a>
+		</span>
+	</h3>
+
 	<div class="card-body">
 
 		@if (!Model.Any())
@@ -49,7 +56,7 @@
 					</tr>
 				</thead>
 				<tbody id="Patients">
-					<partial name="_PatientAllPartialView" />
+					<partial name="_PatientAllPartial" />
 				</tbody>
 			</table>
 		}
