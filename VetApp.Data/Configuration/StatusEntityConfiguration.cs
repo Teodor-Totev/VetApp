@@ -38,6 +38,13 @@
 			};
 			statuses.Add(status);
 
+			status = new()
+			{
+				Id = 4,
+				Name = "New",
+			};
+			statuses.Add(status);
+
 			return statuses.ToArray();
 		}
 	}

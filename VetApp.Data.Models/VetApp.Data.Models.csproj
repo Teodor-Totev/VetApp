@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VetApp.Common\VetApp.Common.csproj" />
+    <ProjectReference Include="..\VetApp.Data.Common\VetApp.Data.Common.csproj" />
   </ItemGroup>
 
 </Project>

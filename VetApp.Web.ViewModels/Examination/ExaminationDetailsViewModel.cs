@@ -1,6 +1,6 @@
 ﻿namespace VetApp.Web.ViewModels.Examination
 {
-	public class ExaminationDetails
+	public class ExaminationDetailsViewModel
 	{
 		public int Id { get; set; }
 

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VetApp.Data.Models\VetApp.Data.Models.csproj" />
     <ProjectReference Include="..\VetApp.Data\VetApp.Data.csproj" />
     <ProjectReference Include="..\VetApp.Web.ViewModels\VetApp.Web.ViewModels.csproj" />
   </ItemGroup>

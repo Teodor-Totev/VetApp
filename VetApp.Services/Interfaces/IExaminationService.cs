@@ -4,14 +4,14 @@
 
     public interface IExaminationService
 	{
-		Task AddAsync(ExaminationFM model, int patientId, string doctorId);
+		Task AddAsync(ExaminationFormModel model, int patientId, string doctorId);
 
-		Task<ICollection<ExaminationVM>> GetPatientExaminationsAsync(int patientId);
+		Task<ICollection<ExaminationViewModel>> GetPatientExaminationsAsync(int patientId);
 
-        Task<Dictionary<string, List<ExaminationDashboardVM>>> GetExaminationsGroupedByStatus();
+        Task<Dictionary<string, List<ExaminationDashboardViewModel>>> GetExaminationsGroupedByStatus();
 
-		Task<ExaminationFM> GetExaminationByIdAsync(int examinationId);
+		Task<ExaminationFormModel> GetExaminationByIdAsync(int examinationId);
 
-		Task EditExaminationAsync(ExaminationFM model, int examinationId);
+		Task EditExaminationAsync(ExaminationFormModel model, int examinationId);
 	}
 }

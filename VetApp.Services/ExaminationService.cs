@@ -18,7 +18,7 @@
             this.context = context;
         }
 
-        public async Task AddAsync(ExaminationFM model, int patientId, string doctorId)
+        public async Task AddAsync(ExaminationFormModel model, int patientId, string doctorId)
         {
             var patient = await context.Patients
                 .FindAsync(patientId);
@@ -40,7 +40,6 @@
                 Surgery = model.Surgery,
                 Therapy = model.Therapy,
                 Exit = model.Exit,
-                NextExamination = model.NextExamination,
                 StatusId = model.StatusId,
                 PatientId = patientId,
             };
@@ -62,11 +61,11 @@
             await context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<ExaminationVM>> GetPatientExaminationsAsync(int patientId)
+        public async Task<ICollection<ExaminationViewModel>> GetPatientExaminationsAsync(int patientId)
         {
             return await context.Examinations
                 .Where(e => e.PatientId == patientId)
-                .Select(e => new ExaminationVM
+                .Select(e => new ExaminationViewModel
                 {
                     Id = e.Id,
                     Weight = e.Weight,
@@ -81,7 +80,7 @@
                 .ToArrayAsync();
         }
 
-        public async Task<Dictionary<string, List<ExaminationDashboardVM>>> GetExaminationsGroupedByStatus()
+        public async Task<Dictionary<string, List<ExaminationDashboardViewModel>>> GetExaminationsGroupedByStatus()
         {
 
             var examinations = await context.Examinations
@@ -92,7 +91,7 @@
 
             var examinationsGroupedByStatus = examinations
                 .GroupBy(e => e.Status.Name)
-                .ToDictionary(g => g.Key, g => g.Select(e => new ExaminationDashboardVM
+                .ToDictionary(g => g.Key, g => g.Select(e => new ExaminationDashboardViewModel
                 {
                     Id = e.Id,
                     PatientId = e.PatientId,
@@ -104,11 +103,11 @@
             return examinationsGroupedByStatus;
         }
 
-		public async Task<ExaminationFM> GetExaminationByIdAsync(int examinationId)
+		public async Task<ExaminationFormModel> GetExaminationByIdAsync(int examinationId)
 		{
-            ExaminationFM examination = await this.context.Examinations
+            ExaminationFormModel examination = await this.context.Examinations
                 .Where(e => e.Id == examinationId)
-                .Select(e => new ExaminationFM()
+                .Select(e => new ExaminationFormModel()
                 {
                     Id = e.Id,
                     DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
@@ -123,7 +122,6 @@
 					Surgery = e.Surgery,
 					Therapy = e.Therapy,
 					Exit = e.Exit,
-					NextExamination = e.NextExamination,
 					StatusId = e.StatusId,
                     PatientId = e.PatientId,
 				})
@@ -132,7 +130,7 @@
             return examination;
 		}
 
-		public async Task EditExaminationAsync(ExaminationFM model, int examinationId)
+		public async Task EditExaminationAsync(ExaminationFormModel model, int examinationId)
 		{
             Examination targetExamination = await context.Examinations.FindAsync(examinationId);
 
@@ -151,7 +149,6 @@
 			targetExamination.Surgery = model.Surgery;
 			targetExamination.Therapy = model.Therapy;
 			targetExamination.Exit = model.Exit;
-			targetExamination.NextExamination = model.NextExamination;
             targetExamination.StatusId = model.StatusId;
 
 			await this.context.SaveChangesAsync();

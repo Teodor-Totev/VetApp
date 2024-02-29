@@ -41,8 +41,6 @@
         [MaxLength(TextMaxLength)]
         public string? Exit { get; set; }
 
-        public DateTime? NextExamination { get; set; }
-
         public int StatusId { get; set; }
 
         [ForeignKey(nameof(StatusId))]

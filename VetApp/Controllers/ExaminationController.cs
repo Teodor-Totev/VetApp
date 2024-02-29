@@ -29,7 +29,7 @@
 		{
 			var patient = await patientService.GetPatientByIdAsync(patientId);
 			var statuses = await statusService.GetStatusesAsync();
-			var model = new ExaminationFM
+			var model = new ExaminationFormModel
 			{
 				Patient = patient,
 				Statuses = statuses
@@ -38,7 +38,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Add(ExaminationFM model, int patientId)
+		public async Task<IActionResult> Add(ExaminationFormModel model, int patientId)
 		{
 			string doctorId = base.GetUserId();
 			await this.examinationService.AddAsync(model, patientId, doctorId);
@@ -49,9 +49,9 @@
 		[HttpGet]
 		public async Task<IActionResult> All(int patientId)
 		{
-			IEnumerable<ExaminationVM> patientExaminations = await examinationService.GetPatientExaminationsAsync(patientId);
+			IEnumerable<ExaminationViewModel> patientExaminations = await examinationService.GetPatientExaminationsAsync(patientId);
 
-			var model = new PatientExaminationVM
+			var model = new PatientExaminationViewModel
 			{
 				Id = patientId,
 				Examinations = patientExaminations
@@ -63,8 +63,8 @@
 		[HttpGet]
 		public async Task<IActionResult> Edit(int examinationId)
 		{
-			ExaminationFM model = await examinationService.GetExaminationByIdAsync(examinationId);
-			PatientVM patient = await patientService.GetPatientByIdAsync(model.PatientId);
+			ExaminationFormModel model = await examinationService.GetExaminationByIdAsync(examinationId);
+			PatientViewModel patient = await patientService.GetPatientByIdAsync(model.PatientId);
 			ICollection<StatusVM> statuses = await statusService.GetStatusesAsync();
 			model.Patient = patient;
 			model.Statuses = statuses;
@@ -73,7 +73,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(ExaminationFM model, int examinationId)
+		public async Task<IActionResult> Edit(ExaminationFormModel model, int examinationId)
 		{
 			await examinationService.EditExaminationAsync(model, examinationId);
 

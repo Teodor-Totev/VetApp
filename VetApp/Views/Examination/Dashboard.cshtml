@@ -1,4 +1,4 @@
-﻿@model Dictionary<string, List<ExaminationDashboardVM>>
+﻿@model Dictionary<string, List<ExaminationDashboardViewModel>>
 
 @{
 	ViewData["Title"] = "Doctor Dashboard";
@@ -17,9 +17,8 @@
 							<li class="list-group-item d-flex justify-content-between align-items-center">
 								<p class="mb-0">@examination.DoctorName | @examination.PatientName - @examination.PatientType</p>
 								<p class="mb-0">
-									<a class="btn btn-info btn-sm" asp-action="Details" asp-controller="Patient" asp-route-id="@examination.PatientId">Details</a>
-									@if (statusGroup.Key == "In Progress" ||
-														statusGroup.Key == "Hospital")
+									<a class="btn btn-info btn-sm" asp-action="Details" asp-controller="Patient" asp-route-patientId="@examination.PatientId">Details</a>
+									@if (statusGroup.Key != "Done")
 									{
 										<a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id">Edit</a>
 									}

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VetApp.Data.Common\VetApp.Data.Common.csproj" />
     <ProjectReference Include="..\VetApp.Data.Models\VetApp.Data.Models.csproj" />
   </ItemGroup>
 

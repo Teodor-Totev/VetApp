@@ -1,31 +1,33 @@
-﻿@{
+﻿@model ExaminationViewModel
+
+@{
 	ViewData["Title"] = "Examination Details";
 }
 
 <div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
-	<h4 class="card-header">@Model.Patient.Name</h4>
+	<h4 class="card-header">@Model.Status</h4>
 	<div class="card-body">
 		<dl class="row">
-			<dt class="col-sm-5 card-title">Weight:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Type</dd>
+			<dt class="col-sm-5 card-title">Created On:</dt>
+			<dd class="col-sm-5 card-text">@Model.CreatedOn.ToString("dd/MM/yyyy")</dd>
 
 			<dt class="col-sm-5 card-title">BirthDate:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.BirthDate</dd>
+			<dd class="col-sm-5 card-text">@Model.Weight</dd>
 
 			<dt class="col-sm-5 card-title">Gender:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Gender</dd>
+			<dd class="col-sm-5 card-text">@Model.Reason</dd>
 
 			<dt class="col-sm-5 card-title">Neutered:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Neutered</dd>
+			<dd class="col-sm-5 card-text">@Model.DoctorName</dd>
 
 			<dt class="col-sm-5 card-title">Microchip:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Microchip</dd>
+			<dd class="col-sm-5 card-text">@Model.Diagnosis</dd>
 
 			<dt class="col-sm-5 card-title">ChronicIllnesses:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.ChronicIllnesses</dd>
+			<dd class="col-sm-5 card-text">@Model.Surgery</dd>
 
 			<dt class="col-sm-5 card-title">Characteristics:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Characteristics</dd>
+			<dd class="col-sm-5 card-text">@Model.Therapy</dd>
 		</dl>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 	using VetApp.Web.ViewModels.Patient;
     using VetApp.Web.ViewModels.Status;
 
-    public class ExaminationDashboardVM
+    public class ExaminationDashboardViewModel
 	{
         public int Id { get; set; }
 
