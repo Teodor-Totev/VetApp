@@ -1,10 +1,10 @@
 ﻿namespace VetApp.Web.ViewModels.Patient
 {
-	public class OwnerPatient
+	public class OwnerViewModel
 	{
-		public OwnerPatient()
+		public OwnerViewModel()
 		{
-			this.Patients = new HashSet<PatientVM>();
+			this.Patients = new HashSet<PatientViewModel>();
 		}
 
 		public int Id { get; set; }
@@ -15,6 +15,6 @@
 
 		public string PhoneNumber { get; set; } = null!;
 
-		public IEnumerable<PatientVM> Patients { get; set; }
+		public IEnumerable<PatientViewModel> Patients { get; set; }
     }
 }

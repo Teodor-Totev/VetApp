@@ -1,9 +1,9 @@
 ﻿namespace VetApp.Web.ViewModels.Account
 {
     using System.ComponentModel.DataAnnotations;
-    using static Common.ValidationConstants.LoginViewModel;
+    using static Common.ViewModelValidationConstants.LoginViewModelConstants;
 
-    public class LoginVM
+    public class LoginViewModel
     {
         [Required(ErrorMessage = "Name is required")]
 		[StringLength(UsernameMaxLength, MinimumLength = UsernameMinLength, 

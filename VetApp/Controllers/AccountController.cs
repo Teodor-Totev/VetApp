@@ -21,11 +21,11 @@ public class AccountController : Controller
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> Login(string returnUrl = null)
+	public async Task<IActionResult> Login(string? returnUrl = null)
 	{
 		await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-		LoginVM loginVM = new LoginVM()
+		LoginViewModel loginVM = new LoginViewModel()
 		{
 			ReturnUrl = returnUrl
 		};
@@ -34,7 +34,7 @@ public class AccountController : Controller
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Login(LoginVM model)
+	public async Task<IActionResult> Login(LoginViewModel model)
 	{
 		if (!ModelState.IsValid)
 		{
@@ -63,7 +63,7 @@ public class AccountController : Controller
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Register(RegisterVM model)
+	public async Task<IActionResult> Register(RegisterViewModel model)
 	{
 		if (!ModelState.IsValid)
 		{

@@ -1,9 +1,9 @@
 ﻿namespace VetApp.Web.ViewModels.Account
 {
     using System.ComponentModel.DataAnnotations;
-	using static Common.ValidationConstants.RegisterViewModel;
+	using static Common.ViewModelValidationConstants.RegisterViewModelConstants;
 
-	public class RegisterVM
+	public class RegisterViewModel
     {
         [Required]
 		[StringLength(UsernameMaxLength, MinimumLength = UsernameMinLength,

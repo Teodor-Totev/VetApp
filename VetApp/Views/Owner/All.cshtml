@@ -1,4 +1,4 @@
-﻿@model ICollection<OwnerPatient>
+﻿@model ICollection<OwnerViewModel>
 
 @{
 	ViewData["Title"] = "Owner Patients";
@@ -52,16 +52,10 @@
 								@owner.PhoneNumber
 							</td>
 							<td>
-								<select class="form-control" style="max-width: 8em" onclick="handlePatientSelection(this)">
-									<option value="">Select a patient</option>
-									@foreach (var patient in owner.Patients)
-									{
-										<option value="@patient.Id">@patient.Name</option>
-									}
-								</select>
+								<a class="btn btn-outline-info text-white" asp-controller="Patient" asp-action="All" asp-route-ownerName="@owner.OwnerName">Animals</a>
 							</td>
 							<td>
-								<a class="btn btn-outline-primary text-white" asp-controller="Examination" asp-action="Details" asp-route-id="">Add</a>
+								<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="Add" asp-route-id="">Add</a>
 							</td>
 						</tr>
 					</tbody>
@@ -70,17 +64,3 @@
 		}
 	</div>
 </div>
-
-@section scripts {
-	<script>
-		function handlePatientSelection(selectElement) {
-			var selectedPatientId = selectElement.value;
-			// Perform actions based on the selected patient ID
-			// For example, display patient details or navigate to patient page
-			if (selectedPatientId) {
-				// Redirect to the patient details page
-				window.location.href = '/Patient/Details/' + selectedPatientId;
-			}
-		}
-	</script>
-} 

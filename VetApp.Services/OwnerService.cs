@@ -15,20 +15,20 @@
 			this.context = context;
 		}
 
-		public async Task<ICollection<OwnerPatient>> GetOwnersAsync(string phoneNumber)
+		public async Task<ICollection<OwnerViewModel>> GetOwnersAsync(string phoneNumber)
 		{
 			if (phoneNumber != null)
 			{
 				return await context.Owners
 				.Where(o => o.PhoneNumber.Contains(phoneNumber))
-				.Select(o => new OwnerPatient()
+				.Select(o => new OwnerViewModel()
 				{
 					OwnerName = o.Name,
 					Address = o.Address,
 					PhoneNumber = o.PhoneNumber,
 					Patients = context.Patients
 					.Where(p => p.OwnerId == o.Id)
-					.Select(p => new PatientVM()
+					.Select(p => new PatientViewModel()
 					{
 						Id = p.Id,
 						Name = p.Name,
@@ -42,14 +42,14 @@
 			}
 
 			return await context.Owners
-				.Select(o => new OwnerPatient()
+				.Select(o => new OwnerViewModel()
 				{
 					OwnerName = o.Name,
 					Address = o.Address,
 					PhoneNumber = o.PhoneNumber,
 					Patients = context.Patients
 					.Where(p => p.OwnerId == o.Id)
-					.Select(p => new PatientVM()
+					.Select(p => new PatientViewModel()
 					{
 						Id = p.Id,
 						Name = p.Name,

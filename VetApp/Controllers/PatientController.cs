@@ -24,7 +24,7 @@ namespace VetApp.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> Add(CreateViewModel model)
+		public async Task<IActionResult> Add(PatientFormModel model)
 		{
             if (!ModelState.IsValid)
             {
