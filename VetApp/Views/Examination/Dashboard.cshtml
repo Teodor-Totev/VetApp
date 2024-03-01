@@ -15,7 +15,11 @@
 						@foreach (var examination in statusGroup.Value)
 						{
 							<li class="list-group-item d-flex justify-content-between align-items-center">
-								<p class="mb-0">@examination.DoctorName | @examination.PatientName - @examination.PatientType</p>
+								@if (statusGroup.Key == "New" && examination.CreatedOn < DateTime.Now)
+								{
+									continue;
+								}
+								<p class="mb-0">@examination.CreatedOn.ToString("dd/MM/yyyy") - @examination.DoctorName | @examination.PatientName - @examination.PatientType</p>
 								<p class="mb-0">
 									<a class="btn btn-info btn-sm" asp-action="Details" asp-controller="Patient" asp-route-patientId="@examination.PatientId">Details</a>
 									@if (statusGroup.Key != "Done")

@@ -26,7 +26,7 @@
             var doctor = await context.Users
                 .FindAsync(Guid.Parse(doctorId));
 
-            var e = new Examination()
+			var e = new Examination()
             {
                 DoctorId = Guid.Parse(doctorId),
                 CreatedOn = model.CreatedOn,
@@ -98,6 +98,7 @@
                     PatientName = e.Patient.Name,
                     PatientType = e.Patient.Type,
                     DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
+                    CreatedOn = e.CreatedOn
                 }).ToList());
 
             return examinationsGroupedByStatus;

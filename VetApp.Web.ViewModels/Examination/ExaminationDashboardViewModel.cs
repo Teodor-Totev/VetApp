@@ -14,5 +14,7 @@
         public string PatientType { get; set; } = null!;
 
         public string DoctorName { get; set; } = null!;
+
+        public DateTime CreatedOn { get; set;}
     }
 }

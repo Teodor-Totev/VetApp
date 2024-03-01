@@ -2,9 +2,8 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
-	using static Common.ViewModelValidationConstants.PatientViewModelConstants;
-	using static Common.ViewModelValidationConstants.OwnerViewModelConstants;
 	using VetApp.Web.ViewModels.Owner;
+	using static Common.ViewModelValidationConstants.PatientViewModelConstants;
 
 	public class PatientFormModel
 	{
@@ -41,6 +40,6 @@
 
 		public string? ChronicIllnesses { get; set; }
 
-		public OwnerFormModel Owner { get; set; } = null!;
+		public OwnerViewModel Owner { get; set; } = null!;
     }
 }
