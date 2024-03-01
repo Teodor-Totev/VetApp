@@ -151,6 +151,7 @@
 			targetExamination.Therapy = model.Therapy;
 			targetExamination.Exit = model.Exit;
             targetExamination.StatusId = model.StatusId;
+            targetExamination.CreatedOn = model.CreatedOn;
 
 			await this.context.SaveChangesAsync();
 		}
