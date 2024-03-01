@@ -65,7 +65,7 @@
 		{
 			ExaminationFormModel model = await examinationService.GetExaminationByIdAsync(examinationId);
 			PatientViewModel patient = await patientService.GetPatientByIdAsync(model.PatientId);
-			ICollection<StatusVM> statuses = await statusService.GetStatusesAsync();
+			ICollection<StatusViewModel> statuses = await statusService.GetStatusesAsync();
 			model.Patient = patient;
 			model.Statuses = statuses;
 

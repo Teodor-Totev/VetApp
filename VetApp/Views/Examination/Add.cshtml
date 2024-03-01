@@ -101,9 +101,15 @@
 							</div>
 
 							<div class="mb-1">
+								<label asp-for="CreatedOn" class="control-label"></label>
+								<input asp-for="CreatedOn" class="form-control">
+								<span asp-validation-for="CreatedOn" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
 								<label asp-for="StatusId" class="form-label">Status</label>
 								<select asp-for="StatusId" class="form-control">
-									@foreach (var status in Model.Statuses)
+									@foreach (var status in Model.Statuses.Where(s => s.Name == "New"))
 									{
 										<option value="@status.Id">@status.Name</option>
 									}
