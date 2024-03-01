@@ -155,5 +155,29 @@
 
 			await this.context.SaveChangesAsync();
 		}
+
+		public async Task<ExaminationViewModel> GetExaminationDetailsByIdAsync(int examinationId)
+		{
+			return await context.Examinations
+				.Where(e => e.Id == examinationId)
+				.Select(e => new ExaminationViewModel
+				{
+					Id = e.Id,
+					Weight = e.Weight,
+					Reason = e.Reason,
+					Diagnosis = e.Diagnosis,
+					CreatedOn = e.CreatedOn,
+					DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
+					Surgery = e.Surgery,
+					Therapy = e.Therapy,
+					Status = e.Status.Name,
+                    SpecificCondition = e.SpecificCondition,
+                    CurrentCondition = e.CurrentCondition,
+                    Exit = e.Exit,
+                    MedicalHistory = e.MedicalHistory,
+                    Research = e.Research,
+				})
+				.FirstAsync();
+		}
 	}
 }

@@ -13,5 +13,7 @@
 		Task<ExaminationFormModel> GetExaminationByIdAsync(int examinationId);
 
 		Task EditExaminationAsync(ExaminationFormModel model, int examinationId);
+
+		Task<ExaminationViewModel> GetExaminationDetailsByIdAsync(int examinationId);
 	}
 }

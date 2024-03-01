@@ -122,5 +122,13 @@
 
 			return View(model);
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Details(int examinationId)
+		{
+			var model = await examinationService.GetExaminationDetailsByIdAsync(examinationId);
+
+			return View(model);
+		}
 	}
 }
