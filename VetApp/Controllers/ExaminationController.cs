@@ -28,7 +28,7 @@
 		public async Task<IActionResult> Add(int patientId)
 		{
 			var patient = await patientService.GetPatientByIdAsync(patientId);
-			var statuses = await statusService.GetStatusesAsync();
+			var statuses = await statusService.AllStatusesAsync();
 			var model = new ExaminationFormModel
 			{
 				Patient = patient,
@@ -65,7 +65,7 @@
 		{
 			ExaminationFormModel model = await examinationService.GetExaminationByIdAsync(examinationId);
 			PatientViewModel patient = await patientService.GetPatientByIdAsync(model.PatientId);
-			ICollection<StatusViewModel> statuses = await statusService.GetStatusesAsync();
+			ICollection<StatusViewModel> statuses = await statusService.AllStatusesAsync();
 			model.Patient = patient;
 			model.Statuses = statuses;
 
