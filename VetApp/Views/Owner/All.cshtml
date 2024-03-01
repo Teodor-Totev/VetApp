@@ -36,6 +36,9 @@
 						<th>
 							Add pet
 						</th>
+						<th>
+							Edit
+						</th>
 					</tr>
 				</thead>
 				@foreach (var owner in Model)
@@ -43,7 +46,7 @@
 					<tbody>
 						<tr class="table-dark">
 							<td>
-								@owner.OwnerName
+								@owner.Name
 							</td>
 							<td>
 								@owner.Address
@@ -52,10 +55,13 @@
 								@owner.PhoneNumber
 							</td>
 							<td>
-								<a class="btn btn-outline-info text-white" asp-controller="Patient" asp-action="All" asp-route-ownerName="@owner.OwnerName">Animals</a>
+								<a class="btn btn-outline-info text-white" asp-controller="Patient" asp-action="All" asp-route-ownerName="@owner.Name">Animals</a>
 							</td>
 							<td>
 								<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="Add" asp-route-id="">Add</a>
+							</td>
+							<td>
+								<a class="btn btn-outline-warning text-white" asp-controller="Owner" asp-action="Edit" asp-route-ownerId="@owner.Id">Edit</a>
 							</td>
 						</tr>
 					</tbody>

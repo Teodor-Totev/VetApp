@@ -1,5 +1,47 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model OwnerViewModel
 @{
+	ViewData["Title"] = "Edit Owner";
+}
+
+<div class="row d-flex align-items-center justify-content-center" style="margin: 10px 0px">
+	<div class="col-md-4 card p-3">
+		<h2 class="card-title text-center text-warning">Edit Owner</h2>
+		<form asp-action="Edit" asp-controller="Owner" asp-route-ownerId="@Model.Id" method="post">
+			<div class="card-body">
+				<div asp-validation-summary="ModelOnly"></div>
+				<div class="mb-1">
+					<label asp-for="Name" class="control-label"></label>
+					<input asp-for="Name" class="form-control">
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+
+				<div class="mb-1">
+					<label asp-for="Email" class="control-label"></label>
+					<input asp-for="Email" class="form-control">
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+
+				<div class="mb-1">
+					<label asp-for="PhoneNumber" class="control-label"></label>
+					<input asp-for="PhoneNumber" class="form-control">
+					<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+				</div>
+
+				<div class="mb-1">
+					<label asp-for="Address" class="control-label"></label>
+					<textarea asp-for="Address" class="form-control" rows="2"></textarea>
+					<span asp-validation-for="Address" class="text-danger"></span>
+				</div>
+
+			</div>
+
+			<div class="card-footer d-flex align-items-center justify-content-end">
+				<input type="submit" value="Edit" class="btn btn-warning btn-sm" />
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
 }

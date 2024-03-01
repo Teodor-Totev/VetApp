@@ -19,10 +19,10 @@
             this.context = context;
         }
 
-        public async Task<ICollection<StatusVM>> GetStatusesAsync()
+        public async Task<ICollection<StatusViewModel>> GetStatusesAsync()
 		{
 			return await this.context.Statuses
-				.Select(s => new StatusVM()
+				.Select(s => new StatusViewModel()
 				{
 					Id = s.Id,
 					Name = s.Name

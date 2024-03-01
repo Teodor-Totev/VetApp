@@ -4,6 +4,7 @@
 
 	using VetApp.Data;
 	using VetApp.Services.Interfaces;
+	using VetApp.Web.ViewModels.Owner;
 	using VetApp.Web.ViewModels.Patient;
 
 	public class OwnerService : IOwnerService
@@ -15,6 +16,21 @@
 			this.context = context;
 		}
 
+		public async Task<OwnerViewModel> GetOwnerByIdAsync(string ownerId)
+		{
+			return await context.Owners
+				.Where(o => o.Id.ToString() == ownerId)
+				.Select(o => new OwnerViewModel()
+				{
+					Id = o.Id.ToString(),
+					Name = o.Name,
+					Address = o.Address,
+					PhoneNumber = o.PhoneNumber,
+					Email = o.Email
+				})
+				.FirstAsync();
+		}
+
 		public async Task<ICollection<OwnerViewModel>> GetOwnersAsync(string phoneNumber)
 		{
 			if (phoneNumber != null)
@@ -23,7 +39,8 @@
 				.Where(o => o.PhoneNumber.Contains(phoneNumber))
 				.Select(o => new OwnerViewModel()
 				{
-					OwnerName = o.Name,
+					Id = o.Id.ToString(),
+					Name = o.Name,
 					Address = o.Address,
 					PhoneNumber = o.PhoneNumber,
 					Patients = context.Patients
@@ -44,7 +61,8 @@
 			return await context.Owners
 				.Select(o => new OwnerViewModel()
 				{
-					OwnerName = o.Name,
+					Id = o.Id.ToString(),
+					Name = o.Name,
 					Address = o.Address,
 					PhoneNumber = o.PhoneNumber,
 					Patients = context.Patients
@@ -61,5 +79,7 @@
 				})
 				.ToArrayAsync();
 		}
+
+		
 	}
 }
