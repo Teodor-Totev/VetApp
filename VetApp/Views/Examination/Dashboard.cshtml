@@ -1,4 +1,5 @@
-﻿@model Dictionary<string, List<ExaminationDashboardViewModel>>
+﻿@using System.Globalization
+@model Dictionary<string, List<ExaminationDashboardViewModel>>
 
 @{
 	ViewData["Title"] = "Doctor Dashboard";
@@ -19,13 +20,11 @@
 								{
 									continue;
 								}
-								<p class="mb-0">@examination.CreatedOn.ToString("dd/MM/yyyy") - @examination.DoctorName | @examination.PatientName - @examination.PatientType</p>
+								<p class="mb-0">@examination.CreatedOn.ToString("dd/MM/yyyy") - @examination.DoctorName <br />
+									@examination.PatientName - @examination.PatientType</p>
 								<p class="mb-0">
 									<a class="btn btn-info btn-sm" asp-action="Details" asp-controller="Patient" asp-route-patientId="@examination.PatientId">Details</a>
-									@if (statusGroup.Key != "Done")
-									{
-										<a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id">Edit</a>
-									}
+									<a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id">Edit</a>
 								</p>
 							</li>
 						}

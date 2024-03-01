@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "All Patients";
+	ViewData["Title"] = "Patient Details";
 }
 
 <div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
@@ -10,7 +10,12 @@
 			<dd class="col-sm-5 card-text">@Model.Patient.Type</dd>
 
 			<dt class="col-sm-5 card-title">BirthDate:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.BirthDate</dd>
+			<dd class="col-sm-5 card-text">
+				@if (Model.Patient.BirthDate != null)
+				{
+					Model.Patient.BirthDate.ToString("dd/MM/yyyy");
+				}
+			</dd>
 
 			<dt class="col-sm-5 card-title">Gender:</dt>
 			<dd class="col-sm-5 card-text">@Model.Patient.Gender</dd>
