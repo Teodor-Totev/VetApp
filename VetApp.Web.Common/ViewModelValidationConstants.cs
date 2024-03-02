@@ -30,7 +30,7 @@
 			public const int InputFieldMinLength = 2;
 		}
 
-		public static class PatientViewModelConstants
+		public static class PatientFormModelConstants
 		{
 			public const int NameMaxLength = 50;
 			public const int NameMinLength = 2;
@@ -40,18 +40,24 @@
 
 			public const int MicroChipMaxLength = 50;
 			public const int MicroChipMinLength = 5;
+
+			public const string NameErrorMessage = "Name must be between {2} and {1} characters long.";
+			public const string TypeErrorMessage = "Type must be between {2} and {1} characters long.";
+			public const string MicrochipErrorMessage = "Microchip must be between {2} and {1} characters long.";
 		}
 
-		public static class OwnerViewModelConstants
+		public static class OwnerFormModelConstants
 		{
-			public const int OwnerNameMaxLength = 50;
-			public const int OwnerNameMinLength = 2;
+			public const int NameMaxLength = 50;
+			public const int NameMinLength = 2;
 
-			public const int OwnerPhoneMinLength = 7;
-			public const int OwnerPhoneMaxLength = 50;
+			public const int PhoneMinLength = 7;
+			public const int PhoneMaxLength = 50;
 
-			public const int OwnerAddressMaxLength = 200;
-			public const int OwnerAddressMinLength = 10;
+			public const int AddressMaxLength = 200;
+			public const int AddressMinLength = 10;
+
 		}
+
 	}
 }

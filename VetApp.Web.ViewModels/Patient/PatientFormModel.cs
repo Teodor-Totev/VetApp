@@ -3,7 +3,7 @@
 	using System.ComponentModel.DataAnnotations;
 
 	using VetApp.Web.ViewModels.Owner;
-	using static Common.ViewModelValidationConstants.PatientViewModelConstants;
+	using static Common.ViewModelValidationConstants.PatientFormModelConstants;
 
 	public class PatientFormModel
 	{
@@ -13,12 +13,12 @@
 
 		[Required]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength,
-			ErrorMessage = "Name must be between {2} and {1} characters long.")]
+			ErrorMessage = NameErrorMessage)]
 		public string Name { get; set; } = null!;
 
 		[Required]
 		[StringLength(TypeMaxLength, MinimumLength = TypeMinLength,
-			ErrorMessage = "Type must be between {2} and {1} characters long.")]
+			ErrorMessage = TypeErrorMessage)]
 		public string Type { get; set; } = null!;
 
 		[DataType(DataType.Date)]
@@ -26,7 +26,7 @@
 		public DateTime? BirthDate { get; set; }
 
 		[StringLength(MicroChipMaxLength, MinimumLength = MicroChipMinLength,
-			ErrorMessage = "Microchip must be between {2} and {1} characters long.")]
+			ErrorMessage = MicrochipErrorMessage)]
 		[Display(Name = "Microchip")]
 		public string? Microchip { get; set; }
 
