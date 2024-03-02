@@ -16,7 +16,7 @@
 			this.context = context;
 		}
 
-		public async Task CreateAsync(PatientFormModel model, Patient patient)
+		public async Task<int> CreateAsync(PatientFormModel model)
 		{
 			var existingOwner = await context.Owners
 				.FirstOrDefaultAsync(o => o.PhoneNumber == model.Owner.PhoneNumber &&
@@ -30,14 +30,17 @@
 				Email = model.Owner.Email,
 			};
 
-			patient.Name = model.Name;
-			patient.Type = model.Type;
-			patient.Gender = model.Gender;
-			patient.BirthDate = model.BirthDate;
-			patient.Neutered = model.Neutered;
-			patient.Microchip = model.Microchip;
-			patient.Characteristics = model.Characteristics;
-			patient.ChronicIllnesses = model.ChronicIllnesses;
+			Patient patient = new Patient()
+			{
+				Name = model.Name,
+				Type = model.Type,
+				Gender = model.Gender,
+				BirthDate = model.BirthDate,
+				Neutered = model.Neutered,
+				Microchip = model.Microchip,
+				Characteristics = model.Characteristics,
+				ChronicIllnesses = model.ChronicIllnesses
+			};
 
 			if (existingOwner != null)
 			{
@@ -53,6 +56,8 @@
 
 			await context.Patients.AddAsync(patient);
 			await context.SaveChangesAsync();
+
+			return patient.Id;
 		}
 
 		public async Task<ICollection<PatientViewModel>> GetAllPatientsAsync(string patientName, string ownerName, string doctorId)

@@ -95,7 +95,7 @@
 
 							<div class="mb-1">
 								<label asp-for="@Model.Owner.Address" class="control-label"></label>
-								<input asp-for="@Model.Owner.Address" class="form-control" placeholder="Address">
+								<textarea asp-for="@Model.Owner.Address" class="form-control" placeholder="Address" rows="2"></textarea>
 								<span asp-validation-for="@Model.Owner.Address" class="text-danger"></span>
 							</div>
 						</td>

@@ -5,7 +5,7 @@
 
 	public interface IPatientService
 	{
-		Task CreateAsync(PatientFormModel model, Patient patient);
+		Task<int> CreateAsync(PatientFormModel model);
 
 		Task<ICollection<PatientViewModel>> GetAllPatientsAsync(string patientName, string ownerName, string doctorId);
 

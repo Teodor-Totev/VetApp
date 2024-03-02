@@ -31,12 +31,9 @@ namespace VetApp.Controllers
 				return View(model);
 			}
 
-			//Create the patient here to access the Id for redirection
-			Patient patient = new Patient();
+			int patientId = await patientService.CreateAsync(model);
 
-			await patientService.CreateAsync(model, patient);
-
-			return RedirectToAction("Add", "Examination", new { patientId = patient.Id });
+			return RedirectToAction("Add", "Examination", new { patientId });
 		}
 
 		public async Task<IActionResult> All(string patientName, string ownerName, string doctorId)
