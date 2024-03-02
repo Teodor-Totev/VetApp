@@ -13,12 +13,12 @@
 
 		[Required]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength,
-			ErrorMessage = "Name must be between 2 and 25 characters long.")]
+			ErrorMessage = "Name must be between {2} and {1} characters long.")]
 		public string Name { get; set; } = null!;
 
 		[Required]
 		[StringLength(TypeMaxLength, MinimumLength = TypeMinLength,
-			ErrorMessage = "Type must be between 2 and 15 characters long.")]
+			ErrorMessage = "Type must be between {2} and {1} characters long.")]
 		public string Type { get; set; } = null!;
 
 		[DataType(DataType.Date)]
@@ -26,7 +26,7 @@
 		public DateTime? BirthDate { get; set; }
 
 		[StringLength(MicroChipMaxLength, MinimumLength = MicroChipMinLength,
-			ErrorMessage = "Microchip must be between 5 and 50 characters long.")]
+			ErrorMessage = "Microchip must be between {2} and {1} characters long.")]
 		[Display(Name = "Microchip")]
 		public string? Microchip { get; set; }
 
@@ -40,6 +40,6 @@
 
 		public string? ChronicIllnesses { get; set; }
 
-		public OwnerViewModel Owner { get; set; } = null!;
+		public OwnerFormModel Owner { get; set; } = null!;
     }
 }
