@@ -16,7 +16,7 @@
 						@foreach (var examination in statusGroup.Value)
 						{
 							<li class="list-group-item d-flex justify-content-between align-items-center">
-								@if (statusGroup.Key == "New" && examination.CreatedOn >= DateTime.Now)
+								@if (statusGroup.Key == "New" && examination.CreatedOn < DateTime.Today)
 								{
 									continue;
 								}

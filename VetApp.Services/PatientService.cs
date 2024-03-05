@@ -62,22 +62,20 @@
 
 		public async Task<ICollection<PatientViewModel>> GetAllPatientsAsync(string patientName, string ownerName, string doctorId)
 		{
-			IQueryable<Patient> query = context.Patients;
+			IQueryable<Patient> query = context.Patients
+				.OrderBy(p => p.Name);
 
 			if (!string.IsNullOrEmpty(patientName))
-			{
 				query = query.Where(p => p.Name == patientName);
-			}
+			
 
 			if (!string.IsNullOrEmpty(ownerName))
-			{
 				query = query.Where(p => p.Owner.Name == ownerName);
-			}
+			
 
 			if (!string.IsNullOrEmpty(doctorId))
-			{
 				query = query.Where(p => p.PatientsUsers.Any(pu => pu.DoctorId.ToString() == doctorId));
-			}
+			
 
 			return await query
 				.Select(p => new PatientViewModel()

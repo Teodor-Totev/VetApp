@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VetApp.Data.Models;
+using VetApp.Extensions;
 using VetApp.Services.Interfaces;
 using VetApp.Web.ViewModels.Examination;
 using VetApp.Web.ViewModels.Patient;
 
 namespace VetApp.Controllers
 {
-    public class PatientController : BaseController
+	public class PatientController : BaseController
     {
         private readonly IPatientService patientService;
 		private readonly IExaminationService examinationService;
@@ -36,10 +36,11 @@ namespace VetApp.Controllers
 			return RedirectToAction("Add", "Examination", new { patientId });
 		}
 
+		[HttpGet]
 		public async Task<IActionResult> All(string patientName, string ownerName, string doctorId)
 		{
 			ICollection<PatientViewModel> model = await patientService.GetAllPatientsAsync(patientName, ownerName, doctorId);
-			ViewBag.UserId = base.GetUserId();
+			ViewBag.UserId = User.Id();
 
 			return View(model);
 		}

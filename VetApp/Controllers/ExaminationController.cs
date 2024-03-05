@@ -1,7 +1,8 @@
 ﻿namespace VetApp.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
-	using System.Diagnostics.Metrics;
+
+	using VetApp.Extensions;
 	using VetApp.Services.Interfaces;
 	using VetApp.Web.ViewModels.Examination;
 	using VetApp.Web.ViewModels.Patient;
@@ -40,7 +41,7 @@
 		[HttpPost]
 		public async Task<IActionResult> Add(ExaminationFormModel model, int patientId)
 		{
-			string doctorId = base.GetUserId();
+			string doctorId = User.Id();
 			await this.examinationService.AddAsync(model, patientId, doctorId);
 
 			return RedirectToAction("Index", "Home");
