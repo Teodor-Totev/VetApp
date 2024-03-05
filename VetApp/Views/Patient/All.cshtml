@@ -5,7 +5,7 @@
 	string doctorId = ViewBag.UserId;
 }
 
-<form class="d-flex" asp-controller="Patient" asp-action="All" method="post" style="max-width: 20rem; margin: 10px 0px">
+<form class="d-flex" asp-controller="Patient" asp-action="All" method="get" style="max-width: 20rem; margin: 10px 0px">
 	<input class="form-control me-sm-2" type="search" pattern="[^\d\s]+" placeholder="Search by name" spellcheck="false" data-ms-editor="true" name="patientName">
 	<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 </form>
