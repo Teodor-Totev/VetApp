@@ -1,10 +1,10 @@
-﻿@model ICollection<OwnerViewModel>
+﻿@* @model ICollection<OwnerViewModel>
 
 @{
 	ViewData["Title"] = "Owner Patients";
 }
 
-<form class="d-flex" asp-controller="Owner" asp-action="All" method="post" style="max-width: 20rem; margin: 10px 0px">
+<form class="d-flex" asp-controller="Owner" asp-action="All" method="get" style="max-width: 20rem; margin: 10px 0px">
 	<input class="form-control me-sm-2" type="search" pattern="\d*" placeholder="Search by phone number" spellcheck="false" data-ms-editor="true" name="phoneNumber">
 	<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 </form>
@@ -20,26 +20,7 @@
 		{
 			<table class="table table-secondary">
 				<thead>
-					<tr>
-						<th>
-							Name
-						</th>
-						<th>
-							Address
-						</th>
-						<th>
-							PhoneNumber
-						</th>
-						<th>
-							Animals
-						</th>
-						<th>
-							Add pet
-						</th>
-						<th>
-							Edit
-						</th>
-					</tr>
+					<tr><th>Name</th><th>Address</th><th>PhoneNumber</th><th>Animals</th><th>Add pet</th><th>Edit</th></tr>
 				</thead>
 				@foreach (var owner in Model)
 				{
@@ -69,4 +50,42 @@
 			</table>
 		}
 	</div>
+</div>*@
+
+@model ICollection<OwnerViewModel>
+
+@{
+	ViewData["Title"] = "All Owners";
+}
+
+<div class="container">
+	<form class="d-flex" asp-controller="Owner" asp-action="All" method="get" style="max-width: 20rem; margin: 10px 0px">
+		<input class="form-control me-sm-2" type="search" pattern="\d*" placeholder="Search by phone number" spellcheck="false" data-ms-editor="true" name="phoneNumber">
+		<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+	</form>
+
+	@if (!Model.Any())
+	{
+		<h3 class="text-center">No owners with this phone number</h3>
+	}
+	else
+	{
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+			@foreach (var owner in Model)
+			{
+				<div class="col mb-4">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">@owner.Name</h5>
+							<p class="card-text">@owner.Address</p>
+							<p class="card-text">@owner.PhoneNumber</p>
+							<a class="btn btn-outline-info text-white" asp-controller="Patient" asp-action="All" asp-route-ownerName="@owner.Name">Animals</a>
+							<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="Add" asp-route-id="">Add</a>
+							<a class="btn btn-outline-warning text-white" asp-controller="Owner" asp-action="Edit" asp-route-ownerId="@owner.Id">Edit</a>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	}
 </div>
