@@ -5,7 +5,9 @@
 	using VetApp.Data;
 	using VetApp.Data.Models;
 	using VetApp.Services.Interfaces;
+	using VetApp.Services.Models.Patient;
 	using VetApp.Web.ViewModels.Patient;
+	using VetApp.Web.ViewModels.Patient.Enums;
 
 	public class PatientService : IPatientService
 	{
@@ -60,24 +62,39 @@
 			return patient.Id;
 		}
 
-		public async Task<ICollection<PatientViewModel>> GetAllPatientsAsync(string patientName, string ownerName, string doctorId)
+		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel)
 		{
 			IQueryable<Patient> query = context.Patients
-				.OrderBy(p => p.Name);
+				.OrderBy(p => p.Name)
+				.AsQueryable();
 
-			if (!string.IsNullOrEmpty(patientName))
-				query = query.Where(p => p.Name == patientName);
-			
+			if (!string.IsNullOrEmpty(queryModel.SearchString))
+			{
+				string wildCard = $"%{queryModel.SearchString.ToLower()}%";
 
-			if (!string.IsNullOrEmpty(ownerName))
-				query = query.Where(p => p.Owner.Name == ownerName);
-			
+				query = query
+					.Where(p => EF.Functions.Like(p.Name, wildCard) ||
+								EF.Functions.Like(p.Owner.Name, wildCard) ||
+								p.PatientsUsers.Any(pu => EF.Functions.Like(pu.DoctorId.ToString(),wildCard)));
+			}
 
-			if (!string.IsNullOrEmpty(doctorId))
-				query = query.Where(p => p.PatientsUsers.Any(pu => pu.DoctorId.ToString() == doctorId));
-			
+			query = queryModel.PatientSorting switch
+			{
+				PatientSorting.PatientNameAscending => query
+					.OrderBy(p => p.Name),
+				PatientSorting.PatientNameDescending => query
+					.OrderByDescending(p => p.Name),
+				PatientSorting.OwnerNameAscending => query
+					.OrderBy(p => p.Owner.Name),
+				PatientSorting.OwnerNameDescending => query
+					.OrderByDescending (p => p.Owner.Name),
+				_ => query
+					.OrderByDescending(p => p.Id)
+			};
 
-			return await query
+			ICollection<PatientViewModel> patients = await query
+				.Skip((queryModel.CurrentPage - 1) * queryModel.PatientsPerPage)
+				.Take(queryModel.PatientsPerPage)
 				.Select(p => new PatientViewModel()
 				{
 					Id = p.Id,
@@ -89,6 +106,14 @@
 					OwnerId = p.OwnerId.ToString(),
 				})
 				.ToArrayAsync();
+
+			var result = new AllPatientsOrderedAndPagedServiceModel()
+			{
+				TotalPatientsCount = query.Count(),
+				Patients = patients
+			};
+
+			 return result;
 		}
 
 		public async Task<PatientViewModel> GetPatientByIdAsync(int patientId)

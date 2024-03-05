@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VetApp.Extensions;
 using VetApp.Services.Interfaces;
+using VetApp.Services.Models.Patient;
 using VetApp.Web.ViewModels.Examination;
 using VetApp.Web.ViewModels.Patient;
 
@@ -37,12 +38,16 @@ namespace VetApp.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> All(string patientName, string ownerName, string doctorId)
+		public async Task<IActionResult> All([FromQuery]AllPatientsQueryModel queryModel)
 		{
-			ICollection<PatientViewModel> model = await patientService.GetAllPatientsAsync(patientName, ownerName, doctorId);
+			AllPatientsOrderedAndPagedServiceModel serviceModel = 
+				await patientService.GetAllPatientsAsync(queryModel);
 			ViewBag.UserId = User.Id();
 
-			return View(model);
+			queryModel.Patients = serviceModel.Patients;
+			queryModel.TotalPatients = serviceModel.TotalPatientsCount;
+
+			return View(queryModel);
 		}
 
 		[HttpGet]

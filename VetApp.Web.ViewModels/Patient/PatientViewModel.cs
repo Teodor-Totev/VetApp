@@ -1,5 +1,7 @@
 ﻿namespace VetApp.Web.ViewModels.Patient
 {
+	using System.ComponentModel.DataAnnotations;
+
 	public class PatientViewModel
 	{
 		public int Id { get; set; }
@@ -18,6 +20,7 @@
 
 		public string? Characteristics { get; set; }
 
+		[Display(Name = "Chronic Illnesses")]
 		public string? ChronicIllnesses { get; set; }
 
 		public string OwnerId { get; set; } = null!;

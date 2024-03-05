@@ -1,13 +1,13 @@
 ﻿namespace VetApp.Services.Interfaces
 {
-	using VetApp.Data.Models;
+	using VetApp.Services.Models.Patient;
 	using VetApp.Web.ViewModels.Patient;
 
 	public interface IPatientService
 	{
 		Task<int> CreateAsync(PatientFormModel model);
 
-		Task<ICollection<PatientViewModel>> GetAllPatientsAsync(string patientName, string ownerName, string doctorId);
+		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel);
 
 		Task<PatientViewModel> GetPatientByIdAsync(int patientId);
 	}

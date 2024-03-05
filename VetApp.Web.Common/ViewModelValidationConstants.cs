@@ -59,5 +59,11 @@
 
 		}
 
+		public static class QueryModelConstants
+		{
+			public const int defaultPage = 1;
+			public const int entitiesPerPage = 3;
+		}
+
 	}
 }
