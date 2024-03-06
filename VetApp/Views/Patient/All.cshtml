@@ -5,13 +5,13 @@
 	string doctorId = ViewBag.UserId;
 }
 
-@* <form class="d-flex" asp-controller="Patient" asp-action="All" method="get" style="max-width: 20rem; margin: 10px 0px">
+@* <form class="" asp-controller="Patient" asp-action="All" method="get" style="max-width: 20rem; margin: 10px 0px">
 	<input class="form-control me-sm-2" type="search" pattern="[^\d\s]+" placeholder="Search by name" spellcheck="false" data-ms-editor="true" name="patientName">
 	<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 </form> *@
 
 <form method="get">
-	<div class="row">
+	<div class="d-flex align-items-center justify-content-between">
 
 		<div class="form-group col-md-3">
 			<label asp-for="SearchString"></label>
@@ -30,11 +30,23 @@
 			</div>
 		</div>
 
-		<div class="col-md-3">
-			<div class="form-group mt-4 p-2">
-				<input type="submit" value="Search" class="btn btn-primary" />
+		<div class="form-group col-md-3">
+			<div class="form-group">
+				<label asp-for="PatientsPerPage"></label>
+				<select asp-for="PatientsPerPage" class="form-control">
+					<option value="3">3</option>
+					<option value="6">6</option>
+					<option value="9">9</option>
+				</select>
 			</div>
 		</div>
+
+		<div class="col-md-3">
+			<div class="form-group mt-4">
+				<input type="submit" value="Search" class="btn btn-secondary" />
+			</div>
+		</div>
+
 	</div>
 </form>
 
@@ -55,8 +67,8 @@
 		   asp-controller="Patient"
 		   asp-action="All"
 		   asp-route-currentPage="@previousPage"
-		   asp-route-searchTerm="@Model.SearchString"
-		   asp-route-sorting="@((int)Model.PatientSorting)"><<</a>
+		   asp-route-searchString="@Model.SearchString"
+		   asp-route-patientSorting="@((int)Model.PatientSorting)"><<</a>
 	</div>
 
 	@{
@@ -70,8 +82,8 @@
 		   asp-controller="Patient"
 		   asp-action="All"
 		   asp-route-currentPage="@(Model.CurrentPage + 1)"
-		   asp-route-searchTerm="@Model.SearchString"
-		   asp-route-sorting="@((int)Model.PatientSorting)">>></a>
+		   asp-route-searchString="@Model.SearchString"
+		   asp-route-patientSorting="@((int)Model.PatientSorting)">>></a>
 	</div>
 </div>
 
@@ -80,7 +92,7 @@
 	<h3 class="card-header text-center">
 		Patients
 		<span class="float-end">
-			<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="All" asp-route-doctorId="@doctorId">Mine</a>
+			<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="All" asp-route-SearchString="@doctorId">Mine</a>
 		</span>
 	</h3>
 
