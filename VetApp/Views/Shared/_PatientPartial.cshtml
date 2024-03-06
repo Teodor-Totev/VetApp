@@ -3,34 +3,34 @@
 }
 
 <div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
-	<h4 class="card-header">@Model.Patient.Name</h4>
+	<h4 class="card-header">@Model.Name</h4>
 	<div class="card-body">
 		<dl class="row">
 			<dt class="col-sm-5 card-title">Type:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Type</dd>
+			<dd class="col-sm-5 card-text">@Model.Type</dd>
 
 			<dt class="col-sm-5 card-title">BirthDate:</dt>
 			<dd class="col-sm-5 card-text">
-				@if (Model.Patient.BirthDate != null)
+				@if (Model.BirthDate != null)
 				{
-					Model.Patient.BirthDate.ToString("dd/MM/yyyy");
+					Model.BirthDate.ToString("dd/MM/yyyy");
 				}
 			</dd>
 
 			<dt class="col-sm-5 card-title">Gender:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Gender</dd>
+			<dd class="col-sm-5 card-text">@Model.Gender</dd>
 
 			<dt class="col-sm-5 card-title">Neutered:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Neutered</dd>
+			<dd class="col-sm-5 card-text">@Model.Neutered</dd>
 
 			<dt class="col-sm-5 card-title">Microchip:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Microchip</dd>
+			<dd class="col-sm-5 card-text">@Model.Microchip</dd>
 
 			<dt class="col-sm-5 card-title">ChronicIllnesses:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.ChronicIllnesses</dd>
+			<dd class="col-sm-5 card-text">@Model.ChronicIllnesses</dd>
 
 			<dt class="col-sm-5 card-title">Characteristics:</dt>
-			<dd class="col-sm-5 card-text">@Model.Patient.Characteristics</dd>
+			<dd class="col-sm-5 card-text">@Model.Characteristics</dd>
 		</dl>
 	</div>
 </div>
