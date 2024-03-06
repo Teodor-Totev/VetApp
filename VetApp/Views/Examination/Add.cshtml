@@ -7,7 +7,7 @@
 }
 
 <div class="col-md-6" id="PatientInfo">
-	<partial name="_PatientPartial" />
+	<partial name="_PatientPartial" model="@Model.Patient"/>
 </div>
 
 <div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
@@ -25,7 +25,7 @@
 </div>
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
-	<h4 class="card-header">Create Examination</h4>
+	<h4 class="card-header">Create Examination <a class="btn btn-outline-primary text-white float-end" asp-controller="Patient" asp-action="Details" asp-route-patientId="@Model.Patient.Id">Examinations</a></h4>
 	<form asp-action="Add" asp-controller="Examination" asp-route-patientId="@Model.Patient.Id" method="post">
 		<div class="card-body pb-0">
 			<table class="table table-secondary">

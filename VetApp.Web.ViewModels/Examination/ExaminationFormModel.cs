@@ -19,8 +19,6 @@
 
 		public int Id { get; set; }
 
-		public int PatientId { get; set; }
-
 		public string DoctorId { get; set; } = null!;
 
 		public string DoctorName { get; set; } = null!;

@@ -65,7 +65,6 @@
 		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel)
 		{
 			IQueryable<Patient> query = context.Patients
-				.OrderBy(p => p.Name)
 				.AsQueryable();
 
 			if (!string.IsNullOrEmpty(queryModel.SearchString))
