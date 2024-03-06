@@ -62,6 +62,25 @@
 			return patient.Id;
 		}
 
+		public async Task EditPatientAsync(PatientEditViewModel model, int patientId)
+		{
+			Patient targetPatient = await context.Patients.FindAsync(patientId);
+
+			targetPatient.Name = model.Name;
+			targetPatient.Type = model.Type;
+			targetPatient.Gender = model.Gender;
+			targetPatient.Neutered = model.Neutered;
+			targetPatient.BirthDate = model.BirthDate;
+			targetPatient.Microchip = model.Microchip;
+			targetPatient.Characteristics = model.Characteristics;
+			targetPatient.ChronicIllnesses = model.ChronicIllnesses;
+
+			await context.SaveChangesAsync();
+		}
+
+		public async Task<bool> PatientExistsAsync(int patientId)
+			=> await context.Patients.AnyAsync(p => p.Id == patientId);
+
 		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel)
 		{
 			IQueryable<Patient> query = context.Patients
@@ -121,6 +140,27 @@
 			PatientViewModel patient = await context.Patients
 				.Where(p => p.Id == patientId)
 				.Select(p => new PatientViewModel()
+				{
+					Id = p.Id,
+					Name = p.Name,
+					Type = p.Type,
+					Gender = p.Gender,
+					BirthDate = p.BirthDate,
+					Microchip = p.Microchip,
+					Neutered = p.Neutered,
+					ChronicIllnesses = p.ChronicIllnesses,
+					Characteristics = p.Characteristics
+				})
+				.FirstAsync();
+
+			return patient;
+		}
+
+		public async Task<PatientEditViewModel> GetPatientForEditByIdAsync(int patientId)
+		{
+			PatientEditViewModel patient = await context.Patients
+				.Where(p => p.Id == patientId)
+				.Select(p => new PatientEditViewModel()
 				{
 					Id = p.Id,
 					Name = p.Name,

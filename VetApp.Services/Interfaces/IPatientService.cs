@@ -10,5 +10,11 @@
 		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel);
 
 		Task<PatientViewModel> GetPatientByIdAsync(int patientId);
+
+		Task<PatientEditViewModel> GetPatientForEditByIdAsync(int patientId);
+
+		Task EditPatientAsync(PatientEditViewModel model, int patientId);
+
+		Task<bool> PatientExistsAsync(int patientId);
 	}
 }
