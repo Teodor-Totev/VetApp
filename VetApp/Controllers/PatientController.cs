@@ -3,32 +3,50 @@ using VetApp.Extensions;
 using VetApp.Services.Interfaces;
 using VetApp.Services.Models.Patient;
 using VetApp.Web.ViewModels.Examination;
+using VetApp.Web.ViewModels.Owner;
 using VetApp.Web.ViewModels.Patient;
 
 namespace VetApp.Controllers
 {
 	public class PatientController : BaseController
-    {
-        private readonly IPatientService patientService;
+	{
+		private readonly IPatientService patientService;
 		private readonly IExaminationService examinationService;
+		private readonly IOwnerService ownerService;
 
-		public PatientController(IPatientService patientService, IExaminationService examinationService)
-        {
-            this.patientService = patientService;
+		public PatientController(IPatientService patientService,
+			IExaminationService examinationService,
+			IOwnerService ownerService)
+		{
+			this.patientService = patientService;
 			this.examinationService = examinationService;
-        }
+			this.ownerService = ownerService;
+		}
 
-        [HttpGet]
-        public IActionResult Add()
-        {
-			return View();
-        }
+		[HttpGet]
+		public async Task<IActionResult> Add(string ownerId)
+		{
+			if (ownerId == null)
+			{
+				return View();
+			}
+
+			PatientFormModel model = new PatientFormModel();
+
+			if (await this.ownerService.OwnerExistsAsync(ownerId))
+			{
+				OwnerFormModel owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
+				model.Owner = owner;
+			}
+
+			return View(model);
+		}
 
 		[HttpPost]
 		public async Task<IActionResult> Add(PatientFormModel model)
 		{
-            if (!ModelState.IsValid)
-            {
+			if (!ModelState.IsValid)
+			{
 				return View(model);
 			}
 
@@ -38,9 +56,9 @@ namespace VetApp.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> All([FromQuery]AllPatientsQueryModel queryModel)
+		public async Task<IActionResult> All([FromQuery] AllPatientsQueryModel queryModel)
 		{
-			AllPatientsOrderedAndPagedServiceModel serviceModel = 
+			AllPatientsOrderedAndPagedServiceModel serviceModel =
 				await patientService.GetAllPatientsAsync(queryModel);
 			ViewBag.UserId = User.Id();
 

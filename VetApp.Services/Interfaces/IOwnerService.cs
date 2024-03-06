@@ -8,5 +8,9 @@
 		Task<ICollection<OwnerViewModel>> GetOwnersAsync(string phoneNumber);
 
 		Task<OwnerViewModel> GetOwnerByIdAsync(string ownerId);
+
+		Task<bool> OwnerExistsAsync (string ownerId);
+
+		Task<OwnerFormModel> GetOwnerFormModelByIdAsync(string ownerId);
 	}
 }
