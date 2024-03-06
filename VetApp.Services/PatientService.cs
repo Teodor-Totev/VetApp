@@ -98,6 +98,7 @@
 				{
 					Id = p.Id,
 					Name = p.Name,
+					OwnerName = p.Owner.Name,
 					Type = p.Type,
 					Gender = p.Gender,
 					BirthDate = p.BirthDate,

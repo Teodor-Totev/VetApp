@@ -8,7 +8,9 @@
 
 		public string Name { get; set; } = null!;
 
-		public string Type { get; set; } = null!;
+		public string OwnerName { get; set; } = null!;
+
+        public string Type { get; set; } = null!;
 
 		public DateTime? BirthDate { get; set; }
 

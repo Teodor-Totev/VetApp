@@ -65,7 +65,7 @@
 		public async Task<IActionResult> Edit(int examinationId)
 		{
 			ExaminationFormModel model = await examinationService.GetExaminationByIdAsync(examinationId);
-			PatientViewModel patient = await patientService.GetPatientByIdAsync(model.PatientId);
+			PatientViewModel patient = await patientService.GetPatientByIdAsync(model.Patient.Id);
 			ICollection<StatusViewModel> statuses = await statusService.AllStatusesAsync();
 			model.Patient = patient;
 			model.Statuses = statuses;

@@ -124,7 +124,6 @@
 					Therapy = e.Therapy,
 					Exit = e.Exit,
 					StatusId = e.StatusId,
-                    PatientId = e.PatientId,
 				})
                 .FirstAsync();
 
