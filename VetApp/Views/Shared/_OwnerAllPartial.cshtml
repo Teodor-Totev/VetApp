@@ -1,0 +1,21 @@
+﻿@{
+	ViewData["Title"] = "All Owners";
+}
+
+<div class="col mb-4">
+	<div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
+		<h4 class="card-header">@Model.Name</h4>
+		<div class="card-body">
+			<dl class="row">
+				<dt class="col-sm-5 card-title">Address:</dt>
+				<dd class="col-sm-5 card-text">@Model.Address</dd>
+
+				<dt class="col-sm-5 card-title">PhoneNumber:</dt>
+				<dd class="col-sm-5 card-text">@Model.PhoneNumber</dd>
+			</dl>
+			<a class="btn btn-outline-info text-white" asp-controller="Patient" asp-action="All" asp-route-searchString="@Model.Name">Animals</a>
+			<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="Add" asp-route-ownerId="@Model.Id">Add Pet</a>
+			<a class="btn btn-outline-warning text-white" asp-controller="Owner" asp-action="Edit" asp-route-ownerId="@Model.Id">Edit</a>
+		</div>
+	</div>
+</div>
