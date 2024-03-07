@@ -4,6 +4,15 @@
 	ViewData["Title"] = "Create Patient";
 }
 
+@if (TempData["message"] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script type="text/javascript">
+		toastr.success('@TempData["message"]');
+	</script>
+}
+
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
 	<h4 class="card-header text-center">Add Patient</h4>
 	<form asp-action="Add" asp-controller="Patient" method="post">
@@ -31,29 +40,32 @@
 							</div>
 
 							<div class="mb-1">
-								Male
-								@Html.RadioButtonFor(model => model.Gender, "Male")
-								Female
-								@Html.RadioButtonFor(model => model.Gender, "Female")
-								<span asp-validation-for="Gender" class="text-danger"></span>
+								<fieldset>
+									@foreach (var value in Enum.GetValues(typeof(PatientGender)))
+									{
+										<label asp-for="Gender" class="radio-inline">
+											<input asp-for="Gender" type="radio" class="form-check-input" value="@value" /> @value
+										</label>
+										<span asp-validation-for="Gender" class="text-danger"></span>
+									}
+								</fieldset>
 							</div>
 
-							<div class="mb-1">
+							<div class="mb-2">
 								<label asp-for="BirthDate" class="control-label"></label>
 								<input asp-for="BirthDate" class="form-control">
 								<span asp-validation-for="BirthDate" class="text-danger"></span>
 							</div>
 
 							<div class="mb-1">
-								<label asp-for="Neutered" class="text-center" style="margin-right:5px">Neutered: </label>
-								<br />
-								Yes
-								@Html.RadioButtonFor(model => model.Neutered, "Yes")
-								No
-								@Html.RadioButtonFor(model => model.Neutered, "No")
-								Homeless
-								@Html.RadioButtonFor(model => model.Neutered, "Homeless")
-								<span asp-validation-for="Neutered" class="text-danger"></span>
+								<fieldset>
+									<label asp-for="Neutered" class="text-center">Neutered:</label>
+									@foreach (var value in Enum.GetValues(typeof(PatientNeutered)))
+									{
+										<input asp-for="Neutered" type="radio" class="form-check-input" value="@value" /> @value
+										<span asp-validation-for="Neutered" class="text-danger"></span>
+									}
+								</fieldset>
 							</div>
 
 							<div class="mb-1">
@@ -70,7 +82,7 @@
 
 							<div class="mb-1">
 								<label asp-for="ChronicIllnesses" class="control-label"></label>
-								<textarea asp-for="ChronicIllnesses" class="form-control" rows="2" placeholder="ChronicIllnesses"></textarea>
+								<textarea asp-for="ChronicIllnesses" class="form-control" rows="2" placeholder="Chronic Illnesses"></textarea>
 								<span asp-validation-for="ChronicIllnesses" class="text-danger"></span>
 							</div>
 						</td>

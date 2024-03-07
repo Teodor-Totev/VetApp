@@ -17,12 +17,12 @@
         [Display(Name = "Search by word")]
         public string? SearchString { get; set; }
 
-		[Display(Name = "Sort patients by:")]
+		[Display(Name = "Sort animals by:")]
         public PatientSorting PatientSorting{ get; set; }
 
         public int CurrentPage { get; set; }
 
-		[Display(Name = "Patients per page")]
+		[Display(Name = "Show animals on page")]
 		public int PatientsPerPage { get; set; }
 
         public int TotalPatients { get; set; }

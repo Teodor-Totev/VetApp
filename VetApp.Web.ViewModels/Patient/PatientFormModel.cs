@@ -3,7 +3,8 @@
 	using System.ComponentModel.DataAnnotations;
 
 	using VetApp.Web.ViewModels.Owner;
-	using static Common.ViewModelValidationConstants.PatientFormModelConstants;
+	using VetApp.Web.ViewModels.Patient.Enums;
+	using static Common.ViewModelValidationConstants.PatientConstants;
 
 	public class PatientFormModel
 	{
@@ -11,7 +12,7 @@
 		{
 		}
 
-		[Required]
+        [Required]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength,
 			ErrorMessage = NameErrorMessage)]
 		public string Name { get; set; } = null!;
@@ -31,13 +32,16 @@
 		public string? Microchip { get; set; }
 
 		[Required]
-		public string Gender { get; set; } = null!;
+		[EnumDataType(typeof(PatientGender))]
+		public PatientGender Gender { get; set; }
 
 		[Required]
-		public string Neutered { get; set; } = null!;
+		[EnumDataType(typeof(PatientNeutered))]
+		public PatientNeutered Neutered { get; set; }
 
         public string? Characteristics { get; set; }
 
+		[Display(Name = "Chronic Illnesses")]
 		public string? ChronicIllnesses { get; set; }
 
 		public OwnerFormModel Owner { get; set; } = null!;

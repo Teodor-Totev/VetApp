@@ -36,9 +36,9 @@
 			{
 				Name = model.Name,
 				Type = model.Type,
-				Gender = model.Gender,
+				Gender = model.Gender.ToString(),
 				BirthDate = model.BirthDate,
-				Neutered = model.Neutered,
+				Neutered = model.Neutered.ToString(),
 				Microchip = model.Microchip,
 				Characteristics = model.Characteristics,
 				ChronicIllnesses = model.ChronicIllnesses

@@ -108,7 +108,7 @@
 
 							<div class="mb-1">
 								<label asp-for="StatusId" class="form-label">Status</label>
-								<select asp-for="StatusId" class="form-control">
+								<select asp-for="StatusId" class="form-control" disabled="">
 									@foreach (var status in Model.Statuses.Where(s => s.Name == "New"))
 									{
 										<option value="@status.Id">@status.Name</option>
