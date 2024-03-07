@@ -23,6 +23,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseExceptionHandler("/Error/500");
+app.UseStatusCodePagesWithRedirects("/Error/{0}");
+
 app.UseRouting();
 
 app.UseAuthentication();
