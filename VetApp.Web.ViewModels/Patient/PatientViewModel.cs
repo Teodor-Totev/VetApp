@@ -1,8 +1,9 @@
 ﻿namespace VetApp.Web.ViewModels.Patient
 {
 	using System.ComponentModel.DataAnnotations;
+    using VetApp.Data.Common.Enums.Patient;
 
-	public class PatientViewModel
+    public class PatientViewModel
 	{
 		public int Id { get; set; }
 
@@ -16,9 +17,11 @@
 
 		public string? Microchip { get; set; }
 
-		public string Gender { get; set; } = null!;
+        [EnumDataType(typeof(PatientGender))]
+        public PatientGender Gender { get; set; }
 
-		public string Neutered { get; set; } = null!;
+        [EnumDataType(typeof(PatientNeutered))]
+        public PatientNeutered Neutered { get; set; }
 
 		public string? Characteristics { get; set; }
 

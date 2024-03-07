@@ -1,7 +1,8 @@
 ﻿namespace VetApp.Web.ViewModels.Patient
 {
 	using System.ComponentModel.DataAnnotations;
-	using static Common.ViewModelValidationConstants.PatientConstants;
+    using VetApp.Data.Common.Enums.Patient;
+    using static Common.ViewModelValidationConstants.PatientConstants;
 
 	public class PatientEditViewModel
 	{
@@ -27,10 +28,12 @@
 		public string? Microchip { get; set; }
 
 		[Required]
-		public string Gender { get; set; } = null!;
+		[EnumDataType(typeof(PatientGender))]
+		public PatientGender Gender { get; set; }
 
 		[Required]
-		public string Neutered { get; set; } = null!;
+        [EnumDataType(typeof(PatientNeutered))]
+        public PatientNeutered Neutered { get; set; }
 
 		[StringLength(CharacteristicsMaxLength, MinimumLength = CharacteristicsMinLength,
 			ErrorMessage = CharacteristicsErrorMessage)]

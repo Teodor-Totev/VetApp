@@ -5,8 +5,8 @@
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore;
-
-	using VetApp.Data.Models;
+    using VetApp.Data.Configuration;
+    using VetApp.Data.Models;
 
 	public class VetAppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 	{
@@ -23,11 +23,19 @@
 
 			builder.ApplyConfigurationsFromAssembly(configAssembly);
 
-			builder.Entity<PatientUser>()
+            //builder.ApplyConfiguration(new OwnerEntityConfiguration());
+            //builder.ApplyConfiguration(new PatientEntityConfiguration());
+            //builder.ApplyConfiguration(new StatusEntityConfiguration());
+
+            // User registration is required to examination seed
+            //builder.ApplyConfiguration(new ExaminationEntityConfiguration());
+
+            builder.Entity<PatientUser>()
 				.HasKey(pu => new { pu.DoctorId, pu.PatientId });
 
 			base.OnModelCreating(builder);
 		}
+
 		public DbSet<Status> Statuses { get; set; } = null!;
 
 		public DbSet<Owner> Owners { get; set; } = null!;

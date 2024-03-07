@@ -26,6 +26,8 @@
 		[MaxLength(OwnerAddressMaxLength)]
 		public string Address { get; set; } = null!;
 
+        public bool IsActive { get; set; }
+
         public string? Email { get; set; }
 
         public virtual ICollection<Patient> Patients { get; set; }

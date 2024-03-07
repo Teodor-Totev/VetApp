@@ -1,9 +1,8 @@
 ﻿namespace VetApp.Web.ViewModels.Patient
 {
 	using System.ComponentModel.DataAnnotations;
-
-	using VetApp.Web.ViewModels.Owner;
-	using VetApp.Web.ViewModels.Patient.Enums;
+    using VetApp.Data.Common.Enums.Patient;
+    using VetApp.Web.ViewModels.Owner;
 	using static Common.ViewModelValidationConstants.PatientConstants;
 
 	public class PatientFormModel

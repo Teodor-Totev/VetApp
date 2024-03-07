@@ -3,7 +3,8 @@
 	using System.ComponentModel.DataAnnotations;
 	using System.ComponentModel.DataAnnotations.Schema;
 
-	using static Common.EntityValidationConstants.PatientValidations;
+    using VetApp.Data.Common.Enums.Patient;
+    using static Common.EntityValidationConstants.PatientValidations;
 
 	public class Patient
 	{
@@ -30,12 +31,16 @@
         public string? Microchip { get; set; }
 
         [Required]
-		public string Gender { get; set; } = null!;
+        [EnumDataType(typeof(PatientGender))]
+        public PatientGender Gender { get; set; }
 
         [Required]
-		public string Neutered { get; set; } = null!;
+        [EnumDataType(typeof(PatientNeutered))]
+		public PatientNeutered Neutered { get; set; }
 
-		public string? Characteristics { get; set; }
+        public bool IsActive { get; set; }
+
+        public string? Characteristics { get; set; }
 
         public string? ChronicIllnesses { get; set; }
 

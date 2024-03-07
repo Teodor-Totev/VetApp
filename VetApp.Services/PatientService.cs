@@ -2,12 +2,12 @@
 {
 	using Microsoft.EntityFrameworkCore;
 
-	using VetApp.Data;
-	using VetApp.Data.Models;
-	using VetApp.Services.Interfaces;
-	using VetApp.Services.Models.Patient;
-	using VetApp.Web.ViewModels.Patient;
-	using VetApp.Web.ViewModels.Patient.Enums;
+	using Data;
+	using Data.Models;
+	using Interfaces;
+	using Models.Patient;
+	using Web.ViewModels.Patient;
+	using Web.ViewModels.Patient.Enums;
 
 	public class PatientService : IPatientService
 	{
@@ -36,9 +36,9 @@
 			{
 				Name = model.Name,
 				Type = model.Type,
-				Gender = model.Gender.ToString(),
+				Gender = model.Gender,
 				BirthDate = model.BirthDate,
-				Neutered = model.Neutered.ToString(),
+				Neutered = model.Neutered,
 				Microchip = model.Microchip,
 				Characteristics = model.Characteristics,
 				ChronicIllnesses = model.ChronicIllnesses
