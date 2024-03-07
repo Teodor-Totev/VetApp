@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VetApp.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,11 +59,25 @@ namespace VetApp.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Owners", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Statuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Statuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,9 +195,10 @@ namespace VetApp.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    MicroChip = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Neutered = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Microchip = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    Neutered = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     Characteristics = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ChronicIllnesses = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -206,18 +221,41 @@ namespace VetApp.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PatientId = table.Column<int>(type: "int", nullable: true)
+                    Weight = table.Column<double>(type: "float", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    MedicalHistory = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    CurrentCondition = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    SpecificCondition = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Research = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Diagnosis = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Surgery = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Therapy = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Exit = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PatientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Examinations", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Examinations_AspNetUsers_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Examinations_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Examinations_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,14 +263,14 @@ namespace VetApp.Data.Migrations
                 columns: table => new
                 {
                     PatientId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PatientsUsers", x => new { x.UserId, x.PatientId });
+                    table.PrimaryKey("PK_PatientsUsers", x => new { x.DoctorId, x.PatientId });
                     table.ForeignKey(
-                        name: "FK_PatientsUsers_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_PatientsUsers_AspNetUsers_DoctorId",
+                        column: x => x.DoctorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -248,47 +286,35 @@ namespace VetApp.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Owners",
                 columns: new[] { "Id", "Address", "Email", "Name", "PhoneNumber" },
-                values: new object[] { new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"), "гр.Димитровград", null, "Марко", "+359878255255" });
+                values: new object[,]
+                {
+                    { new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"), "бул. Цариградско шосе 24, Пловдив 4000", null, "Milko", "+359878255255" },
+                    { new Guid("2e8fb8ae-6d2e-46a9-af4a-0b14ab081476"), "ул. Дунав 15, Велико Търново 5000", null, "Mihaela", "+359878358235" },
+                    { new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"), "жк. Лозенец, ул. Розова долина 7, Варна 9000", null, "Dimo", "+359988989898" },
+                    { new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"), "ул. Света Параскева 10, София 1000", null, "Ivan", "+359876123123" }
+                });
 
             migrationBuilder.InsertData(
-                table: "Owners",
-                columns: new[] { "Id", "Address", "Email", "Name", "PhoneNumber" },
-                values: new object[] { new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"), "гр.Хасково", null, "Пенка", "+359988989898" });
-
-            migrationBuilder.InsertData(
-                table: "Owners",
-                columns: new[] { "Id", "Address", "Email", "Name", "PhoneNumber" },
-                values: new object[] { new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"), "гр.Стара Загора", null, "Иван", "+359876123123" });
-
-            migrationBuilder.InsertData(
-                table: "Patients",
-                columns: new[] { "Id", "BirthDate", "Characteristics", "ChronicIllnesses", "Gender", "MicroChip", "Name", "Neutered", "OwnerId", "Type" },
-                values: new object[] { 1, null, null, null, "Male", null, "Ласи", "No", new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"), "Куче" });
-
-            migrationBuilder.InsertData(
-                table: "Patients",
-                columns: new[] { "Id", "BirthDate", "Characteristics", "ChronicIllnesses", "Gender", "MicroChip", "Name", "Neutered", "OwnerId", "Type" },
-                values: new object[] { 2, null, null, null, "Male", null, "Том", "Homeless", new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"), "Котка" });
+                table: "Statuses",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "In Progress" },
+                    { 2, "Done" },
+                    { 3, "Hospital" },
+                    { 4, "New" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Patients",
-                columns: new[] { "Id", "BirthDate", "Characteristics", "ChronicIllnesses", "Gender", "MicroChip", "Name", "Neutered", "OwnerId", "Type" },
-                values: new object[] { 3, null, null, null, "Female", null, "Джери", "Yes", new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"), "Хамстер" });
-
-            migrationBuilder.InsertData(
-                table: "Examinations",
-                columns: new[] { "Id", "CreatedOn", "Description", "PatientId", "State" },
-                values: new object[] { 1, new DateTime(2024, 1, 19, 23, 41, 48, 487, DateTimeKind.Local).AddTicks(4552), "Пълна кръвна картина", 1, "Primary" });
-
-            migrationBuilder.InsertData(
-                table: "Examinations",
-                columns: new[] { "Id", "CreatedOn", "Description", "PatientId", "State" },
-                values: new object[] { 2, new DateTime(2023, 8, 8, 23, 41, 48, 487, DateTimeKind.Local).AddTicks(4606), "Изследване за паразити", 2, "Secondary" });
-
-            migrationBuilder.InsertData(
-                table: "Examinations",
-                columns: new[] { "Id", "CreatedOn", "Description", "PatientId", "State" },
-                values: new object[] { 3, new DateTime(2023, 2, 8, 23, 41, 48, 487, DateTimeKind.Local).AddTicks(4611), "Преглед за кожно заболяване", 3, "Primary" });
+                columns: new[] { "Id", "BirthDate", "Characteristics", "ChronicIllnesses", "Gender", "Microchip", "Name", "Neutered", "OwnerId", "Type" },
+                values: new object[,]
+                {
+                    { 1, null, null, null, 0, null, "Lasi", 0, new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"), "Dog" },
+                    { 2, null, null, null, 0, null, "Tom", 2, new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"), "Cat" },
+                    { 3, null, null, null, 1, null, "Djeri", 1, new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"), "Mouse" },
+                    { 4, null, null, null, 1, null, "Bella", 0, new Guid("2e8fb8ae-6d2e-46a9-af4a-0b14ab081476"), "Dog" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -330,9 +356,19 @@ namespace VetApp.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Examinations_DoctorId",
+                table: "Examinations",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Examinations_PatientId",
                 table: "Examinations",
                 column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Examinations_StatusId",
+                table: "Examinations",
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patients_OwnerId",
@@ -370,6 +406,9 @@ namespace VetApp.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Statuses");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

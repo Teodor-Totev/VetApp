@@ -12,8 +12,8 @@ using VetApp.Data;
 namespace VetApp.Data.Migrations
 {
     [DbContext(typeof(VetAppDbContext))]
-    [Migration("20240224091019_AddEntityStatus")]
-    partial class AddEntityStatus
+    [Migration("20240307145157_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -251,56 +251,53 @@ namespace VetApp.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CurrentCondition")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Diagnosis")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Exit")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("MedicalHistory")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<DateTime?>("NextExamination")
-                        .HasColumnType("datetime2");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Research")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("SpecificCondition")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
                     b.Property<string>("Surgery")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Therapy")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -327,6 +324,11 @@ namespace VetApp.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -345,23 +347,34 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
-                            Address = "гр.Стара Загора",
-                            Name = "Иван",
+                            Address = "ул. Света Параскева 10, София 1000",
+                            IsActive = false,
+                            Name = "Ivan",
                             PhoneNumber = "+359876123123"
                         },
                         new
                         {
                             Id = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
-                            Address = "гр.Димитровград",
-                            Name = "Марко",
+                            Address = "бул. Цариградско шосе 24, Пловдив 4000",
+                            IsActive = false,
+                            Name = "Milko",
                             PhoneNumber = "+359878255255"
                         },
                         new
                         {
                             Id = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
-                            Address = "гр.Хасково",
-                            Name = "Пенка",
+                            Address = "жк. Лозенец, ул. Розова долина 7, Варна 9000",
+                            IsActive = false,
+                            Name = "Dimo",
                             PhoneNumber = "+359988989898"
+                        },
+                        new
+                        {
+                            Id = new Guid("2e8fb8ae-6d2e-46a9-af4a-0b14ab081476"),
+                            Address = "ул. Дунав 15, Велико Търново 5000",
+                            IsActive = false,
+                            Name = "Mihaela",
+                            PhoneNumber = "+359878358235"
                         });
                 });
 
@@ -382,9 +395,13 @@ namespace VetApp.Data.Migrations
                     b.Property<string>("ChronicIllnesses")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Microchip")
                         .HasMaxLength(5)
@@ -395,9 +412,8 @@ namespace VetApp.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Neutered")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Neutered")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
@@ -417,29 +433,42 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Gender = "Male",
-                            Name = "Ласи",
-                            Neutered = "No",
+                            Gender = 0,
+                            IsActive = false,
+                            Name = "Lasi",
+                            Neutered = 0,
                             OwnerId = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
-                            Type = "Куче"
+                            Type = "Dog"
                         },
                         new
                         {
                             Id = 2,
-                            Gender = "Male",
-                            Name = "Том",
-                            Neutered = "Homeless",
+                            Gender = 0,
+                            IsActive = false,
+                            Name = "Tom",
+                            Neutered = 2,
                             OwnerId = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
-                            Type = "Котка"
+                            Type = "Cat"
                         },
                         new
                         {
                             Id = 3,
-                            Gender = "Female",
-                            Name = "Джери",
-                            Neutered = "Yes",
+                            Gender = 1,
+                            IsActive = false,
+                            Name = "Djeri",
+                            Neutered = 1,
                             OwnerId = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
-                            Type = "Хамстер"
+                            Type = "Mouse"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Gender = 1,
+                            IsActive = false,
+                            Name = "Bella",
+                            Neutered = 0,
+                            OwnerId = new Guid("2e8fb8ae-6d2e-46a9-af4a-0b14ab081476"),
+                            Type = "Dog"
                         });
                 });
 
@@ -475,7 +504,7 @@ namespace VetApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Status");
+                    b.ToTable("Statuses");
 
                     b.HasData(
                         new
@@ -492,6 +521,11 @@ namespace VetApp.Data.Migrations
                         {
                             Id = 3,
                             Name = "Hospital"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "New"
                         });
                 });
 

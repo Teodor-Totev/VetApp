@@ -18,19 +18,19 @@
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
-			Assembly configAssembly = Assembly.GetAssembly(typeof(VetAppDbContext)) ??
-									  Assembly.GetExecutingAssembly();
+			//Assembly configAssembly = Assembly.GetAssembly(typeof(VetAppDbContext)) ??
+			//						  Assembly.GetExecutingAssembly();
 
-			builder.ApplyConfigurationsFromAssembly(configAssembly);
+			//builder.ApplyConfigurationsFromAssembly(configAssembly);
 
-            //builder.ApplyConfiguration(new OwnerEntityConfiguration());
-            //builder.ApplyConfiguration(new PatientEntityConfiguration());
-            //builder.ApplyConfiguration(new StatusEntityConfiguration());
+			builder.ApplyConfiguration(new OwnerEntityConfiguration());
+			builder.ApplyConfiguration(new PatientEntityConfiguration());
+			builder.ApplyConfiguration(new StatusEntityConfiguration());
 
-            // User registration is required to examination seed
-            //builder.ApplyConfiguration(new ExaminationEntityConfiguration());
+			// User registration is required to examination seed
+			//builder.ApplyConfiguration(new ExaminationEntityConfiguration());
 
-            builder.Entity<PatientUser>()
+			builder.Entity<PatientUser>()
 				.HasKey(pu => new { pu.DoctorId, pu.PatientId });
 
 			base.OnModelCreating(builder);

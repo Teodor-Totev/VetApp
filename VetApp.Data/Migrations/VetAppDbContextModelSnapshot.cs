@@ -306,38 +306,6 @@ namespace VetApp.Data.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Examinations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(2024, 2, 29, 11, 18, 34, 775, DateTimeKind.Utc).AddTicks(6048),
-                            DoctorId = new Guid("67d4e605-d264-48d5-44c9-08dc28f5b9f5"),
-                            PatientId = 1,
-                            Reason = "Primary",
-                            StatusId = 1,
-                            Weight = 12.0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(2024, 2, 29, 11, 18, 34, 775, DateTimeKind.Utc).AddTicks(6083),
-                            DoctorId = new Guid("67d4e605-d264-48d5-44c9-08dc28f5b9f5"),
-                            PatientId = 2,
-                            Reason = "Secondary",
-                            StatusId = 2,
-                            Weight = 10.0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(2024, 2, 29, 11, 18, 34, 775, DateTimeKind.Utc).AddTicks(6087),
-                            DoctorId = new Guid("67d4e605-d264-48d5-44c9-08dc28f5b9f5"),
-                            PatientId = 3,
-                            Reason = "Primary",
-                            StatusId = 3,
-                            Weight = 30.0
-                        });
                 });
 
             modelBuilder.Entity("VetApp.Data.Models.Owner", b =>
@@ -353,6 +321,11 @@ namespace VetApp.Data.Migrations
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -372,23 +345,34 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
-                            Address = "гр.Стара Загора",
-                            Name = "Иван",
+                            Address = "ул. Света Параскева 10, София 1000",
+                            IsActive = false,
+                            Name = "Ivan",
                             PhoneNumber = "+359876123123"
                         },
                         new
                         {
                             Id = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
-                            Address = "гр.Димитровград",
-                            Name = "Марко",
+                            Address = "бул. Цариградско шосе 24, Пловдив 4000",
+                            IsActive = false,
+                            Name = "Milko",
                             PhoneNumber = "+359878255255"
                         },
                         new
                         {
                             Id = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
-                            Address = "гр.Хасково",
-                            Name = "Пенка",
+                            Address = "жк. Лозенец, ул. Розова долина 7, Варна 9000",
+                            IsActive = false,
+                            Name = "Dimo",
                             PhoneNumber = "+359988989898"
+                        },
+                        new
+                        {
+                            Id = new Guid("2e8fb8ae-6d2e-46a9-af4a-0b14ab081476"),
+                            Address = "ул. Дунав 15, Велико Търново 5000",
+                            IsActive = false,
+                            Name = "Mihaela",
+                            PhoneNumber = "+359878358235"
                         });
                 });
 
@@ -409,9 +393,13 @@ namespace VetApp.Data.Migrations
                     b.Property<string>("ChronicIllnesses")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Microchip")
                         .HasMaxLength(5)
@@ -422,9 +410,8 @@ namespace VetApp.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Neutered")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Neutered")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
@@ -444,29 +431,42 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Gender = "Male",
-                            Name = "Ласи",
-                            Neutered = "No",
+                            Gender = 0,
+                            IsActive = false,
+                            Name = "Lasi",
+                            Neutered = 0,
                             OwnerId = new Guid("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
-                            Type = "Куче"
+                            Type = "Dog"
                         },
                         new
                         {
                             Id = 2,
-                            Gender = "Male",
-                            Name = "Том",
-                            Neutered = "Homeless",
+                            Gender = 0,
+                            IsActive = false,
+                            Name = "Tom",
+                            Neutered = 2,
                             OwnerId = new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"),
-                            Type = "Котка"
+                            Type = "Cat"
                         },
                         new
                         {
                             Id = 3,
-                            Gender = "Female",
-                            Name = "Джери",
-                            Neutered = "Yes",
+                            Gender = 1,
+                            IsActive = false,
+                            Name = "Djeri",
+                            Neutered = 1,
                             OwnerId = new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"),
-                            Type = "Хамстер"
+                            Type = "Mouse"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Gender = 1,
+                            IsActive = false,
+                            Name = "Bella",
+                            Neutered = 0,
+                            OwnerId = new Guid("2e8fb8ae-6d2e-46a9-af4a-0b14ab081476"),
+                            Type = "Dog"
                         });
                 });
 
