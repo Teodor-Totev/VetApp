@@ -7,13 +7,12 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h2>Error</h2>
+                    <h2>Error Code: @ViewData["ErrorCode"]</h2>
                 </div>
                 <div class="card-body">
                     <p>An error occurred while processing your request.</p>
-                    <p>Error Code: @ViewData["ErrorCode"]</p>
-                    <p>Error Message: @ViewBag.ErrorMessage</p>
-                    <p>Please try again later or contact support if the problem persists.</p>
+                    <h4><span class="fw-bold">Error Message:</span> <br /> @ViewBag.ErrorMessage</h4>
+                    
                 </div>
             </div>
         </div>

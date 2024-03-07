@@ -10,24 +10,31 @@
 		{
 			var statusCodeResult = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
 
+			var exceptionHandlerPathFeature =
+			HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+			var exception = exceptionHandlerPathFeature?.Error;
+
 			switch (statusCode)
 			{
 				case 400:
 					ViewData["ErrorCode"] = "400";
-					ViewBag.ErrorMessage = "The request could not be understood by the server due to malformed syntax. Please check your request and try again.";
+					ViewBag.ErrorMessage = exception?.Message;
 					break;
 				case 404:
-                    ViewData["ErrorCode"] = "404";
-                    ViewBag.ErrorMessage = "Sorry, the resource you requested could not be found.";
+					ViewData["ErrorCode"] = "404";
+					ViewBag.ErrorMessage = exception?.Message;
 					break;
 				case 500:
-                    ViewData["ErrorCode"] = "500";
-                    ViewBag.ErrorMessage = "Sorry, something went wrong on the server.";
+					ViewData["ErrorCode"] = "500";
+					ViewBag.ErrorMessage = exception?.Message;
 					break;
 				default:
 					ViewBag.ErrorMessage = "Error";
+					ViewBag.ErrorMessage = exception?.Message;
 					break;
 			}
+
 			return View("Error");
 		}
 	}
