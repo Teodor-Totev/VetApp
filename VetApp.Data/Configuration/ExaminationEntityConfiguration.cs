@@ -7,7 +7,10 @@
 
     public class ExaminationEntityConfiguration : IEntityTypeConfiguration<Examination>
     {
-
+        public ExaminationEntityConfiguration()
+        {
+            
+        }
         public void Configure(EntityTypeBuilder<Examination> builder)
         {
             builder
@@ -26,7 +29,7 @@
                 Reason = "Primary",
                 CreatedOn = DateTime.UtcNow,
                 Weight = 12,
-                DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
+                DoctorId = Guid.Parse("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                 PatientId = 1,
                 StatusId = 1
             };
@@ -38,7 +41,7 @@
                 Reason = "Secondary",
                 CreatedOn = DateTime.UtcNow,
                 Weight = 10,
-                DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
+                DoctorId = Guid.Parse("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                 PatientId = 2,
                 StatusId = 2
             };
@@ -50,7 +53,7 @@
                 Reason = "Primary",
                 CreatedOn = DateTime.UtcNow,
                 Weight = 30,
-                DoctorId = Guid.Parse("67D4E605-D264-48D5-44C9-08DC28F5B9F5"),
+                DoctorId = Guid.Parse("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                 PatientId = 3,
                 StatusId = 3
             };
@@ -62,7 +65,7 @@
                 Reason = "Primary",
                 CreatedOn = DateTime.UtcNow,
                 Weight = 25,
-                DoctorId = Guid.Parse("04EE9A60-FFD2-4FC0-A8FB-08DC3AE9BE44"),
+                DoctorId = Guid.Parse("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                 PatientId = 4,
                 StatusId = 4
             };

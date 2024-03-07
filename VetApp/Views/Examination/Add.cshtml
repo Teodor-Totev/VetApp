@@ -3,7 +3,7 @@
 
 @{
 	ViewBag.Title = "Create Examination";
-	string doctorName = await accService.GetUserFullNameByUsername(User.Identity?.Name!);
+	string doctorName = await accService.GetUserFullNameByUsernameAsync(User.Identity?.Name!);
 }
 
 <div class="col-md-6" id="PatientInfo">

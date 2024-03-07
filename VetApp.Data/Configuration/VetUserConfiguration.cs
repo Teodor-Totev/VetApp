@@ -6,9 +6,10 @@
     using VetApp.Data.Models;
 
     public class VetUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
-	{
-		public void Configure(EntityTypeBuilder<ApplicationUser> builder)
-		{
-		}
-	}
+    {
+        public void Configure(EntityTypeBuilder<ApplicationUser> builder)
+        {
+
+        }
+    }
 }

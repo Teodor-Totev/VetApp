@@ -94,7 +94,7 @@ public class AccountController : Controller
 
 		await this.signInManager.SignInAsync(user, false);
 
-		return RedirectToAction("All", "Patient");
+		return RedirectToAction("Index", "Home");
 	}
 
 	public async Task<IActionResult> Logout()

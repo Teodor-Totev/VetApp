@@ -14,7 +14,7 @@ namespace VetApp.Services
 			this.context = context;
 		}
 
-		public async Task<string> GetUserFullNameByUsername(string username)
+		public async Task<string> GetUserFullNameByUsernameAsync(string username)
 		{
 			ApplicationUser? user = await context.Users
 				.FirstOrDefaultAsync(u => u.UserName == username);
@@ -26,5 +26,8 @@ namespace VetApp.Services
 
 			return $"Dr. {user.FirstName} {user.LastName}";
 		}
-	}
+
+		public async Task<bool> UserExistsAsync()
+			=> await this.context.Users.AnyAsync();
+    }
 }

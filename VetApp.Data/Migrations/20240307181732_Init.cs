@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VetApp.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -284,6 +284,11 @@ namespace VetApp.Data.Migrations
                 comment: "User Patints");
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"), 0, "123 Main St Haskovo", "73aacf6f-7295-4039-b22a-f773905d4c6e", "r_raykov@gmail.com", false, "Radoslav", "Raykov", true, null, "R_RAYKOV@GMAIL.COM", "R_RAYKOV", "AQAAAAEAACcQAAAAEFVdqAg5prZnvvbqgC+sLv11/QWEyVluJaLs6B5xlCus1fM3pZiLiXeVl6kWX7rgaQ==", null, false, "47C839AC-A6B1-4F57-84A1-437EE042D5E7", false, "r_raykov" });
+
+            migrationBuilder.InsertData(
                 table: "Owners",
                 columns: new[] { "Id", "Address", "Email", "Name", "PhoneNumber" },
                 values: new object[,]
@@ -314,6 +319,17 @@ namespace VetApp.Data.Migrations
                     { 2, null, null, null, 0, null, "Tom", 2, new Guid("10d3246c-45e8-4492-9f3e-a1f1d3c4e033"), "Cat" },
                     { 3, null, null, null, 1, null, "Djeri", 1, new Guid("6625a7bb-93ea-4bad-b228-a408be9725e9"), "Mouse" },
                     { 4, null, null, null, 1, null, "Bella", 0, new Guid("2e8fb8ae-6d2e-46a9-af4a-0b14ab081476"), "Dog" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Examinations",
+                columns: new[] { "Id", "CreatedOn", "CurrentCondition", "Diagnosis", "DoctorId", "Exit", "MedicalHistory", "PatientId", "Reason", "Research", "SpecificCondition", "StatusId", "Surgery", "Therapy", "Weight" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 3, 7, 18, 17, 31, 979, DateTimeKind.Utc).AddTicks(543), null, null, new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"), null, null, 1, "Primary", null, null, 1, null, null, 12.0 },
+                    { 2, new DateTime(2024, 3, 7, 18, 17, 31, 979, DateTimeKind.Utc).AddTicks(552), null, null, new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"), null, null, 2, "Secondary", null, null, 2, null, null, 10.0 },
+                    { 3, new DateTime(2024, 3, 7, 18, 17, 31, 979, DateTimeKind.Utc).AddTicks(555), null, null, new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"), null, null, 3, "Primary", null, null, 3, null, null, 30.0 },
+                    { 4, new DateTime(2024, 3, 7, 18, 17, 31, 979, DateTimeKind.Utc).AddTicks(557), null, null, new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"), null, null, 4, "Primary", null, null, 4, null, null, 25.0 }
                 });
 
             migrationBuilder.CreateIndex(

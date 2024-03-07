@@ -12,8 +12,8 @@ using VetApp.Data;
 namespace VetApp.Data.Migrations
 {
     [DbContext(typeof(VetAppDbContext))]
-    [Migration("20240307145157_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240307181732_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -237,6 +237,27 @@ namespace VetApp.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+                            AccessFailedCount = 0,
+                            Address = "123 Main St Haskovo",
+                            ConcurrencyStamp = "73aacf6f-7295-4039-b22a-f773905d4c6e",
+                            Email = "r_raykov@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Radoslav",
+                            LastName = "Raykov",
+                            LockoutEnabled = true,
+                            NormalizedEmail = "R_RAYKOV@GMAIL.COM",
+                            NormalizedUserName = "R_RAYKOV",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFVdqAg5prZnvvbqgC+sLv11/QWEyVluJaLs6B5xlCus1fM3pZiLiXeVl6kWX7rgaQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "47C839AC-A6B1-4F57-84A1-437EE042D5E7",
+                            TwoFactorEnabled = false,
+                            UserName = "r_raykov"
+                        });
                 });
 
             modelBuilder.Entity("VetApp.Data.Models.Examination", b =>
@@ -308,6 +329,48 @@ namespace VetApp.Data.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Examinations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2024, 3, 7, 18, 17, 31, 979, DateTimeKind.Utc).AddTicks(543),
+                            DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+                            PatientId = 1,
+                            Reason = "Primary",
+                            StatusId = 1,
+                            Weight = 12.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2024, 3, 7, 18, 17, 31, 979, DateTimeKind.Utc).AddTicks(552),
+                            DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+                            PatientId = 2,
+                            Reason = "Secondary",
+                            StatusId = 2,
+                            Weight = 10.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2024, 3, 7, 18, 17, 31, 979, DateTimeKind.Utc).AddTicks(555),
+                            DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+                            PatientId = 3,
+                            Reason = "Primary",
+                            StatusId = 3,
+                            Weight = 30.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2024, 3, 7, 18, 17, 31, 979, DateTimeKind.Utc).AddTicks(557),
+                            DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+                            PatientId = 4,
+                            Reason = "Primary",
+                            StatusId = 4,
+                            Weight = 25.0
+                        });
                 });
 
             modelBuilder.Entity("VetApp.Data.Models.Owner", b =>
