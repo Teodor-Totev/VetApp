@@ -20,11 +20,7 @@
 
 		public async Task<int> CreateAsync(PatientFormModel model)
 		{
-			var existingOwner = await context.Owners
-				.FirstOrDefaultAsync(o => o.PhoneNumber == model.Owner.PhoneNumber &&
-										  o.Name == model.Name);
-
-			Owner newOwner = new Owner()
+			Owner owner = new Owner()
 			{
 				PhoneNumber = model.Owner.PhoneNumber,
 				Address = model.Owner.Address,
@@ -44,18 +40,11 @@
 				ChronicIllnesses = model.ChronicIllnesses
 			};
 
-			if (existingOwner != null)
-			{
-				patient.OwnerId = existingOwner.Id;
-				existingOwner.Patients.Add(patient);
-			}
-			else
-			{
-				patient.OwnerId = newOwner.Id;
-				newOwner.Patients.Add(patient);
-				await context.Owners.AddAsync(newOwner);
-			}
 
+			patient.OwnerId = owner.Id;
+			owner.Patients.Add(patient);
+
+			await context.Owners.AddAsync(owner);
 			await context.Patients.AddAsync(patient);
 			await context.SaveChangesAsync();
 
@@ -93,7 +82,7 @@
 				query = query
 					.Where(p => EF.Functions.Like(p.Name, wildCard) ||
 								EF.Functions.Like(p.Owner.Name, wildCard) ||
-								p.PatientsUsers.Any(pu => EF.Functions.Like(pu.DoctorId.ToString(),wildCard)));
+								p.PatientsUsers.Any(pu => EF.Functions.Like(pu.DoctorId.ToString(), wildCard)));
 			}
 
 			query = queryModel.PatientSorting switch
@@ -105,7 +94,7 @@
 				PatientSorting.OwnerNameAscending => query
 					.OrderBy(p => p.Owner.Name),
 				PatientSorting.OwnerNameDescending => query
-					.OrderByDescending (p => p.Owner.Name),
+					.OrderByDescending(p => p.Owner.Name),
 				_ => query
 					.OrderByDescending(p => p.Id)
 			};
@@ -132,7 +121,7 @@
 				Patients = patients
 			};
 
-			 return result;
+			return result;
 		}
 
 		public async Task<PatientViewModel> GetPatientByIdAsync(int patientId)
