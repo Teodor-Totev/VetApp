@@ -43,6 +43,6 @@
 		[Display(Name = "Chronic Illnesses")]
 		public string? ChronicIllnesses { get; set; }
 
-		public OwnerFormModel Owner { get; set; } = null!;
+		public OwnerFormModel? Owner { get; set; }
     }
 }

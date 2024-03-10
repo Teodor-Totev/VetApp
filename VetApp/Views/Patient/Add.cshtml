@@ -4,14 +4,8 @@
 	ViewData["Title"] = "Create Patient";
 }
 
-@if (TempData["message"] != null)
-{
-	<script src="~/lib/jquery/dist/jquery.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-	<script type="text/javascript">
-		toastr.success('@TempData["message"]');
-	</script>
-}
+<partial name="_NotificationPartial" />
+
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
 	<h4 class="card-header text-center">Add Patient</h4>

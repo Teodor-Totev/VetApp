@@ -43,7 +43,7 @@
                 Weight = 10,
                 DoctorId = Guid.Parse("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                 PatientId = 2,
-                StatusId = 2
+                StatusId = 3
             };
             examinations.Add(examination);
 

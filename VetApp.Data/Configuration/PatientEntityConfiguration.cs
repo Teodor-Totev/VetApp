@@ -34,7 +34,7 @@
             patient = new()
             {
                 Id = 1,
-                Name = "Lasi",
+                Name = "Frank",
                 Type = "Dog",
                 Gender = PatientGender.Male,
                 Neutered = PatientNeutered.No,
@@ -56,7 +56,7 @@
             patient = new()
             {
                 Id = 3,
-                Name = "Djeri",
+                Name = "Jerry",
                 Type = "Mouse",
                 Gender = PatientGender.Female,
                 Neutered = PatientNeutered.Yes,

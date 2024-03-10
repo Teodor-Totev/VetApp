@@ -4,6 +4,9 @@
 @{
 	ViewData["Title"] = "Doctor Dashboard";
 }
+
+<partial name="_NotificationPartial" />
+
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
 	<h3 class="card-header text-center">Welcome, Doctor!</h3>
 	<div class="card-body">
@@ -16,10 +19,6 @@
 						@foreach (var examination in statusGroup.Value)
 						{
 							<li class="list-group-item d-flex justify-content-between align-items-center">
-								@if (statusGroup.Key == "New" && examination.CreatedOn < DateTime.Today)
-								{
-									continue;
-								}
 								<p class="mb-0">@examination.CreatedOn.ToString("dd/MM/yyyy") - @examination.DoctorName <br />
 									@examination.PatientName - @examination.PatientType</p>
 								<p class="mb-0">

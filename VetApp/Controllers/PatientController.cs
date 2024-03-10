@@ -26,17 +26,17 @@ namespace VetApp.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Add(string ownerId)
 		{
-			if (ownerId == null)
-			{
-				return View();
-			}
-
 			PatientFormModel model = new PatientFormModel();
 
-			if (await this.ownerService.OwnerExistsAsync(ownerId))
+			if (ownerId != null)
 			{
-				OwnerFormModel owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
-				model.Owner = owner;
+				if (!await this.ownerService.OwnerExistsAsync(ownerId))
+				{
+					TempData["warning"] = "Owner does not exist";
+					return RedirectToAction("Index", "Home");
+				}
+
+				model.Owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
 			}
 
 			return View(model);
@@ -51,7 +51,7 @@ namespace VetApp.Controllers
 			}
 
 			int patientId = await patientService.CreateAsync(model);
-			TempData["message"] = "Patient Details Saved Successfully";
+			TempData["success"] = "Patient Details Saved Successfully";
 
 			return RedirectToAction("Add", "Examination", new { patientId });
 		}
