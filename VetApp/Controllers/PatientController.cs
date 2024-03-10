@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VetApp.Data.Common.Enums.Patient;
 using VetApp.Extensions;
 using VetApp.Services.Interfaces;
 using VetApp.Services.Models.Patient;
@@ -32,7 +33,7 @@ namespace VetApp.Controllers
 			{
 				if (!await this.ownerService.OwnerExistsAsync(ownerId))
 				{
-					TempData["warning"] = "Owner does not exist";
+					TempData["error"] = "Owner does not exist";
 					return RedirectToAction("Index", "Home");
 				}
 
@@ -45,8 +46,25 @@ namespace VetApp.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(PatientFormModel model)
 		{
+			if (!Enum.IsDefined(typeof(PatientGender), model.Gender))
+			{
+				ModelState.AddModelError("Gender", "Invalid gender value.");
+			}
+
+			if (!Enum.IsDefined(typeof(PatientNeutered), model.Neutered))
+			{
+				ModelState.AddModelError("Neutered", "Invalid neutered value.");
+			}
+
 			if (!ModelState.IsValid)
 			{
+				return View(model);
+			}
+
+			//Need to add an Add Pet action for an owner because this stop adding animals for an existing owner.
+			if (await this.ownerService.OwnerExistsWithNameAndPhoneNumberAsync(model.Owner!.Name, model.Owner.PhoneNumber))
+			{
+				TempData["error"] = "An owner with the same name and phone number already exists.";
 				return View(model);
 			}
 
