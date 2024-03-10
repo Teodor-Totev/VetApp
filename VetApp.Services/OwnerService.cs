@@ -96,6 +96,8 @@
 
 		public async Task<bool> OwnerExistsAsync(string ownerId)
 			=> await context.Owners.AnyAsync(o => o.Id.ToString() == ownerId);
-		
+
+		public async Task<bool> OwnerExistsWithNameAndPhoneNumberAsync(string name, string phoneNumber)
+			=> await context.Owners.AnyAsync(o => o.Name == name && o.PhoneNumber == phoneNumber);
 	}
 }
