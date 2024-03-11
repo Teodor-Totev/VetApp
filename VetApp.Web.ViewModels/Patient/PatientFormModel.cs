@@ -40,8 +40,12 @@
 		[EnumDataType(typeof(PatientNeutered))]
 		public PatientNeutered Neutered { get; set; }
 
-        public string? Characteristics { get; set; }
+		[StringLength(CharacteristicsMaxLength, MinimumLength = CharacteristicsMinLength,
+			ErrorMessage = CharacteristicsErrorMessage)]
+		public string? Characteristics { get; set; }
 
+		[StringLength(ChronicIllnessesMaxLength, MinimumLength = ChronicIllnessesMinLength,
+			ErrorMessage = ChronicIllnessesErrorMessage)]
 		[Display(Name = "Chronic Illnesses")]
 		public string? ChronicIllnesses { get; set; }
 
