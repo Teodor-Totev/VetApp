@@ -2,13 +2,13 @@
 @model Dictionary<string, List<ExaminationDashboardViewModel>>
 
 @{
-	ViewData["Title"] = "Doctor Dashboard";
+	ViewData["Title"] = "Examination Dashboard";
 }
 
 <partial name="_NotificationPartial" />
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
-	<h3 class="card-header text-center">Welcome, Doctor!</h3>
+	<h3 class="card-header text-center">@ViewData["Title"]</h3>
 	<div class="card-body">
 		<div class="row">
 			@foreach (var statusGroup in Model.Where(s => s.Key != "Done"))

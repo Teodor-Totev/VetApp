@@ -27,12 +27,12 @@
 		[Display(Name = "Microchip")]
 		public string? Microchip { get; set; }
 
-		[Required]
+		[Required(ErrorMessage = "Please select a gender.")]
 		[EnumDataType(typeof(PatientGender))]
 		public PatientGender Gender { get; set; }
 
-		[Required]
-        [EnumDataType(typeof(PatientNeutered))]
+		[Required(ErrorMessage = "Please select a neutered status.")]
+		[EnumDataType(typeof(PatientNeutered))]
         public PatientNeutered Neutered { get; set; }
 
 		[StringLength(CharacteristicsMaxLength, MinimumLength = CharacteristicsMinLength,

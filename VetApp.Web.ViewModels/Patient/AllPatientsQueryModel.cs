@@ -2,6 +2,7 @@
 {
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
+
 	using VetApp.Web.ViewModels.Patient.Enums;
     using static Web.Common.ViewModelValidationConstants.QueryModelConstants;
 

@@ -14,14 +14,18 @@
 		private readonly IPatientService patientService;
 		private readonly IExaminationService examinationService;
 		private readonly IOwnerService ownerService;
+		private readonly IAccountService accountService;
 
-		public PatientController(IPatientService patientService,
+		public PatientController(
+			IPatientService patientService,
 			IExaminationService examinationService,
-			IOwnerService ownerService)
+			IOwnerService ownerService,
+			IAccountService accountService)
 		{
 			this.patientService = patientService;
 			this.examinationService = examinationService;
 			this.ownerService = ownerService;
+			this.accountService = accountService;
 		}
 
 		[HttpGet]
@@ -49,7 +53,7 @@
 					return View(model);
 				}
 
-				int patientId = await patientService.CreateAsync(model);
+				int patientId = await patientService.CreateAsync(model, User.Id());
 
 				TempData["success"] = "Patient and Owner Details Saved Successfully.";
 
@@ -140,9 +144,9 @@
 					return View(queryModel);
 				}
 
-				AllPatientsOrderedAndPagedServiceModel serviceModel =
-				await patientService.GetAllPatientsAsync(queryModel);
 				ViewBag.UserId = User.Id();
+				AllPatientsOrderedAndPagedServiceModel serviceModel =
+					await patientService.GetAllPatientsAsync(queryModel);
 
 				queryModel.Patients = serviceModel.Patients;
 				queryModel.TotalPatients = serviceModel.TotalPatientsCount;
@@ -154,6 +158,28 @@
 				TempData["error"] = $"An error occurred: {ex.Message}";
 				return RedirectToAction("Index", "Home");
 			}
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Mine([FromQuery] AllPatientsQueryModel queryModel, string doctorId)
+		{
+			if (!string.IsNullOrEmpty(doctorId))
+			{
+				if (!await this.accountService.UserExistsAsync(doctorId))
+				{
+					TempData["error"] = "User does not exist.";
+					return RedirectToAction("Index", "Home");
+				}
+			}
+
+			ViewBag.UserId = User.Id();
+			AllPatientsOrderedAndPagedServiceModel serviceModel =
+					await patientService.GetAllPatientsForUserAsync(queryModel, doctorId);
+
+			queryModel.Patients = serviceModel.Patients;
+			queryModel.TotalPatients = serviceModel.TotalPatientsCount;
+
+			return View(queryModel);
 		}
 
 		[HttpGet]

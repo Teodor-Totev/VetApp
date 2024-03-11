@@ -91,7 +91,10 @@
 	<h3 class="card-header text-center">
 		Patients
 		<span class="float-end">
-			<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="Mine" asp-route-doctorId="@doctorId">Mine</a>
+			<a class="btn btn-outline-primary text-white"
+			   asp-controller="Patient"
+			   asp-action="Mine"
+			   asp-route-doctorId="@doctorId">Mine</a>
 		</span>
 	</h3>
 
@@ -106,7 +109,7 @@
 			<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
 				@foreach (var patient in Model.Patients)
 				{
-					<partial name="_PatientAllPartial" model="@patient"/>
+					<partial name="_PatientAllPartial" model="@patient" />
 				}
 			</div>
 		}
