@@ -18,6 +18,7 @@
         public string? SearchString { get; set; }
 
 		[Display(Name = "Sort animals by:")]
+        [EnumDataType(typeof(PatientSorting))]
         public PatientSorting PatientSorting{ get; set; }
 
         public int CurrentPage { get; set; }

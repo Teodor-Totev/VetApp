@@ -124,14 +124,36 @@
 		[HttpGet]
 		public async Task<IActionResult> All([FromQuery] AllPatientsQueryModel queryModel)
 		{
-			AllPatientsOrderedAndPagedServiceModel serviceModel =
+			try
+			{
+				if (!ModelState.IsValid)
+				{
+					TempData["error"] = "The sorting option is not valid.";
+					return View(queryModel);
+				}
+
+				if (queryModel.PatientsPerPage != 3 &&
+					queryModel.PatientsPerPage != 6 &&
+					queryModel.PatientsPerPage != 9)
+				{
+					TempData["error"] = "The animals per page option is not valid.";
+					return View(queryModel);
+				}
+
+				AllPatientsOrderedAndPagedServiceModel serviceModel =
 				await patientService.GetAllPatientsAsync(queryModel);
-			ViewBag.UserId = User.Id();
+				ViewBag.UserId = User.Id();
 
-			queryModel.Patients = serviceModel.Patients;
-			queryModel.TotalPatients = serviceModel.TotalPatientsCount;
+				queryModel.Patients = serviceModel.Patients;
+				queryModel.TotalPatients = serviceModel.TotalPatientsCount;
 
-			return View(queryModel);
+				return View(queryModel);
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = $"An error occurred: {ex.Message}";
+				return RedirectToAction("Index", "Home");
+			}
 		}
 
 		[HttpGet]
