@@ -7,6 +7,8 @@
 	{
 		Task<int> CreateAsync(PatientFormModel model);
 
+		Task<int> AddPetAsync(PatientFormModel model, string ownerId);
+
 		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel);
 
 		Task<PatientViewModel> GetPatientByIdAsync(int patientId);
@@ -16,5 +18,6 @@
 		Task EditPatientAsync(PatientEditViewModel model, int patientId);
 
 		Task<bool> PatientExistsAsync(int patientId);
+
 	}
 }

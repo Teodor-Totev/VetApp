@@ -11,8 +11,8 @@
 
 		Task<bool> OwnerExistsAsync (string ownerId);
 
-		Task<OwnerFormModel> GetOwnerFormModelByIdAsync(string ownerId);
+		Task<OwnerFormModel?> GetOwnerFormModelByIdAsync(string ownerId);
 
-		Task<bool> OwnerExistsWithNameAndPhoneNumberAsync(string name, string phoneNumber);
+		Task<bool> CheckOwnerExistsByNameAndPhoneNumberAsync(string name, string phoneNumber);
 	}
 }

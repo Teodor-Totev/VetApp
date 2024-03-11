@@ -6,6 +6,8 @@
 	string doctorName = await accService.GetUserFullNameByUsernameAsync(User.Identity?.Name!);
 }
 
+<partial name="_NotificationPartial" />
+
 <div class="col-md-6" id="PatientInfo">
 	<partial name="_PatientDetailsPartial" model="@Model.Patient"/>
 </div>

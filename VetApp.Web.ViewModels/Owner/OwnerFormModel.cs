@@ -6,7 +6,7 @@
 
 	public class OwnerFormModel
 	{
-		[Required]
+        [Required]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength)]
 		[Display(Name = "Name")]
 		public string Name { get; set; } = null!;

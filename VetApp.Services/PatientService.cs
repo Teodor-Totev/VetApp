@@ -51,6 +51,30 @@
 			return patient.Id;
 		}
 
+		public async Task<int> AddPetAsync(PatientFormModel model, string ownerId)
+		{
+			Owner owner = await this.context.Owners.FirstAsync(o => o.Id.ToString() == ownerId);
+
+			Patient patient = new Patient()
+			{
+				Name = model.Name,
+				Type = model.Type,
+				Gender = model.Gender,
+				BirthDate = model.BirthDate,
+				Neutered = model.Neutered,
+				Microchip = model.Microchip,
+				Characteristics = model.Characteristics,
+				ChronicIllnesses = model.ChronicIllnesses,
+				OwnerId = Guid.Parse(ownerId)
+			};
+
+			owner!.Patients.Add(patient);
+			await context.Patients.AddAsync(patient);
+			await context.SaveChangesAsync();
+
+			return patient.Id;
+		}
+
 		public async Task EditPatientAsync(PatientEditViewModel model, int patientId)
 		{
 			Patient targetPatient = await context.Patients.FindAsync(patientId);

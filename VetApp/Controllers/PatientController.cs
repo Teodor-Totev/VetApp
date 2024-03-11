@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using VetApp.Data.Common.Enums.Patient;
-using VetApp.Extensions;
-using VetApp.Services.Interfaces;
-using VetApp.Services.Models.Patient;
-using VetApp.Web.ViewModels.Examination;
-using VetApp.Web.ViewModels.Owner;
-using VetApp.Web.ViewModels.Patient;
-
-namespace VetApp.Controllers
+﻿namespace VetApp.Controllers
 {
+	using Microsoft.AspNetCore.Mvc;
+
+	using VetApp.Extensions;
+	using VetApp.Services.Interfaces;
+	using VetApp.Services.Models.Patient;
+	using VetApp.Web.ViewModels.Examination;
+	using VetApp.Web.ViewModels.Owner;
+	using VetApp.Web.ViewModels.Patient;
+
 	public class PatientController : BaseController
 	{
 		private readonly IPatientService patientService;
@@ -25,20 +25,9 @@ namespace VetApp.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Add(string ownerId)
+		public IActionResult Add()
 		{
 			PatientFormModel model = new PatientFormModel();
-
-			if (ownerId != null)
-			{
-				if (!await this.ownerService.OwnerExistsAsync(ownerId))
-				{
-					TempData["error"] = "Owner does not exist";
-					return RedirectToAction("Index", "Home");
-				}
-
-				model.Owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
-			}
 
 			return View(model);
 		}
@@ -46,14 +35,10 @@ namespace VetApp.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(PatientFormModel model)
 		{
-			if (!Enum.IsDefined(typeof(PatientGender), model.Gender))
+			if (await this.ownerService.CheckOwnerExistsByNameAndPhoneNumberAsync(model.Owner.Name, model.Owner.PhoneNumber))
 			{
-				ModelState.AddModelError("Gender", "Invalid gender value.");
-			}
-
-			if (!Enum.IsDefined(typeof(PatientNeutered), model.Neutered))
-			{
-				ModelState.AddModelError("Neutered", "Invalid neutered value.");
+				TempData["error"] = "An owner with the same name and phone number already exists.";
+				return View(model);
 			}
 
 			if (!ModelState.IsValid)
@@ -61,15 +46,45 @@ namespace VetApp.Controllers
 				return View(model);
 			}
 
-			//Need to add an Add Pet action for an owner because this stop adding animals for an existing owner.
-			if (await this.ownerService.OwnerExistsWithNameAndPhoneNumberAsync(model.Owner!.Name, model.Owner.PhoneNumber))
+			int patientId = await patientService.CreateAsync(model);
+			TempData["success"] = "Patient and Owner Details Saved Successfully.";
+
+			return RedirectToAction("Add", "Examination", new { patientId });
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> AddPet(string ownerId)
+		{
+			OwnerFormModel? owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
+
+			if (owner == null)
 			{
-				TempData["error"] = "An owner with the same name and phone number already exists.";
-				return View(model);
+				TempData["error"] = "Owner does not exist";
+				return RedirectToAction("Index", "Home");
 			}
 
-			int patientId = await patientService.CreateAsync(model);
-			TempData["success"] = "Patient Details Saved Successfully";
+			PatientFormModel model = new PatientFormModel()
+			{
+				OwnerId = ownerId
+			};
+
+			return View(model);
+		}
+
+		[HttpPost]
+		[AutoValidateAntiforgeryToken]
+		public async Task<IActionResult> AddPet(PatientFormModel model, string ownerId)
+		{
+			OwnerFormModel? owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
+
+			if (owner == null)
+			{
+				TempData["error"] = "Owner does not exist";
+				return RedirectToAction("Index", "Home");
+			}
+
+			int patientId = await this.patientService.AddPetAsync(model, ownerId);
+			TempData["success"] = $"Successfully added Pet to Owner {owner.Name}.";
 
 			return RedirectToAction("Add", "Examination", new { patientId });
 		}

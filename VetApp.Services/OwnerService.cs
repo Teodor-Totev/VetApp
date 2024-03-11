@@ -31,9 +31,8 @@
 				.FirstAsync();
 		}
 
-		public async Task<OwnerFormModel> GetOwnerFormModelByIdAsync(string ownerId)
-		{
-			return await context.Owners
+		public async Task<OwnerFormModel?> GetOwnerFormModelByIdAsync(string ownerId)
+			=> await context.Owners
 				.Where(o => o.Id.ToString() == ownerId)
 				.Select(o => new OwnerFormModel()
 				{
@@ -42,9 +41,9 @@
 					PhoneNumber = o.PhoneNumber,
 					Email = o.Email
 				})
-				.FirstAsync();
-		}
+				.FirstOrDefaultAsync();
 
+		//All action
 		public async Task<ICollection<OwnerViewModel>> GetOwnersAsync(string phoneNumber)
 		{
 			if (phoneNumber != null)
@@ -97,7 +96,7 @@
 		public async Task<bool> OwnerExistsAsync(string ownerId)
 			=> await context.Owners.AnyAsync(o => o.Id.ToString() == ownerId);
 
-		public async Task<bool> OwnerExistsWithNameAndPhoneNumberAsync(string name, string phoneNumber)
+		public async Task<bool> CheckOwnerExistsByNameAndPhoneNumberAsync(string name, string phoneNumber)
 			=> await context.Owners.AnyAsync(o => o.Name == name && o.PhoneNumber == phoneNumber);
 	}
 }
