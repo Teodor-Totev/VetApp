@@ -40,7 +40,6 @@
 				ChronicIllnesses = model.ChronicIllnesses
 			};
 
-
 			patient.OwnerId = owner.Id;
 			owner.Patients.Add(patient);
 
@@ -105,8 +104,8 @@
 
 				query = query
 					.Where(p => EF.Functions.Like(p.Name, wildCard) ||
-								EF.Functions.Like(p.Owner.Name, wildCard) ||
-								p.PatientsUsers.Any(pu => EF.Functions.Like(pu.DoctorId.ToString(), wildCard)));
+								EF.Functions.Like(p.Type, wildCard) ||
+								EF.Functions.Like(p.Owner.Name, wildCard));
 			}
 
 			query = queryModel.PatientSorting switch
@@ -133,9 +132,8 @@
 					OwnerName = p.Owner.Name,
 					Type = p.Type,
 					Gender = p.Gender,
-					BirthDate = p.BirthDate,
 					Neutered = p.Neutered,
-					OwnerId = p.OwnerId.ToString(),
+					OwnerId = p.OwnerId.ToString()
 				})
 				.ToArrayAsync();
 

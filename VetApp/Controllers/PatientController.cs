@@ -2,12 +2,12 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
-	using VetApp.Extensions;
-	using VetApp.Services.Interfaces;
-	using VetApp.Services.Models.Patient;
-	using VetApp.Web.ViewModels.Examination;
-	using VetApp.Web.ViewModels.Owner;
-	using VetApp.Web.ViewModels.Patient;
+	using Extensions;
+	using Services.Interfaces;
+	using Services.Models.Patient;
+	using Web.ViewModels.Examination;
+	using Web.ViewModels.Owner;
+	using Web.ViewModels.Patient;
 
 	public class PatientController : BaseController
 	{
@@ -33,60 +33,92 @@
 		}
 
 		[HttpPost]
+		[AutoValidateAntiforgeryToken]
 		public async Task<IActionResult> Add(PatientFormModel model)
 		{
-			if (await this.ownerService.CheckOwnerExistsByNameAndPhoneNumberAsync(model.Owner.Name, model.Owner.PhoneNumber))
+			try
 			{
-				TempData["error"] = "An owner with the same name and phone number already exists.";
-				return View(model);
-			}
+				if (await this.ownerService.CheckOwnerExistsByNameAndPhoneNumberAsync(model.Owner.Name, model.Owner.PhoneNumber))
+				{
+					TempData["error"] = "An owner with the same name and phone number already exists.";
+					return View(model);
+				}
 
-			if (!ModelState.IsValid)
+				if (!ModelState.IsValid)
+				{
+					return View(model);
+				}
+
+				int patientId = await patientService.CreateAsync(model);
+
+				TempData["success"] = "Patient and Owner Details Saved Successfully.";
+
+				return RedirectToAction("Add", "Examination", new { patientId });
+			}
+			catch (Exception ex)
 			{
-				return View(model);
+				TempData["error"] = $"An error occurred: {ex.Message}";
+				return RedirectToAction("Index", "Home");
 			}
-
-			int patientId = await patientService.CreateAsync(model);
-			TempData["success"] = "Patient and Owner Details Saved Successfully.";
-
-			return RedirectToAction("Add", "Examination", new { patientId });
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> AddPet(string ownerId)
 		{
-			OwnerFormModel? owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
-
-			if (owner == null)
+			try
 			{
-				TempData["error"] = "Owner does not exist";
+				OwnerFormModel? owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
+
+				if (owner == null)
+				{
+					TempData["error"] = "Owner does not exist";
+					return RedirectToAction("Index", "Home");
+				}
+
+				PatientFormModel model = new PatientFormModel()
+				{
+					OwnerId = ownerId
+				};
+
+				return View(model);
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = $"An error occurred: {ex.Message}";
 				return RedirectToAction("Index", "Home");
 			}
-
-			PatientFormModel model = new PatientFormModel()
-			{
-				OwnerId = ownerId
-			};
-
-			return View(model);
 		}
 
 		[HttpPost]
 		[AutoValidateAntiforgeryToken]
 		public async Task<IActionResult> AddPet(PatientFormModel model, string ownerId)
 		{
-			OwnerFormModel? owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
-
-			if (owner == null)
+			try
 			{
-				TempData["error"] = "Owner does not exist";
+				OwnerFormModel? owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
+
+				if (owner == null)
+				{
+					TempData["error"] = "Owner does not exist";
+					return RedirectToAction("Index", "Home");
+				}
+
+				if (!ModelState.IsValid)
+				{
+					return View(model);
+				}
+
+				int patientId = await this.patientService.AddPetAsync(model, ownerId);
+
+				TempData["success"] = $"Successfully added Pet to Owner {owner.Name}.";
+
+				return RedirectToAction("Add", "Examination", new { patientId });
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = $"An error occurred: {ex.Message}";
 				return RedirectToAction("Index", "Home");
 			}
-
-			int patientId = await this.patientService.AddPetAsync(model, ownerId);
-			TempData["success"] = $"Successfully added Pet to Owner {owner.Name}.";
-
-			return RedirectToAction("Add", "Examination", new { patientId });
 		}
 
 		[HttpGet]

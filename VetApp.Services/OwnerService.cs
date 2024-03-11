@@ -17,8 +17,7 @@
 		}
 
 		public async Task<OwnerViewModel> GetOwnerByIdAsync(string ownerId)
-		{
-			return await context.Owners
+			=>	await context.Owners
 				.Where(o => o.Id.ToString() == ownerId)
 				.Select(o => new OwnerViewModel()
 				{
@@ -29,7 +28,7 @@
 					Email = o.Email
 				})
 				.FirstAsync();
-		}
+		
 
 		public async Task<OwnerFormModel?> GetOwnerFormModelByIdAsync(string ownerId)
 			=> await context.Owners
