@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using VetApp.ModelBinders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddControllersWithViews(options =>
 {
 	options.ModelBinderProviders.Insert(0, new DoubleModelBinderProvider());
+	options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
 var app = builder.Build();
@@ -16,15 +18,14 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
 	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-//app.UseExceptionHandler("/Error/500");
-//app.UseStatusCodePagesWithRedirects("/Error/{0}");
+app.UseExceptionHandler("/Home/Error/500");
+app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
 
 app.UseRouting();
 

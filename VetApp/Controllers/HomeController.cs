@@ -1,29 +1,37 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using VetApp.Web.ViewModels.Home;
-
-namespace VetApp.Controllers
+﻿namespace VetApp.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
+
 	public class HomeController : BaseController
 	{
 		[AllowAnonymous]
 		public IActionResult Index()
 		{
-            if (User.Identity!.IsAuthenticated)
-            {
-                return RedirectToAction("Dashboard", "Examination");
-            }
-            else
-            {
-                return View();
-            }
-        }
+			if (User.Identity!.IsAuthenticated)
+			{
+				return RedirectToAction("Dashboard", "Examination");
+			}
+			else
+			{
+				return View();
+			}
+		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
+		public IActionResult Error(int statusCode)
 		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+			if (statusCode == 404)
+			{
+				return View("Error404");
+			}
+
+			if (statusCode == 500)
+			{
+				return View("Error500");
+			}
+
+			return View();
 		}
 	}
 }
