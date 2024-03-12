@@ -27,7 +27,7 @@ namespace VetApp.Services
 			return $"Dr. {user.FirstName} {user.LastName}";
 		}
 
-		public async Task<bool> UserExistsAsync()
-			=> await this.context.Users.AnyAsync();
+		public async Task<bool> UserExistsAsync(string id)
+			=> await this.context.Users.AnyAsync(u => u.Id.ToString() == id);
     }
 }

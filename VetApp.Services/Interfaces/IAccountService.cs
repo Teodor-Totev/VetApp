@@ -6,6 +6,6 @@ namespace VetApp.Services.Interfaces
 	{
 		Task<string> GetUserFullNameByUsernameAsync(string username);
 
-		Task<bool> UserExistsAsync();
+		Task<bool> UserExistsAsync(string id);
 	}
 }
