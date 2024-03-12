@@ -5,7 +5,7 @@
 
 	public interface IPatientService
 	{
-		Task<int> CreateAsync(PatientFormModel model);
+		Task<int> CreateAsync(PatientFormModel model, string doctorId);
 
 		Task<int> AddPetAsync(PatientFormModel model, string ownerId);
 
@@ -19,5 +19,6 @@
 
 		Task<bool> PatientExistsAsync(int patientId);
 
+		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(AllPatientsQueryModel queryModel, string doctorId);
 	}
 }

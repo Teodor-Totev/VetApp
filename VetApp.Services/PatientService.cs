@@ -1,5 +1,7 @@
 ﻿namespace VetApp.Services
 {
+	using System;
+
 	using Microsoft.EntityFrameworkCore;
 
 	using Data;
@@ -18,7 +20,7 @@
 			this.context = context;
 		}
 
-		public async Task<int> CreateAsync(PatientFormModel model)
+		public async Task<int> CreateAsync(PatientFormModel model, string doctorId)
 		{
 			Owner owner = new Owner()
 			{
@@ -37,11 +39,19 @@
 				Neutered = model.Neutered,
 				Microchip = model.Microchip,
 				Characteristics = model.Characteristics,
-				ChronicIllnesses = model.ChronicIllnesses
+				ChronicIllnesses = model.ChronicIllnesses,
+				OwnerId = owner.Id,
 			};
 
-			patient.OwnerId = owner.Id;
 			owner.Patients.Add(patient);
+
+			PatientUser pu = new PatientUser()
+			{
+				Patient = patient,
+				DoctorId = Guid.Parse(doctorId)
+			};
+
+			patient.PatientsUsers.Add(pu);
 
 			await context.Owners.AddAsync(owner);
 			await context.Patients.AddAsync(patient);
@@ -139,7 +149,7 @@
 
 			var result = new AllPatientsOrderedAndPagedServiceModel()
 			{
-				TotalPatientsCount = query.Count(),
+				TotalPatientsCount = await query.CountAsync(),
 				Patients = patients
 			};
 
@@ -186,6 +196,51 @@
 				.FirstAsync();
 
 			return patient;
+		}
+
+		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(AllPatientsQueryModel queryModel, string doctorId)
+		{
+			IQueryable<PatientUser> query = context.PatientsUsers
+				.AsQueryable();
+
+			if (!string.IsNullOrEmpty(doctorId))
+			{
+				query = query
+					.Where(pu => pu.DoctorId.ToString() == doctorId);
+			}
+
+			if (!string.IsNullOrEmpty(queryModel.SearchString))
+			{
+				string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+				query = query
+					.Where(p => EF.Functions.Like(p.Patient.Name, wildCard) ||
+								EF.Functions.Like(p.Patient.Type, wildCard) ||
+								EF.Functions.Like(p.Patient.Owner.Name, wildCard));
+			}
+
+			ICollection<PatientViewModel> patients = await query
+				.Skip((queryModel.CurrentPage - 1) * queryModel.PatientsPerPage)
+				.Take(queryModel.PatientsPerPage)
+				.Select(p => new PatientViewModel()
+				{
+					Id = p.Patient.Id,
+					Name = p.Patient.Name,
+					OwnerName = p.Patient.Owner.Name,
+					Type = p.Patient.Type,
+					Gender = p.Patient.Gender,
+					Neutered = p.Patient.Neutered,
+					OwnerId = p.Patient.OwnerId.ToString()
+				})
+				.ToArrayAsync();
+
+			var result = new AllPatientsOrderedAndPagedServiceModel()
+			{
+				TotalPatientsCount = await query.CountAsync(),
+				Patients = patients
+			};
+
+			return result;
 		}
 	}
 }
