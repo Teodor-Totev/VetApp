@@ -37,7 +37,6 @@
 		}
 
 		[HttpPost]
-		[AutoValidateAntiforgeryToken]
 		public async Task<IActionResult> Add(PatientFormModel model)
 		{
 			try
@@ -94,7 +93,6 @@
 		}
 
 		[HttpPost]
-		[AutoValidateAntiforgeryToken]
 		public async Task<IActionResult> AddPet(PatientFormModel model, string ownerId)
 		{
 			try
@@ -128,23 +126,24 @@
 		[HttpGet]
 		public async Task<IActionResult> All([FromQuery] AllPatientsQueryModel queryModel)
 		{
+			if (!ModelState.IsValid)
+			{
+				TempData["error"] = "The sorting option is not valid.";
+				return View(queryModel);
+			}
+
+			if (queryModel.PatientsPerPage != 3 &&
+				queryModel.PatientsPerPage != 6 &&
+				queryModel.PatientsPerPage != 9)
+			{
+				TempData["error"] = "The animals per page option is not valid.";
+				return View(queryModel);
+			}
+
+			ViewBag.UserId = User.Id();
+
 			try
 			{
-				if (!ModelState.IsValid)
-				{
-					TempData["error"] = "The sorting option is not valid.";
-					return View(queryModel);
-				}
-
-				if (queryModel.PatientsPerPage != 3 &&
-					queryModel.PatientsPerPage != 6 &&
-					queryModel.PatientsPerPage != 9)
-				{
-					TempData["error"] = "The animals per page option is not valid.";
-					return View(queryModel);
-				}
-
-				ViewBag.UserId = User.Id();
 				AllPatientsOrderedAndPagedServiceModel serviceModel =
 					await patientService.GetAllPatientsAsync(queryModel);
 
