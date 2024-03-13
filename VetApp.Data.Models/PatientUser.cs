@@ -6,7 +6,7 @@ namespace VetApp.Data.Models
 	[Comment("User Patints")]
 	public class PatientUser
 	{
-        public int PatientId { get; set; } 
+        public Guid PatientId { get; set; } 
 
 		[ForeignKey(nameof(PatientId))]
 		public virtual Patient Patient { get; set; } = null!;

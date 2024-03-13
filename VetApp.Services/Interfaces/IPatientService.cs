@@ -5,19 +5,19 @@
 
 	public interface IPatientService
 	{
-		Task<int> CreateAsync(PatientFormModel model, string doctorId);
+		Task<string> CreateAsync(PatientFormModel model, string doctorId);
 
-		Task<int> AddPetAsync(PatientFormModel model, string ownerId);
+		Task<string> AddPetAsync(PatientFormModel model, string ownerId);
 
 		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel);
 
-		Task<PatientViewModel> GetPatientByIdAsync(int patientId);
+		Task<PatientViewModel> GetPatientByIdAsync(string patientId);
 
-		Task<PatientEditViewModel> GetPatientForEditByIdAsync(int patientId);
+		Task<PatientEditViewModel> GetPatientForEditByIdAsync(string patientId);
 
-		Task EditPatientAsync(PatientEditViewModel model, int patientId);
+		Task EditPatientAsync(PatientEditViewModel model, string patientId);
 
-		Task<bool> PatientExistsAsync(int patientId);
+		Task<bool> PatientExistsAsync(string patientId);
 
 		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(AllPatientsQueryModel queryModel, string doctorId);
 	}

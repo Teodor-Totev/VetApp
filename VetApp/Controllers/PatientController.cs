@@ -52,7 +52,7 @@
 					return View(model);
 				}
 
-				int patientId = await patientService.CreateAsync(model, User.Id());
+				string patientId = await patientService.CreateAsync(model, User.Id());
 
 				TempData["success"] = "Patient and Owner Details Saved Successfully.";
 
@@ -110,7 +110,7 @@
 					return View(model);
 				}
 
-				int patientId = await this.patientService.AddPetAsync(model, ownerId);
+				string patientId = await this.patientService.AddPetAsync(model, ownerId);
 
 				TempData["success"] = $"Successfully added Pet to Owner {owner.Name}.";
 
@@ -182,7 +182,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Details(int patientId)
+		public async Task<IActionResult> Details(string patientId)
 		{
 			PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
 			ICollection<ExaminationViewModel> examinations = await examinationService.GetPatientExaminationsAsync(patientId);
@@ -198,7 +198,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Edit(int patientId)
+		public async Task<IActionResult> Edit(string patientId)
 		{
 			if (!await patientService.PatientExistsAsync(patientId))
 			{
@@ -211,7 +211,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(PatientEditViewModel model, int patientId)
+		public async Task<IActionResult> Edit(PatientEditViewModel model, string patientId)
 		{
 			if (!await patientService.PatientExistsAsync(patientId))
 			{

@@ -33,7 +33,7 @@
 
             patient = new()
             {
-                Id = 1,
+                Id = Guid.Parse("b19105c4-9a4e-4583-973a-642b8bc06916"),
                 Name = "Frank",
                 Type = "Dog",
                 Gender = PatientGender.Male,
@@ -44,7 +44,7 @@
 
             patient = new()
             {
-                Id = 2,
+                Id = Guid.Parse("ad53d8a9-6ac2-4ab1-bf68-dfb4292e56ab"),
                 Name = "Tom",
                 Type = "Cat",
                 Gender = PatientGender.Male,
@@ -55,7 +55,7 @@
 
             patient = new()
             {
-                Id = 3,
+                Id = Guid.Parse("53044ff9-b935-4b5a-a7e0-2203e21b05ea"),
                 Name = "Jerry",
                 Type = "Mouse",
                 Gender = PatientGender.Female,
@@ -66,7 +66,7 @@
 
             patient = new()
             {
-                Id = 4,
+                Id = Guid.Parse("a917fe0d-e64e-40c5-8eeb-b17867ec09e1"),
                 Name = "Bella",
                 Type = "Dog",
                 Gender = PatientGender.Female,

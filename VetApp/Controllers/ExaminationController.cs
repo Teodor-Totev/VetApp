@@ -26,7 +26,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Add(int patientId)
+		public async Task<IActionResult> Add(string patientId)
 		{
 			var patient = await patientService.GetPatientByIdAsync(patientId);
 			var statuses = await statusService.AllStatusesAsync();
@@ -39,7 +39,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Add(ExaminationFormModel model, int patientId)
+		public async Task<IActionResult> Add(ExaminationFormModel model, string patientId)
 		{
 			string doctorId = User.Id();
 			await this.examinationService.AddAsync(model, patientId, doctorId);
@@ -48,7 +48,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> All(int patientId)
+		public async Task<IActionResult> All(string patientId)
 		{
 			IEnumerable<ExaminationViewModel> patientExaminations = await examinationService.GetPatientExaminationsAsync(patientId);
 
@@ -62,7 +62,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Edit(int examinationId)
+		public async Task<IActionResult> Edit(string examinationId)
 		{
 			ExaminationFormModel model = await examinationService.GetExaminationByIdAsync(examinationId);
 			PatientViewModel patient = await patientService.GetPatientByIdAsync(model.Patient.Id);
@@ -74,7 +74,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(ExaminationFormModel model, int examinationId)
+		public async Task<IActionResult> Edit(ExaminationFormModel model, string examinationId)
 		{
 			await examinationService.EditExaminationAsync(model, examinationId);
 
@@ -125,7 +125,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Details(int examinationId)
+		public async Task<IActionResult> Details(string examinationId)
 		{
 			var model = await examinationService.GetExaminationDetailsByIdAsync(examinationId);
 

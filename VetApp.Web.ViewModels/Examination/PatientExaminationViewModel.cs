@@ -7,7 +7,7 @@
             this.Examinations = new HashSet<ExaminationViewModel>();
         }
         
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public IEnumerable<ExaminationViewModel> Examinations { get; set; }
     }

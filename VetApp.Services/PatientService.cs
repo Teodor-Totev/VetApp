@@ -20,7 +20,7 @@
 			this.context = context;
 		}
 
-		public async Task<int> CreateAsync(PatientFormModel model, string doctorId)
+		public async Task<string> CreateAsync(PatientFormModel model, string doctorId)
 		{
 			Owner owner = new Owner()
 			{
@@ -57,10 +57,10 @@
 			await context.Patients.AddAsync(patient);
 			await context.SaveChangesAsync();
 
-			return patient.Id;
+			return patient.Id.ToString();
 		}
 
-		public async Task<int> AddPetAsync(PatientFormModel model, string ownerId)
+		public async Task<string> AddPetAsync(PatientFormModel model, string ownerId)
 		{
 			Owner owner = await this.context.Owners.FirstAsync(o => o.Id.ToString() == ownerId);
 
@@ -81,10 +81,10 @@
 			await context.Patients.AddAsync(patient);
 			await context.SaveChangesAsync();
 
-			return patient.Id;
+			return patient.Id.ToString();
 		}
 
-		public async Task EditPatientAsync(PatientEditViewModel model, int patientId)
+		public async Task EditPatientAsync(PatientEditViewModel model, string patientId)
 		{
 			Patient targetPatient = await context.Patients.FindAsync(patientId);
 
@@ -100,8 +100,8 @@
 			await context.SaveChangesAsync();
 		}
 
-		public async Task<bool> PatientExistsAsync(int patientId)
-			=> await context.Patients.AnyAsync(p => p.Id == patientId);
+		public async Task<bool> PatientExistsAsync(string patientId)
+			=> await context.Patients.AnyAsync(p => p.Id.ToString() == patientId);
 
 		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel)
 		{
@@ -137,7 +137,7 @@
 				.Take(queryModel.PatientsPerPage)
 				.Select(p => new PatientViewModel()
 				{
-					Id = p.Id,
+					Id = p.Id.ToString(),
 					Name = p.Name,
 					OwnerName = p.Owner.Name,
 					Type = p.Type,
@@ -156,13 +156,13 @@
 			return result;
 		}
 
-		public async Task<PatientViewModel> GetPatientByIdAsync(int patientId)
+		public async Task<PatientViewModel> GetPatientByIdAsync(string patientId)
 		{
 			PatientViewModel patient = await context.Patients
-				.Where(p => p.Id == patientId)
+				.Where(p => p.Id.ToString() == patientId)
 				.Select(p => new PatientViewModel()
 				{
-					Id = p.Id,
+					Id = p.Id.ToString(),
 					Name = p.Name,
 					Type = p.Type,
 					Gender = p.Gender,
@@ -177,13 +177,13 @@
 			return patient;
 		}
 
-		public async Task<PatientEditViewModel> GetPatientForEditByIdAsync(int patientId)
+		public async Task<PatientEditViewModel> GetPatientForEditByIdAsync(string patientId)
 		{
 			PatientEditViewModel patient = await context.Patients
-				.Where(p => p.Id == patientId)
+				.Where(p => p.Id.ToString() == patientId)
 				.Select(p => new PatientEditViewModel()
 				{
-					Id = p.Id,
+					Id = p.Id.ToString(),
 					Name = p.Name,
 					Type = p.Type,
 					Gender = p.Gender,
@@ -224,7 +224,7 @@
 				.Take(queryModel.PatientsPerPage)
 				.Select(p => new PatientViewModel()
 				{
-					Id = p.Patient.Id,
+					Id = p.Patient.Id.ToString(),
 					Name = p.Patient.Name,
 					OwnerName = p.Patient.Owner.Name,
 					Type = p.Patient.Type,

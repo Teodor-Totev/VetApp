@@ -7,10 +7,15 @@
 
 	public class Examination
 	{
-        [Key]
-        public int Id { get; set; }
+        public Examination()
+        {
+            this.Id = Guid.NewGuid();
+        }
 
-        public DateTime CreatedOn { get; set; }
+        [Key]
+		public Guid Id { get; set; }
+
+		public DateTime CreatedOn { get; set; }
 
         public double Weight { get; set; }
 
@@ -51,7 +56,7 @@
         [ForeignKey(nameof(DoctorId))]
         public ApplicationUser Doctor { get; set; } = null!;
 
-		public int PatientId { get; set; }
+		public Guid PatientId { get; set; }
 
 		[ForeignKey(nameof(PatientId))]
 		public virtual Patient Patient { get; set; } = null!;

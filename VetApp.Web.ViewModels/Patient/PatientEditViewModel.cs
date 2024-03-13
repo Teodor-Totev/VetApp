@@ -6,7 +6,7 @@
 
 	public class PatientEditViewModel
 	{
-        public int Id { get; set; }
+        public string Id { get; set; } = null!;
 
         [Required]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength,

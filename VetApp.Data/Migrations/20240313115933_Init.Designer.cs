@@ -12,8 +12,8 @@ using VetApp.Data;
 namespace VetApp.Data.Migrations
 {
     [DbContext(typeof(VetAppDbContext))]
-    [Migration("20240311204228_AddMoreSeedData")]
-    partial class AddMoreSeedData
+    [Migration("20240313115933_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -244,7 +244,7 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                             AccessFailedCount = 0,
                             Address = "123 Main St Haskovo",
-                            ConcurrencyStamp = "41e4c6d6-64fc-449d-8350-4555ad09a429",
+                            ConcurrencyStamp = "0ec21a55-ef2d-46da-bf20-7534c0b8cd76",
                             Email = "r_raykov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Radoslav",
@@ -252,9 +252,9 @@ namespace VetApp.Data.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "R_RAYKOV@GMAIL.COM",
                             NormalizedUserName = "R_RAYKOV",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ2uBGuwZS1WcDRLpUZxkjFxvtMGmZ/iVPi9tvLQKZEQUgJfPNuM0llKOWvBeyCrlg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBU2f47AGEGQeDzxOQpVkIzgFj5mojq2Ipds1m4Ae+I/zZstYbcmm2znm/Q6pA9Kiw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2B615401-BDF5-46E6-9193-ACE284D611A2",
+                            SecurityStamp = "8C475C31-F768-4E3D-B9A4-E3EACF1F82B3",
                             TwoFactorEnabled = false,
                             UserName = "r_raykov"
                         });
@@ -262,11 +262,9 @@ namespace VetApp.Data.Migrations
 
             modelBuilder.Entity("VetApp.Data.Models.Examination", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -290,8 +288,8 @@ namespace VetApp.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Reason")
                         .IsRequired()
@@ -333,40 +331,40 @@ namespace VetApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            CreatedOn = new DateTime(2024, 3, 11, 20, 42, 27, 896, DateTimeKind.Utc).AddTicks(263),
+                            Id = new Guid("a6be4500-3245-4ecc-a9f5-5b2af8baff97"),
+                            CreatedOn = new DateTime(2024, 3, 13, 11, 59, 33, 307, DateTimeKind.Utc).AddTicks(9907),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
-                            PatientId = 1,
+                            PatientId = new Guid("b19105c4-9a4e-4583-973a-642b8bc06916"),
                             Reason = "Primary",
                             StatusId = 1,
                             Weight = 12.0
                         },
                         new
                         {
-                            Id = 2,
-                            CreatedOn = new DateTime(2024, 3, 11, 20, 42, 27, 896, DateTimeKind.Utc).AddTicks(280),
+                            Id = new Guid("917f60f0-485a-4cbc-a3d5-83bfc30015ed"),
+                            CreatedOn = new DateTime(2024, 3, 13, 11, 59, 33, 307, DateTimeKind.Utc).AddTicks(9930),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
-                            PatientId = 2,
+                            PatientId = new Guid("ad53d8a9-6ac2-4ab1-bf68-dfb4292e56ab"),
                             Reason = "Secondary",
                             StatusId = 3,
                             Weight = 10.0
                         },
                         new
                         {
-                            Id = 3,
-                            CreatedOn = new DateTime(2024, 3, 11, 20, 42, 27, 896, DateTimeKind.Utc).AddTicks(282),
+                            Id = new Guid("c84db966-6f32-44af-8026-d142b1ea15b9"),
+                            CreatedOn = new DateTime(2024, 3, 13, 11, 59, 33, 307, DateTimeKind.Utc).AddTicks(9938),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
-                            PatientId = 3,
+                            PatientId = new Guid("53044ff9-b935-4b5a-a7e0-2203e21b05ea"),
                             Reason = "Primary",
                             StatusId = 3,
                             Weight = 30.0
                         },
                         new
                         {
-                            Id = 4,
-                            CreatedOn = new DateTime(2024, 3, 11, 20, 42, 27, 896, DateTimeKind.Utc).AddTicks(284),
+                            Id = new Guid("b05fb0d0-9e05-4c00-a9e7-d3f0600e566b"),
+                            CreatedOn = new DateTime(2024, 3, 13, 11, 59, 33, 307, DateTimeKind.Utc).AddTicks(9945),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
-                            PatientId = 4,
+                            PatientId = new Guid("a917fe0d-e64e-40c5-8eeb-b17867ec09e1"),
                             Reason = "Primary",
                             StatusId = 4,
                             Weight = 25.0
@@ -443,11 +441,9 @@ namespace VetApp.Data.Migrations
 
             modelBuilder.Entity("VetApp.Data.Models.Patient", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
@@ -495,7 +491,7 @@ namespace VetApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("b19105c4-9a4e-4583-973a-642b8bc06916"),
                             Gender = 0,
                             IsActive = false,
                             Name = "Frank",
@@ -505,7 +501,7 @@ namespace VetApp.Data.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("ad53d8a9-6ac2-4ab1-bf68-dfb4292e56ab"),
                             Gender = 0,
                             IsActive = false,
                             Name = "Tom",
@@ -515,7 +511,7 @@ namespace VetApp.Data.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("53044ff9-b935-4b5a-a7e0-2203e21b05ea"),
                             Gender = 1,
                             IsActive = false,
                             Name = "Jerry",
@@ -525,7 +521,7 @@ namespace VetApp.Data.Migrations
                         },
                         new
                         {
-                            Id = 4,
+                            Id = new Guid("a917fe0d-e64e-40c5-8eeb-b17867ec09e1"),
                             Gender = 1,
                             IsActive = false,
                             Name = "Bella",
@@ -540,8 +536,8 @@ namespace VetApp.Data.Migrations
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("DoctorId", "PatientId");
 

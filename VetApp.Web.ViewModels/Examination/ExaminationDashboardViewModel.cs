@@ -5,11 +5,11 @@
 
     public class ExaminationDashboardViewModel
 	{
-        public int Id { get; set; }
+        public string Id { get; set; } = null!;
 
-        public int PatientId { get; set; }
+		public string PatientId { get; set; } = null!;
 
-        public string PatientName { get; set; } = null!;
+		public string PatientName { get; set; } = null!;
 
         public string PatientType { get; set; } = null!;
 

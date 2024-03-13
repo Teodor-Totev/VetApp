@@ -59,7 +59,7 @@
 					.Where(p => p.OwnerId == o.Id)
 					.Select(p => new PatientViewModel()
 					{
-						Id = p.Id,
+						Id = p.Id.ToString(),
 						Name = p.Name,
 						Type = p.Type,
 						Gender = p.Gender,
@@ -81,7 +81,7 @@
 					.Where(p => p.OwnerId == o.Id)
 					.Select(p => new PatientViewModel()
 					{
-						Id = p.Id,
+						Id = p.Id.ToString(),
 						Name = p.Name,
 						Type = p.Type,
 						Gender = p.Gender,

@@ -18,7 +18,7 @@
             this.context = context;
         }
 
-        public async Task AddAsync(ExaminationFormModel model, int patientId, string doctorId)
+        public async Task AddAsync(ExaminationFormModel model, string patientId, string doctorId)
         {
             var patient = await context.Patients
                 .FindAsync(patientId);
@@ -41,14 +41,14 @@
                 Therapy = model.Therapy,
                 Exit = model.Exit,
                 StatusId = model.StatusId,
-                PatientId = patientId,
+                PatientId = Guid.Parse(patientId),
             };
 
 
             PatientUser ps = new PatientUser()
             {
                 DoctorId = Guid.Parse(doctorId),
-                PatientId = patientId
+                PatientId = Guid.Parse(patientId)
             };
 
             if (!context.PatientsUsers.Contains(ps))
@@ -61,13 +61,13 @@
             await context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<ExaminationViewModel>> GetPatientExaminationsAsync(int patientId)
+        public async Task<ICollection<ExaminationViewModel>> GetPatientExaminationsAsync(string patientId)
         {
             return await context.Examinations
-                .Where(e => e.PatientId == patientId)
+                .Where(e => e.PatientId.ToString() == patientId)
                 .Select(e => new ExaminationViewModel
                 {
-                    Id = e.Id,
+                    Id = e.Id.ToString(),
                     Weight = e.Weight,
                     Reason = e.Reason,
                     Diagnosis = e.Diagnosis,
@@ -93,8 +93,8 @@
                 .GroupBy(e => e.Status.Name)
                 .ToDictionary(g => g.Key, g => g.Select(e => new ExaminationDashboardViewModel
                 {
-                    Id = e.Id,
-                    PatientId = e.PatientId,
+                    Id = e.Id.ToString(),
+                    PatientId = e.PatientId.ToString(),
                     PatientName = e.Patient.Name,
                     PatientType = e.Patient.Type,
                     DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
@@ -104,13 +104,13 @@
             return examinationsGroupedByStatus;
         }
 
-		public async Task<ExaminationFormModel> GetExaminationByIdAsync(int examinationId)
+		public async Task<ExaminationFormModel> GetExaminationByIdAsync(string examinationId)
 		{
             ExaminationFormModel examination = await this.context.Examinations
-                .Where(e => e.Id == examinationId)
+                .Where(e => e.Id.ToString() == examinationId)
                 .Select(e => new ExaminationFormModel()
                 {
-                    Id = e.Id,
+                    Id = e.Id.ToString(),
                     DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
 					Weight = e.Weight,
 					Reason = e.Reason,
@@ -130,7 +130,7 @@
             return examination;
 		}
 
-		public async Task EditExaminationAsync(ExaminationFormModel model, int examinationId)
+		public async Task EditExaminationAsync(ExaminationFormModel model, string examinationId)
 		{
             Examination targetExamination = await context.Examinations.FindAsync(examinationId);
 
@@ -155,13 +155,13 @@
 			await this.context.SaveChangesAsync();
 		}
 
-		public async Task<ExaminationViewModel> GetExaminationDetailsByIdAsync(int examinationId)
+		public async Task<ExaminationViewModel> GetExaminationDetailsByIdAsync(string examinationId)
 		{
 			return await context.Examinations
-				.Where(e => e.Id == examinationId)
+				.Where(e => e.Id.ToString() == examinationId)
 				.Select(e => new ExaminationViewModel
 				{
-					Id = e.Id,
+					Id = e.Id.ToString(),
 					Weight = e.Weight,
 					Reason = e.Reason,
 					Diagnosis = e.Diagnosis,

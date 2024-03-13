@@ -10,12 +10,13 @@
 	{
         public Patient()
         {
+            this.Id = Guid.NewGuid();
             this.PatientsUsers = new HashSet<PatientUser>();
             this.Examinations = new HashSet<Examination>();
 		}
 
         [Key]
-		public int Id { get; set; }
+		public Guid Id { get; set; }
 
         [Required]
         [MaxLength(NameMaxLength)]
