@@ -19,6 +19,6 @@
 
 		Task<bool> PatientExistsAsync(string patientId);
 
-		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(AllPatientsQueryModel queryModel, string doctorId);
+		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(MinePatientsQueryModel queryModel, string doctorId);
 	}
 }

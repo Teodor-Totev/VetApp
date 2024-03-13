@@ -160,7 +160,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Mine([FromQuery] AllPatientsQueryModel queryModel, string doctorId)
+		public async Task<IActionResult> Mine([FromQuery] MinePatientsQueryModel queryModel, string? doctorId)
 		{
 			if (!string.IsNullOrEmpty(doctorId))
 			{
@@ -169,6 +169,20 @@
 					TempData["error"] = "User does not exist.";
 					return RedirectToAction("Index", "Home");
 				}
+			}
+
+			if (queryModel.PatientsPerPage != 3 &&
+				queryModel.PatientsPerPage != 6 &&
+				queryModel.PatientsPerPage != 9)
+			{
+				TempData["error"] = "The animals per page option is not valid.";
+				return View(queryModel);
+			}
+
+			if (!ModelState.IsValid)
+			{
+				TempData["error"] = "The sorting option is not valid.";
+				return View(queryModel);
 			}
 
 			ViewBag.UserId = User.Id();

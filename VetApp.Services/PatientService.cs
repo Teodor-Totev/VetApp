@@ -199,7 +199,7 @@
 			return patient;
 		}
 
-		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(AllPatientsQueryModel queryModel, string doctorId)
+		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(MinePatientsQueryModel queryModel, string doctorId)
 		{
 			IQueryable<PatientUser> query = context.PatientsUsers
 				.AsQueryable();
