@@ -15,17 +15,19 @@ builder.Services.AddControllersWithViews(options =>
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
+	app.UseDeveloperExceptionPage();
+}
+else
+{
+	app.UseExceptionHandler("/Home/Error/500");
+	app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
 	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-app.UseExceptionHandler("/Home/Error/500");
-app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
 
 app.UseRouting();
 

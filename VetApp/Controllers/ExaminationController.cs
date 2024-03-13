@@ -44,13 +44,13 @@
 			string doctorId = User.Id();
 			await this.examinationService.AddAsync(model, patientId, doctorId);
 
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("Details", "Patient", new { patientId });
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> All(string patientId)
 		{
-			IEnumerable<ExaminationViewModel> patientExaminations = await examinationService.GetPatientExaminationsAsync(patientId);
+			IEnumerable<ExaminationViewModel> patientExaminations = await examinationService.GetExaminationsForPatientByIdAsync(patientId);
 
 			var model = new PatientExaminationViewModel
 			{
@@ -65,8 +65,9 @@
 		public async Task<IActionResult> Edit(string examinationId)
 		{
 			ExaminationFormModel model = await examinationService.GetExaminationByIdAsync(examinationId);
-			PatientViewModel patient = await patientService.GetPatientByIdAsync(model.Patient.Id);
+			PatientViewModel patient = await patientService.GetPatientByIdAsync(model.PatientId);
 			ICollection<StatusViewModel> statuses = await statusService.AllStatusesAsync();
+
 			model.Patient = patient;
 			model.Statuses = statuses;
 

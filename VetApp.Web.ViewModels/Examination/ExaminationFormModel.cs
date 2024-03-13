@@ -23,7 +23,9 @@
 
 		public string DoctorName { get; set; } = null!;
 
-		public PatientViewModel Patient { get; set; } = null!;
+		public string PatientId { get; set; } = null!;
+
+        public PatientViewModel Patient { get; set; } = null!;
 
 		public int StatusId { get; set; }
 

@@ -1,15 +1,15 @@
 ﻿@model ExaminationFormModel
 
 @{
-	ViewBag.Title = "Edit Examination";
+	ViewData["Title"] = "Edit Examination";
 }
 
 <div class="col-md-6" id="PatientInfo">
-	<partial name="_PatientPartial" />
+	<partial name="_PatientDetailsPartial" model="@Model.Patient"/>
 </div>
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
-	<h4 class="card-header">@ViewBag.Title</h4>
+	<h4 class="card-header">@ViewData["Title"]</h4>
 	<form asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@Model.Id" method="post">
 		<div class="card-body pb-0">
 			<table class="table table-secondary">

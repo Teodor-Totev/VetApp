@@ -86,7 +86,8 @@
 
 		public async Task EditPatientAsync(PatientEditViewModel model, string patientId)
 		{
-			Patient targetPatient = await context.Patients.FindAsync(patientId);
+			Patient targetPatient = await context.Patients
+				.FirstAsync(p => p.Id.ToString() == patientId);
 
 			targetPatient.Name = model.Name;
 			targetPatient.Type = model.Type;

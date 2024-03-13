@@ -8,6 +8,7 @@
 	using VetApp.Data.Models;
 	using VetApp.Services.Interfaces;
 	using VetApp.Web.ViewModels.Examination;
+	using VetApp.Web.ViewModels.Patient;
 
 	public class ExaminationService : IExaminationService
     {
@@ -20,11 +21,8 @@
 
         public async Task AddAsync(ExaminationFormModel model, string patientId, string doctorId)
         {
-            var patient = await context.Patients
-                .FindAsync(patientId);
-
-            var doctor = await context.Users
-                .FindAsync(Guid.Parse(doctorId));
+            Patient patient = await context.Patients
+                .FirstAsync(p => p.Id.ToString() == patientId);
 
 			var e = new Examination()
             {
@@ -61,7 +59,7 @@
             await context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<ExaminationViewModel>> GetPatientExaminationsAsync(string patientId)
+        public async Task<ICollection<ExaminationViewModel>> GetExaminationsForPatientByIdAsync(string patientId)
         {
             return await context.Examinations
                 .Where(e => e.PatientId.ToString() == patientId)
@@ -111,6 +109,8 @@
                 .Select(e => new ExaminationFormModel()
                 {
                     Id = e.Id.ToString(),
+                    DoctorId = e.DoctorId.ToString(),
+                    PatientId = e.PatientId.ToString(),
                     DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
 					Weight = e.Weight,
 					Reason = e.Reason,
@@ -132,12 +132,8 @@
 
 		public async Task EditExaminationAsync(ExaminationFormModel model, string examinationId)
 		{
-            Examination targetExamination = await context.Examinations.FindAsync(examinationId);
-
-            if (targetExamination == null)
-            {
-                throw new InvalidOperationException("Examination does not exist");
-            }
+            Examination targetExamination = await context.Examinations
+                .FirstAsync(e => e.Id.ToString() == examinationId);
 
             targetExamination.Weight = model.Weight;
 			targetExamination.Reason = model.Reason;

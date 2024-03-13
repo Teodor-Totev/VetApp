@@ -185,7 +185,7 @@
 		public async Task<IActionResult> Details(string patientId)
 		{
 			PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
-			ICollection<ExaminationViewModel> examinations = await examinationService.GetPatientExaminationsAsync(patientId);
+			ICollection<ExaminationViewModel> examinations = await examinationService.GetExaminationsForPatientByIdAsync(patientId);
 
 			PatientDetailsViewModel model = new PatientDetailsViewModel()
 			{
@@ -216,7 +216,7 @@
 			if (!await patientService.PatientExistsAsync(patientId))
 			{
 				TempData["error"] = "Patient does not exist";
-				return View();
+				return View(model);
 			}
 
 			if (!ModelState.IsValid)
@@ -225,7 +225,7 @@
 			}
 
 			await patientService.EditPatientAsync(model, patientId);
-			TempData["success"] = "Successfully Updated Patient";
+			TempData["success"] = "Successfully Edited Patient";
 
 			return RedirectToAction("Details", "Patient", new { patientId });
 		}
