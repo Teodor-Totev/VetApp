@@ -181,7 +181,6 @@
 
 			if (!ModelState.IsValid)
 			{
-				TempData["error"] = "The sorting option is not valid.";
 				return View(queryModel);
 			}
 
