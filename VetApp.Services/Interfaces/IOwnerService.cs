@@ -1,5 +1,6 @@
 ﻿namespace VetApp.Services.Interfaces
 {
+	using VetApp.Services.Models.Owner;
 	using VetApp.Web.ViewModels.Owner;
 	using VetApp.Web.ViewModels.Patient;
 
@@ -14,5 +15,7 @@
 		Task<OwnerFormModel?> GetOwnerFormModelByIdAsync(string ownerId);
 
 		Task<bool> CheckOwnerExistsByNameAndPhoneNumberAsync(string name, string phoneNumber);
+
+		Task<IEnumerable<AllExistingOwnersServiceModel>> GetAllExistingOwnersAsync();
 	}
 }

@@ -4,6 +4,7 @@
 
 	using VetApp.Data;
 	using VetApp.Services.Interfaces;
+	using VetApp.Services.Models.Owner;
 	using VetApp.Web.ViewModels.Owner;
 	using VetApp.Web.ViewModels.Patient;
 
@@ -17,7 +18,7 @@
 		}
 
 		public async Task<OwnerViewModel> GetOwnerByIdAsync(string ownerId)
-			=>	await context.Owners
+			=> await context.Owners
 				.Where(o => o.Id.ToString() == ownerId)
 				.Select(o => new OwnerViewModel()
 				{
@@ -28,7 +29,7 @@
 					Email = o.Email
 				})
 				.FirstAsync();
-		
+
 
 		public async Task<OwnerFormModel?> GetOwnerFormModelByIdAsync(string ownerId)
 			=> await context.Owners
@@ -42,7 +43,6 @@
 				})
 				.FirstOrDefaultAsync();
 
-		//All action
 		public async Task<ICollection<OwnerViewModel>> GetOwnersAsync(string phoneNumber)
 		{
 			if (phoneNumber != null)
@@ -97,5 +97,15 @@
 
 		public async Task<bool> CheckOwnerExistsByNameAndPhoneNumberAsync(string name, string phoneNumber)
 			=> await context.Owners.AnyAsync(o => o.Name == name && o.PhoneNumber == phoneNumber);
+
+		public async Task<IEnumerable<AllExistingOwnersServiceModel>> GetAllExistingOwnersAsync()
+			=> await context.Owners
+						.Where(o => o.IsActive == true)
+						.Select(o => new AllExistingOwnersServiceModel()
+						{
+							Id = o.Id.ToString(),
+							Name = o.Name,
+						})
+						.ToArrayAsync();
 	}
 }

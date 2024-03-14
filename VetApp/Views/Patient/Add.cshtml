@@ -83,8 +83,11 @@
 						<td>
 							<div class="mb-1">
 								<label asp-for="@Model.Owner.Name" class="control-label"></label>
-								<input asp-for="@Model.Owner.Name" class="form-control" placeholder="Name">
+								<input asp-for="@Model.Owner.Name" class="form-control" id="ownerName" placeholder="Name">
 								<span asp-validation-for="@Model.Owner.Name" class="text-danger"></span>
+								<div id="ownerList" class="dropdown-menu bg-secondary" aria-labelledby="btnGroupDrop1" style="display: none;">
+									
+								</div>
 							</div>
 
 							<div class="mb-1">
@@ -116,4 +119,15 @@
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+	<script>
+		fetchOwners();
+
+		$('#ownerName').on('input', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var searchString = e.currentTarget.value;
+			displayExistingOwners(searchString);
+		});
+	</script>
 }
