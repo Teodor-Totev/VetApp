@@ -13,4 +13,8 @@
     <ProjectReference Include="..\VetApp.Web.ViewModels\VetApp.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>
