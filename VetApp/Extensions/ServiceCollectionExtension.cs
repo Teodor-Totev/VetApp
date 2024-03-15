@@ -5,6 +5,8 @@
 	using VetApp.Data.Models;
 	using VetApp.Services.Interfaces;
 	using VetApp.Services;
+	using Microsoft.AspNetCore.Identity;
+	using Microsoft.AspNetCore.Authentication.Cookies;
 
 	public static class ServiceCollectionExtension
 	{
@@ -34,7 +36,7 @@
 			IConfiguration config)
 		{
 			services
-				.AddDefaultIdentity<ApplicationUser>(options =>
+				.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
 				{
 					options.SignIn.RequireConfirmedAccount = false;
 					options.Password.RequiredUniqueChars = 0;
@@ -44,7 +46,15 @@
 					options.Password.RequireLowercase = false;
 					options.Password.RequiredLength = 4;
 				})
-				.AddEntityFrameworkStores<VetAppDbContext>();
+				.AddEntityFrameworkStores<VetAppDbContext>()
+				.AddDefaultTokenProviders();
+
+			services.AddAuthentication()
+				.AddCookie(options =>
+				{
+					options.LoginPath = "/Account/Login";
+					//options.AccessDeniedPath = "/Account/Login";
+				});
 
 			return services;
 		}
