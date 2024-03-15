@@ -9,6 +9,7 @@
 		<h2 class="text-center text-info">Login</h2>
 		<form asp-action="Login" method="post">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input asp-for="ReturnUrl" type="hidden" value="@Model.ReturnUrl" />
 			<div class="mb-1">
 				<label asp-for="Username"></label>
 				<input asp-for="Username" class="form-control" />
@@ -21,7 +22,8 @@
 			</div>
 			<div class="mb-1 form-check">
 				<label class="form-check-label">
-					<input asp-for="RememberMe" class="form-check-input" />@Html.DisplayNameFor(a => a.RememberMe)
+					<label asp-for="RememberMe">Remember me</label>
+					<input asp-for="RememberMe" class="form-check-input" />
 				</label>
 			</div>
 			<div class="row">
