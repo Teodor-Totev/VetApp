@@ -53,7 +53,7 @@ public class AccountController : Controller
 			return View(model);
 		}
 
-		return Redirect(model.ReturnUrl ?? "/Patient/All");
+		return Redirect(model.ReturnUrl ?? "/Examination/Dashboard");
 	}
 
 	[HttpGet]

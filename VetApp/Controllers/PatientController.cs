@@ -70,15 +70,19 @@
 		{
 			try
 			{
-				OwnerFormModel? owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
-
-				if (owner == null)
+				if (string.IsNullOrEmpty(ownerId))
 				{
-					TempData["error"] = "Owner does not exist";
+					TempData["error"] = "Owner Id is required.";
 					return RedirectToAction("Index", "Home");
 				}
 
-				PatientFormModel model = new PatientFormModel()
+				if (!await this.ownerService.OwnerExistsAsync(ownerId))
+				{
+					TempData["error"] = "Owner does not exist.";
+					return RedirectToAction("Index", "Home");
+				}
+
+				AddPetViewModel model = new AddPetViewModel()
 				{
 					OwnerId = ownerId
 				};
@@ -93,16 +97,26 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddPet(PatientFormModel model, string ownerId)
+		public async Task<IActionResult> AddPet(AddPetViewModel model, string ownerId)
 		{
 			try
 			{
-				OwnerFormModel? owner = await this.ownerService.GetOwnerFormModelByIdAsync(ownerId);
-
-				if (owner == null)
+				if (string.IsNullOrEmpty(ownerId))
 				{
-					TempData["error"] = "Owner does not exist";
+					TempData["error"] = "Owner Id is required.";
 					return RedirectToAction("Index", "Home");
+				}
+
+				if (!await this.ownerService.OwnerExistsAsync(ownerId))
+				{
+					TempData["error"] = "Owner does not exist.";
+					return RedirectToAction("Index", "Home");
+				}
+
+				if (await this.patientService.DoesPatientExistInOwnerCollection(ownerId, model.Name))
+				{
+					TempData["error"] = $"Sorry, this owner already have a pet named {model.Name}.";
+					return View(model);
 				}
 
 				if (!ModelState.IsValid)
@@ -110,9 +124,9 @@
 					return View(model);
 				}
 
-				string patientId = await this.patientService.AddPetAsync(model, ownerId);
+				string patientId = await this.patientService.AddPetAsync(model, ownerId, User.Id());
 
-				TempData["success"] = $"Successfully added Pet to Owner {owner.Name}.";
+				TempData["success"] = $"Successfully added Pet.";
 
 				return RedirectToAction("Add", "Examination", new { patientId });
 			}

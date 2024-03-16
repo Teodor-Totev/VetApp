@@ -1,19 +1,14 @@
 ﻿namespace VetApp.Web.ViewModels.Patient
 {
+	using System;
 	using System.ComponentModel.DataAnnotations;
 
-    using VetApp.Data.Common.Enums.Patient;
-    using VetApp.Web.ViewModels.Owner;
-
+	using VetApp.Data.Common.Enums.Patient;
 	using static Common.ViewModelValidationConstants.PatientConstants;
 
-	public class PatientFormModel
+	public class AddPetViewModel
 	{
-		public PatientFormModel()
-		{
-		}
-
-        [Required]
+		[Required]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength,
 			ErrorMessage = NameErrorMessage)]
 		public string Name { get; set; } = null!;
@@ -49,6 +44,6 @@
 		[Display(Name = "Chronic Illnesses")]
 		public string? ChronicIllnesses { get; set; }
 
-        public OwnerFormModel Owner { get; set; } = null!;
+		public string OwnerId { get; set; } = null!;
     }
 }

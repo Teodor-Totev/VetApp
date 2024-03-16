@@ -19,7 +19,7 @@
 
 		public async Task<OwnerViewModel> GetOwnerByIdAsync(string ownerId)
 			=> await context.Owners
-				.Where(o => o.Id.ToString() == ownerId)
+				.Where(o => o.Id.ToString() == ownerId && o.IsActive == true)
 				.Select(o => new OwnerViewModel()
 				{
 					Id = o.Id.ToString(),
@@ -29,19 +29,6 @@
 					Email = o.Email
 				})
 				.FirstAsync();
-
-
-		public async Task<OwnerFormModel?> GetOwnerFormModelByIdAsync(string ownerId)
-			=> await context.Owners
-				.Where(o => o.Id.ToString() == ownerId)
-				.Select(o => new OwnerFormModel()
-				{
-					Name = o.Name,
-					Address = o.Address,
-					PhoneNumber = o.PhoneNumber,
-					Email = o.Email
-				})
-				.FirstOrDefaultAsync();
 
 		public async Task<ICollection<OwnerViewModel>> GetOwnersAsync(string phoneNumber)
 		{

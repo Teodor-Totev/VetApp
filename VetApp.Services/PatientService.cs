@@ -43,7 +43,6 @@
 				OwnerId = owner.Id,
 			};
 
-			owner.Patients.Add(patient);
 
 			PatientUser pu = new PatientUser()
 			{
@@ -51,7 +50,9 @@
 				DoctorId = Guid.Parse(doctorId)
 			};
 
+
 			patient.PatientsUsers.Add(pu);
+			owner.Patients.Add(patient);
 
 			await context.Owners.AddAsync(owner);
 			await context.Patients.AddAsync(patient);
@@ -60,7 +61,7 @@
 			return patient.Id.ToString();
 		}
 
-		public async Task<string> AddPetAsync(PatientFormModel model, string ownerId)
+		public async Task<string> AddPetAsync(AddPetViewModel model, string ownerId, string doctorId)
 		{
 			Owner owner = await this.context.Owners.FirstAsync(o => o.Id.ToString() == ownerId);
 
@@ -74,9 +75,18 @@
 				Microchip = model.Microchip,
 				Characteristics = model.Characteristics,
 				ChronicIllnesses = model.ChronicIllnesses,
-				OwnerId = Guid.Parse(ownerId)
+				OwnerId = Guid.Parse(ownerId),
+				Owner = owner,
 			};
 
+			var pu = new PatientUser()
+			{
+				Patient = patient,
+				DoctorId = Guid.Parse(doctorId)
+			};
+
+			patient.Owner = owner;
+			patient.PatientsUsers.Add(pu);
 			owner!.Patients.Add(patient);
 			await context.Patients.AddAsync(patient);
 			await context.SaveChangesAsync();
@@ -242,6 +252,13 @@
 			};
 
 			return result;
+		}
+
+		public async Task<bool> DoesPatientExistInOwnerCollection(string ownerId, string patientName)
+		{
+			Owner owner = await this.context.Owners.FirstAsync(o => o.Id.ToString() == ownerId);
+
+			return owner.Patients.Any(p => p.Name == patientName);
 		}
 	}
 }

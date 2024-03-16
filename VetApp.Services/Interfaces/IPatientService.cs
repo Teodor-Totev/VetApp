@@ -7,7 +7,7 @@
 	{
 		Task<string> CreateAsync(PatientFormModel model, string doctorId);
 
-		Task<string> AddPetAsync(PatientFormModel model, string ownerId);
+		Task<string> AddPetAsync(AddPetViewModel model, string ownerId, string doctorId);
 
 		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel);
 
@@ -20,5 +20,7 @@
 		Task<bool> PatientExistsAsync(string patientId);
 
 		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(MinePatientsQueryModel queryModel, string doctorId);
+
+		Task<bool> DoesPatientExistInOwnerCollection(string ownerId, string patientName);
 	}
 }
