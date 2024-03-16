@@ -85,7 +85,6 @@
 				DoctorId = Guid.Parse(doctorId)
 			};
 
-			patient.Owner = owner;
 			patient.PatientsUsers.Add(pu);
 			owner!.Patients.Add(patient);
 			await context.Patients.AddAsync(patient);
@@ -256,7 +255,9 @@
 
 		public async Task<bool> DoesPatientExistInOwnerCollection(string ownerId, string patientName)
 		{
-			Owner owner = await this.context.Owners.FirstAsync(o => o.Id.ToString() == ownerId);
+			Owner owner = await this.context.Owners
+				.Include(o => o.Patients)
+				.FirstAsync(o => o.Id.ToString() == ownerId);
 
 			return owner.Patients.Any(p => p.Name == patientName);
 		}

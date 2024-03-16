@@ -23,12 +23,11 @@
 
             //builder.ApplyConfigurationsFromAssembly(configAssembly);
 
-            SeedUser(builder);
-
-            builder.ApplyConfiguration(new OwnerEntityConfiguration());
-            builder.ApplyConfiguration(new PatientEntityConfiguration());
-            builder.ApplyConfiguration(new StatusEntityConfiguration());
-            builder.ApplyConfiguration(new ExaminationEntityConfiguration());
+            //SeedUser(builder);
+            //builder.ApplyConfiguration(new OwnerEntityConfiguration());
+            //builder.ApplyConfiguration(new PatientEntityConfiguration());
+            //builder.ApplyConfiguration(new StatusEntityConfiguration());
+            //builder.ApplyConfiguration(new ExaminationEntityConfiguration());
 
             builder.Entity<PatientUser>()
                 .HasKey(pu => new { pu.DoctorId, pu.PatientId });
