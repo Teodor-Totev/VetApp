@@ -8,7 +8,10 @@
 
 		Task<ICollection<ExaminationViewModel>> GetExaminationsForPatientByIdAsync(string patientId);
 
-        Task<Dictionary<string, List<ExaminationDashboardViewModel>>> GetExaminationsGroupedByStatus();
+		Task<IEnumerable<AllExaminationsViewModel>> GetAllExaminationsAsync();
+
+
+		Task<Dictionary<string, List<ExaminationDashboardViewModel>>> GetExaminationsGroupedByStatus();
 
 		Task<ExaminationFormModel> GetExaminationByIdAsync(string examinationId);
 

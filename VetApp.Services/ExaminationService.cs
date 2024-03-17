@@ -174,5 +174,20 @@
 				})
 				.FirstAsync();
 		}
-    }
+
+		public async Task<IEnumerable<AllExaminationsViewModel>> GetAllExaminationsAsync()
+		{
+			return await this.context.Examinations
+                .Select(e => new AllExaminationsViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    CreatedOn = e.CreatedOn,
+                    DoctorName = e.Doctor.UserName,
+                    Reason = e.Reason,
+                    Status = e.Status.Name,
+                    Weight = e.Weight
+                })
+                .ToArrayAsync();
+		}
+	}
 }

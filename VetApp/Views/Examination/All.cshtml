@@ -1,12 +1,13 @@
-﻿@model PatientExaminationViewModel
+﻿@model IEnumerable<AllExaminationsViewModel>
 
 @{
 	ViewData["Title"] = "All Examinations";
 }
 
-@if (Model.Examinations.Any())
+@if (Model.Any())
 {
-	<table class="table table-secondary">
+	<div class="table-responsive">
+	<table class="table table-secondary" id="ExaminationsAll">
 		<thead>
 			<tr>
 				<th>
@@ -22,12 +23,12 @@
 					Doctor
 				</th>
 				<th>
-					Diagnosis
+					Status
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var examination in Model.Examinations)
+			@foreach (var examination in Model)
 			{
 				<tr class="table-dark">
 					<td>
@@ -43,15 +44,15 @@
 						@examination.DoctorName
 					</td>
 					<td>
-						@examination.Diagnosis
+						@examination.Status
 					</td>
 				</tr>
 			}
 		</tbody>
 	</table>
+	</div>
 }
 else
 {
 	<h3 class="text-center">No examinations yet!</h3>
 }
-<a class="btn btn-primary text-white d-block" asp-controller="Examination" asp-action="Add" asp-route-patientId="@Model.Id">Add</a>

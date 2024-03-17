@@ -48,15 +48,10 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> All(string patientId)
+		public async Task<IActionResult> All()
 		{
-			IEnumerable<ExaminationViewModel> patientExaminations = await examinationService.GetExaminationsForPatientByIdAsync(patientId);
-
-			var model = new PatientExaminationViewModel
-			{
-				Id = patientId,
-				Examinations = patientExaminations
-			};
+			IEnumerable<AllExaminationsViewModel> model = 
+				await examinationService.GetAllExaminationsAsync();
 
 			return View(model);
 		}
