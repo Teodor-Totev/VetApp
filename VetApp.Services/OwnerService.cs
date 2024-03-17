@@ -19,55 +19,38 @@
 		}
 
 
-		public async Task<ICollection<OwnerViewModel>> GetAllOwnersAsync(string phoneNumber)
+		public async Task<AllOwnerOrderedAndPagedServiceModel> GetAllOwnersAsync(AllOwnersQueryModel model)
 		{
-			if (phoneNumber != null)
-			{
-				return await context.Owners
-				.Where(o => o.PhoneNumber.Contains(phoneNumber))
-				.Select(o => new OwnerViewModel()
-				{
-					Id = o.Id.ToString(),
-					Name = o.Name,
-					Address = o.Address,
-					PhoneNumber = o.PhoneNumber,
-					Email = o.Email,
-					Patients = context.Patients
-					.Where(p => p.OwnerId == o.Id)
-					.Select(p => new PatientViewModel()
-					{
-						Id = p.Id.ToString(),
-						Name = p.Name,
-						Type = p.Type,
-						Gender = p.Gender,
-						Neutered = p.Neutered
-					})
-					.ToArray()
-				})
-				.ToArrayAsync();
-			}
+			var query = context.Owners
+				.AsQueryable();
 
-			return await context.Owners
-				.Select(o => new OwnerViewModel()
+			var owners = await context.Owners
+			.Select(o => new OwnerViewModel()
+			{
+				Id = o.Id.ToString(),
+				Name = o.Name,
+				Address = o.Address,
+				PhoneNumber = o.PhoneNumber,
+				Email = o.Email,
+				Patients = context.Patients
+				.Where(p => p.OwnerId == o.Id)
+				.Select(p => new PatientViewModel()
 				{
-					Id = o.Id.ToString(),
-					Name = o.Name,
-					Address = o.Address,
-					PhoneNumber = o.PhoneNumber,
-					Email = o.Email,
-					Patients = context.Patients
-					.Where(p => p.OwnerId == o.Id)
-					.Select(p => new PatientViewModel()
-					{
-						Id = p.Id.ToString(),
-						Name = p.Name,
-						Type = p.Type,
-						Gender = p.Gender,
-						Neutered = p.Neutered
-					})
-					.ToArray()
+					Id = p.Id.ToString(),
+					Name = p.Name,
+					Type = p.Type,
+					Gender = p.Gender,
+					Neutered = p.Neutered
 				})
-				.ToArrayAsync();
+				.ToArray()
+			})
+			.ToArrayAsync();
+
+			return new AllOwnerOrderedAndPagedServiceModel()
+			{
+				TotalOwnersCount = owners.Count(),
+				Owners = owners
+			};
 		}
 
 		public async Task<bool> OwnerExistsAsync(string ownerId)

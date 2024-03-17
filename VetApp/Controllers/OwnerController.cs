@@ -17,9 +17,9 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> All(string phoneNumber)
+		public async Task<IActionResult> All([FromQuery]AllOwnersQueryModel model)
 		{
-			var model = await ownerService.GetAllOwnersAsync(phoneNumber);
+			var result = await ownerService.GetAllOwnersAsync(model);
 
 			return View(model);
 		}

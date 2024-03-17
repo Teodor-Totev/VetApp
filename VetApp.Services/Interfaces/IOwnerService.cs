@@ -6,7 +6,7 @@
 
 	public interface IOwnerService
 	{
-		Task<ICollection<OwnerViewModel>> GetAllOwnersAsync(string phoneNumber);
+		Task<AllOwnerOrderedAndPagedServiceModel> GetAllOwnersAsync(AllOwnersQueryModel model);
 
 		Task<OwnerFormModel> GetOwnerForEditByIdAsync(string ownerId);
 
