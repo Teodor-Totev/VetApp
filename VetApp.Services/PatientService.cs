@@ -189,7 +189,7 @@
 		public async Task<PatientEditViewModel> GetPatientForEditByIdAsync(string patientId)
 		{
 			PatientEditViewModel patient = await context.Patients
-				.Where(p => p.Id.ToString() == patientId)
+				.Where(p => p.Id.ToString() == patientId && p.IsActive == true)
 				.Select(p => new PatientEditViewModel()
 				{
 					Id = p.Id.ToString(),

@@ -1,12 +1,13 @@
-﻿@model OwnerViewModel
+﻿@model OwnerFormModel
 @{
 	ViewData["Title"] = "Edit Owner";
+	string ownerId = ViewBag.OwnerId;
 }
 
 <div class="row d-flex align-items-center justify-content-center" style="margin: 10px 0px">
 	<div class="col-md-4 card p-3">
-		<h2 class="card-title text-center text-warning">Edit Owner</h2>
-		<form asp-action="Edit" asp-controller="Owner" asp-route-ownerId="@Model.Id" method="post">
+		<h2 class="card-title text-center text-warning">@ViewData["Title"]</h2>
+		<form asp-action="Edit" asp-controller="Owner" asp-route-ownerId="@ownerId" method="post">
 			<div class="card-body">
 				<div asp-validation-summary="ModelOnly"></div>
 				<div class="mb-1">
@@ -36,7 +37,7 @@
 			</div>
 
 			<div class="card-footer d-flex align-items-center justify-content-end">
-				<input type="submit" value="Edit" class="btn btn-warning btn-sm" />
+				<input type="submit" value="Save" class="btn btn-warning btn-sm" />
 			</div>
 		</form>
 	</div>

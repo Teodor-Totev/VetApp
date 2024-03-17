@@ -3,6 +3,7 @@
 	using Microsoft.EntityFrameworkCore;
 
 	using VetApp.Data;
+	using VetApp.Data.Models;
 	using VetApp.Services.Interfaces;
 	using VetApp.Services.Models.Owner;
 	using VetApp.Web.ViewModels.Owner;
@@ -17,20 +18,8 @@
 			this.context = context;
 		}
 
-		public async Task<OwnerViewModel> GetOwnerByIdAsync(string ownerId)
-			=> await context.Owners
-				.Where(o => o.Id.ToString() == ownerId && o.IsActive == true)
-				.Select(o => new OwnerViewModel()
-				{
-					Id = o.Id.ToString(),
-					Name = o.Name,
-					Address = o.Address,
-					PhoneNumber = o.PhoneNumber,
-					Email = o.Email
-				})
-				.FirstAsync();
 
-		public async Task<ICollection<OwnerViewModel>> GetOwnersAsync(string phoneNumber)
+		public async Task<ICollection<OwnerViewModel>> GetAllOwnersAsync(string phoneNumber)
 		{
 			if (phoneNumber != null)
 			{
@@ -42,6 +31,7 @@
 					Name = o.Name,
 					Address = o.Address,
 					PhoneNumber = o.PhoneNumber,
+					Email = o.Email,
 					Patients = context.Patients
 					.Where(p => p.OwnerId == o.Id)
 					.Select(p => new PatientViewModel()
@@ -64,6 +54,7 @@
 					Name = o.Name,
 					Address = o.Address,
 					PhoneNumber = o.PhoneNumber,
+					Email = o.Email,
 					Patients = context.Patients
 					.Where(p => p.OwnerId == o.Id)
 					.Select(p => new PatientViewModel()
@@ -86,13 +77,42 @@
 			=> await context.Owners.AnyAsync(o => o.Name == name && o.PhoneNumber == phoneNumber);
 
 		public async Task<IEnumerable<AllExistingOwnersServiceModel>> GetAllExistingOwnersAsync()
-			=> await context.Owners
-						.Where(o => o.IsActive == true)
-						.Select(o => new AllExistingOwnersServiceModel()
-						{
-							Id = o.Id.ToString(),
-							Name = o.Name,
-						})
-						.ToArrayAsync();
+		{
+			return await context.Owners
+				.Where(o => o.IsActive == true)
+				.Select(o => new AllExistingOwnersServiceModel()
+				{
+					Id = o.Id.ToString(),
+					Name = o.Name,
+				})
+				.ToArrayAsync();
+		}
+
+		public async Task<OwnerFormModel> GetOwnerForEditByIdAsync(string ownerId)
+		{
+			return await context.Owners
+				.Where(o => o.Id.ToString() == ownerId && o.IsActive == true)
+				.Select(o => new OwnerFormModel()
+				{
+					Name = o.Name,
+					Address = o.Address,
+					PhoneNumber = o.PhoneNumber,
+					Email = o.Email
+				})
+				.FirstAsync();
+		}
+
+		public async Task EditOwnerAsync(OwnerFormModel model, string ownerId)
+		{
+			Owner ownerToEdit = await this.context.Owners
+				.FirstAsync(o => o.Id.ToString() == ownerId);
+
+			ownerToEdit.Name = model.Name;
+			ownerToEdit.Address = model.Address;
+			ownerToEdit.PhoneNumber = model.PhoneNumber;
+			ownerToEdit.Email = model.Email;
+
+			await this.context.SaveChangesAsync();
+		}
 	}
 }

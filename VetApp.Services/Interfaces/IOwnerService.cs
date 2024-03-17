@@ -6,9 +6,11 @@
 
 	public interface IOwnerService
 	{
-		Task<ICollection<OwnerViewModel>> GetOwnersAsync(string phoneNumber);
+		Task<ICollection<OwnerViewModel>> GetAllOwnersAsync(string phoneNumber);
 
-		Task<OwnerViewModel> GetOwnerByIdAsync(string ownerId);
+		Task<OwnerFormModel> GetOwnerForEditByIdAsync(string ownerId);
+
+		Task EditOwnerAsync(OwnerFormModel model, string ownerId);
 
 		Task<bool> OwnerExistsAsync (string ownerId);
 
