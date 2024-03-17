@@ -6,7 +6,6 @@
 	using Services.Interfaces;
 	using Services.Models.Patient;
 	using Web.ViewModels.Examination;
-	using Web.ViewModels.Owner;
 	using Web.ViewModels.Patient;
 
 	public class PatientController : BaseController
@@ -60,7 +59,7 @@
 			}
 			catch (Exception ex)
 			{
-				TempData["error"] = $"An error occurred: {ex.Message}";
+				TempData["error"] = ex.Message;
 				return RedirectToAction("Index", "Home");
 			}
 		}
@@ -68,45 +67,45 @@
 		[HttpGet]
 		public async Task<IActionResult> AddPet(string ownerId)
 		{
+			if (string.IsNullOrEmpty(ownerId))
+			{
+				TempData["error"] = "Owner Id is required when trying to add a pet to an existing owner.";
+				return RedirectToAction("All", "Owner");
+			}
+
 			try
 			{
-				if (string.IsNullOrEmpty(ownerId))
-				{
-					TempData["error"] = "Owner Id is required.";
-					return RedirectToAction("Index", "Home");
-				}
-
 				if (!await this.ownerService.OwnerExistsAsync(ownerId))
 				{
 					TempData["error"] = "Owner does not exist.";
 					return RedirectToAction("Index", "Home");
 				}
-
-				AddPetViewModel model = new AddPetViewModel()
-				{
-					OwnerId = ownerId
-				};
-
-				return View(model);
 			}
 			catch (Exception ex)
 			{
-				TempData["error"] = $"An error occurred: {ex.Message}";
+				TempData["error"] = ex.Message;
 				return RedirectToAction("Index", "Home");
 			}
+
+			AddPetViewModel model = new AddPetViewModel()
+			{
+				OwnerId = ownerId
+			};
+
+			return View(model);
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> AddPet(AddPetViewModel model, string ownerId)
 		{
+			if (string.IsNullOrEmpty(ownerId))
+			{
+				TempData["error"] = "Owner Id is required when trying to add a pet to an existing owner.";
+				return RedirectToAction("All", "Owner");
+			}
+
 			try
 			{
-				if (string.IsNullOrEmpty(ownerId))
-				{
-					TempData["error"] = "Owner Id is required.";
-					return RedirectToAction("Index", "Home");
-				}
-
 				if (!await this.ownerService.OwnerExistsAsync(ownerId))
 				{
 					TempData["error"] = "Owner does not exist.";
@@ -132,7 +131,7 @@
 			}
 			catch (Exception ex)
 			{
-				TempData["error"] = $"An error occurred: {ex.Message}";
+				TempData["error"] = ex.Message;
 				return RedirectToAction("Index", "Home");
 			}
 		}
@@ -140,12 +139,6 @@
 		[HttpGet]
 		public async Task<IActionResult> All([FromQuery] AllPatientsQueryModel queryModel)
 		{
-			if (!ModelState.IsValid)
-			{
-				TempData["error"] = "The sorting option is not valid.";
-				return View(queryModel);
-			}
-
 			if (queryModel.PatientsPerPage != 3 &&
 				queryModel.PatientsPerPage != 6 &&
 				queryModel.PatientsPerPage != 9)
@@ -168,7 +161,7 @@
 			}
 			catch (Exception ex)
 			{
-				TempData["error"] = $"An error occurred: {ex.Message}";
+				TempData["error"] = ex.Message;
 				return RedirectToAction("Index", "Home");
 			}
 		}
@@ -176,13 +169,16 @@
 		[HttpGet]
 		public async Task<IActionResult> Mine([FromQuery] MinePatientsQueryModel queryModel, string? doctorId)
 		{
-			if (!string.IsNullOrEmpty(doctorId))
+			if (string.IsNullOrEmpty(doctorId))
 			{
-				if (!await this.accountService.UserExistsAsync(doctorId))
-				{
-					TempData["error"] = "User does not exist.";
-					return RedirectToAction("Index", "Home");
-				}
+				TempData["error"] = "User Id is required.";
+				return RedirectToAction("All", "Patient");
+			}
+
+			if (!await this.accountService.UserExistsAsync(doctorId!))
+			{
+				TempData["error"] = "User does not exist.";
+				return RedirectToAction("Index", "Home");
 			}
 
 			if (queryModel.PatientsPerPage != 3 &&
@@ -193,14 +189,9 @@
 				return View(queryModel);
 			}
 
-			if (!ModelState.IsValid)
-			{
-				return View(queryModel);
-			}
-
 			ViewBag.UserId = User.Id();
 			AllPatientsOrderedAndPagedServiceModel serviceModel =
-					await patientService.GetAllPatientsForUserAsync(queryModel, doctorId);
+					await patientService.GetAllPatientsForUserAsync(queryModel, doctorId!);
 
 			queryModel.Patients = serviceModel.Patients;
 			queryModel.TotalPatients = serviceModel.TotalPatientsCount;
@@ -211,50 +202,100 @@
 		[HttpGet]
 		public async Task<IActionResult> Details(string patientId)
 		{
-			PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
-			ICollection<ExaminationViewModel> examinations = await examinationService.GetExaminationsForPatientByIdAsync(patientId);
-
-			PatientDetailsViewModel model = new PatientDetailsViewModel()
+			if (string.IsNullOrEmpty(patientId))
 			{
-				Patient = patient,
-				Examinations = examinations
-			};
+				TempData["error"] = "Patient Id is required.";
+				return RedirectToAction("All", "Patient");
+			}
 
+			try
+			{
+				PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
 
-			return View(model);
+				ICollection<ExaminationViewModel> examinations = await examinationService.GetExaminationsForPatientByIdAsync(patientId);
+
+				PatientDetailsViewModel model = new PatientDetailsViewModel()
+				{
+					Patient = patient,
+					Examinations = examinations
+				};
+
+				return View(model);
+			}
+			catch (InvalidOperationException)
+			{
+				TempData["error"] = "Patient does not exist.";
+				return RedirectToAction("All", "Patient");
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
+			}
+
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Edit(string patientId)
 		{
-			if (!await patientService.PatientExistsAsync(patientId))
+			if (string.IsNullOrEmpty(patientId))
 			{
-				return BadRequest();
+				TempData["error"] = "Patient Id is required.";
+				return RedirectToAction("All", "Patient");
 			}
 
-			PatientEditViewModel model = await this.patientService.GetPatientForEditByIdAsync(patientId);
+			try
+			{
+				PatientEditViewModel model =
+					await this.patientService.GetPatientForEditByIdAsync(patientId);
 
-			return View(model);
+				return View(model);
+			}
+			catch (InvalidOperationException)
+			{
+				TempData["error"] = "Patient does not exist.";
+				return RedirectToAction("All", "Patient");
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
+			}
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> Edit(PatientEditViewModel model, string patientId)
 		{
-			if (!await patientService.PatientExistsAsync(patientId))
+			if (string.IsNullOrEmpty(patientId))
 			{
-				TempData["error"] = "Patient does not exist";
-				return View(model);
+				TempData["error"] = "Patient Id is required.";
+				return RedirectToAction("All", "Patient");
 			}
 
-			if (!ModelState.IsValid)
+			try
 			{
-				return View(model);
+				if (!await patientService.PatientExistsAsync(patientId))
+				{
+					TempData["error"] = "Patient does not exist";
+					return RedirectToAction("All", "Patient");
+				}
+
+				if (!ModelState.IsValid)
+				{
+					return View(model);
+				}
+
+				await patientService.EditPatientAsync(model, patientId);
+				TempData["success"] = "Successfully Edited Patient";
+
+				return RedirectToAction("Details", "Patient", new { patientId });
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
 			}
 
-			await patientService.EditPatientAsync(model, patientId);
-			TempData["success"] = "Successfully Edited Patient";
-
-			return RedirectToAction("Details", "Patient", new { patientId });
 		}
 	}
 }

@@ -76,7 +76,6 @@
 				Characteristics = model.Characteristics,
 				ChronicIllnesses = model.ChronicIllnesses,
 				OwnerId = Guid.Parse(ownerId),
-				Owner = owner,
 			};
 
 			var pu = new PatientUser()
@@ -86,7 +85,7 @@
 			};
 
 			patient.PatientsUsers.Add(pu);
-			owner!.Patients.Add(patient);
+			owner.Patients.Add(patient);
 			await context.Patients.AddAsync(patient);
 			await context.SaveChangesAsync();
 
