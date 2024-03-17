@@ -28,7 +28,7 @@
 
 		public DateTime? BirthDate { get; set; }
 
-		[MaxLength(MicroChipMinLength)]
+		[MaxLength(MicroChipMaxLength)]
         public string? Microchip { get; set; }
 
         [Required]
