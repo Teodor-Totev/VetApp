@@ -210,11 +210,13 @@
 
 			try
 			{
-				PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
+				PatientViewModel patient = 
+					await patientService.GetPatientByIdAsync(patientId);
 
-				ICollection<ExaminationViewModel> examinations = await examinationService.GetExaminationsForPatientByIdAsync(patientId);
+				IEnumerable<PatientExaminationsViewModel> examinations = 
+					await examinationService.GetExaminationsForPatientByIdAsync(patientId);
 
-				PatientDetailsViewModel model = new PatientDetailsViewModel()
+				PatientDetailsViewModel model = new()
 				{
 					Patient = patient,
 					Examinations = examinations

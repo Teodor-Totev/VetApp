@@ -6,7 +6,7 @@
 	{
 		Task AddAsync(ExaminationFormModel model, string patientId, string doctorId);
 
-		Task<ICollection<ExaminationViewModel>> GetExaminationsForPatientByIdAsync(string patientId);
+		Task<IEnumerable<PatientExaminationsViewModel>> GetExaminationsForPatientByIdAsync(string patientId);
 
 		Task<IEnumerable<AllExaminationsViewModel>> GetAllExaminationsAsync();
 

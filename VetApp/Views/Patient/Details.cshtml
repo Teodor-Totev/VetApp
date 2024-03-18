@@ -9,7 +9,7 @@
 	<partial name="_PatientDetailsPartial" model="@Model.Patient" />
 </div>
 
-<div class="card border-secondary mb-3" style="margin: 10px 0px">
+<div class="card border-secondary mb-3" style="margin: 10px 0px" >
 	<h4 class="card-header">Examinations</h4>
 	<div class="card-body">
 		@if (Model.Examinations.Any())
@@ -52,7 +52,7 @@
 									@examination.DoctorName
 								</td>
 								<td>
-									@examination.Status
+									@examination.StatusName
 								</td>
 								<td>
 									<a class="btn btn-outline-primary btn-sm text-white" asp-controller="Examination" asp-action="Details" asp-route-examinationId="@examination.Id">Details</a>

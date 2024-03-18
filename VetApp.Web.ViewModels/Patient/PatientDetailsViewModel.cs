@@ -7,11 +7,11 @@
 	{
         public PatientDetailsViewModel()
         {
-            this.Examinations = new HashSet<ExaminationViewModel>();
+            this.Examinations = new HashSet<PatientExaminationsViewModel>();
         }
 
         public PatientViewModel Patient { get; set; } = null!;
 
-        public ICollection<ExaminationViewModel> Examinations{ get; set; }
+        public IEnumerable<PatientExaminationsViewModel> Examinations{ get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 @{
 	ViewData["Title"] = "Edit Examination";
+	string examinationId = ViewBag.ExaminationId;
 }
 
 <div class="col-md-6" id="PatientInfo">
@@ -10,7 +11,7 @@
 
 <div class="card border-secondary mb-3" style="margin: 10px 0px">
 	<h4 class="card-header">@ViewData["Title"]</h4>
-	<form asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@Model.Id" method="post">
+	<form asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examinationId" method="post">
 		<div class="card-body pb-0">
 			<table class="table table-secondary">
 				<tbody>

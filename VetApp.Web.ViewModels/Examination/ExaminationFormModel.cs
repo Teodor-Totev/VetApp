@@ -17,8 +17,6 @@
 			}
 		}
 
-		public string Id { get; set; } = null!;
-
 		public string DoctorId { get; set; } = null!;
 
 		public string DoctorName { get; set; } = null!;

@@ -59,21 +59,17 @@
             await context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<ExaminationViewModel>> GetExaminationsForPatientByIdAsync(string patientId)
+        public async Task<IEnumerable<PatientExaminationsViewModel>> GetExaminationsForPatientByIdAsync(string patientId)
         {
             return await context.Examinations
                 .Where(e => e.PatientId.ToString() == patientId)
-                .Select(e => new ExaminationViewModel
-                {
+                .Select(e => new PatientExaminationsViewModel
+				{
                     Id = e.Id.ToString(),
-                    Weight = e.Weight,
                     Reason = e.Reason,
-                    Diagnosis = e.Diagnosis,
                     CreatedOn = e.CreatedOn,
                     DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
-                    Surgery = e.Surgery,
-                    Therapy = e.Therapy,
-                    Status = e.Status.Name
+                    StatusName = e.Status.Name
                 })
                 .ToArrayAsync();
         }
@@ -108,7 +104,7 @@
                 .Where(e => e.Id.ToString() == examinationId)
                 .Select(e => new ExaminationFormModel()
                 {
-                    Id = e.Id.ToString(),
+                    //Id = e.Id.ToString(),
                     DoctorId = e.DoctorId.ToString(),
                     PatientId = e.PatientId.ToString(),
                     DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
@@ -165,7 +161,7 @@
 					DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
 					Surgery = e.Surgery,
 					Therapy = e.Therapy,
-					Status = e.Status.Name,
+					StatusName = e.Status.Name,
                     SpecificCondition = e.SpecificCondition,
                     CurrentCondition = e.CurrentCondition,
                     Exit = e.Exit,

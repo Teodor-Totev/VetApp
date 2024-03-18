@@ -65,6 +65,7 @@
 
 			model.Patient = patient;
 			model.Statuses = statuses;
+			ViewBag.ExaminationId = examinationId;
 
 			return View(model);
 		}
