@@ -28,6 +28,9 @@
 
 			public const int InputFieldMaxLength = 50;
 			public const int InputFieldMinLength = 2;
+
+			public const string MinWeight = "0";
+			public const string MaxWeight = "300";
 		}
 
 		public static class PatientConstants

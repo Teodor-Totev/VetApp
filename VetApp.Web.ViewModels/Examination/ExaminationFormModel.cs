@@ -8,7 +8,6 @@
 	{
 		public ExaminationFormModel()
 		{
-			this.Statuses = new HashSet<StatusViewModel>();
 			if (this.CreatedOn == default)
 			{
 				this.CreatedOn = DateTime.Now;
@@ -17,12 +16,15 @@
 
 		public string DoctorId { get; set; } = null!;
 
+		[Required(ErrorMessage = "Status is required.")]
+		[Display(Name = "Status")]
 		public int StatusId { get; set; }
 
 		[DataType(DataType.Date)]
 		[Display(Name = "Created on")]
 		public DateTime CreatedOn { get; set; }
 
+		[Range(typeof(double), MinWeight, MaxWeight)]
 		public double Weight { get; set; }
 
 		[StringLength(InputFieldMaxLength, MinimumLength = InputFieldMinLength,
@@ -60,7 +62,5 @@
 		[StringLength(InputFieldMaxLength, MinimumLength = InputFieldMinLength,
 			ErrorMessage = "Exit must be between 2 and 50 characters long.")]
 		public string? Exit { get; set; }
-
-		public IEnumerable<StatusViewModel> Statuses { get; set; }
 	}
 }

@@ -43,16 +43,15 @@
 				ViewBag.DoctorFullName =
 					await accountService.GetUserFullNameByUsernameAsync(User.Identity?.Name!);
 
-				ExaminationFormModel examinationFormModel = new()
+				ExaminationFormModel examination = new()
 				{
 					DoctorId = User.Id(),
-					Statuses = statuses,
 				};
 
 				AddAndEditExaminationViewModel model = new()
 				{
 					Patient = patient,
-					Examination = examinationFormModel
+					Examination = examination
 				};
 
 				return View(model);
@@ -82,15 +81,21 @@
 			{
 				PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
 
-				IEnumerable<StatusViewModel> statuses =
-					await statusService.AllStatusesAsync();
-
 				if (!ModelState.IsValid)
 				{
 					model.Patient = patient;
-					model.Examination.Statuses = statuses;
+					model.Examination = new ExaminationFormModel()
+					{
+						DoctorId = User.Id(),
+					};
 
 					return View(model);
+				}
+
+				if (model.Examination.StatusId != 4)
+				{
+					TempData["error"] = "Examination status must be 'New' for adding a new examination.";
+					return RedirectToAction("Index", "Home");
 				}
 
 				await this.examinationService.AddAsync(model.Examination, patientId, User.Id());

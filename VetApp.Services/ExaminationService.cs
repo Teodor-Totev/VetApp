@@ -24,7 +24,7 @@
             Patient patient = await context.Patients
                 .FirstAsync(p => p.Id.ToString() == patientId);
 
-			var e = new Examination()
+			Examination examination = new ()
             {
                 DoctorId = Guid.Parse(doctorId),
                 CreatedOn = model.CreatedOn,
@@ -43,19 +43,19 @@
             };
 
 
-            PatientUser ps = new PatientUser()
+            PatientUser patientUser = new ()
             {
                 DoctorId = Guid.Parse(doctorId),
                 PatientId = Guid.Parse(patientId)
             };
 
-            if (!context.PatientsUsers.Contains(ps))
+            patient.Examinations.Add(examination);
+            if (!context.PatientsUsers.Contains(patientUser))
             {
-                await context.PatientsUsers.AddAsync(ps);
+                await context.PatientsUsers.AddAsync(patientUser);
             }
-            patient.Examinations.Add(e);
 
-            await context.Examinations.AddAsync(e);
+            await context.Examinations.AddAsync(examination);
             await context.SaveChangesAsync();
         }
 
@@ -68,7 +68,7 @@
                     Id = e.Id.ToString(),
                     Reason = e.Reason,
                     CreatedOn = e.CreatedOn,
-                    DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
+                    DoctorName = "Dr. " + e.Doctor.FirstName + " " + e.Doctor.LastName,
                     StatusName = e.Status.Name
                 })
                 .ToArrayAsync();

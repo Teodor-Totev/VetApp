@@ -110,14 +110,11 @@
 
 							<div class="mb-1">
 								<label asp-for="@Model.Examination.StatusId" class="form-label">Status</label>
-								<select asp-for="@Model.Examination.StatusId" class="form-control">
-									@foreach (var status in Model.Examination.Statuses.Where(s => s.Name == "New"))
-									{
-										<option value="@status.Id">@status.Name</option>
-									}
-								</select>
+								<input asp-for="@Model.Examination.StatusId" value="4" type="hidden" class="form-control">
+								<span class="form-control" >New</span>
 								<span asp-validation-for="@Model.Examination.StatusId" class="text-danger"></span>
 							</div>
+
 						</td>
 				</tbody>
 			</table>
