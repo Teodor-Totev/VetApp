@@ -250,7 +250,7 @@
 			{
 				PatientEditViewModel model =
 					await this.patientService.GetPatientForEditByIdAsync(patientId);
-
+				ViewBag.PatientId = patientId;
 				return View(model);
 			}
 			catch (InvalidOperationException)

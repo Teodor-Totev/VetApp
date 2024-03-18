@@ -193,7 +193,6 @@
 				.Where(p => p.Id.ToString() == patientId && p.IsActive == true)
 				.Select(p => new PatientEditViewModel()
 				{
-					Id = p.Id.ToString(),
 					Name = p.Name,
 					Type = p.Type,
 					Gender = p.Gender,
