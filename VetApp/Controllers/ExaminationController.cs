@@ -28,6 +28,12 @@
 		[HttpGet]
 		public async Task<IActionResult> Add(string patientId)
 		{
+			if (string.IsNullOrEmpty(patientId))
+			{
+				TempData["error"] = "Patient Id is required.";
+				return RedirectToAction("All", "Patient");
+			}
+
 			var patient = await patientService.GetPatientByIdAsync(patientId);
 			var statuses = await statusService.AllStatusesAsync();
 			var model = new ExaminationFormModel

@@ -169,18 +169,20 @@
 		public async Task<PatientViewModel> GetPatientByIdAsync(string patientId)
 		{
 			PatientViewModel patient = await context.Patients
-				.Where(p => p.Id.ToString() == patientId)
+				.Where(p => p.Id.ToString() == patientId && p.IsActive == true)
 				.Select(p => new PatientViewModel()
 				{
 					Id = p.Id.ToString(),
 					Name = p.Name,
 					Type = p.Type,
 					Gender = p.Gender,
+					OwnerName = p.Owner.Name,
+					OwnerId= p.OwnerId.ToString(),
 					BirthDate = p.BirthDate,
 					Microchip = p.Microchip,
 					Neutered = p.Neutered,
 					ChronicIllnesses = p.ChronicIllnesses,
-					Characteristics = p.Characteristics
+					Characteristics = p.Characteristics,
 				})
 				.FirstAsync();
 
