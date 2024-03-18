@@ -1,8 +1,6 @@
 ﻿namespace VetApp.Web.ViewModels.Examination
 {
 	using System.ComponentModel.DataAnnotations;
-
-	using VetApp.Web.ViewModels.Patient;
 	using VetApp.Web.ViewModels.Status;
 	using static Common.ViewModelValidationConstants.ExaminationFormModelConstants;
 
@@ -19,12 +17,6 @@
 
 		public string DoctorId { get; set; } = null!;
 
-		public string DoctorName { get; set; } = null!;
-
-		public string PatientId { get; set; } = null!;
-
-        public PatientViewModel Patient { get; set; } = null!;
-
 		public int StatusId { get; set; }
 
 		[DataType(DataType.Date)]
@@ -37,8 +29,8 @@
 			ErrorMessage = "Reason must be between 2 and 50 characters long.")]
 		public string Reason { get; set; } = null!;
 
-		[StringLength(InputFieldMaxLength, MinimumLength = InputFieldMinLength,
-			ErrorMessage = "MedicalHistory must be between 2 and 50 characters long.")]
+		[StringLength(TextAreaMaxLength, MinimumLength = TextAreaMinLength,
+			ErrorMessage = "MedicalHistory must be between 5 and 200 characters long.")]
 		public string? MedicalHistory { get; set; }
 
 		[StringLength(InputFieldMaxLength, MinimumLength = InputFieldMinLength,
@@ -69,6 +61,6 @@
 			ErrorMessage = "Exit must be between 2 and 50 characters long.")]
 		public string? Exit { get; set; }
 
-		public ICollection<StatusViewModel> Statuses { get; set; }
+		public IEnumerable<StatusViewModel> Statuses { get; set; }
 	}
 }

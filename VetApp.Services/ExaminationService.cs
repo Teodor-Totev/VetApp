@@ -106,8 +106,6 @@
                 {
                     //Id = e.Id.ToString(),
                     DoctorId = e.DoctorId.ToString(),
-                    PatientId = e.PatientId.ToString(),
-                    DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
 					Weight = e.Weight,
 					Reason = e.Reason,
 					CreatedOn = e.CreatedOn,
@@ -158,8 +156,8 @@
 					Reason = e.Reason,
 					Diagnosis = e.Diagnosis,
 					CreatedOn = e.CreatedOn,
-					DoctorName = "Dr." + e.Doctor.FirstName + " " + e.Doctor.LastName,
 					Surgery = e.Surgery,
+                    DoctorName = e.Doctor.FirstName + " " + e.Doctor.LastName,
 					Therapy = e.Therapy,
 					StatusName = e.Status.Name,
                     SpecificCondition = e.SpecificCondition,

@@ -1,4 +1,4 @@
-﻿@model ExaminationFormModel
+﻿@* @model ExaminationFormModel
 
 @{
 	ViewData["Title"] = "Edit Examination";
@@ -19,7 +19,7 @@
 						<td>
 							<dl class="row">
 								<dt class="col-sm-2">Doctor:</dt>
-								<dd class="col-sm-8">@Model.DoctorName</dd>
+								<dd class="col-sm-8">@Model.DoctorFullName</dd>
 							</dl>
 
 							<div class="mb-1">
@@ -114,3 +114,4 @@
 	<partial name="_ValidationScriptsPartial" />
 }
 
+ *@

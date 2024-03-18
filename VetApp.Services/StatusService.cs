@@ -19,7 +19,7 @@
             this.context = context;
         }
 
-        public async Task<ICollection<StatusViewModel>> AllStatusesAsync()
+        public async Task<IEnumerable<StatusViewModel>> AllStatusesAsync()
 		{
 			return await this.context.Statuses
 				.Select(s => new StatusViewModel()

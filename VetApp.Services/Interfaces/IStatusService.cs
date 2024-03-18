@@ -7,6 +7,6 @@
 
 	public interface IStatusService
 	{
-		Task<ICollection<StatusViewModel>> AllStatusesAsync();
+		Task<IEnumerable<StatusViewModel>> AllStatusesAsync();
 	}
 }
