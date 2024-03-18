@@ -6,11 +6,8 @@
 	{
 		public OwnerViewModel()
 		{
-			this.Patients = new HashSet<PatientViewModel>();
 		}
 
 		public string Id { get; set; } = null!;
-
-		public IEnumerable<PatientViewModel> Patients { get; set; }
     }
 }

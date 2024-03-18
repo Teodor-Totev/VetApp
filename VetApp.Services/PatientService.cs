@@ -115,6 +115,7 @@
 		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel)
 		{
 			IQueryable<Patient> query = context.Patients
+				.Where(p => p.IsActive == true)
 				.AsQueryable();
 
 			if (!string.IsNullOrEmpty(queryModel.SearchString))

@@ -1,7 +1,7 @@
 ﻿namespace VetApp.Services
 {
 	using Microsoft.EntityFrameworkCore;
-
+	using Web.ViewModels.Owner.Enums;
 	using VetApp.Data;
 	using VetApp.Data.Models;
 	using VetApp.Services.Interfaces;
@@ -19,36 +19,62 @@
 		}
 
 
-		public async Task<AllOwnerOrderedAndPagedServiceModel> GetAllOwnersAsync(AllOwnersQueryModel model)
+		public async Task<AllOwnersOrderedAndPagedServiceModel> GetAllOwnersAsync(AllOwnersQueryModel model)
 		{
-			var query = context.Owners
+			IQueryable<Owner> query = context.Owners
+				.Where(o => o.IsActive == true)
+				.Include(o => o.Patients)
 				.AsQueryable();
 
-			var owners = await context.Owners
-			.Select(o => new OwnerViewModel()
+			if (!string.IsNullOrEmpty(model.SearchString))
 			{
-				Id = o.Id.ToString(),
-				Name = o.Name,
-				Address = o.Address,
-				PhoneNumber = o.PhoneNumber,
-				Email = o.Email,
-				Patients = context.Patients
-				.Where(p => p.OwnerId == o.Id)
-				.Select(p => new PatientViewModel()
-				{
-					Id = p.Id.ToString(),
-					Name = p.Name,
-					Type = p.Type,
-					Gender = p.Gender,
-					Neutered = p.Neutered
-				})
-				.ToArray()
-			})
-			.ToArrayAsync();
+				string wildCard = $"%{model.SearchString.ToLower()}%";
 
-			return new AllOwnerOrderedAndPagedServiceModel()
+				query = query
+					.Where(o => EF.Functions.Like(o.Name, wildCard) ||
+								EF.Functions.Like(o.PhoneNumber, wildCard) ||
+								EF.Functions.Like(o.Address, wildCard));
+			}
+
+			switch (model.OwnerSorting)
 			{
-				TotalOwnersCount = owners.Count(),
+				case OwnerSorting.OwnerName:
+					query = query.OrderBy(o => o.Name);
+					break;
+				case OwnerSorting.OwnerNameDescending:
+					query = query.OrderByDescending(o => o.Name);
+					break;
+				case OwnerSorting.AnimalsCount:
+					query = query
+						.OrderBy(o => o.Patients.Count())
+						.ThenBy(o => o.Name);
+					break;
+				case OwnerSorting.AnimalsCountDescending:
+					query = query
+						.OrderByDescending(o => o.Patients.Count())
+						.ThenBy(o => o.Name);
+					break;
+				default:
+					query = query.OrderBy(o => o.Name);
+					break;
+			}
+
+			var owners = await query
+				.Skip((model.CurrentPage - 1) * model.OwnersPerPage)
+				.Take(model.OwnersPerPage)
+				.Select(o => new OwnerViewModel()
+				{
+					Id = o.Id.ToString(),
+					Name = o.Name,
+					Address = o.Address,
+					PhoneNumber = o.PhoneNumber,
+					Email = o.Email,
+				})
+				.ToArrayAsync();
+
+			return new AllOwnersOrderedAndPagedServiceModel()
+			{
+				TotalOwnersCount = await query.CountAsync(),
 				Owners = owners
 			};
 		}

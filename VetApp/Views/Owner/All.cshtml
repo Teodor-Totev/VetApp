@@ -20,8 +20,8 @@
 				<select asp-for="OwnerSorting" class="form-control">
 					<option value="0">Owner Name (Ascending)</option>
 					<option value="1">Owner Name (Descending)</option>
-					<option value="2">Animal Count (Ascending)</option>
-					<option value="3">Animal Count (Descending)</option>
+					<option value="2">Animals Count (Ascending)</option>
+					<option value="3">Animals Count (Descending)</option>
 				</select>
 			</div>
 		</div>
@@ -56,21 +56,20 @@
 		<a class="btn btn-primary btn-sm @prevDisabled"
 		   asp-controller="Owner"
 		   asp-action="All"
-		   asp-route-currentPage="@Model.CurrentPage - 1"
-		   asp-route-patientsPerPage="@Model.OwnersPerPage"
+		   asp-route-currentPage="@(Model.CurrentPage - 1)"
+		   asp-route-ownersPerPage="@Model.OwnersPerPage"
 		   asp-route-searchString="@Model.SearchString"
-		   asp-route-patientSorting="@((int)Model.OwnerSorting)">Previous</a>
+		   asp-route-ownerSorting="@((int)Model.OwnerSorting)">Previous</a>
 	</div>
 
 	<div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
-		<a class="btn btn-primary btn-sm
-           @nextDisabled"
+		<a class="btn btn-primary btn-sm @nextDisabled"
 		   asp-controller="Owner"
 		   asp-action="All"
 		   asp-route-currentPage="@(Model.CurrentPage + 1)"
+		   asp-route-ownersPerPage="@Model.OwnersPerPage"
 		   asp-route-searchString="@Model.SearchString"
-		   asp-route-patientsPerPage="@Model.OwnersPerPage"
-		   asp-route-patientSorting="@((int)Model.OwnerSorting)">Next</a>
+		   asp-route-ownerSorting="@((int)Model.OwnerSorting)">Next</a>
 	</div>
 </div>
 

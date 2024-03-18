@@ -1,11 +1,9 @@
 ﻿namespace VetApp.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
-	using VetApp.Data.Models;
-	using VetApp.Services;
 	using VetApp.Services.Interfaces;
+	using VetApp.Services.Models.Owner;
 	using VetApp.Web.ViewModels.Owner;
-	using VetApp.Web.ViewModels.Patient;
 
 	public class OwnerController : BaseController
 	{
@@ -17,11 +15,15 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> All([FromQuery]AllOwnersQueryModel model)
+		public async Task<IActionResult> All([FromQuery] AllOwnersQueryModel queryModel)
 		{
-			var result = await ownerService.GetAllOwnersAsync(model);
+			AllOwnersOrderedAndPagedServiceModel result =
+				await ownerService.GetAllOwnersAsync(queryModel);
 
-			return View(model);
+			queryModel.TotalOwners = result.TotalOwnersCount;
+			queryModel.Owners = result.Owners;
+
+			return View(queryModel);
 		}
 
 		[HttpGet]

@@ -2,9 +2,9 @@
 {
 	using VetApp.Web.ViewModels.Patient;
 
-	public class AllOwnerOrderedAndPagedServiceModel
+	public class AllOwnersOrderedAndPagedServiceModel
 	{
-        public AllOwnerOrderedAndPagedServiceModel()
+        public AllOwnersOrderedAndPagedServiceModel()
         {
             this.Owners = new HashSet<OwnerViewModel>();
         }

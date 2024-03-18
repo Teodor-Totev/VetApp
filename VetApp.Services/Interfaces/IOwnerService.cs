@@ -6,7 +6,7 @@
 
 	public interface IOwnerService
 	{
-		Task<AllOwnerOrderedAndPagedServiceModel> GetAllOwnersAsync(AllOwnersQueryModel model);
+		Task<AllOwnersOrderedAndPagedServiceModel> GetAllOwnersAsync(AllOwnersQueryModel model);
 
 		Task<OwnerFormModel> GetOwnerForEditByIdAsync(string ownerId);
 
