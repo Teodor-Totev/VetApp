@@ -1,7 +1,20 @@
 ﻿namespace VetApp.Services.Extensions
 {
+	using VetApp.Data.Models;
+	using VetApp.Web.ViewModels.Examination;
+
 	public static class ExaminationExtensions
 	{
-
+		public static ExaminationViewModel ToViewModel(this Examination examination)
+		{
+			return new ExaminationViewModel()
+			{
+				Id = examination.Id.ToString(),
+				CreatedOn = examination.CreatedOn,
+				Reason = examination.Reason,
+				DoctorName =  "Dr. " + examination.Doctor.FirstName + " " + examination.Doctor.LastName,
+				StatusName = examination.Status.Name
+			};
+		}
 	}
 }
