@@ -43,15 +43,6 @@
 				OwnerId = owner.Id,
 			};
 
-
-			PatientUser pu = new PatientUser()
-			{
-				Patient = patient,
-				DoctorId = Guid.Parse(doctorId)
-			};
-
-
-			patient.PatientsUsers.Add(pu);
 			owner.Patients.Add(patient);
 
 			await context.Owners.AddAsync(owner);
@@ -78,13 +69,6 @@
 				OwnerId = Guid.Parse(ownerId),
 			};
 
-			var pu = new PatientUser()
-			{
-				Patient = patient,
-				DoctorId = Guid.Parse(doctorId)
-			};
-
-			patient.PatientsUsers.Add(pu);
 			owner.Patients.Add(patient);
 			await context.Patients.AddAsync(patient);
 			await context.SaveChangesAsync();
@@ -211,23 +195,19 @@
 
 		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(MinePatientsQueryModel queryModel, string doctorId)
 		{
-			IQueryable<PatientUser> query = context.PatientsUsers
+			IQueryable<Patient> query = context.Examinations
+				.Where(e => e.DoctorId.ToString() == doctorId)
+				.Select(e => e.Patient)
 				.AsQueryable();
-
-			if (!string.IsNullOrEmpty(doctorId))
-			{
-				query = query
-					.Where(pu => pu.DoctorId.ToString() == doctorId);
-			}
 
 			if (!string.IsNullOrEmpty(queryModel.SearchString))
 			{
 				string wildCard = $"%{queryModel.SearchString.ToLower()}%";
 
 				query = query
-					.Where(p => EF.Functions.Like(p.Patient.Name, wildCard) ||
-								EF.Functions.Like(p.Patient.Type, wildCard) ||
-								EF.Functions.Like(p.Patient.Owner.Name, wildCard));
+					.Where(p => EF.Functions.Like(p.Name, wildCard) ||
+								EF.Functions.Like(p.Type, wildCard) ||
+								EF.Functions.Like(p.Owner.Name, wildCard));
 			}
 
 			ICollection<PatientViewModel> patients = await query
@@ -235,13 +215,13 @@
 				.Take(queryModel.PatientsPerPage)
 				.Select(p => new PatientViewModel()
 				{
-					Id = p.Patient.Id.ToString(),
-					Name = p.Patient.Name,
-					OwnerName = p.Patient.Owner.Name,
-					Type = p.Patient.Type,
-					Gender = p.Patient.Gender,
-					Neutered = p.Patient.Neutered,
-					OwnerId = p.Patient.OwnerId.ToString()
+					Id = p.Id.ToString(),
+					Name = p.Name,
+					OwnerName = p.Owner.Name,
+					Type = p.Type,
+					Gender = p.Gender,
+					Neutered = p.Neutered,
+					OwnerId = p.OwnerId.ToString()
 				})
 				.ToArrayAsync();
 

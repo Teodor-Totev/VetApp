@@ -42,18 +42,7 @@
                 PatientId = Guid.Parse(patientId),
             };
 
-
-            PatientUser patientUser = new ()
-            {
-                DoctorId = Guid.Parse(doctorId),
-                PatientId = Guid.Parse(patientId)
-            };
-
             patient.Examinations.Add(examination);
-            if (!context.PatientsUsers.Contains(patientUser))
-            {
-                await context.PatientsUsers.AddAsync(patientUser);
-            }
 
             await context.Examinations.AddAsync(examination);
             await context.SaveChangesAsync();

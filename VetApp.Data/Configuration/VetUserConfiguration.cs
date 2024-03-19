@@ -9,7 +9,6 @@
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-
-        }
+		}
     }
 }

@@ -6,11 +6,6 @@
 
 	public class Status
 	{
-        public Status()
-        {
-			this.Examinations = new HashSet<Examination>();    
-        }
-
         [Key]
         public int Id { get; set; }
 
@@ -18,6 +13,5 @@
         [MaxLength(NameMaxLength)]
 		public string Name { get; set; } = null!;
 
-        public ICollection<Examination> Examinations { get; set; }
     }
 }

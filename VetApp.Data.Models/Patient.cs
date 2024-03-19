@@ -11,7 +11,6 @@
         public Patient()
         {
             this.Id = Guid.NewGuid();
-            this.PatientsUsers = new HashSet<PatientUser>();
             this.Examinations = new HashSet<Examination>();
 		}
 
@@ -25,12 +24,7 @@
         [Required]
         [MaxLength(TypeMaxLength)]
         public string Type { get; set; } = null!;
-
-		public DateTime? BirthDate { get; set; }
-
-		[MaxLength(MicroChipMaxLength)]
-        public string? Microchip { get; set; }
-
+        
         [Required]
         [EnumDataType(typeof(PatientGender))]
         public PatientGender Gender { get; set; }
@@ -41,7 +35,12 @@
 
         public bool IsActive { get; set; }
 
-        public string? Characteristics { get; set; }
+		public DateTime? BirthDate { get; set; }
+
+		[MaxLength(MicroChipMaxLength)]
+		public string? Microchip { get; set; }
+
+		public string? Characteristics { get; set; }
 
         public string? ChronicIllnesses { get; set; }
 
@@ -50,8 +49,7 @@
         [ForeignKey(nameof(OwnerId))]
         public virtual Owner Owner{ get; set; } = null!;
 
-        public virtual ICollection<Examination> Examinations { get; set; }
+		public virtual ICollection<Examination> Examinations { get; set; }
 
-        public virtual ICollection<PatientUser> PatientsUsers { get; set; }
     }
 }

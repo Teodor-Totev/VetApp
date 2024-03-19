@@ -7,49 +7,49 @@
 @if (Model.Any())
 {
 	<div class="table-responsive">
-	<table class="table table-secondary" id="ExaminationsAll">
-		<thead>
-			<tr>
-				<th>
-					Created On
-				</th>
-				<th>
-					Weight
-				</th>
-				<th>
-					Reason
-				</th>
-				<th>
-					Doctor
-				</th>
-				<th>
-					Status
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var examination in Model)
-			{
-				<tr class="table-dark">
-					<td>
-						@examination.CreatedOn
-					</td>
-					<td>
-						@examination.Weight
-					</td>
-					<td>
-						@examination.Reason
-					</td>
-					<td>
-						@examination.DoctorName
-					</td>
-					<td>
-						@examination.Status
-					</td>
+		<table class="table table-secondary" id="ExaminationsAll">
+			<thead>
+				<tr>
+					<th>
+						Created On
+					</th>
+					<th>
+						Weight
+					</th>
+					<th>
+						Reason
+					</th>
+					<th>
+						Doctor
+					</th>
+					<th>
+						Status
+					</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var examination in Model)
+				{
+					<tr class="table-dark">
+						<td>
+							@examination.CreatedOn
+						</td>
+						<td>
+							@examination.Weight
+						</td>
+						<td>
+							@examination.Reason
+						</td>
+						<td>
+							@examination.DoctorName
+						</td>
+						<td>
+							@examination.Status
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
 	</div>
 }
 else

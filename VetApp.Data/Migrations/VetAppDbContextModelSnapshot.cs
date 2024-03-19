@@ -238,7 +238,7 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                             AccessFailedCount = 0,
                             Address = "123 Main St Haskovo",
-                            ConcurrencyStamp = "15d11bd2-72a7-47b4-ac38-16bf8de37246",
+                            ConcurrencyStamp = "a20e56ee-26d2-4767-8b91-de3b834c6b1f",
                             Email = "r_raykov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Radoslav",
@@ -246,9 +246,9 @@ namespace VetApp.Data.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "R_RAYKOV@GMAIL.COM",
                             NormalizedUserName = "R_RAYKOV",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBAp1rc37M0Pdpw6Mim9j47dZuy+2sWak/CvXviltg82H1iRRQm3Sc3NwbA+RHLiSg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELQctnSDAw9OkyJXVT4zeyRznylvqVe3MraeP6nuIaSqYiG2gSKZQHc4HvwNKgAV6Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "A38945F5-0E87-4231-9C47-5B66C91525C0",
+                            SecurityStamp = "682AF017-E31E-487C-8C5F-49501A65E44B",
                             TwoFactorEnabled = false,
                             UserName = "r_raykov"
                         });
@@ -326,7 +326,7 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("a6be4500-3245-4ecc-a9f5-5b2af8baff97"),
-                            CreatedOn = new DateTime(2024, 3, 17, 11, 27, 52, 879, DateTimeKind.Utc).AddTicks(9503),
+                            CreatedOn = new DateTime(2024, 3, 19, 13, 34, 52, 810, DateTimeKind.Utc).AddTicks(4348),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                             PatientId = new Guid("b19105c4-9a4e-4583-973a-642b8bc06916"),
                             Reason = "Primary",
@@ -336,7 +336,7 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("917f60f0-485a-4cbc-a3d5-83bfc30015ed"),
-                            CreatedOn = new DateTime(2024, 3, 17, 11, 27, 52, 879, DateTimeKind.Utc).AddTicks(9515),
+                            CreatedOn = new DateTime(2024, 3, 19, 13, 34, 52, 810, DateTimeKind.Utc).AddTicks(4359),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                             PatientId = new Guid("ad53d8a9-6ac2-4ab1-bf68-dfb4292e56ab"),
                             Reason = "Secondary",
@@ -346,7 +346,7 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("c84db966-6f32-44af-8026-d142b1ea15b9"),
-                            CreatedOn = new DateTime(2024, 3, 17, 11, 27, 52, 879, DateTimeKind.Utc).AddTicks(9526),
+                            CreatedOn = new DateTime(2024, 3, 19, 13, 34, 52, 810, DateTimeKind.Utc).AddTicks(4363),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                             PatientId = new Guid("53044ff9-b935-4b5a-a7e0-2203e21b05ea"),
                             Reason = "Primary",
@@ -356,7 +356,7 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("b05fb0d0-9e05-4c00-a9e7-d3f0600e566b"),
-                            CreatedOn = new DateTime(2024, 3, 17, 11, 27, 52, 879, DateTimeKind.Utc).AddTicks(9530),
+                            CreatedOn = new DateTime(2024, 3, 19, 13, 34, 52, 810, DateTimeKind.Utc).AddTicks(4367),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                             PatientId = new Guid("a917fe0d-e64e-40c5-8eeb-b17867ec09e1"),
                             Reason = "Primary",
@@ -525,23 +525,6 @@ namespace VetApp.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("VetApp.Data.Models.PatientUser", b =>
-                {
-                    b.Property<Guid>("DoctorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("DoctorId", "PatientId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("PatientsUsers");
-
-                    b.HasComment("User Patints");
-                });
-
             modelBuilder.Entity("VetApp.Data.Models.Status", b =>
                 {
                     b.Property<int>("Id")
@@ -636,7 +619,7 @@ namespace VetApp.Data.Migrations
             modelBuilder.Entity("VetApp.Data.Models.Examination", b =>
                 {
                     b.HasOne("VetApp.Data.Models.ApplicationUser", "Doctor")
-                        .WithMany("Examinations")
+                        .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -648,7 +631,7 @@ namespace VetApp.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("VetApp.Data.Models.Status", "Status")
-                        .WithMany("Examinations")
+                        .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -671,45 +654,12 @@ namespace VetApp.Data.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("VetApp.Data.Models.PatientUser", b =>
-                {
-                    b.HasOne("VetApp.Data.Models.ApplicationUser", "Doctor")
-                        .WithMany("PatientsUsers")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VetApp.Data.Models.Patient", "Patient")
-                        .WithMany("PatientsUsers")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("VetApp.Data.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("Examinations");
-
-                    b.Navigation("PatientsUsers");
-                });
-
             modelBuilder.Entity("VetApp.Data.Models.Owner", b =>
                 {
                     b.Navigation("Patients");
                 });
 
             modelBuilder.Entity("VetApp.Data.Models.Patient", b =>
-                {
-                    b.Navigation("Examinations");
-
-                    b.Navigation("PatientsUsers");
-                });
-
-            modelBuilder.Entity("VetApp.Data.Models.Status", b =>
                 {
                     b.Navigation("Examinations");
                 });
