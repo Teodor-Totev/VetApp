@@ -141,7 +141,20 @@
 
 			try
 			{
+				if (!await this.patientService.PatientExistsAsync(patientId))
+				{
+					TempData["error"] = "Patient does not exist.";
+					return RedirectToAction("All", "Patient");
+				}
+
 				PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
+
+				if (!await this.examinationService.ExaminationExistsAsync(examinationId))
+				{
+					TempData["error"] = "Examination does not exist.";
+					return RedirectToAction("All");
+				}
+
 				ExaminationFormModel examination = await examinationService.GetExaminationByIdAsync(examinationId);
 				examination.Statuses = await statusService.AllStatusesAsync();
 
@@ -157,11 +170,6 @@
 
 				return View(model);
 			}
-			catch (InvalidOperationException)
-			{
-				TempData["error"] = "Patient or Examination does not exist.";
-				return RedirectToAction("All", "Patient");
-			}
 			catch (Exception ex)
 			{
 				TempData["error"] = ex.Message;
@@ -175,13 +183,13 @@
 		{
 			if (string.IsNullOrEmpty(examinationId))
 			{
-				TempData["error"] = "Examination Id is required";
+				TempData["error"] = "Examination Id is required.";
 				return RedirectToAction("Index", "Home");
 			}
 
 			if (string.IsNullOrEmpty(patientId))
 			{
-				TempData["error"] = "Patient Id is required";
+				TempData["error"] = "Patient Id is required.";
 				return RedirectToAction("Index", "Home");
 			}
 
@@ -197,7 +205,7 @@
 				}
 
 				await examinationService.EditExaminationAsync(model.Examination, examinationId);
-				TempData["success"] = "Successfully Edited Examination";
+				TempData["success"] = "Successfully Edited Examination.";
 				return RedirectToAction("Details", "Patient", new { patientId });
 			}
 			catch (InvalidOperationException)
@@ -250,17 +258,39 @@
 		[HttpGet]
 		public async Task<IActionResult> Dashboard()
 		{
-			var model = await examinationService.GetExaminationsGroupedByStatus();
+			try
+			{
+				var model = await examinationService.GetExaminationsGroupedByStatus();
 
-			return View(model);
+				return View(model);
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
+			}
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Details(string examinationId)
 		{
-			var model = await examinationService.GetExaminationDetailsByIdAsync(examinationId);
+			if (string.IsNullOrEmpty(examinationId))
+			{
+				TempData["error"] = "Examination Id is required.";
+				return RedirectToAction("Index", "Home");
+			}
 
-			return View(model);
+			try
+			{
+				var model = await examinationService.GetExaminationDetailsByIdAsync(examinationId);
+
+				return View(model);
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
+			}
 		}
 	}
 }
