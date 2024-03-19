@@ -196,6 +196,9 @@
 		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(MinePatientsQueryModel queryModel, string doctorId)
 		{
 			IQueryable<Patient> query = context.Examinations
+				.Include(e => e.Doctor)
+				.Include(e => e.Patient)
+				.Include(e => e.Patient.Owner)
 				.Where(e => e.DoctorId.ToString() == doctorId)
 				.Select(e => e.Patient)
 				.AsQueryable();

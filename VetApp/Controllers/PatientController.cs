@@ -147,7 +147,7 @@
 				return View(queryModel);
 			}
 
-			ViewBag.UserId = User.Id();
+			ViewBag.DoctorId = User.Id();
 
 			try
 			{
@@ -167,7 +167,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Mine([FromQuery] MinePatientsQueryModel queryModel, string? doctorId)
+		public async Task<IActionResult> Mine([FromQuery] MinePatientsQueryModel queryModel, string doctorId)
 		{
 			if (string.IsNullOrEmpty(doctorId))
 			{
@@ -189,7 +189,7 @@
 				return View(queryModel);
 			}
 
-			ViewBag.UserId = User.Id();
+			ViewBag.DoctorId = User.Id();
 			AllPatientsOrderedAndPagedServiceModel serviceModel =
 					await patientService.GetAllPatientsForUserAsync(queryModel, doctorId!);
 

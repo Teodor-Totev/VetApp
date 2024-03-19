@@ -8,35 +8,21 @@
 
 <partial name="_NotificationPartial" />
 
-<div class="col-md-6">
-	<partial name="_PatientDetailsPartial" model="@Model.Patient" />
-</div>
+<div class="row">
+	<div class="col-4">
+		<partial name="_PatientDetailsPartial" model="@Model.Patient" />
+	</div>
+	<div class="col-8">
+		<div class="card border-secondary mb-3" style="margin: 10px 0px">
+			<h4 class="card-header">Create Examination <a class="btn btn-outline-primary text-white float-end" asp-controller="Patient" asp-action="Details" asp-route-patientId="@Model.Patient!.Id">Examinations</a></h4>
+			<form asp-action="Add" asp-controller="Examination" asp-route-patientId="@Model.Patient.Id" method="post">
+				<div class="card-body pb-0">
+					<div class="row">
+						<div class="col-6 col-lg-4 col-xl-4">
 
-<div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
-	<form method="post" enctype="multipart/form-data" asp-controller="Examination" asp-action="Upload" style="padding: 10px">
-		<div class="mb-3">
-			<input type="file" name="files" multiple class="form-control" />
-		</div>
-		<div class="mb-3">
-			<input class="btn btn-primary btn-sm" type="submit" value="Upload" />
-		</div>
-		<span class="text-success">
-			@ViewBag.FileMessage
-		</span>
-	</form>
-</div>
-
-<div class="card border-secondary mb-3" style="margin: 10px 0px">
-	<h4 class="card-header">Create Examination <a class="btn btn-outline-primary text-white float-end" asp-controller="Patient" asp-action="Details" asp-route-patientId="@Model.Patient.Id">Examinations</a></h4>
-	<form asp-action="Add" asp-controller="Examination" asp-route-patientId="@Model.Patient.Id" method="post">
-		<div class="card-body pb-0">
-			<table class="table table-secondary">
-				<tbody>
-					<tr class="table-dark">
-						<td>
-							<dl class="row">
-								<dt class="col-sm-2">Doctor:</dt>
-								<dd class="col-sm-8">@doctorFullName</dd>
+							<dl>
+								<dt>Doctor:</dt>
+								<dd>@doctorFullName</dd>
 								<input type="hidden" asp-for="@Model.Examination.DoctorId" value="@Model.Examination.DoctorId" />
 							</dl>
 
@@ -52,11 +38,7 @@
 								<span asp-validation-for="@Model.Examination.Reason" class="text-danger"></span>
 							</div>
 
-							<div class="mb-1">
-								<label asp-for="@Model.Examination.MedicalHistory" class="control-label">Medical history</label>
-								<textarea asp-for="@Model.Examination.MedicalHistory" class="form-control" rows="2"></textarea>
-								<span asp-validation-for="@Model.Examination.MedicalHistory" class="text-danger"></span>
-							</div>
+							
 
 							<div class="mb-1">
 								<label asp-for="@Model.Examination.CurrentCondition" class="control-label">Current condition</label>
@@ -75,9 +57,23 @@
 								<input asp-for="@Model.Examination.Research" class="form-control">
 								<span asp-validation-for="@Model.Examination.Research" class="text-danger"></span>
 							</div>
-						</td>
 
-						<td>
+							<div class="mb-1">
+								<label asp-for="@Model.Examination.CreatedOn" class="control-label"></label>
+								<input asp-for="@Model.Examination.CreatedOn" class="form-control">
+								<span asp-validation-for="@Model.Examination.CreatedOn" class="text-danger"></span>
+							</div>
+
+						</div>
+
+						<div class="col-6 col-lg-8 col-xl-8">
+
+							<div class="mb-1">
+								<label asp-for="@Model.Examination.MedicalHistory" class="control-label">Medical history</label>
+								<textarea asp-for="@Model.Examination.MedicalHistory" class="form-control" rows="2"></textarea>
+								<span asp-validation-for="@Model.Examination.MedicalHistory" class="text-danger"></span>
+							</div>
+
 							<div class="mb-1">
 								<label asp-for="@Model.Examination.Diagnosis" class="control-label"></label>
 								<textarea asp-for="@Model.Examination.Diagnosis" class="form-control" rows="2"></textarea>
@@ -102,27 +98,24 @@
 								<span asp-validation-for="@Model.Examination.Exit" class="text-danger"></span>
 							</div>
 
-							<div class="mb-1">
-								<label asp-for="@Model.Examination.CreatedOn" class="control-label"></label>
-								<input asp-for="@Model.Examination.CreatedOn" class="form-control">
-								<span asp-validation-for="@Model.Examination.CreatedOn" class="text-danger"></span>
-							</div>
+							
 
 							<div class="mb-1">
 								<label asp-for="@Model.Examination.StatusId" class="form-label">Status</label>
 								<input asp-for="@Model.Examination.StatusId" value="4" type="hidden" class="form-control">
-								<span class="form-control" >New</span>
+								<span class="form-control">New</span>
 								<span asp-validation-for="@Model.Examination.StatusId" class="text-danger"></span>
 							</div>
 
-						</td>
-				</tbody>
-			</table>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer d-flex align-items-center justify-content-end">
+					<button type="submit" class="btn btn-primary btn-sm">Create</button>
+				</div>
+			</form>
 		</div>
-		<div class="card-footer d-flex align-items-center justify-content-end">
-			<button type="submit" class="btn btn-primary btn-sm">Create</button>
-		</div>
-	</form>
+	</div>
 </div>
 
 @section Scripts {

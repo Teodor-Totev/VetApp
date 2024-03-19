@@ -221,41 +221,6 @@
 		}
 
 		[HttpGet]
-		public IActionResult Upload()
-		{
-			return View();
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> Upload(List<IFormFile> files)
-		{
-			var uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "files");
-
-			if (!Directory.Exists(uploadsFolder))
-			{
-				Directory.CreateDirectory(uploadsFolder);
-			}
-
-			foreach (var file in files.Where(f => f.Length > 0))
-			{
-				string fileName = Path.GetFileName(file.FileName);
-				string fileSavePath = Path.Combine(uploadsFolder, fileName);
-				int coutner = 0;
-
-				using (var stream = new FileStream(fileSavePath, FileMode.Create))
-				{
-					await file.CopyToAsync(stream);
-					coutner++;
-				}
-
-				ViewBag.FileMessage = coutner + " uploaded successfully";
-			}
-
-			return View();
-		}
-
-
-		[HttpGet]
 		public async Task<IActionResult> Dashboard()
 		{
 			try
