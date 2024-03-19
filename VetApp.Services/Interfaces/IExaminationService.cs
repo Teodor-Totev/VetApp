@@ -11,12 +11,14 @@
 		Task<IEnumerable<ExaminationViewModel>> GetAllExaminationsAsync();
 
 
-		Task<Dictionary<string, List<ExaminationDashboardViewModel>>> GetExaminationsGroupedByStatus();
+		Task<Dictionary<string, ExaminationDashboardViewModel[]>> GetExaminationsGroupedByStatus();
 
 		Task<ExaminationFormModel> GetExaminationByIdAsync(string examinationId);
 
 		Task EditExaminationAsync(ExaminationFormModel model, string examinationId);
 
 		Task<ExaminationDetailsViewModel> GetExaminationDetailsByIdAsync(string examinationId);
+
+		Task<bool> ExaminationExistsAsync(string examinationId);
 	}
 }
