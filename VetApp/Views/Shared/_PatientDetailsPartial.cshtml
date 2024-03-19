@@ -11,7 +11,7 @@
 
 			<dt class="col-sm-5 card-title">Gender:</dt>
 			<dd class="col-sm-5 card-text">@Model.Gender</dd>
-			
+
 			<dt class="col-sm-5 card-title">Neutered:</dt>
 			<dd class="col-sm-5 card-text">@Model.Neutered</dd>
 
@@ -35,5 +35,24 @@
 			<dt class="col-sm-5 card-title">Characteristics:</dt>
 			<dd class="col-sm-5 card-text">@Model.Characteristics</dd>
 		</dl>
+
+		<a id="addExaminationBtn" class="btn btn-outline-primary text-white" asp-controller="Examination" asp-action="Add" asp-route-patientId="@Model.Id">Add Examination</a>
+		<a class="btn btn-outline-warning text-white" asp-controller="Patient" asp-action="Edit" asp-route-patientId="@Model.Id">Edit</a>
 	</div>
 </div>
+
+<script>
+	function getCurrentRoute() {
+		let pathArray = window.location.pathname.split('/');
+		let controller = pathArray[1];
+		let action = pathArray[2];
+		return { controller: controller, action: action };
+	}
+
+	let currentRoute = getCurrentRoute();
+
+	if (currentRoute.controller.toLowerCase() === "examination" &&
+		currentRoute.action.toLowerCase() === "add") {
+		document.getElementById("addExaminationBtn").style.display = "none";
+	}
+</script>

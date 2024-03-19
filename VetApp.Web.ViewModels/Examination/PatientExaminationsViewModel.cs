@@ -1,7 +1,6 @@
 ﻿namespace VetApp.Web.ViewModels.Examination
 {
 	using System.ComponentModel.DataAnnotations;
-	using VetApp.Web.ViewModels.Patient;
 
 	public class PatientExaminationsViewModel
     {

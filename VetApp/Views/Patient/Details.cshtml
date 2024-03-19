@@ -5,71 +5,75 @@
 }
 <partial name="_NotificationPartial" />
 
-<div class="col-md-6" id="PatientInfo">
-	<partial name="_PatientDetailsPartial" model="@Model.Patient" />
-</div>
-
-<div class="card border-secondary mb-3" style="margin: 10px 0px" >
-	<h4 class="card-header">Examinations</h4>
-	<div class="card-body">
-		@if (Model.Examinations.Any())
-		{
-			<div class="table-responsive">
-				<table class="table table-secondary">
-					<thead>
-						<tr>
-							<th>
-								Created On
-							</th>
-							<th>
-								Reason
-							</th>
-							<th>
-								Doctor
-							</th>
-							<th>
-								Status
-							</th>
-							<th>
-								Details
-							</th>
-							<th>
-								Edit
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var examination in Model.Examinations)
-						{
-							<tr class="table-dark">
-								<td>
-									@examination.CreatedOn.ToString("dd/MM/yyyy")
-								</td>
-								<td>
-									@examination.Reason
-								</td>
-								<td>
-									@examination.DoctorName
-								</td>
-								<td>
-									@examination.StatusName
-								</td>
-								<td>
-									<a class="btn btn-outline-primary btn-sm text-white" asp-controller="Examination" asp-action="Details" asp-route-examinationId="@examination.Id">Details</a>
-								</td>
-								<td>
-									<a class="btn btn-outline-warning btn-sm text-white" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id">Edit</a>
-								</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			</div>
-		}
-		else
-		{
-			<h3 class="text-center">No examinations yet!</h3>
-		}
+<div class="row">
+	<div class="col-4">
+		<partial name="_PatientDetailsPartial" model="@Model.Patient" />
 	</div>
+	<div class="col-8">
+		<div class="card border-secondary mb-3" style="margin: 10px 0px">
+			<h4 class="card-header">Examinations</h4>
+			<div class="card-body">
+				@if (Model.Examinations.Any())
+				{
+					<div class="table-responsive">
+						<table class="table table-secondary">
+							<thead>
+								<tr>
+									<th>
+										Created On
+									</th>
+									<th>
+										Reason
+									</th>
+									<th>
+										Doctor
+									</th>
+									<th>
+										Status
+									</th>
+									<th>
+										Details
+									</th>
+									<th>
+										Edit
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var examination in Model.Examinations)
+								{
+									<tr class="table-dark">
+										<td>
+											@examination.CreatedOn.ToString("dd/MM/yyyy")
+										</td>
+										<td>
+											@examination.Reason
+										</td>
+										<td>
+											@examination.DoctorName
+										</td>
+										<td>
+											@examination.StatusName
+										</td>
+										<td>
+											<a class="btn btn-outline-primary btn-sm text-white" asp-controller="Examination" asp-action="Details" asp-route-examinationId="@examination.Id">Details</a>
+										</td>
+										<td>
+											<a class="btn btn-outline-warning btn-sm text-white" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id">Edit</a>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				}
+				else
+				{
+					<h3 class="text-center">No examinations yet!</h3>
+				}
+			</div>
 
+		</div>
+	</div>
 </div>
+
