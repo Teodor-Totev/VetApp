@@ -213,8 +213,8 @@
 				PatientViewModel patient = 
 					await patientService.GetPatientByIdAsync(patientId);
 
-				IEnumerable<PatientExaminationsViewModel> examinations = 
-					await examinationService.GetExaminationsForPatientByIdAsync(patientId);
+				IEnumerable<ExaminationViewModel> examinations = 
+					await examinationService.GetPatientExaminationsByIdAsync(patientId);
 
 				PatientDetailsViewModel model = new()
 				{

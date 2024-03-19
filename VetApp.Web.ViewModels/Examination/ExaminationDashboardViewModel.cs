@@ -1,9 +1,6 @@
 ﻿namespace VetApp.Web.ViewModels.Examination
 {
-	using VetApp.Web.ViewModels.Patient;
-    using VetApp.Web.ViewModels.Status;
-
-    public class ExaminationDashboardViewModel
+	public class ExaminationDashboardViewModel
 	{
         public string Id { get; set; } = null!;
 

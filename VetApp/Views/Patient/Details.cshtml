@@ -59,7 +59,7 @@
 											<a class="btn btn-outline-primary btn-sm text-white" asp-controller="Examination" asp-action="Details" asp-route-examinationId="@examination.Id">Details</a>
 										</td>
 										<td>
-											<a class="btn btn-outline-warning btn-sm text-white" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id">Edit</a>
+											<a class="btn btn-outline-warning btn-sm text-white" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id" asp-route-patientId="@Model.Patient.Id">Edit</a>
 										</td>
 									</tr>
 								}

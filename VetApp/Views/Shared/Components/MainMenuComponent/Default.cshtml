@@ -1,4 +1,4 @@
-﻿<ul class="navbar-nav me-auto">
+﻿<ul class="navbar-nav me-auto d-flex">
 	<li class="nav-item">
 		<a class="nav-link active" asp-controller="Home" asp-action="Index">
 			Home
@@ -18,4 +18,8 @@
 		</li>
 	}
 </ul>
-<a class="btn btn-outline-light " style="padding: 5px 10px; margin: 0px 10px;" asp-controller="Patient" asp-action="Add">Create</a>
+
+@if (User.Identity?.IsAuthenticated ?? false)
+{
+	<a class="btn btn-outline-light " style="padding: 5px 10px; margin: 0px 10px;" asp-controller="Patient" asp-action="Add">Create</a>
+}

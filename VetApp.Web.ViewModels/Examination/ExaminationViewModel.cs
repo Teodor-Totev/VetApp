@@ -1,11 +1,18 @@
 ﻿namespace VetApp.Web.ViewModels.Examination
 {
-	public class ExaminationViewModel : ExaminationFormModel
-	{
-		public string Id { get; set; } = null!;
+	using System.ComponentModel.DataAnnotations;
 
-		public string StatusName { get; set; } = null!;
+	public class ExaminationViewModel
+    {
+        public string Id { get; set; } = null!;
 
+		[Display(Name = "Created on")]
+		public DateTime CreatedOn { get; set; }
+
+		public string Reason { get; set; } = null!;
+
+        public string StatusName { get; set; } = null!;
+		
 		public string DoctorName { get; set; } = null!;
-    }
+	}
 }

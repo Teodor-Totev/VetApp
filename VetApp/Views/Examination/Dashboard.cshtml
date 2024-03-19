@@ -24,7 +24,7 @@
 									@examination.PatientName - @examination.PatientType</p>
 								<p class="mb-0">
 									<a class="btn btn-outline-info btn-sm text-white" asp-action="Details" asp-controller="Patient" asp-route-patientId="@examination.PatientId">Details</a>
-									<a class="btn btn-outline-warning btn-sm text-white" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id">Edit</a>
+									<a class="btn btn-outline-warning btn-sm text-white" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id" asp-route-patientId="@examination.PatientId">Edit</a>
 								</p>
 							</li>
 						}

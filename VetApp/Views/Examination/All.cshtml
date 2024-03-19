@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AllExaminationsViewModel>
+﻿@model IEnumerable<ExaminationViewModel>
 
 @{
 	ViewData["Title"] = "All Examinations";
@@ -12,9 +12,6 @@
 				<tr>
 					<th>
 						Created On
-					</th>
-					<th>
-						Weight
 					</th>
 					<th>
 						Reason
@@ -35,16 +32,13 @@
 							@examination.CreatedOn
 						</td>
 						<td>
-							@examination.Weight
-						</td>
-						<td>
 							@examination.Reason
 						</td>
 						<td>
 							@examination.DoctorName
 						</td>
 						<td>
-							@examination.Status
+							@examination.StatusName
 						</td>
 					</tr>
 				}

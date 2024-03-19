@@ -1,14 +1,11 @@
 ﻿namespace VetApp.Services
 {
-	using System.Threading.Tasks;
-
 	using Microsoft.EntityFrameworkCore;
-
+	using System.Threading.Tasks;
 	using VetApp.Data;
 	using VetApp.Data.Models;
 	using VetApp.Services.Interfaces;
 	using VetApp.Web.ViewModels.Examination;
-	using VetApp.Web.ViewModels.Patient;
 
 	public class ExaminationService : IExaminationService
     {
@@ -22,7 +19,7 @@
         public async Task AddAsync(ExaminationFormModel model, string patientId, string doctorId)
         {
             Patient patient = await context.Patients
-                .FirstAsync(p => p.Id.ToString() == patientId);
+                .FirstAsync(p => p.Id.ToString() == patientId && p.IsActive == true);
 
 			Examination examination = new ()
             {
@@ -48,20 +45,7 @@
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PatientExaminationsViewModel>> GetExaminationsForPatientByIdAsync(string patientId)
-        {
-            return await context.Examinations
-                .Where(e => e.PatientId.ToString() == patientId)
-                .Select(e => new PatientExaminationsViewModel
-				{
-                    Id = e.Id.ToString(),
-                    Reason = e.Reason,
-                    CreatedOn = e.CreatedOn,
-                    DoctorName = "Dr. " + e.Doctor.FirstName + " " + e.Doctor.LastName,
-                    StatusName = e.Status.Name
-                })
-                .ToArrayAsync();
-        }
+        
 
         public async Task<Dictionary<string, List<ExaminationDashboardViewModel>>> GetExaminationsGroupedByStatus()
         {
@@ -93,7 +77,6 @@
                 .Where(e => e.Id.ToString() == examinationId)
                 .Select(e => new ExaminationFormModel()
                 {
-                    //Id = e.Id.ToString(),
                     DoctorId = e.DoctorId.ToString(),
 					Weight = e.Weight,
 					Reason = e.Reason,
@@ -134,11 +117,11 @@
 			await this.context.SaveChangesAsync();
 		}
 
-		public async Task<ExaminationViewModel> GetExaminationDetailsByIdAsync(string examinationId)
+		public async Task<ExaminationDetailsViewModel> GetExaminationDetailsByIdAsync(string examinationId)
 		{
 			return await context.Examinations
 				.Where(e => e.Id.ToString() == examinationId)
-				.Select(e => new ExaminationViewModel
+				.Select(e => new ExaminationDetailsViewModel
 				{
 					Id = e.Id.ToString(),
 					Weight = e.Weight,
@@ -158,18 +141,32 @@
 				.FirstAsync();
 		}
 
-		public async Task<IEnumerable<AllExaminationsViewModel>> GetAllExaminationsAsync()
+		public async Task<IEnumerable<ExaminationViewModel>> GetPatientExaminationsByIdAsync(string patientId)
+		{
+			return await context.Examinations
+				.Where(e => e.PatientId.ToString() == patientId)
+				.Select(e => new ExaminationViewModel
+				{
+					Id = e.Id.ToString(),
+					Reason = e.Reason,
+					CreatedOn = e.CreatedOn,
+					DoctorName = "Dr. " + e.Doctor.FirstName + " " + e.Doctor.LastName,
+					StatusName = e.Status.Name
+				})
+				.ToArrayAsync();
+		}
+
+		public async Task<IEnumerable<ExaminationViewModel>> GetAllExaminationsAsync()
 		{
 			return await this.context.Examinations
-                .Select(e => new AllExaminationsViewModel()
+                .Select(e => new ExaminationViewModel()
                 {
-                    Id = e.Id.ToString(),
-                    CreatedOn = e.CreatedOn,
-                    DoctorName = e.Doctor.UserName,
-                    Reason = e.Reason,
-                    Status = e.Status.Name,
-                    Weight = e.Weight
-                })
+					Id = e.Id.ToString(),
+					Reason = e.Reason,
+					CreatedOn = e.CreatedOn,
+					DoctorName = "Dr. " + e.Doctor.FirstName + " " + e.Doctor.LastName,
+					StatusName = e.Status.Name
+				})
                 .ToArrayAsync();
 		}
 	}

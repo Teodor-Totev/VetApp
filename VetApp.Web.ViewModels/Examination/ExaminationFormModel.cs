@@ -2,12 +2,13 @@
 {
 	using System.ComponentModel.DataAnnotations;
 	using VetApp.Web.ViewModels.Status;
-	using static Common.ViewModelValidationConstants.ExaminationFormModelConstants;
+	using static VetApp.Web.Common.ViewModelValidationConstants.ExaminationFormModelConstants;
 
 	public class ExaminationFormModel
 	{
 		public ExaminationFormModel()
 		{
+			this.Statuses = new HashSet<StatusViewModel>();
 			if (this.CreatedOn == default)
 			{
 				this.CreatedOn = DateTime.Now;
@@ -18,6 +19,7 @@
 
 		[Required(ErrorMessage = "Status is required.")]
 		[Display(Name = "Status")]
+		[Range(typeof(int),"1","4", ErrorMessage = "Status not valid.")]
 		public int StatusId { get; set; }
 
 		[DataType(DataType.Date)]
@@ -62,5 +64,7 @@
 		[StringLength(InputFieldMaxLength, MinimumLength = InputFieldMinLength,
 			ErrorMessage = "Exit must be between 2 and 50 characters long.")]
 		public string? Exit { get; set; }
+
+		public IEnumerable<StatusViewModel> Statuses { get; set; }
 	}
 }

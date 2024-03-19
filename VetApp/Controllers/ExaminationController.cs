@@ -38,8 +38,8 @@
 
 			try
 			{
-				var patient = await patientService.GetPatientByIdAsync(patientId);
-				var statuses = await statusService.AllStatusesAsync();
+				PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
+				IEnumerable<StatusViewModel> statuses = await statusService.AllStatusesAsync();
 				ViewBag.DoctorFullName =
 					await accountService.GetUserFullNameByUsernameAsync(User.Identity?.Name!);
 
@@ -118,32 +118,98 @@
 		[HttpGet]
 		public async Task<IActionResult> All()
 		{
-			IEnumerable<AllExaminationsViewModel> model =
+			IEnumerable<ExaminationViewModel> model =
 				await examinationService.GetAllExaminationsAsync();
 
 			return View(model);
 		}
 
-		//[HttpGet]
-		//public async Task<IActionResult> Edit(string examinationId)
-		//{
-		//	ExaminationFormModel model = await examinationService.GetExaminationByIdAsync(examinationId);
-		//	PatientViewModel patient = await patientService.GetPatientByIdAsync(model.PatientId);
-		//	IEnumerable<StatusViewModel> statuses = await statusService.AllStatusesAsync();
+		[HttpGet]
+		public async Task<IActionResult> Edit(string examinationId, string patientId)
+		{
+			if (string.IsNullOrEmpty(examinationId))
+			{
+				TempData["error"] = "Examination Id is required";
+				return RedirectToAction("Index", "Home");
+			}
 
-		//	model.Patient = patient;
-		//	model.Statuses = statuses;
-		//	ViewBag.ExaminationId = examinationId;
+			if (string.IsNullOrEmpty(patientId))
+			{
+				TempData["error"] = "Patient Id is required";
+				return RedirectToAction("Index", "Home");
+			}
 
-		//	return View(model);
-		//}
+			try
+			{
+				PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
+				ExaminationFormModel examination = await examinationService.GetExaminationByIdAsync(examinationId);
+				examination.Statuses = await statusService.AllStatusesAsync();
+
+				ViewBag.ExaminationId = examinationId;
+				ViewBag.DoctorFullName =
+						await accountService.GetUserFullNameByUsernameAsync(User.Identity?.Name!);
+
+				AddAndEditExaminationViewModel model = new()
+				{
+					Patient = patient,
+					Examination = examination,
+				};
+
+				return View(model);
+			}
+			catch (InvalidOperationException)
+			{
+				TempData["error"] = "Patient or Examination does not exist.";
+				return RedirectToAction("All", "Patient");
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
+			}
+
+		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(ExaminationFormModel model, string examinationId)
+		public async Task<IActionResult> Edit(AddAndEditExaminationViewModel model, string examinationId, string patientId)
 		{
-			await examinationService.EditExaminationAsync(model, examinationId);
+			if (string.IsNullOrEmpty(examinationId))
+			{
+				TempData["error"] = "Examination Id is required";
+				return RedirectToAction("Index", "Home");
+			}
 
-			return RedirectToAction("Index", "Home");
+			if (string.IsNullOrEmpty(patientId))
+			{
+				TempData["error"] = "Patient Id is required";
+				return RedirectToAction("Index", "Home");
+			}
+
+			try
+			{
+				PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
+
+				if (!ModelState.IsValid)
+				{
+					model.Patient = patient;
+					model.Examination.Statuses = await statusService.AllStatusesAsync();
+					return View(model);
+				}
+
+				await examinationService.EditExaminationAsync(model.Examination, examinationId);
+				TempData["success"] = "Successfully Edited Examination";
+				return RedirectToAction("Details", "Patient", new { patientId });
+			}
+			catch (InvalidOperationException)
+			{
+				TempData["error"] = "Patient does not exist.";
+				return RedirectToAction("All", "Patient");
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
+			}
 		}
 
 		[HttpGet]
