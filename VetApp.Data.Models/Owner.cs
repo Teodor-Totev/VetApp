@@ -15,15 +15,15 @@
 		public Guid Id { get; set; }
 
 		[Required]
-		[MaxLength(OwnerNameMaxLength)]
+		[MaxLength(NameMaxLength)]
 		public string Name { get; set; } = null!;
 
 		[Required]
-		[MaxLength(OwnerPhoneMaxLength)]
+		[MaxLength(PhoneMaxLength)]
 		public string PhoneNumber { get; set; } = null!;
 
 		[Required]
-		[MaxLength(OwnerAddressMaxLength)]
+		[MaxLength(AddressMaxLength)]
 		public string Address { get; set; } = null!;
 
         public bool IsActive { get; set; }

@@ -19,31 +19,31 @@
 
         public double Weight { get; set; }
 
-        [MaxLength(TextMaxLength)]
+        [MaxLength(InputFieldMaxLength)]
         public string Reason { get; set; } = null!;
 
-        [MaxLength(TextMaxLength)]
+        [MaxLength(MedicalHistoryMaxLength)]
         public string? MedicalHistory { get; set; }
 
-        [MaxLength(TextMaxLength)]
+        [MaxLength(InputFieldMaxLength)]
         public string? CurrentCondition { get; set; }
 
-        [MaxLength(TextMaxLength)]
+        [MaxLength(InputFieldMaxLength)]
         public string? SpecificCondition { get; set; }
 
-        [MaxLength(TextMaxLength)]
+        [MaxLength(InputFieldMaxLength)]
         public string? Research { get; set; }
 
-        [MaxLength(TextMaxLength)]
+        [MaxLength(DiagnosisMaxLength)]
         public string? Diagnosis { get; set; }
 
-        [MaxLength(TextMaxLength)]
+        [MaxLength(SurgeryMaxLength)]
         public string? Surgery { get; set; }
 
-        [MaxLength(TextMaxLength)]
+        [MaxLength(InputFieldMaxLength)]
         public string? Therapy { get; set; }
 
-        [MaxLength(TextMaxLength)]
+        [MaxLength(InputFieldMaxLength)]
         public string? Exit { get; set; }
 
         public int StatusId { get; set; }

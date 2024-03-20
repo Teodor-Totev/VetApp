@@ -2,7 +2,7 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
-	using static Common.ViewModelValidationConstants.OwnerFormModelConstants;
+	using static VetApp.Data.Common.EntityValidationConstants.OwnerValidations;
 
 	public class OwnerFormModel
 	{

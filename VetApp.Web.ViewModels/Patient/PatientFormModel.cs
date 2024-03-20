@@ -5,14 +5,10 @@
     using VetApp.Data.Common.Enums.Patient;
     using VetApp.Web.ViewModels.Owner;
 
-	using static Common.ViewModelValidationConstants.PatientConstants;
+	using static VetApp.Data.Common.EntityValidationConstants.PatientValidations;
 
 	public class PatientFormModel
 	{
-		public PatientFormModel()
-		{
-		}
-
         [Required]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength,
 			ErrorMessage = NameErrorMessage)]

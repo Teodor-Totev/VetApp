@@ -2,7 +2,7 @@
 {
 	using System.ComponentModel.DataAnnotations;
 	using VetApp.Web.ViewModels.Status;
-	using static VetApp.Web.Common.ViewModelValidationConstants.ExaminationFormModelConstants;
+	using static VetApp.Data.Common.EntityValidationConstants.ExaminationValidations;
 
 	public class ExaminationFormModel
 	{
@@ -33,7 +33,7 @@
 			ErrorMessage = "Reason must be between 2 and 50 characters long.")]
 		public string Reason { get; set; } = null!;
 
-		[StringLength(TextAreaMaxLength, MinimumLength = TextAreaMinLength,
+		[StringLength(MedicalHistoryMaxLength, MinimumLength = MedicalHistoryMinLength,
 			ErrorMessage = "MedicalHistory must be between 5 and 200 characters long.")]
 		public string? MedicalHistory { get; set; }
 
@@ -49,11 +49,11 @@
 			ErrorMessage = "Research must be between 2 and 50 characters long.")]
 		public string? Research { get; set; }
 
-		[StringLength(TextAreaMaxLength, MinimumLength = TextAreaMinLength,
+		[StringLength(DiagnosisMaxLength, MinimumLength = DiagnosisMinLength,
 			ErrorMessage = "Diagnosis must be between 5 and 200 characters long.")]
 		public string? Diagnosis { get; set; }
 
-		[StringLength(TextAreaMaxLength, MinimumLength = TextAreaMinLength,
+		[StringLength(SurgeryMaxLength, MinimumLength = SurgeryMinLength,
 			ErrorMessage = "Surgery must be between 5 and 200 characters long.")]
 		public string? Surgery { get; set; }
 
