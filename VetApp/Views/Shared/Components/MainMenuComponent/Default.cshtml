@@ -18,8 +18,3 @@
 		</li>
 	}
 </ul>
-
-@if (User.Identity?.IsAuthenticated ?? false)
-{
-	<a class="btn btn-outline-light " style="padding: 5px 10px; margin: 0px 10px;" asp-controller="Patient" asp-action="Add">Create</a>
-}

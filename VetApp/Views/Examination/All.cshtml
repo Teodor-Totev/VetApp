@@ -1,24 +1,14 @@
-﻿@using VetApp.Web.Common.Helpers
-@model IEnumerable<ExaminationViewModel>
+﻿@model IEnumerable<ExaminationViewModel>
 
 @{
 	ViewData["Title"] = "All Examinations";
-
-	Pager pager = new();
-
-	int pageNumber = 0;
-
-	if (ViewBag.Pager != null)
-	{
-		pager = ViewBag.Pager;
-		pageNumber = pager.CurrentPage;
-	}
+	Pager pager = ViewBag.Pager;
 }
 
 @if (Model.Any())
 {
-	<div class="table-responsive">
-		<table class="table table-secondary" id="ExaminationsAll">
+	<div class="table-responsive mt-4">
+		<table class="table table-secondary">
 			<thead>
 				<tr>
 					<th>
@@ -40,7 +30,7 @@
 				{
 					<tr class="table-dark">
 						<td>
-							@examination.CreatedOn
+							@examination.CreatedOn.ToString("dd/MM/yyyy")
 						</td>
 						<td>
 							@examination.Reason

@@ -7,6 +7,7 @@
 	using Services.Models.Patient;
 	using Web.ViewModels.Examination;
 	using Web.ViewModels.Patient;
+	using VetApp.Web.Common.Helpers;
 
 	public class PatientController : BaseController
 	{
@@ -155,7 +156,9 @@
 					await patientService.GetAllPatientsAsync(queryModel);
 
 				queryModel.Patients = serviceModel.Patients;
-				queryModel.TotalPatients = serviceModel.TotalPatientsCount;
+				Pager pager = 
+					new(queryModel.CurrentPage, queryModel.PatientsPerPage, serviceModel.TotalPatientsCount);
+				ViewBag.Pager = pager;
 
 				return View(queryModel);
 			}
@@ -175,7 +178,7 @@
 				return RedirectToAction("All", "Patient");
 			}
 
-			if (!await this.accountService.UserExistsAsync(doctorId!))
+			if (!await this.accountService.UserExistsAsync(doctorId))
 			{
 				TempData["error"] = "User does not exist.";
 				return RedirectToAction("Index", "Home");
@@ -191,10 +194,13 @@
 
 			ViewBag.DoctorId = User.Id();
 			AllPatientsOrderedAndPagedServiceModel serviceModel =
-					await patientService.GetAllPatientsForUserAsync(queryModel, doctorId!);
+					await patientService.GetAllPatientsForUserAsync(queryModel, doctorId);
 
 			queryModel.Patients = serviceModel.Patients;
-			queryModel.TotalPatients = serviceModel.TotalPatientsCount;
+			Pager pager = 
+				new(queryModel.CurrentPage, queryModel.PatientsPerPage, serviceModel.TotalPatientsCount);
+
+			ViewBag.Pager = pager;
 
 			return View(queryModel);
 		}

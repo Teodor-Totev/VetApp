@@ -18,15 +18,23 @@
 		[HttpGet]
 		public async Task<IActionResult> All([FromQuery] AllOwnersQueryModel queryModel)
 		{
-			AllOwnersOrderedAndPagedServiceModel result =
-				await ownerService.GetAllOwnersAsync(queryModel);
+			try
+			{
+				AllOwnersOrderedAndPagedServiceModel serviceModel =
+					await ownerService.GetAllOwnersAsync(queryModel);
 
-			queryModel.Owners = result.Owners;
-			Pager pager = 
-				new(queryModel.CurrentPage, queryModel.OwnersPerPage, result.TotalOwnersCount);
-			ViewBag.Pager = pager;
+				queryModel.Owners = serviceModel.Owners;
+				Pager pager =
+					new(queryModel.CurrentPage, queryModel.OwnersPerPage, serviceModel.TotalOwnersCount);
+				ViewBag.Pager = pager;
 
-			return View(queryModel);
+				return View(queryModel);
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
+			}
 		}
 
 		[HttpGet]

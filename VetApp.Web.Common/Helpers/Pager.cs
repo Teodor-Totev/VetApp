@@ -10,25 +10,13 @@
         public Pager(int page, int pageSize, int totalItems)
 		{
 			int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-			int currentPage = page;
+			int currentPage = Math.Max(Math.Min(page, totalPages), 1);
 
-			int startPage = currentPage - 5;
-			int endPage = currentPage + 4;
+			int startPage = Math.Max(1, currentPage - 5);
+			int endPage = Math.Min(totalPages, startPage + 9);
 
-			if (startPage < 1)
-			{
-				endPage = endPage - (startPage - 1);
-				startPage = 1;
-			}
-
-			if (endPage > totalPages) 
-			{
-				endPage = totalPages;
-				if (endPage > 10)
-				{
-					startPage = endPage - 9;
-				}
-			}
+			StartRecord = (currentPage - 1) * pageSize + 1;
+			EndRecord = Math.Min(StartRecord + pageSize - 1, totalItems);
 
 			CurrentPage = currentPage;
 			PageSize = pageSize;
@@ -50,7 +38,11 @@
 
         public int EndPage { get; set; }
 
-		public bool HasPreviousPage => CurrentPage > 1;
+        public int StartRecord { get; set; }
+
+        public int EndRecord { get; set; }
+
+        public bool HasPreviousPage => CurrentPage > 1;
 
 		public bool HasNextPage => CurrentPage < TotalPages;
 	}
