@@ -2,7 +2,7 @@
 {
 	using System.ComponentModel.DataAnnotations;
     using VetApp.Data.Common.Enums.Patient;
-    using static Common.ViewModelValidationConstants.PatientConstants;
+	using static VetApp.Data.Common.EntityValidationConstants.PatientValidations;
 
 	public class PatientEditViewModel
 	{

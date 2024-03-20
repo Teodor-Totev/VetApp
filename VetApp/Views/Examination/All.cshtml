@@ -1,9 +1,18 @@
-﻿@model IEnumerable<ExaminationViewModel>
+﻿@using VetApp.Web.Common.Helpers
+@model IEnumerable<ExaminationViewModel>
 
 @{
 	ViewData["Title"] = "All Examinations";
 
+	Pager pager = new();
 
+	int pageNumber = 0;
+
+	if (ViewBag.Pager != null)
+	{
+		pager = ViewBag.Pager;
+		pageNumber = pager.CurrentPage;
+	}
 }
 
 @if (Model.Any())
@@ -53,14 +62,3 @@ else
 	<h3 class="text-center">No examinations yet!</h3>
 }
 
-<div class="container">
-	<ul class="pagination justify-content-center">
-		
-		@for (int i = 0; i < 10; i++)
-		{
-			<li class="page-item active">
-				<a class="page-link" href="#">1</a>
-			</li>
-		}
-	</ul>
-</div>

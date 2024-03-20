@@ -4,6 +4,7 @@
 
 	using VetApp.Extensions;
 	using VetApp.Services.Interfaces;
+	using VetApp.Web.Common.Helpers;
 	using VetApp.Web.ViewModels.Examination;
 	using VetApp.Web.ViewModels.Patient;
 	using VetApp.Web.ViewModels.Status;
@@ -116,10 +117,25 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All(int currentPage = 1, int pageSize = 5)
 		{
-			IEnumerable<ExaminationViewModel> model =
+			IEnumerable<ExaminationViewModel> examinations =
 				await examinationService.GetAllExaminationsAsync();
+
+			if (currentPage < 1)
+			{
+				currentPage = 1;
+			}
+
+			int totalItems = examinations.Count();
+
+			Pager pager = new(currentPage, pageSize, totalItems);
+
+			int skip = (currentPage - 1) * pageSize;
+
+			var model = examinations.Skip(skip).Take(pager.PageSize).ToArray();
+
+			ViewBag.Pager = pager;
 
 			return View(model);
 		}

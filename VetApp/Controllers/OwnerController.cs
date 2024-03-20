@@ -3,6 +3,7 @@
 	using Microsoft.AspNetCore.Mvc;
 	using VetApp.Services.Interfaces;
 	using VetApp.Services.Models.Owner;
+	using VetApp.Web.Common.Helpers;
 	using VetApp.Web.ViewModels.Owner;
 
 	public class OwnerController : BaseController
@@ -20,8 +21,10 @@
 			AllOwnersOrderedAndPagedServiceModel result =
 				await ownerService.GetAllOwnersAsync(queryModel);
 
-			queryModel.TotalOwners = result.TotalOwnersCount;
 			queryModel.Owners = result.Owners;
+			Pager pager = 
+				new(queryModel.CurrentPage, queryModel.OwnersPerPage, result.TotalOwnersCount);
+			ViewBag.Pager = pager;
 
 			return View(queryModel);
 		}
