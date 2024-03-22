@@ -307,6 +307,11 @@
 
 				return View(model);
 			}
+			catch (InvalidOperationException)
+			{
+				TempData["error"] = "Examination does not exist.";
+				return RedirectToAction("All", "Examination");
+			}
 			catch (Exception ex)
 			{
 				TempData["error"] = ex.Message;
@@ -322,7 +327,6 @@
 				await this.examinationService.DeleteExaminationByIdAsync(examinationId);
 				TempData["success"] = "The examination was successfully deleted.";
 				return RedirectToAction("All");
-
 			}
 			catch (Exception ex)
 			{

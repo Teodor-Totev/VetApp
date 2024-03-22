@@ -1,12 +1,13 @@
 ﻿namespace VetApp.Services.Interfaces
 {
+	using VetApp.Services.Models.Examination;
 	using VetApp.Web.ViewModels.Examination;
 
     public interface IExaminationService
 	{
 		Task AddAsync(ExaminationFormModel model, string patientId, string doctorId);
 
-		Task<IEnumerable<ExaminationViewModel>> GetPatientExaminationsByIdAsync(string patientId);
+		Task<PatientExaminationsServiceModel> GetPatientExaminationsByIdAsync(string patientId, int currentPage);
 
 		Task<IEnumerable<ExaminationViewModel>> GetAllExaminationsAsync();
 

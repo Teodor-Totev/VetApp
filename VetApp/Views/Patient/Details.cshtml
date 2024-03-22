@@ -1,7 +1,8 @@
 ﻿@model PatientDetailsViewModel
 
 @{
-	ViewData["Title"] = "Patient Info";
+	ViewData["Title"] = "Patient Details";
+	Pager pager = ViewBag.Pager;
 }
 <partial name="_NotificationPartial" />
 
@@ -78,7 +79,78 @@
 					<h3 class="text-center">No examinations yet!</h3>
 				}
 			</div>
+					<div class="card-footer">
+						<partial name="_PaginationBottomBarPartial" model="pager" />
+					</div>
 
+		</div>
+
+		<div class="container mt-1">
+			@if (pager.TotalPages > 0)
+			{
+				<ul class="pagination justify-content-center m-0">
+
+					@if (pager.HasPreviousPage)
+					{
+
+						<li class="page-item">
+							<a class="page-link"
+							   asp-controller="Patient"
+							   asp-action="Details"
+							   asp-route-patientId="@Model.Patient.Id"
+							   asp-route-currentPage="1">First</a>
+						</li>
+
+						<li class="page-item">
+							<a class="page-link"
+							   asp-controller="Patient"
+							   asp-action="Details"
+							   asp-route-patientId="@Model.Patient.Id"
+							   asp-route-currentPage="@(pager.CurrentPage - 1)">Previous</a>
+						</li>
+
+					}
+
+					@for (int i = pager.StartPage; i <= pager.EndPage; i++)
+					{
+
+						<li class="page-item @(i==pager.CurrentPage ? "active" : string.Empty)">
+							@if (i != pager.CurrentPage)
+							{
+								<a class="page-link"
+								   asp-controller="Patient"
+								   asp-action="Details"
+								   asp-route-patientId="@Model.Patient.Id"
+								   asp-route-currentPage="@i">@i</a>
+							}
+							else
+							{
+								<span class="page-link">@i</span>
+							}
+						</li>
+					}
+
+					@if (pager.HasNextPage)
+					{
+						<li class="page-item">
+							<a class="page-link"
+							   asp-controller="Patient"
+							   asp-action="Details"
+							   asp-route-patientId="@Model.Patient.Id"
+							   asp-route-currentPage="@(pager.CurrentPage + 1)">Next</a>
+						</li>
+
+						<li class="page-item">
+							<a class="page-link"
+							   asp-controller="Patient"
+							   asp-action="Details"
+							   asp-route-patientId="@Model.Patient.Id"
+							   asp-route-currentPage="@pager.TotalPages">Last</a>
+						</li>
+					}
+
+				</ul>
+			}
 		</div>
 	</div>
 </div>

@@ -8,6 +8,7 @@
 	using Web.ViewModels.Examination;
 	using Web.ViewModels.Patient;
 	using VetApp.Web.Common.Helpers;
+	using VetApp.Services.Models.Examination;
 
 	public class PatientController : BaseController
 	{
@@ -206,7 +207,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Details(string patientId)
+		public async Task<IActionResult> Details(string patientId, int currentPage = 1)
 		{
 			if (string.IsNullOrEmpty(patientId))
 			{
@@ -219,13 +220,16 @@
 				PatientViewModel patient = 
 					await patientService.GetPatientByIdAsync(patientId);
 
-				IEnumerable<ExaminationViewModel> examinations = 
-					await examinationService.GetPatientExaminationsByIdAsync(patientId);
+				PatientExaminationsServiceModel examinationsServiceModel = 
+					await examinationService.GetPatientExaminationsByIdAsync(patientId, currentPage);
+
+				Pager pager = new(currentPage,2,examinationsServiceModel.TotalItems);
+				ViewBag.Pager = pager;
 
 				PatientDetailsViewModel model = new()
 				{
 					Patient = patient,
-					Examinations = examinations
+					Examinations = examinationsServiceModel.PatientExaminations
 				};
 
 				return View(model);
