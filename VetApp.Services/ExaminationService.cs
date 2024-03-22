@@ -20,9 +20,9 @@
         public async Task AddAsync(ExaminationFormModel model, string patientId, string doctorId)
         {
             Patient patient = await context.Patients
-                .FirstAsync(p => p.Id.ToString() == patientId && p.IsActive == true);
+                .FirstAsync(p => p.Id.ToString() == patientId);
 
-			Examination examination = new ()
+            Examination examination = new()
             {
                 DoctorId = Guid.Parse(doctorId),
                 CreatedOn = model.CreatedOn,
@@ -49,6 +49,7 @@
         public async Task<Dictionary<string, ExaminationDashboardViewModel[]>> GetExaminationsGroupedByStatus()
         {
             IEnumerable<Examination> examinations = await context.Examinations
+                .Where(e => e.IsActive == true)
                 .Include(e => e.Status)
                 .Include(e => e.Patient)
                 .Include(e => e.Doctor)
@@ -71,7 +72,7 @@
 
 		public async Task<ExaminationFormModel> GetExaminationByIdAsync(string examinationId)
             => await this.context.Examinations
-                .Where(e => e.Id.ToString() == examinationId)
+                .Where(e => e.Id.ToString() == examinationId && e.IsActive == true)
                 .Select(e => new ExaminationFormModel()
                 {
                     DoctorId = e.DoctorId.ToString(),
@@ -134,22 +135,58 @@
 				})
 				.FirstAsync();
 
+		public async Task<PreDeleteDetailsViewModel> GetExaminationForDeleteByIdAsync(string examinationId)
+        {
+			Examination examination = 
+                await this.context.Examinations
+                .Where(e => e.IsActive == true)
+                .Include(e => e.Status)
+                .Include(e => e.Patient)
+                .Include(e => e.Doctor)
+                .FirstAsync(e => e.Id.ToString() == examinationId);
+
+            return new PreDeleteDetailsViewModel()
+            {
+                Id = examination.Id.ToString(),
+                StatusName = examination.Status.Name,
+                PatientName = examination.Patient.Name,
+                DoctorName = examination.Doctor.FirstName + " " + 
+                            examination.Doctor.LastName,
+                CreatedOn = examination.CreatedOn,
+                Reason = examination.Reason,
+                Weight = examination.Weight
+            };
+        }
+
+		public async Task DeleteExaminationByIdAsync(string examinationId)
+		{
+			Examination examinationToDelete =
+				 await this.context.Examinations
+				 .Where(e => e.IsActive == true)
+				 .FirstAsync(e => e.Id.ToString() == examinationId);
+
+            examinationToDelete.IsActive = false;
+
+			await this.context.SaveChangesAsync();
+		}
+
 		public async Task<IEnumerable<ExaminationViewModel>> GetPatientExaminationsByIdAsync(string patientId)
 			=> await this.context.Examinations
 				.Include(e => e.Doctor)
 				.Include(e => e.Status)
-				.Where(e => e.PatientId.ToString() == patientId)
+				.Where(e => e.PatientId.ToString() == patientId && e.IsActive == true)
 				.Select(e => e.ToViewModel())
 				.ToArrayAsync();
 
 		public async Task<IEnumerable<ExaminationViewModel>> GetAllExaminationsAsync()
 			=> await this.context.Examinations
+                .Where(e => e.IsActive == true)
 				.Include(e => e.Doctor)
 				.Include(e => e.Status)
                 .Select(e => e.ToViewModel())
 				.ToArrayAsync();
 
 		public async Task<bool> ExaminationExistsAsync(string examinationId)
-			=> await this.context.Examinations.AnyAsync(e => e.Id.ToString() == examinationId);
+			=> await this.context.Examinations.AnyAsync(e => e.Id.ToString() == examinationId && e.IsActive == true);
 	}
 }

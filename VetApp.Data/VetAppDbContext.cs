@@ -21,6 +21,7 @@
 			//						  Assembly.GetExecutingAssembly();
 
 			//builder.ApplyConfigurationsFromAssembly(configAssembly);
+
 			SeedUser(builder);
 			builder.ApplyConfiguration(new OwnerEntityConfiguration());
 			builder.ApplyConfiguration(new PatientEntityConfiguration());

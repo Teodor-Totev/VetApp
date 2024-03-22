@@ -46,6 +46,8 @@
         [MaxLength(InputFieldMaxLength)]
         public string? Exit { get; set; }
 
+        public bool IsActive { get; set; }
+
         public int StatusId { get; set; }
 
         [ForeignKey(nameof(StatusId))]

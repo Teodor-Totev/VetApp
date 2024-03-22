@@ -1,0 +1,41 @@
+﻿@model PreDeleteDetailsViewModel
+
+@{
+	ViewData["Title"] = "Delete Examination";
+}
+
+<form method="post" asp-controller="Examination" asp-action="Delete" asp-route-examinationId="@Model.Id">
+	<div class="row justify-content-center mt-4">
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card border-secondary">
+					<h4 class="card-header text-center">@ViewData["Title"]</h4>
+					<div class="card-body">
+						<dl class="row">
+							<dt class="col-5 col-lg-4 card-title">Created on:</dt>
+							<dd class="col-7 col-lg-8 card-text">@Model.CreatedOn.ToString("dd/MM/yyyy")</dd>
+
+							<dt class="col-5 col-lg-4 card-title">Status:</dt>
+							<dd class="col-7 col-lg-8 card-text">@Model.StatusName</dd>
+
+							<dt class="col-5 col-lg-4 card-title">Reason:</dt>
+							<dd class="col-7 col-lg-8 card-text">@Model.Reason</dd>
+
+							<dt class="col-5 col-lg-4 card-title">Doctor:</dt>
+							<dd class="col-7 col-lg-8 card-text">@Model.DoctorName</dd>
+
+							<dt class="col-5 col-lg-4 card-title">Patient:</dt>
+							<dd class="col-7 col-lg-8 card-text">@Model.PatientName</dd>
+
+							<dt class="col-5 col-lg-4 card-title">Weight:</dt>
+							<dd class="col-7 col-lg-8 card-text">@Model.Weight</dd>
+						</dl>
+					</div>
+					<div class="card-footer">
+						<input type="submit" value="Delete" class="btn btn-outline-danger text-white col-2 float-end" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

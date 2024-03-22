@@ -37,6 +37,9 @@
 									<th>
 										Edit
 									</th>
+									<th>
+										Delete
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -60,6 +63,9 @@
 										</td>
 										<td>
 											<a class="btn btn-outline-warning btn-sm text-white" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id" asp-route-patientId="@Model.Patient.Id">Edit</a>
+										</td>
+										<td>
+											<a class="btn btn-outline-danger btn-sm text-white" asp-controller="Examination" asp-action="Delete" asp-route-examinationId="@examination.Id">Delete</a>
 										</td>
 									</tr>
 								}

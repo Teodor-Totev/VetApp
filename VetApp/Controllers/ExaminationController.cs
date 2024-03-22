@@ -171,7 +171,8 @@
 					return RedirectToAction("All");
 				}
 
-				ExaminationFormModel examination = await examinationService.GetExaminationByIdAsync(examinationId);
+				ExaminationFormModel examination =
+					await examinationService.GetExaminationByIdAsync(examinationId);
 				examination.Statuses = await statusService.AllStatusesAsync();
 
 				ViewBag.ExaminationId = examinationId;
@@ -211,13 +212,19 @@
 
 			try
 			{
-				PatientViewModel patient = 
+				PatientViewModel patient =
 					await patientService.GetPatientByIdAsync(patientId);
+
+				if (!await this.examinationService.ExaminationExistsAsync(examinationId))
+				{
+					TempData["error"] = "Examination does not exist.";
+					return RedirectToAction("All");
+				}
 
 				if (!ModelState.IsValid)
 				{
 					model.Patient = patient;
-					model.Examination.Statuses = 
+					model.Examination.Statuses =
 						await statusService.AllStatusesAsync();
 
 					return View(model);
@@ -267,7 +274,7 @@
 
 			try
 			{
-				ExaminationDetailsViewModel model = 
+				ExaminationDetailsViewModel model =
 					await examinationService.GetExaminationDetailsByIdAsync(examinationId);
 
 				return View(model);
@@ -276,6 +283,46 @@
 			{
 				TempData["error"] = "Examination does not exist.";
 				return RedirectToAction("All", "Examination");
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
+			}
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(string examinationId)
+		{
+			if (string.IsNullOrEmpty(examinationId))
+			{
+				TempData["error"] = "Examination Id is required.";
+				return RedirectToAction("Index", "Home");
+			}
+
+			try
+			{
+				PreDeleteDetailsViewModel model =
+				await this.examinationService.GetExaminationForDeleteByIdAsync(examinationId);
+
+				return View(model);
+			}
+			catch (Exception ex)
+			{
+				TempData["error"] = ex.Message;
+				return RedirectToAction("Index", "Home");
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(string examinationId, PreDeleteDetailsViewModel model)
+		{
+			try
+			{
+				await this.examinationService.DeleteExaminationByIdAsync(examinationId);
+				TempData["success"] = "The examination was successfully deleted.";
+				return RedirectToAction("All");
+
 			}
 			catch (Exception ex)
 			{

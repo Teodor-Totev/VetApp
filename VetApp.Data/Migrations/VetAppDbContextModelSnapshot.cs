@@ -238,7 +238,7 @@ namespace VetApp.Data.Migrations
                             Id = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
                             AccessFailedCount = 0,
                             Address = "123 Main St Haskovo",
-                            ConcurrencyStamp = "a20e56ee-26d2-4767-8b91-de3b834c6b1f",
+                            ConcurrencyStamp = "42550025-9b09-4936-be1f-9e80e2d021c8",
                             Email = "r_raykov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Radoslav",
@@ -246,9 +246,9 @@ namespace VetApp.Data.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "R_RAYKOV@GMAIL.COM",
                             NormalizedUserName = "R_RAYKOV",
-                            PasswordHash = "AQAAAAEAACcQAAAAELQctnSDAw9OkyJXVT4zeyRznylvqVe3MraeP6nuIaSqYiG2gSKZQHc4HvwNKgAV6Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBWFHy8J2Z9gArbMy6JsfRjK9YEwJVCRasdH/SfFk7k4JP0FnFqPSQkI4kt0qALLzg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "682AF017-E31E-487C-8C5F-49501A65E44B",
+                            SecurityStamp = "A9AB5816-CD1B-42E6-926F-EA9E4B92ADBA",
                             TwoFactorEnabled = false,
                             UserName = "r_raykov"
                         });
@@ -264,8 +264,8 @@ namespace VetApp.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CurrentCondition")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Diagnosis")
                         .HasMaxLength(200)
@@ -275,8 +275,13 @@ namespace VetApp.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Exit")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("MedicalHistory")
                         .HasMaxLength(200)
@@ -287,16 +292,16 @@ namespace VetApp.Data.Migrations
 
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Research")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SpecificCondition")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
@@ -306,8 +311,8 @@ namespace VetApp.Data.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Therapy")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<double>("Weight")
                         .HasColumnType("float");
@@ -326,8 +331,9 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("a6be4500-3245-4ecc-a9f5-5b2af8baff97"),
-                            CreatedOn = new DateTime(2024, 3, 19, 13, 34, 52, 810, DateTimeKind.Utc).AddTicks(4348),
+                            CreatedOn = new DateTime(2024, 3, 22, 15, 46, 28, 236, DateTimeKind.Utc).AddTicks(9162),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+                            IsActive = false,
                             PatientId = new Guid("b19105c4-9a4e-4583-973a-642b8bc06916"),
                             Reason = "Primary",
                             StatusId = 1,
@@ -336,8 +342,9 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("917f60f0-485a-4cbc-a3d5-83bfc30015ed"),
-                            CreatedOn = new DateTime(2024, 3, 19, 13, 34, 52, 810, DateTimeKind.Utc).AddTicks(4359),
+                            CreatedOn = new DateTime(2024, 3, 22, 15, 46, 28, 236, DateTimeKind.Utc).AddTicks(9203),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+                            IsActive = false,
                             PatientId = new Guid("ad53d8a9-6ac2-4ab1-bf68-dfb4292e56ab"),
                             Reason = "Secondary",
                             StatusId = 3,
@@ -346,8 +353,9 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("c84db966-6f32-44af-8026-d142b1ea15b9"),
-                            CreatedOn = new DateTime(2024, 3, 19, 13, 34, 52, 810, DateTimeKind.Utc).AddTicks(4363),
+                            CreatedOn = new DateTime(2024, 3, 22, 15, 46, 28, 236, DateTimeKind.Utc).AddTicks(9213),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+                            IsActive = false,
                             PatientId = new Guid("53044ff9-b935-4b5a-a7e0-2203e21b05ea"),
                             Reason = "Primary",
                             StatusId = 3,
@@ -356,8 +364,9 @@ namespace VetApp.Data.Migrations
                         new
                         {
                             Id = new Guid("b05fb0d0-9e05-4c00-a9e7-d3f0600e566b"),
-                            CreatedOn = new DateTime(2024, 3, 19, 13, 34, 52, 810, DateTimeKind.Utc).AddTicks(4367),
+                            CreatedOn = new DateTime(2024, 3, 22, 15, 46, 28, 236, DateTimeKind.Utc).AddTicks(9219),
                             DoctorId = new Guid("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+                            IsActive = false,
                             PatientId = new Guid("a917fe0d-e64e-40c5-8eeb-b17867ec09e1"),
                             Reason = "Primary",
                             StatusId = 4,
@@ -535,8 +544,7 @@ namespace VetApp.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

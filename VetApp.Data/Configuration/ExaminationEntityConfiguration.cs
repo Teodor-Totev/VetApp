@@ -7,13 +7,13 @@
 
     public class ExaminationEntityConfiguration : IEntityTypeConfiguration<Examination>
     {
-        public ExaminationEntityConfiguration()
-        {
-            
-        }
         public void Configure(EntityTypeBuilder<Examination> builder)
         {
-            builder
+			builder
+				.Property(e => e.IsActive)
+				.HasDefaultValue(true);
+
+			builder
             .HasData(GenerateExaminations());
         }
 

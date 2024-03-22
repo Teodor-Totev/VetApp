@@ -20,5 +20,9 @@
 		Task<ExaminationDetailsViewModel> GetExaminationDetailsByIdAsync(string examinationId);
 
 		Task<bool> ExaminationExistsAsync(string examinationId);
+
+		Task<PreDeleteDetailsViewModel> GetExaminationForDeleteByIdAsync(string examinationId);
+
+		Task DeleteExaminationByIdAsync(string examinationId);
 	}
 }
