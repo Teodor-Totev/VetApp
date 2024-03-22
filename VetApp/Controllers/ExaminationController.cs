@@ -100,7 +100,7 @@
 				}
 
 				await this.examinationService.AddAsync(model.Examination, patientId, User.Id());
-				TempData["success"] = "Successfully Added Examination";
+				TempData["success"] = "Examination was added successfully.";
 
 				return RedirectToAction("Details", "Patient", new { patientId });
 			}
@@ -145,13 +145,13 @@
 		{
 			if (string.IsNullOrEmpty(examinationId))
 			{
-				TempData["error"] = "Examination Id is required";
+				TempData["error"] = "Examination Id is required.";
 				return RedirectToAction("Index", "Home");
 			}
 
 			if (string.IsNullOrEmpty(patientId))
 			{
-				TempData["error"] = "Patient Id is required";
+				TempData["error"] = "Patient Id is required.";
 				return RedirectToAction("Index", "Home");
 			}
 
@@ -211,17 +211,21 @@
 
 			try
 			{
-				PatientViewModel patient = await patientService.GetPatientByIdAsync(patientId);
+				PatientViewModel patient = 
+					await patientService.GetPatientByIdAsync(patientId);
 
 				if (!ModelState.IsValid)
 				{
 					model.Patient = patient;
-					model.Examination.Statuses = await statusService.AllStatusesAsync();
+					model.Examination.Statuses = 
+						await statusService.AllStatusesAsync();
+
 					return View(model);
 				}
 
 				await examinationService.EditExaminationAsync(model.Examination, examinationId);
-				TempData["success"] = "Successfully Edited Examination.";
+				TempData["success"] = "Examination was edited successfully.";
+
 				return RedirectToAction("Details", "Patient", new { patientId });
 			}
 			catch (InvalidOperationException)
@@ -263,9 +267,15 @@
 
 			try
 			{
-				var model = await examinationService.GetExaminationDetailsByIdAsync(examinationId);
+				ExaminationDetailsViewModel model = 
+					await examinationService.GetExaminationDetailsByIdAsync(examinationId);
 
 				return View(model);
+			}
+			catch (InvalidOperationException)
+			{
+				TempData["error"] = "Examination does not exist.";
+				return RedirectToAction("All", "Examination");
 			}
 			catch (Exception ex)
 			{

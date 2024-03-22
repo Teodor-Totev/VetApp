@@ -89,7 +89,7 @@
 				}
 
 				await this.ownerService.EditOwnerAsync(model, ownerId);
-				TempData["success"] = "Successfully Edited Owner";
+				TempData["success"] = "Owner was edited successfully.";
 
 				return RedirectToAction("All", "Owner");
 			}

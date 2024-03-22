@@ -54,7 +54,7 @@
 
 				string patientId = await patientService.CreateAsync(model, User.Id());
 
-				TempData["success"] = "Patient and Owner Details Saved Successfully.";
+				TempData["success"] = "Patient and owner details added successfully.";
 
 				return RedirectToAction("Add", "Examination", new { patientId });
 			}
@@ -284,7 +284,7 @@
 			{
 				if (!await patientService.PatientExistsAsync(patientId))
 				{
-					TempData["error"] = "Patient does not exist";
+					TempData["error"] = "Patient does not exist.";
 					return RedirectToAction("All", "Patient");
 				}
 
@@ -294,7 +294,7 @@
 				}
 
 				await patientService.EditPatientAsync(model, patientId);
-				TempData["success"] = "Successfully Edited Patient";
+				TempData["success"] = "Patient was edited successfully.";
 
 				return RedirectToAction("Details", "Patient", new { patientId });
 			}
