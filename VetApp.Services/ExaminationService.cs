@@ -195,12 +195,16 @@
 		}
 
 		public async Task<IEnumerable<ExaminationViewModel>> GetAllExaminationsAsync()
-			=> await this.context.Examinations
+		{
+			IEnumerable<ExaminationViewModel> examinations = await this.context.Examinations
 				.Where(e => e.IsActive == true)
 				.Include(e => e.Doctor)
 				.Include(e => e.Status)
 				.Select(e => e.ToViewModel())
 				.ToArrayAsync();
+
+			return examinations;
+		}
 
 		public async Task<bool> ExaminationExistsAsync(string examinationId)
 			=> await this.context.Examinations.AnyAsync(e => e.Id.ToString() == examinationId && e.IsActive == true);

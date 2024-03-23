@@ -111,6 +111,21 @@
 				.FirstAsync();
 		}
 
+		public async Task<OwnerViewModel> GetOwnerByIdAsync(string ownerId)
+		{
+			return await this.context.Owners
+				.Where(o => o.Id.ToString() == ownerId && o.IsActive == true)
+				.Select(o => new OwnerViewModel()
+				{
+					Id = o.Id.ToString(),
+					Name = o.Name,
+					Address = o.Address,
+					PhoneNumber = o.PhoneNumber,
+					Email = o.Email
+				})
+				.FirstAsync ();
+		}
+
 		public async Task EditOwnerAsync(OwnerFormModel model, string ownerId)
 		{
 			Owner ownerToEdit = await this.context.Owners

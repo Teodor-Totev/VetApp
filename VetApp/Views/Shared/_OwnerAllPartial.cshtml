@@ -20,7 +20,7 @@
 				}
 			</dl>
 			<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="AddPet" asp-route-ownerId="@Model.Id">Add Pet</a>
-			<a class="btn btn-outline-info text-white" asp-controller="Patient" asp-action="All" asp-route-searchString="@Model.Name">Details</a>
+			<a class="btn btn-outline-info text-white" asp-controller="Owner" asp-action="Details" asp-route-ownerId="@Model.Id">Details</a>
 			<a class="btn btn-outline-warning text-white" asp-controller="Owner" asp-action="Edit" asp-route-ownerId="@Model.Id">Edit</a>
 		</div>
 	</div>

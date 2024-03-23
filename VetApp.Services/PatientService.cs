@@ -245,5 +245,33 @@
 
 			return owner.Patients.Any(p => p.Name == patientName);
 		}
+
+		public async Task<OwnerPetsServiceModel> GetOwnerPetsAsync(string ownerId, int currentPage)
+		{
+			var ownerPets = await this.context.Patients
+				.Where(p => p.OwnerId.ToString() == ownerId && p.IsActive == true)
+				.OrderBy(p => p.Name)
+				.Skip((currentPage - 1) * 2)
+				.Take(2)
+				.Select(p => new PatientViewModel()
+				{
+					Id = p.Id.ToString(),
+					Name = p.Name,
+					Type = p.Type,
+					Gender = p.Gender,
+					Neutered = p.Neutered
+				})
+				.ToArrayAsync();
+
+			var totalCount = await this.context.Patients
+				.Where(p => p.OwnerId.ToString() == ownerId && p.IsActive == true)
+				.CountAsync();
+
+			return new OwnerPetsServiceModel()
+			{
+				Patients = ownerPets,
+				TotalItems = totalCount
+			};
+		}
 	}
 }
