@@ -178,8 +178,8 @@
 				.Include(e => e.Status)
 				.Where(e => e.PatientId.ToString() == patientId && e.IsActive == true)
 				.OrderByDescending(e => e.CreatedOn)
-				.Skip((currentPage - 1) * 2)
-				.Take(2)
+				.Skip((currentPage - 1) * 4)
+				.Take(4)
 				.Select(e => e.ToViewModel())
 				.ToArrayAsync();
 

@@ -35,14 +35,17 @@
 
 		[StringLength(MedicalHistoryMaxLength, MinimumLength = MedicalHistoryMinLength,
 			ErrorMessage = "MedicalHistory must be between 5 and 200 characters long.")]
+		[Display(Name = "Medical history")]
 		public string? MedicalHistory { get; set; }
 
 		[StringLength(InputFieldMaxLength, MinimumLength = InputFieldMinLength,
 			ErrorMessage = "CurrentCondition must be between 2 and 50 characters long.")]
+		[Display(Name = "Current condition")]
 		public string? CurrentCondition { get; set; }
 
 		[StringLength(InputFieldMaxLength, MinimumLength = InputFieldMinLength,
 			ErrorMessage = "SpecificCondition must be between 2 and 50 characters long.")]
+		[Display(Name = "Specific condition")]
 		public string? SpecificCondition { get; set; }
 
 		[StringLength(InputFieldMaxLength, MinimumLength = InputFieldMinLength,

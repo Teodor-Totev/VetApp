@@ -105,9 +105,9 @@
 					   asp-controller="Patient"
 					   asp-action="All"
 					   asp-route-currentPage="1"
-					   asp-route-ownersPerPage="@Model.PatientsPerPage"
+					   asp-route-patientsPerPage="@Model.PatientsPerPage"
 					   asp-route-searchString="@Model.SearchString"
-					   asp-route-ownerSorting="@((int)Model.PatientSorting)">First</a>
+					   asp-route-patientSorting="@((int)Model.PatientSorting)">First</a>
 				</li>
 
 				<li class="page-item">
@@ -115,9 +115,9 @@
 					   asp-controller="Patient"
 					   asp-action="All"
 					   asp-route-currentPage="@(Model.CurrentPage - 1)"
-					   asp-route-ownersPerPage="@Model.PatientsPerPage"
+					   asp-route-patientsPerPage="@Model.PatientsPerPage"
 					   asp-route-searchString="@Model.SearchString"
-					   asp-route-ownerSorting="@((int)Model.PatientSorting)">Previous</a>
+					   asp-route-patientSorting="@((int)Model.PatientSorting)">Previous</a>
 				</li>
 
 			}
@@ -132,9 +132,9 @@
 						   asp-controller="Patient"
 						   asp-action="All"
 						   asp-route-currentPage="@i"
-						   asp-route-ownersPerPage="@Model.PatientsPerPage"
+						   asp-route-patientsPerPage="@Model.PatientsPerPage"
 						   asp-route-searchString="@Model.SearchString"
-						   asp-route-ownerSorting="@((int)Model.PatientSorting)">@i</a>
+						   asp-route-patientSorting="@((int)Model.PatientSorting)">@i</a>
 					}
 					else
 					{
@@ -150,9 +150,9 @@
 					   asp-controller="Patient"
 					   asp-action="All"
 					   asp-route-currentPage="@(Model.CurrentPage + 1)"
-					   asp-route-ownersPerPage="@Model.PatientsPerPage"
+					   asp-route-patientsPerPage="@Model.PatientsPerPage"
 					   asp-route-searchString="@Model.SearchString"
-					   asp-route-ownerSorting="@((int)Model.PatientSorting)">Next</a>
+					   asp-route-patientSorting="@((int)Model.PatientSorting)">Next</a>
 				</li>
 
 				<li class="page-item">
@@ -160,9 +160,9 @@
 					   asp-controller="Patient"
 					   asp-action="All"
 					   asp-route-currentPage="@pager.TotalPages"
-					   asp-route-ownersPerPage="@Model.PatientsPerPage"
+					   asp-route-patientsPerPage="@Model.PatientsPerPage"
 					   asp-route-searchString="@Model.SearchString"
-					   asp-route-ownerSorting="@((int)Model.PatientSorting)">Last</a>
+					   asp-route-patientSorting="@((int)Model.PatientSorting)">Last</a>
 				</li>
 			}
 

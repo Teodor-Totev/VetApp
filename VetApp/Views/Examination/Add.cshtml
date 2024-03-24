@@ -8,21 +8,21 @@
 
 <partial name="_NotificationPartial" />
 
-<div class="row">
-	<div class="col-4">
+<div id="parent" class="row">
+	<div class="col-md-8 col-lg-4 child">
 		<partial name="_PatientDetailsPartial" model="@Model.Patient" />
 	</div>
-	<div class="col-8">
-		<div class="card border-secondary mb-3" style="margin: 10px 0px">
-			<h4 class="card-header">@ViewData["Title"] <a class="btn btn-outline-primary text-white float-end" asp-controller="Patient" asp-action="Details" asp-route-patientId="@Model.Patient!.Id">Examinations</a></h4>
+	<div class="col-md-12 col-lg-8 child">
+		<div class="card border-secondary" style="margin: 10px 0px">
+			<h4 class="card-header">@ViewData["Title"] <a class="btn btn-sm btn-outline-primary text-white float-end" asp-controller="Patient" asp-action="Details" asp-route-patientId="@Model.Patient!.Id">Examinations</a></h4>
 			<form asp-action="Add" asp-controller="Examination" asp-route-patientId="@Model.Patient.Id" method="post">
-				<div class="card-body pb-0">
+				<div class="card-body" style="padding: 5px 15px">
 					<div class="row">
-						<div class="col-6 col-lg-4 col-xl-4">
+						<div class="col-6 col-lg-4 col-xl-5">
 
-							<dl>
-								<dt>Doctor:</dt>
-								<dd>@doctorFullName</dd>
+							<dl class="row mb-1">
+								<dt class="col-4">Doctor:</dt>
+								<dd class="col-8 mb-0">@doctorFullName</dd>
 								<input type="hidden" asp-for="@Model.Examination.DoctorId" value="@Model.Examination.DoctorId" />
 							</dl>
 
@@ -38,18 +38,10 @@
 								<span asp-validation-for="@Model.Examination.Reason" class="text-danger"></span>
 							</div>
 
-							
-
 							<div class="mb-1">
-								<label asp-for="@Model.Examination.CurrentCondition" class="control-label">Current condition</label>
-								<input asp-for="@Model.Examination.CurrentCondition" class="form-control">
-								<span asp-validation-for="@Model.Examination.CurrentCondition" class="text-danger"></span>
-							</div>
-
-							<div class="mb-1">
-								<label asp-for="@Model.Examination.SpecificCondition" class="control-label">Specific condition</label>
-								<input asp-for="@Model.Examination.SpecificCondition" class="form-control">
-								<span asp-validation-for="@Model.Examination.SpecificCondition" class="text-danger"></span>
+								<label asp-for="@Model.Examination.MedicalHistory" class="control-label"></label>
+								<textarea asp-for="@Model.Examination.MedicalHistory" class="form-control" rows="2"></textarea>
+								<span asp-validation-for="@Model.Examination.MedicalHistory" class="text-danger"></span>
 							</div>
 
 							<div class="mb-1">
@@ -64,26 +56,39 @@
 								<span asp-validation-for="@Model.Examination.CreatedOn" class="text-danger"></span>
 							</div>
 
+							<div class="mb-1">
+								<label asp-for="@Model.Examination.StatusId" class="form-label mb-0"></label>
+								<input asp-for="@Model.Examination.StatusId" value="4" type="hidden" class="form-control">
+								<span class="form-control">New</span>
+								<span asp-validation-for="@Model.Examination.StatusId" class="text-danger"></span>
+							</div>
+
 						</div>
 
-						<div class="col-6 col-lg-8 col-xl-8">
+						<div class="col-6 col-lg-8 col-xl-7">
 
 							<div class="mb-1">
-								<label asp-for="@Model.Examination.MedicalHistory" class="control-label">Medical history</label>
-								<textarea asp-for="@Model.Examination.MedicalHistory" class="form-control" rows="2"></textarea>
-								<span asp-validation-for="@Model.Examination.MedicalHistory" class="text-danger"></span>
+								<label asp-for="@Model.Examination.CurrentCondition" class="control-label"></label>
+								<input asp-for="@Model.Examination.CurrentCondition" class="form-control">
+								<span asp-validation-for="@Model.Examination.CurrentCondition" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="@Model.Examination.SpecificCondition" class="control-label"></label>
+								<input asp-for="@Model.Examination.SpecificCondition" class="form-control">
+								<span asp-validation-for="@Model.Examination.SpecificCondition" class="text-danger"></span>
+							</div>
+
+							<div class="mb-1">
+								<label asp-for="@Model.Examination.Surgery" class="control-label"></label>
+								<textarea asp-for="@Model.Examination.Surgery" class="form-control"></textarea>
+								<span asp-validation-for="@Model.Examination.Surgery" class="text-danger"></span>
 							</div>
 
 							<div class="mb-1">
 								<label asp-for="@Model.Examination.Diagnosis" class="control-label"></label>
 								<textarea asp-for="@Model.Examination.Diagnosis" class="form-control" rows="2"></textarea>
 								<span asp-validation-for="@Model.Examination.Diagnosis" class="text-danger"></span>
-							</div>
-
-							<div class="mb-1">
-								<label asp-for="@Model.Examination.Surgery" class="control-label"></label>
-								<textarea asp-for="@Model.Examination.Surgery" class="form-control" rows="2"></textarea>
-								<span asp-validation-for="@Model.Examination.Surgery" class="text-danger"></span>
 							</div>
 
 							<div class="mb-1">
@@ -98,23 +103,20 @@
 								<span asp-validation-for="@Model.Examination.Exit" class="text-danger"></span>
 							</div>
 
-							<div class="mb-1">
-								<label asp-for="@Model.Examination.StatusId" class="form-label">Status</label>
-								<input asp-for="@Model.Examination.StatusId" value="4" type="hidden" class="form-control">
-								<span class="form-control">New</span>
-								<span asp-validation-for="@Model.Examination.StatusId" class="text-danger"></span>
-							</div>
-
 						</div>
 					</div>
 				</div>
-				<div class="card-footer d-flex align-items-center justify-content-end">
-					<button type="submit" class="btn btn-primary btn-sm">Create</button>
+				<div class="d-flex align-items-center justify-content-end">
+					<div style="padding: 5px 15px;">
+						<input type="submit" value="Create" class="btn btn-primary btn-sm" />
+					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+
+
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />

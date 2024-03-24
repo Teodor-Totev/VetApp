@@ -16,7 +16,7 @@
 
 		Task<bool> CheckOwnerExistsByNameAndPhoneNumberAsync(string name, string phoneNumber);
 
-		Task<IEnumerable<AllExistingOwnersServiceModel>> GetAllExistingOwnersAsync();
+		Task<IEnumerable<OwnerViewModel>> GetAllExistingOwnersAsync();
 
 		Task<OwnerViewModel> GetOwnerByIdAsync(string ownerId);
 	}

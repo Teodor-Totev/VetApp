@@ -223,7 +223,7 @@
 				PatientExaminationsServiceModel examinationsServiceModel = 
 					await examinationService.GetPatientExaminationsByIdAsync(patientId, currentPage);
 
-				Pager pager = new(currentPage,2,examinationsServiceModel.TotalItems);
+				Pager pager = new(currentPage,4,examinationsServiceModel.TotalItems);
 				ViewBag.Pager = pager;
 
 				PatientDetailsViewModel model = new()

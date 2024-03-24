@@ -6,110 +6,96 @@
 
 <partial name="_NotificationPartial" />
 
-
-<div class="card border-secondary mb-3" style="margin: 10px 0px">
-	<h4 class="card-header text-center">@ViewData["Title"]</h4>
+<div class="card border-secondary mb-3 col-12 col-md-10 col-lg-8" style="margin: 10px auto; ">
+	<h3 class="card-header text-center">@ViewData["Title"]</h3>
 	<form asp-action="Add" asp-controller="Patient" method="post">
 		<div class="card-body">
-			<table class="table table-secondary">
-				<thead>
-					<tr>
-						<th scope="col">Patient Information</th>
-						<th scope="col">Owner Information</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="table-dark">
-						<td>
-							<div class="mb-1">
-								<label asp-for="Name" class="control-label"></label>
-								<input asp-for="Name" class="form-control" placeholder="Name">
-								<span asp-validation-for="Name" class="text-danger"></span>
-							</div>
+			<div class="row justify-content-center">
+				<div class="col-6">
+					<h4 class="card-header text-center">Patient Information</h4>
+					<div class="card-body">
+						<div class="mb-1">
+							<input asp-for="Name" class="form-control" placeholder="Name">
+							<span asp-validation-for="Name" class="text-danger"></span>
+						</div>
 
-							<div class="mb-1">
-								<label asp-for="Type" class="control-label"></label>
-								<input asp-for="Type" class="form-control" placeholder="Type">
-								<span asp-validation-for="Type" class="text-danger"></span>
-							</div>
+						<div class="mb-1">
+							<input asp-for="Type" class="form-control" placeholder="Type">
+							<span asp-validation-for="Type" class="text-danger"></span>
+						</div>
 
-							<div class="mb-1">
-								<fieldset>
-									@foreach (var value in Enum.GetValues(typeof(PatientGender)))
-									{
-										<label asp-for="Gender" class="radio-inline">
-											<input asp-for="Gender" type="radio" class="form-check-input" value="@value" /> @value
-										</label>
-										<span asp-validation-for="Gender" class="text-danger"></span>
-									}
-								</fieldset>
-							</div>
+						<div class="mb-1">
+							<fieldset>
+								@foreach (var value in Enum.GetValues(typeof(PatientGender)))
+								{
+									<label asp-for="Gender" class="radio-inline">
+										<input asp-for="Gender" type="radio" class="form-check-input" value="@value" /> @value
+									</label>
+									<span asp-validation-for="Gender" class="text-danger"></span>
+								}
+							</fieldset>
+						</div>
 
-							<div class="mb-2">
-								<label asp-for="BirthDate" class="control-label"></label>
-								<input asp-for="BirthDate" class="form-control">
-								<span asp-validation-for="BirthDate" class="text-danger"></span>
-							</div>
+						<div class="mb-2">
+							<input asp-for="BirthDate" class="form-control">
+							<span asp-validation-for="BirthDate" class="text-danger"></span>
+						</div>
 
-							<div class="mb-1">
-								<fieldset>
-									<label asp-for="Neutered" class="text-center">Neutered:</label>
-									@foreach (var value in Enum.GetValues(typeof(PatientNeutered)))
-									{
-										<input asp-for="Neutered" type="radio" class="form-check-input" value="@value" /> @value
-										<span asp-validation-for="Neutered" class="text-danger"></span>
-									}
-								</fieldset>
-							</div>
+						<div class="mb-1">
+							<fieldset>
+								<label asp-for="Neutered" class="text-center">Neutered:</label>
+								@foreach (var value in Enum.GetValues(typeof(PatientNeutered)))
+								{
+									<input asp-for="Neutered" type="radio" class="form-check-input" value="@value" /> @value
+									<span asp-validation-for="Neutered" class="text-danger"></span>
+								}
+							</fieldset>
+						</div>
 
-							<div class="mb-1">
-								<label asp-for="Microchip" class="control-label"></label>
-								<input asp-for="Microchip" class="form-control" placeholder="Microchip">
-								<span asp-validation-for="Microchip" class="text-danger"></span>
-							</div>
+						<div class="mb-1">
+							<input asp-for="Microchip" class="form-control" placeholder="Microchip">
+							<span asp-validation-for="Microchip" class="text-danger"></span>
+						</div>
 
-							<div class="mb-1">
-								<label asp-for="Characteristics" class="control-label"></label>
-								<textarea asp-for="Characteristics" class="form-control" rows="2" placeholder="Characteristics"></textarea>
-								<span asp-validation-for="Characteristics" class="text-danger"></span>
-							</div>
+						<div class="mb-1">
+							<textarea asp-for="Characteristics" class="form-control" rows="2" placeholder="Characteristics"></textarea>
+							<span asp-validation-for="Characteristics" class="text-danger"></span>
+						</div>
 
-							<div class="mb-1">
-								<label asp-for="ChronicIllnesses" class="control-label"></label>
-								<textarea asp-for="ChronicIllnesses" class="form-control" rows="2" placeholder="Chronic Illnesses"></textarea>
-								<span asp-validation-for="ChronicIllnesses" class="text-danger"></span>
+						<div class="mb-1">
+							<textarea asp-for="ChronicIllnesses" class="form-control" rows="2" placeholder="Chronic Illnesses"></textarea>
+							<span asp-validation-for="ChronicIllnesses" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-6 col-md-5 col-lg-5">
+					<h4 class="card-header text-center">Owner Information</h4>
+					<div class="card-body">
+						<div class="mb-1">
+							<input id="ownerName" asp-for="@Model.Owner.Name" class="form-control" placeholder="Name">
+							@* <span asp-validation-for="@Model.Owner.Name" class="text-danger"></span> *@
+							<div id="ownerList" class="dropdown-menu bg-secondary" style="display: none;">
 							</div>
-						</td>
-						<td>
-							<div class="mb-1">
-								<label asp-for="@Model.Owner.Name" class="control-label"></label>
-								<input asp-for="@Model.Owner.Name" class="form-control" id="ownerName" placeholder="Name">
-								<span asp-validation-for="@Model.Owner.Name" class="text-danger"></span>
-								<div id="ownerList" class="dropdown-menu bg-secondary" aria-labelledby="btnGroupDrop1" style="display: none;">
-									
-								</div>
-							</div>
+						</div>
 
-							<div class="mb-1">
-								<label asp-for="@Model.Owner.Email" class="control-label">Email</label>
-								<input asp-for="@Model.Owner.Email" class="form-control" placeholder="Email">
-								<span asp-validation-for="@Model.Owner.Email" class="text-danger"></span>
-							</div>
+						<div class="mb-1">
+							<input id="ownerEmail" asp-for="@Model.Owner.Email" class="form-control" placeholder="Email">
+							<span asp-validation-for="@Model.Owner.Email" class="text-danger"></span>
+						</div>
 
-							<div class="mb-1">
-								<label asp-for="@Model.Owner.PhoneNumber" class="control-label"></label>
-								<input asp-for="@Model.Owner.PhoneNumber" class="form-control" placeholder="Phone Number">
-								<span asp-validation-for="@Model.Owner.PhoneNumber" class="text-danger"></span>
-							</div>
+						<div class="mb-1">
+							<input id="ownerPhoneNumber" asp-for="@Model.Owner.PhoneNumber" class="form-control" placeholder="Phone Number">
+							<span asp-validation-for="@Model.Owner.PhoneNumber" class="text-danger"></span>
+						</div>
 
-							<div class="mb-1">
-								<label asp-for="@Model.Owner.Address" class="control-label"></label>
-								<textarea asp-for="@Model.Owner.Address" class="form-control" placeholder="Address" rows="2"></textarea>
-								<span asp-validation-for="@Model.Owner.Address" class="text-danger"></span>
-							</div>
-						</td>
-				</tbody>
-			</table>
+						<div class="mb-1">
+							<textarea id="ownerAddress" asp-for="@Model.Owner.Address" class="form-control" placeholder="Address" rows="2"></textarea>
+							<span asp-validation-for="@Model.Owner.Address" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 		<div class="card-footer d-flex align-items-center justify-content-end">
 			<button type="submit" class="btn btn-primary btn-sm">Create</button>

@@ -24,7 +24,7 @@ namespace VetApp.Services
 				return string.Empty;
 			}
 
-			return $"Dr. {user.FirstName} {user.LastName}";
+			return $"{user.FirstName} {user.LastName}";
 		}
 
 		public async Task<bool> UserExistsAsync(string id)

@@ -6,11 +6,11 @@
 }
 <partial name="_NotificationPartial" />
 
-<div class="row">
-	<div class="col-4">
+<div id="parent" class="row">
+	<div class="col-md-8 col-lg-4 child">
 		<partial name="_PatientDetailsPartial" model="@Model.Patient" />
 	</div>
-	<div class="col-8">
+	<div class="col-md-12 col-lg-8 child">
 		<div class="card border-secondary mb-3" style="margin: 10px 0px">
 			<h4 class="card-header">Examinations</h4>
 			<div class="card-body">
@@ -63,7 +63,7 @@
 											<a class="btn btn-outline-primary btn-sm text-white" asp-controller="Examination" asp-action="Details" asp-route-examinationId="@examination.Id">Details</a>
 										</td>
 										<td>
-											<a class="btn btn-outline-warning btn-sm text-white" asp-action="Edit" asp-controller="Examination" asp-route-examinationId="@examination.Id" asp-route-patientId="@Model.Patient.Id">Edit</a>
+											<a class="btn btn-outline-warning btn-sm text-white" asp-controller="Examination" asp-action="Edit" asp-route-examinationId="@examination.Id" asp-route-patientId="@Model.Patient.Id">Edit</a>
 										</td>
 										<td>
 											<a class="btn btn-outline-danger btn-sm text-white" asp-controller="Examination" asp-action="Delete" asp-route-examinationId="@examination.Id">Delete</a>

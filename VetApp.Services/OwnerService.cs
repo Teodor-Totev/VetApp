@@ -85,14 +85,17 @@
 		public async Task<bool> CheckOwnerExistsByNameAndPhoneNumberAsync(string name, string phoneNumber)
 			=> await context.Owners.AnyAsync(o => o.Name == name && o.PhoneNumber == phoneNumber);
 
-		public async Task<IEnumerable<AllExistingOwnersServiceModel>> GetAllExistingOwnersAsync()
+		public async Task<IEnumerable<OwnerViewModel>> GetAllExistingOwnersAsync()
 		{
 			return await context.Owners
 				.Where(o => o.IsActive == true)
-				.Select(o => new AllExistingOwnersServiceModel()
+				.Select(o => new OwnerViewModel()
 				{
 					Id = o.Id.ToString(),
 					Name = o.Name,
+					Email = o.Email,
+					Address = o.Address,
+					PhoneNumber = o.PhoneNumber
 				})
 				.ToArrayAsync();
 		}

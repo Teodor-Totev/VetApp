@@ -1,9 +1,8 @@
 ﻿namespace VetApp.WebApi.Controllers
 {
-	using Microsoft.AspNetCore.Http;
 	using Microsoft.AspNetCore.Mvc;
 	using VetApp.Services.Interfaces;
-	using VetApp.Services.Models.Owner;
+	using VetApp.Web.ViewModels.Patient;
 
 	[Route("api/owner")]
 	[ApiController]
@@ -18,13 +17,13 @@
 
 		[HttpGet]
 		[Produces("application/json")]
-		[ProducesResponseType(typeof(IEnumerable<AllExistingOwnersServiceModel>), 200)]
+		[ProducesResponseType(typeof(IEnumerable<OwnerViewModel>), 200)]
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> GetAllExistingOwners()
 		{
 			try
 			{
-				IEnumerable<AllExistingOwnersServiceModel> allExistingOwners = 
+				IEnumerable<OwnerViewModel> allExistingOwners = 
 					await this.ownerService.GetAllExistingOwnersAsync();
 
 				return Ok(allExistingOwners);
