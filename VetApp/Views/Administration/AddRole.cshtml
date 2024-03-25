@@ -5,21 +5,20 @@
 
 
 <div class="row d-flex align-items-center justify-content-center mt-4">
-	<div class="col-md-4 card p-3">
+	<div class="col-6 col-md-4 col-lg-3 card p-3">
 			<h2 class="card-title text-center text-info">@ViewData["Title"]</h2>
 		<form asp-action="AddRole" asp-controller="Administration" method="post">
-			<div class="card-body">
+			<div class="card-body p-0">
 				<div asp-validation-summary="All"></div>
 
-				<div class="mb-1">
+				<div class="mb-2">
 					<label asp-for="RoleName" class="control-label"></label>
 					<input asp-for="RoleName" class="form-control" placeholder="...">
 					<span asp-validation-for="RoleName" class="text-danger"></span>
 				</div>
 			</div>
-			<div class="card-footer">
-				<input type="submit" value="Add Role" class="btn btn-primary btn-sm float-end" />
-			</div>
+				<input type="submit" value="Add Role" class="btn btn-primary btn-sm" />
+				<a class="btn btn-primary btn-sm" asp-action="All" asp-controller="Administration">Cancle</a>
 		</form>
 	</div>
 </div>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<IdentityRole<Guid>>
+
+@{
+	ViewData["Title"] = "All Roles";
+	var userId = ViewBag.UserId;
+}
+
+<div class="row d-flex align-items-center justify-content-center mt-4">
+	<div class="col-md-6 card p-3">
+		<div class="row mb-2">
+			<div class="col">
+				<a class="btn btn-primary" asp-controller="Administration" asp-action="AddRole">Add Role</a>
+			</div>
+			<div class="col">
+				<h3 class="card-title text-center text-info">@ViewData["Title"]</h3>
+			</div>
+			<div class="col"></div>
+		</div>
+		@if (Model.Any())
+		{
+			foreach (var role in Model)
+			{
+				<div class="card mb-2">
+					<div class="card-header">Role Id : @role.Id</div>
+					<div class="card-body">
+						<h5 class="card-title">@role.Name</h5>
+					</div>
+					<div class="card-footer">
+						<a class="btn btn-primary" asp-controller="Administration" 
+							asp-action="EditRole" asp-route-roleId="@role.Id">
+							Edit
+						</a>
+					</div>
+				</div>
+			}
+		}
+		else
+		{
+			<div class="card">
+				<div class="card-header">
+					No roles created yet
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">Use the button below to create a role</h5>
+				</div>
+				<a class="btn btn-primary col-2 m-2 flex-end" asp-controller="Administration" asp-action="AddRole">Add Role</a>
+			</div>
+		}
+	</div>
+</div>
