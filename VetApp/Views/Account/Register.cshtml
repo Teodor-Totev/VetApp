@@ -4,50 +4,43 @@
 }
 
 
-<div class="row d-flex align-items-center justify-content-center">
-	<div class="col-md-4 card p-3">
-		<h2 class="card-title text-center text-info">User Registration</h2>
+<div class="row d-flex align-items-center justify-content-center mt-4">
+	<div class="col-md-3 card p-3">
+		<h2 class="card-title text-center text-info pb-2">User Registration</h2>
 		<form asp-action="Register" asp-controller="Account" method="post">
 			<div asp-validation-summary="ModelOnly"></div>
-			<div class="mb-1">
-				<label asp-for="Username" class="control-label"></label>
-				<input asp-for="Username" class="form-control">
+			<div class="mb-2">
+				<input asp-for="Username" class="form-control" placeholder="Username">
 				<span asp-validation-for="Username" class="text-danger"></span>
 			</div>
 
-			<div class="mb-1">
-				<label asp-for="Email" class="control-label">Email</label>
-				<input asp-for="Email" class="form-control">
+			<div class="mb-2">
+				<input asp-for="Email" class="form-control" placeholder="Email">
 				<span asp-validation-for="Email" class="text-danger"></span>
 			</div>
 
-			<div class="mb-1">
-				<label asp-for="Password" class="control-label"></label>
-				<input asp-for="Password" class="form-control">
+			<div class="mb-2">
+				<input asp-for="Password" class="form-control" placeholder="Password">
 				<span asp-validation-for="Password" class="text-danger"></span>
 			</div>
 
-			<div class="mb-1">
-				<label asp-for="ConfirmPassword" class="control-label"></label>
-				<input asp-for="ConfirmPassword" class="form-control">
+			<div class="mb-2">
+				<input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password">
 				<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
 			</div>
 
-			<div class="mb-1">
-				<label asp-for="FirstName" class="control-label"></label>
-				<input asp-for="FirstName" class="form-control">
+			<div class="mb-2">
+				<input asp-for="FirstName" class="form-control" placeholder="First name">
 				<span asp-validation-for="FirstName" class="text-danger"></span>
 			</div>
 
-			<div class="mb-1">
-				<label asp-for="LastName" class="control-label"></label>
-				<input asp-for="LastName" class="form-control">
+			<div class="mb-2">
+				<input asp-for="LastName" class="form-control" placeholder="Last name">
 				<span asp-validation-for="LastName" class="text-danger"></span>
 			</div>
 
-			<div class="mb-1">
-				<label asp-for="Address" class="control-label"></label>
-				<textarea asp-for="Address" class="form-control" rows="2"></textarea>
+			<div class="mb-2">
+				<textarea asp-for="Address" class="form-control" rows="2" placeholder="Address"></textarea>
 				<span asp-validation-for="Address" class="text-danger"></span>
 			</div>
 			<div class="row">

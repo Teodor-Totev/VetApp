@@ -1,13 +1,14 @@
 ﻿namespace VetApp.Controllers;
 
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 using VetApp.Data.Models;
 using VetApp.Web.ViewModels.Account;
 
-public class AccountController : Controller
+public class AccountController : BaseController
 {
 	private readonly SignInManager<ApplicationUser> signInManager;
 	private readonly UserManager<ApplicationUser> userManager;
@@ -21,19 +22,26 @@ public class AccountController : Controller
 	}
 
 	[HttpGet]
+	[AllowAnonymous]
 	public async Task<IActionResult> Login(string? returnUrl = null)
 	{
+		if (this.signInManager.IsSignedIn(User))
+		{
+			return RedirectToAction("Index", "Home");
+		}
+
 		await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-		LoginViewModel loginVM = new LoginViewModel()
+		LoginViewModel model = new()
 		{
 			ReturnUrl = returnUrl
 		};
 
-		return View(loginVM);
+		return View(model);
 	}
 
 	[HttpPost]
+	[AllowAnonymous]
 	public async Task<IActionResult> Login(LoginViewModel model)
 	{
 		if (!ModelState.IsValid)
@@ -53,16 +61,30 @@ public class AccountController : Controller
 			return View(model);
 		}
 
-		return Redirect(model.ReturnUrl ?? "/Examination/Dashboard");
+		if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+		{
+			return Redirect(model.ReturnUrl);
+		}
+		else
+		{
+			return RedirectToAction("Index", "Home");
+		}
 	}
 
 	[HttpGet]
+	[AllowAnonymous]
 	public IActionResult Register()
 	{
+		if (this.signInManager.IsSignedIn(User))
+		{
+			return RedirectToAction("Index", "Home");
+		}
+
 		return View();
 	}
 
 	[HttpPost]
+	[AllowAnonymous]
 	public async Task<IActionResult> Register(RegisterViewModel model)
 	{
 		if (!ModelState.IsValid)
