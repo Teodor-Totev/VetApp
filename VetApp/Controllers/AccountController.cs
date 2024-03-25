@@ -9,8 +9,8 @@ using VetApp.Web.ViewModels.Account;
 
 public class AccountController : Controller
 {
-	private SignInManager<ApplicationUser> signInManager;
-	private UserManager<ApplicationUser> userManager;
+	private readonly SignInManager<ApplicationUser> signInManager;
+	private readonly UserManager<ApplicationUser> userManager;
 
 	public AccountController(
 		SignInManager<ApplicationUser> signInManager,

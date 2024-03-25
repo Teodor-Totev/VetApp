@@ -27,5 +27,11 @@
 			public const int entitiesPerPage = 3;
 		}
 
+		public static class AddRoleViewModelConstants
+		{
+			public const int NameMaxLength = 50;
+			public const int NameMinLength = 2;
+		}
+
 	}
 }

@@ -46,6 +46,7 @@
 					options.Password.RequireLowercase = false;
 					options.Password.RequiredLength = 4;
 				})
+				.AddRoles<IdentityRole<Guid>>()
 				.AddEntityFrameworkStores<VetAppDbContext>()
 				.AddDefaultTokenProviders();
 
