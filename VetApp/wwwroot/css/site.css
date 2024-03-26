@@ -50,16 +50,5 @@ body {
     .child {
         min-width: 50%;
     }
-    
 }
-/*html, body {
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-}
-*/
 
-#owners {
-    max-height: 420px; 
-    overflow-y: auto;
-}

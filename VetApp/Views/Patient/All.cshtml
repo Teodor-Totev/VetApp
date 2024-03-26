@@ -29,8 +29,9 @@
 			</div>
 		</div>
 
-		<div class="form-group col-1 col-md-1 col-lg-1 col-xl-1 mt-4">
+		<div class="form-group col-1 col-md-1 col-lg-1 col-xl-1">
 			<div class="form-group">
+				<label asp-for="PatientsPerPage"></label>
 				<select asp-for="PatientsPerPage" class="form-control">
 					<option value="3">3</option>
 					<option value="6">6</option>
@@ -78,7 +79,7 @@
 		}
 		else
 		{
-			<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+			<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin: 0 auto;">
 				@foreach (var patient in Model.Patients)
 				{
 					<partial name="_PatientAllPartial" model="@patient" />

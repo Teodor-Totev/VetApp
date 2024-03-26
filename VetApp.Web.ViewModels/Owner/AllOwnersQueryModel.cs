@@ -20,7 +20,7 @@
         [Display(Name = "Search by word")]
 		public string? SearchString { get; set; }
 
-		[Display(Name = "Show owners on page")]
+		[Display(Name = "Show:")]
 		public int OwnersPerPage { get; set; }
 
 		[Display(Name = "Sort owners by:")]

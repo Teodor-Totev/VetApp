@@ -7,27 +7,27 @@
 
 <partial name="_NotificationPartial" />
 
-<div class="row">
-	<div class="col-4">
+<div id="parent" class="row">
+	<div class="col-md-8 col-lg-4 child mt-4">
 
-		<div class="card border-secondary mb-3" style="max-width: 25rem; margin: 10px 0px">
+		<div class="card border-secondary mb-3 justify-content-center">
 			<h4 class="card-header">@ViewData["Title"]</h4>
 			<div class="card-body">
 				<dl class="row">
 
-					<dt class="col-sm-5 card-title">Name:</dt>
-					<dd class="col-sm-5 card-text">@Model.Owner.Name</dd>
+					<dt class="col-5 card-title">Name:</dt>
+					<dd class="col-7 card-text">@Model.Owner.Name</dd>
 
-					<dt class="col-sm-5 card-title">Address:</dt>
-					<dd class="col-sm-5 card-text">@Model.Owner.Address</dd>
+					<dt class="col-5 card-title">Address:</dt>
+					<dd class="col-7 card-text">@Model.Owner.Address</dd>
 
-					<dt class="col-sm-5 card-title">PhoneNumber:</dt>
-					<dd class="col-sm-5 card-text">@Model.Owner.PhoneNumber</dd>
+					<dt class="col-5 card-title">PhoneNumber:</dt>
+					<dd class="col-7 card-text">@Model.Owner.PhoneNumber</dd>
 
 					@if (Model.Owner.Email != null)
 					{
-						<dt class="col-sm-5 card-title">Email:</dt>
-						<dd class="col-sm-5 card-text">@Model.Owner.Email</dd>
+						<dt class="col-5 card-title">Email:</dt>
+						<dd class="col-7 card-text">@Model.Owner.Email</dd>
 					}
 				</dl>
 				<a class="btn btn-outline-primary text-white" asp-controller="Patient" asp-action="AddPet" asp-route-ownerId="@Model.Owner.Id">Add Pet</a>
@@ -36,8 +36,8 @@
 		</div>
 
 	</div>
-	<div class="col-8">
-		<div class="card border-secondary mb-3" style="margin: 10px 0px">
+	<div class="col-md-12 col-lg-8 child mt-4">
+		<div class="card border-secondary">
 			<h4 class="card-header">Pets</h4>
 			<div class="card-body">
 				@if (Model.Patients.Any())

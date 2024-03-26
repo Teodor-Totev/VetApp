@@ -20,7 +20,7 @@
 
 		public int CurrentPage { get; set; }
 
-		[Display(Name = "Show animals on page")]
+		[Display(Name = "Show:")]
 		public int PatientsPerPage { get; set; }
 
 		public ICollection<PatientViewModel> Patients { get; set; }

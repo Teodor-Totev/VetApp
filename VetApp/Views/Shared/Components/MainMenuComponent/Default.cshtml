@@ -16,8 +16,11 @@
 		<li class="nav-item">
 			<a class="nav-link active" asp-controller="Examination" asp-action="All">Examinations</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link active" asp-controller="Administration" asp-action="All">Manage roles</a>
-		</li>
+		@if (User.IsInRole("Admin"))
+		{
+			<li class="nav-item">
+				<a class="nav-link active" asp-controller="Administration" asp-action="All">Manage roles</a>
+			</li>
+		}
 	}
 </ul>
