@@ -5,11 +5,13 @@
 	var userId = ViewBag.UserId;
 }
 
+<partial name="_NotificationPartial" />
+
 <div class="row d-flex align-items-center justify-content-center mt-4">
 	<div class="col-md-6 card p-3">
 		<div class="row mb-2">
 			<div class="col">
-				<a class="btn btn-primary" asp-controller="Administration" asp-action="AddRole">Add Role</a>
+				<a class="btn btn-primary @(Model.Any() == false ? "d-none" : "")" asp-controller="Administration" asp-action="AddRole">Add Role</a>
 			</div>
 			<div class="col">
 				<h3 class="card-title text-center text-info">@ViewData["Title"]</h3>

@@ -8,7 +8,7 @@
 	using VetApp.Extensions;
 	using VetApp.Web.ViewModels.Administration;
 
-	[Authorize(Roles ="Admin")]
+	[Authorize(Roles = "Admin")]
 	public class AdministrationController : BaseController
 	{
 		private readonly RoleManager<IdentityRole<Guid>> roleManager;
@@ -71,13 +71,13 @@
 
 			if (role == null)
 			{
-				TempData["error"] = $"Role does not exist.";
-				RedirectToAction("Index", "Home");
+				TempData["error"] = "Role does not exist.";
+				return RedirectToAction("Index", "Home");
 			}
 
 			var model = new EditRoleViewModel()
 			{
-				Id = role!.Id.ToString(),
+				Id = role.Id.ToString(),
 				RoleName = role.Name
 			};
 
@@ -101,8 +101,8 @@
 
 			if (role == null)
 			{
-				TempData["error"] = $"Role does not exist.";
-				RedirectToAction("Index", "Home");
+				TempData["error"] = "Role does not exist.";
+				return RedirectToAction("All");
 			}
 			else
 			{
@@ -118,10 +118,87 @@
 				{
 					ModelState.AddModelError(string.Empty, error.Description);
 				}
-
 			}
 
 			return View(model);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> EditUsersInRole(string roleId)
+		{
+			ViewBag.RoleId = roleId;
+
+			IdentityRole<Guid> role = await roleManager.FindByIdAsync(roleId);
+
+			if (role == null)
+			{
+				TempData["error"] = "Role does not exist.";
+				return RedirectToAction("All");
+			}
+
+			List<UserRoleViewModel> model = new();
+
+			List<ApplicationUser> users = await userManager.Users.ToListAsync();
+
+			foreach (var user in users)
+			{
+				bool isUserInRole = await userManager.IsInRoleAsync(user, role.Name);
+
+				model.Add(new UserRoleViewModel()
+				{
+					UserId = user.Id.ToString(),
+					UserName = user.UserName,
+					IsSelected = isUserInRole
+				});
+			}
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
+		{
+			IdentityRole<Guid> role = await roleManager.FindByIdAsync(roleId);
+
+			if (role == null)
+			{
+				TempData["error"] = "Role does not exist.";
+				return RedirectToAction("All");
+			}
+
+			for (int i = 0; i < model.Count; i++)
+			{
+				ApplicationUser user = await userManager.FindByIdAsync(model[i].UserId);
+
+				IdentityResult result = null;
+
+				if (model[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
+				{
+					result = await userManager.AddToRoleAsync(user, role.Name);
+				}
+				else if (!model[i].IsSelected && await userManager.IsInRoleAsync(user, role.Name))
+				{
+					result = await userManager.RemoveFromRoleAsync(user, role.Name);
+				}
+				else
+				{
+					continue;
+				}
+
+				if (result.Succeeded)
+				{
+					if(i < (model.Count - 1))
+					{
+						continue;
+					}
+					else
+					{
+						return RedirectToAction("EditRole", new { roleId });
+					}
+				}
+			}
+
+			return RedirectToAction("EditRole", new { roleId });
 		}
 	}
 }
