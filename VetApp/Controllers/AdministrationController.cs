@@ -8,6 +8,7 @@
 	using VetApp.Extensions;
 	using VetApp.Web.ViewModels.Administration;
 
+	[Authorize(Roles ="Admin")]
 	public class AdministrationController : BaseController
 	{
 		private readonly RoleManager<IdentityRole<Guid>> roleManager;
@@ -29,14 +30,12 @@
 		}
 
 		[HttpGet]
-		[AllowAnonymous]
 		public IActionResult AddRole()
 		{
 			return View();
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public async Task<IActionResult> AddRole(AddRoleViewModel model)
 		{
 			if (ModelState.IsValid)

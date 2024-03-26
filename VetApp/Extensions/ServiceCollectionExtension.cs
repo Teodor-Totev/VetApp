@@ -27,8 +27,6 @@
 			services.AddDbContext<VetAppDbContext>(options =>
 				options.UseSqlServer(connectionString));
 
-			//services.AddDatabaseDeveloperPageExceptionFilter();
-
 			return services;
 		}
 
@@ -54,10 +52,34 @@
 				.AddCookie(options =>
 				{
 					options.LoginPath = "/Account/Login";
-					//options.AccessDeniedPath = "/Account/Login";
+					options.AccessDeniedPath = "/Account/Login";
 				});
 
+			var serviceProvider = services.BuildServiceProvider();
+			SeedData(serviceProvider).Wait();
+
 			return services;
+		}
+
+		private static async Task SeedData(IServiceProvider serviceProvider)
+		{
+			var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+			if (!await roleManager.RoleExistsAsync("Admin"))
+			{
+				await roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
+			}
+
+			var user = await userManager.FindByNameAsync("r_raykov");
+
+			if (user != null)
+			{
+				if (!await userManager.IsInRoleAsync(user, "Admin"))
+				{
+					await userManager.AddToRoleAsync(user, "Admin");
+				}
+			}
 		}
 	}
 }
