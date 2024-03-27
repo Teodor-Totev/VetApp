@@ -59,7 +59,7 @@
 					break;
 			}
 
-			var owners = await query
+			IEnumerable<OwnerViewModel> owners = await query
 				.Skip((model.CurrentPage - 1) * model.OwnersPerPage)
 				.Take(model.OwnersPerPage)
 				.Select(o => new OwnerViewModel()

@@ -16,5 +16,7 @@
 		public string DoctorName { get; set; } = null!;
 
         public int TotalCount { get; set; }
+
+        public string PatientId { get; set; } = null!;
     }
 }

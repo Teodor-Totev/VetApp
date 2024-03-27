@@ -9,7 +9,7 @@
 
 		Task<PatientExaminationsServiceModel> GetPatientExaminationsByIdAsync(string patientId, int currentPage);
 
-		Task<IEnumerable<ExaminationViewModel>> GetAllExaminationsAsync();
+		Task<AllExaminationsOrderedAndPagedServiceModel> GetAllExaminationsAsync(AllExaminationsQueryModel model);
 
 
 		Task<Dictionary<string, ExaminationDashboardViewModel[]>> GetExaminationsGroupedByStatus();

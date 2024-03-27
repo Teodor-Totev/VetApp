@@ -8,6 +8,7 @@
 	using VetApp.Services.Interfaces;
 	using VetApp.Services.Models.Examination;
 	using VetApp.Web.ViewModels.Examination;
+	using Web.ViewModels.Examination.Enums;
 
 	public class ExaminationService : IExaminationService
 	{
@@ -194,16 +195,54 @@
 			};
 		}
 
-		public async Task<IEnumerable<ExaminationViewModel>> GetAllExaminationsAsync()
+		public async Task<AllExaminationsOrderedAndPagedServiceModel> GetAllExaminationsAsync(AllExaminationsQueryModel model)
 		{
-			IEnumerable<ExaminationViewModel> examinations = await this.context.Examinations
-				.Where(e => e.IsActive == true)
+			IQueryable<Examination> queryModel = this.context.Examinations
+				.Where(o => o.IsActive == true)
 				.Include(e => e.Doctor)
 				.Include(e => e.Status)
+				.AsQueryable();
+
+			if (!string.IsNullOrEmpty(model.SearchString))
+			{
+				string wildCard = $"%{model.SearchString.ToLower()}%";
+
+				queryModel = queryModel
+					.Where(e => EF.Functions.Like(e.Reason, wildCard) ||
+								EF.Functions.Like(e.Status.Name, wildCard) ||
+								EF.Functions.Like(e.Doctor.FirstName!, wildCard) ||
+								EF.Functions.Like(e.Doctor.LastName!, wildCard));
+			}
+
+			queryModel = model.ExaminationSorting switch
+			{
+				ExaminationSorting.CreatedOnAscending =>
+					queryModel.OrderBy(e => e.CreatedOn),
+				ExaminationSorting.CreatedOnDescending =>
+					queryModel.OrderByDescending(e => e.CreatedOn),
+				ExaminationSorting.StatusAscending =>
+					queryModel.OrderBy(e => e.Status.Name),
+				ExaminationSorting.StatusDescending =>
+					queryModel.OrderByDescending(e => e.Status.Name),
+				ExaminationSorting.DoctorLastNameAscending =>
+					queryModel.OrderBy(e => e.Doctor.LastName),
+				ExaminationSorting.DoctorLastNameDescending =>
+					queryModel.OrderByDescending(e => e.Doctor.LastName),
+				_ => queryModel.OrderByDescending(e => e.CreatedOn)
+
+			};
+
+			IEnumerable<ExaminationViewModel> examinations = await queryModel
+				.Skip((model.CurrentPage - 1) * model.ExaminationsPerPage)
+				.Take(model.ExaminationsPerPage)
 				.Select(e => e.ToViewModel())
 				.ToArrayAsync();
 
-			return examinations;
+			return new AllExaminationsOrderedAndPagedServiceModel()
+			{
+				Examinations = examinations,
+				TotalItems = await queryModel.CountAsync()
+			};
 		}
 
 		public async Task<bool> ExaminationExistsAsync(string examinationId)
