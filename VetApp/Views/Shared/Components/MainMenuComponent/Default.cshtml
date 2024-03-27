@@ -1,6 +1,6 @@
 ﻿<ul class="navbar-nav me-auto d-flex">
 	<li class="nav-item">
-		<a class="nav-link active" asp-controller="Home" asp-action="Index">
+		<a class="nav-link " asp-controller="Home" asp-action="Index">
 			Home
 			<span class="visually-hidden">(current)</span>
 		</a>
@@ -8,18 +8,18 @@
 	@if (User.Identity?.IsAuthenticated ?? false)
 	{
 		<li class="nav-item">
-			<a class="nav-link active" asp-controller="Patient" asp-action="All">Patients</a>
+			<a class="nav-link " asp-controller="Patient" asp-action="All">Patients</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link active" asp-controller="Owner" asp-action="All">Owners</a>
+			<a class="nav-link " asp-controller="Owner" asp-action="All">Owners</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link active" asp-controller="Examination" asp-action="All">Examinations</a>
+			<a class="nav-link " asp-controller="Examination" asp-action="All">Examinations</a>
 		</li>
 		@if (User.IsInRole("Admin"))
 		{
 			<li class="nav-item">
-				<a class="nav-link active" asp-controller="Administration" asp-action="All">Manage roles</a>
+				<a class="nav-link " asp-controller="Administration" asp-action="All">Manage roles</a>
 			</li>
 		}
 	}

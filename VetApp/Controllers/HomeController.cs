@@ -8,14 +8,11 @@
 		[AllowAnonymous]
 		public IActionResult Index()
 		{
-			if (User.Identity!.IsAuthenticated)
-			{
-				return RedirectToAction("Dashboard", "Examination");
-			}
-			else
-			{
-				return View();
-			}
+			var imagePaths = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "home"))
+								  .Select(path => $"/home/{Path.GetFileName(path)}")
+								  .ToList();
+
+			return View(imagePaths);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
