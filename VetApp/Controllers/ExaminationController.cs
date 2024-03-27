@@ -146,13 +146,13 @@
 			if (string.IsNullOrEmpty(examinationId))
 			{
 				TempData["error"] = "Examination Id is required.";
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("All");
 			}
 
 			if (string.IsNullOrEmpty(patientId))
 			{
 				TempData["error"] = "Patient Id is required.";
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("All", "Patient");
 			}
 
 			try
@@ -201,13 +201,13 @@
 			if (string.IsNullOrEmpty(examinationId))
 			{
 				TempData["error"] = "Examination Id is required.";
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("All");
 			}
 
 			if (string.IsNullOrEmpty(patientId))
 			{
 				TempData["error"] = "Patient Id is required.";
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("All", "Patient");
 			}
 
 			try
@@ -269,7 +269,7 @@
 			if (string.IsNullOrEmpty(examinationId))
 			{
 				TempData["error"] = "Examination Id is required.";
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("All");
 			}
 
 			try
@@ -282,7 +282,7 @@
 			catch (InvalidOperationException)
 			{
 				TempData["error"] = "Examination does not exist.";
-				return RedirectToAction("All", "Examination");
+				return RedirectToAction("All");
 			}
 			catch (Exception ex)
 			{
@@ -297,7 +297,7 @@
 			if (string.IsNullOrEmpty(examinationId))
 			{
 				TempData["error"] = "Examination Id is required.";
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("All");
 			}
 
 			try
@@ -305,12 +305,18 @@
 				PreDeleteDetailsViewModel model =
 				await this.examinationService.GetExaminationForDeleteByIdAsync(examinationId);
 
+				if (model.StatusName == "Done")
+				{
+					TempData["error"] = "Can not delete examinations with status Done.";
+					return RedirectToAction("All");
+				}
+
 				return View(model);
 			}
 			catch (InvalidOperationException)
 			{
 				TempData["error"] = "Examination does not exist.";
-				return RedirectToAction("All", "Examination");
+				return RedirectToAction("All");
 			}
 			catch (Exception ex)
 			{

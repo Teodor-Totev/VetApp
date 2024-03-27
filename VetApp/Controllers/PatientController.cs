@@ -171,7 +171,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Mine([FromQuery] MinePatientsQueryModel queryModel, string doctorId)
+		public async Task<IActionResult> Mine([FromQuery] AllPatientsQueryModel queryModel, string doctorId)
 		{
 			if (string.IsNullOrEmpty(doctorId))
 			{

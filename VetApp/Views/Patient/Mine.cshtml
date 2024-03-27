@@ -1,4 +1,4 @@
-﻿@model MinePatientsQueryModel
+﻿@model AllPatientsQueryModel
 
 @{
 	ViewData["Title"] = "Mine";
@@ -18,8 +18,21 @@
 			<input asp-for="DoctorId" value="@doctorId" class="form-control" type="hidden" />
 		</div>
 
-		<div class="form-group col-1 col-md-1 col-lg-1 col-xl-1 mt-4">
+		<div class="form-group col-md-3">
 			<div class="form-group">
+				<label asp-for="PatientSorting"></label>
+				<select asp-for="PatientSorting" class="form-control">
+					<option value="0">Patient Name (Ascending)</option>
+					<option value="1">Patient Name (Descending)</option>
+					<option value="2">Owner Name (Ascending)</option>
+					<option value="3">Owner Name (Descending)</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group col-1 col-md-1 col-lg-1 col-xl-1">
+			<div class="form-group">
+				<label asp-for="PatientsPerPage"></label>
 				<select asp-for="PatientsPerPage" class="form-control">
 					<option value="3">3</option>
 					<option value="6">6</option>
@@ -46,7 +59,7 @@
 				<a class="btn btn-outline-success text-white" asp-controller="Patient" asp-action="Add">Create</a>
 			</div>
 			<div class="col-6">
-				<h2 class="text-center">Patients</h2>
+				<h3 class="text-center">Patients</h3>
 			</div>
 			<div class="col">
 				<span class="float-end">
@@ -94,7 +107,8 @@
 					   asp-route-doctorId="@doctorId"
 					   asp-route-currentPage="1"
 					   asp-route-patientsPerPage="@Model.PatientsPerPage"
-					   asp-route-searchString="@Model.SearchString">First</a>
+					   asp-route-searchString="@Model.SearchString"
+					   asp-route-patientSorting="@((int)Model.PatientSorting)">First</a>
 				</li>
 
 				<li class="page-item">
@@ -104,7 +118,8 @@
 					   asp-route-doctorId="@doctorId"
 					   asp-route-currentPage="@(Model.CurrentPage - 1)"
 					   asp-route-patientsPerPage="@Model.PatientsPerPage"
-					   asp-route-searchString="@Model.SearchString">Previous</a>
+					   asp-route-searchString="@Model.SearchString"
+					   asp-route-patientSorting="@((int)Model.PatientSorting)">Previous</a>
 				</li>
 
 			}
@@ -121,7 +136,8 @@
 						   asp-route-doctorId="@doctorId"
 						   asp-route-currentPage="@i"
 						   asp-route-patientsPerPage="@Model.PatientsPerPage"
-						   asp-route-searchString="@Model.SearchString">@i</a>
+						   asp-route-searchString="@Model.SearchString"
+						   asp-route-patientSorting="@((int)Model.PatientSorting)">@i</a>
 					}
 					else
 					{
@@ -139,7 +155,8 @@
 					   asp-route-doctorId="@doctorId"
 					   asp-route-currentPage="@(Model.CurrentPage + 1)"
 					   asp-route-patientsPerPage="@Model.PatientsPerPage"
-					   asp-route-searchString="@Model.SearchString">Next</a>
+					   asp-route-searchString="@Model.SearchString"
+					   asp-route-patientSorting="@((int)Model.PatientSorting)">Next</a>
 				</li>
 
 				<li class="page-item">
@@ -149,7 +166,8 @@
 					   asp-route-doctorId="@doctorId"
 					   asp-route-currentPage="@pager.TotalPages"
 					   asp-route-patientsPerPage="@Model.PatientsPerPage"
-					   asp-route-searchString="@Model.SearchString">Last</a>
+					   asp-route-searchString="@Model.SearchString"
+					   asp-route-patientSorting="@((int)Model.PatientSorting)">Last</a>
 				</li>
 			}
 

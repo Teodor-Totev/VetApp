@@ -19,7 +19,7 @@
 
 		Task<bool> PatientExistsAsync(string patientId);
 
-		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(MinePatientsQueryModel queryModel, string doctorId);
+		Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(AllPatientsQueryModel queryModel, string doctorId);
 
 		Task<bool> DoesPatientExistInOwnerCollection(string ownerId, string patientName);
 

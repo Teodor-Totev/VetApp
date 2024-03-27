@@ -193,7 +193,7 @@
 			return patient;
 		}
 
-		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(MinePatientsQueryModel queryModel, string doctorId)
+		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsForUserAsync(AllPatientsQueryModel queryModel, string doctorId)
 		{
 			IQueryable<Patient> query = context.Examinations
 				.Include(e => e.Doctor)
@@ -212,6 +212,20 @@
 								EF.Functions.Like(p.Type, wildCard) ||
 								EF.Functions.Like(p.Owner.Name, wildCard));
 			}
+
+			query = queryModel.PatientSorting switch
+			{
+				PatientSorting.PatientNameAscending => query
+					.OrderBy(p => p.Name),
+				PatientSorting.PatientNameDescending => query
+					.OrderByDescending(p => p.Name),
+				PatientSorting.OwnerNameAscending => query
+					.OrderBy(p => p.Owner.Name),
+				PatientSorting.OwnerNameDescending => query
+					.OrderByDescending(p => p.Owner.Name),
+				_ => query
+					.OrderByDescending(p => p.Id)
+			};
 
 			ICollection<PatientViewModel> patients = await query
 				.Skip((queryModel.CurrentPage - 1) * queryModel.PatientsPerPage)
