@@ -6,7 +6,7 @@
 	using VetApp.Services.Interfaces;
 	using VetApp.Services;
 	using Microsoft.AspNetCore.Identity;
-	using Microsoft.AspNetCore.Authentication.Cookies;
+	using static VetApp.Data.Common.AdminUser;
 
 	public static class ServiceCollectionExtension
 	{
@@ -66,18 +66,18 @@
 			var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
-			if (!await roleManager.RoleExistsAsync("Admin"))
+			if (!await roleManager.RoleExistsAsync(AdminRoleName))
 			{
-				await roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
+				await roleManager.CreateAsync(new IdentityRole<Guid>(AdminRoleName));
 			}
 
-			var user = await userManager.FindByNameAsync("r_raykov");
+			var user = await userManager.FindByNameAsync(AdminUserName);
 
 			if (user != null)
 			{
-				if (!await userManager.IsInRoleAsync(user, "Admin"))
+				if (!await userManager.IsInRoleAsync(user, AdminRoleName))
 				{
-					await userManager.AddToRoleAsync(user, "Admin");
+					await userManager.AddToRoleAsync(user, AdminRoleName);
 				}
 			}
 		}

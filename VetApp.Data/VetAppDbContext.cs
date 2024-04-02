@@ -22,16 +22,17 @@
 
 			//builder.ApplyConfigurationsFromAssembly(configAssembly);
 
-			SeedUser(builder);
+			//SeedUsers(builder);
 			builder.ApplyConfiguration(new OwnerEntityConfiguration());
 			builder.ApplyConfiguration(new PatientEntityConfiguration());
 			builder.ApplyConfiguration(new StatusEntityConfiguration());
 			builder.ApplyConfiguration(new ExaminationEntityConfiguration());
+			builder.ApplyConfiguration(new VetUserConfiguration());
 
 			base.OnModelCreating(builder);
 		}
 
-		private static void SeedUser(ModelBuilder builder)
+		private static void SeedUsers(ModelBuilder builder)
 		{
 			var hasher = new PasswordHasher<ApplicationUser>();
 			builder.Entity<ApplicationUser>().HasData(
