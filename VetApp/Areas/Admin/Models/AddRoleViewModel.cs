@@ -1,4 +1,4 @@
-﻿namespace VetApp.Web.ViewModels.Administration
+﻿namespace VetApp.Areas.Admin.Models
 {
 	using System.ComponentModel.DataAnnotations;
 	using static VetApp.Web.Common.ViewModelValidationConstants.AddRoleViewModelConstants;

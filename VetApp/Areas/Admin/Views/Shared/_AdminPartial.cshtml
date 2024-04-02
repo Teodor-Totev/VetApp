@@ -1,0 +1,33 @@
+﻿@inject SignInManager<ApplicationUser> signInManager
+@inject IAccountService accService
+
+@{
+	string userFullName = await this.accService.GetUserFullNameByUsernameAsync(User.Identity?.Name!);
+}
+
+<ul class="navbar-nav">
+	@if (signInManager.IsSignedIn(User))
+	{
+		<li class="nav-item">
+			<a class="nav-link" asp-area="" asp-action="Index" asp-controller="Home">Public Interface</a>
+		</li>
+
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" area-expanden="false">
+				@userFullName
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
+			</div>
+		</li> 
+	}
+	else
+	{
+		<li class="nav-item">
+			<a class="nav-link text-primary" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-primary" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+		</li>
+	}
+</ul>

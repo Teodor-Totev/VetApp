@@ -1,4 +1,4 @@
-﻿namespace VetApp.Web.ViewModels.Administration
+﻿namespace VetApp.Areas.Admin.Models
 {
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;

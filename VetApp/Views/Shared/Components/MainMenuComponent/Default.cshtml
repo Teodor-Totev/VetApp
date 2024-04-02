@@ -1,4 +1,6 @@
-﻿<ul class="navbar-nav me-auto d-flex">
+﻿@using static VetApp.Data.Common.AdminUser
+
+<ul class="navbar-nav me-auto d-flex">
 	<li class="nav-item">
 		<a class="nav-link " asp-controller="Home" asp-action="Index">
 			Home
@@ -19,10 +21,10 @@
 		<li class="nav-item">
 			<a class="nav-link " asp-controller="Examination" asp-action="Dashboard">Dashboard</a>
 		</li>
-		@if (User.IsInRole("Admin"))
+		@if (User.IsInRole(AdminRoleName))
 		{
 			<li class="nav-item">
-				<a class="nav-link " asp-controller="Administration" asp-action="All">Manage roles</a>
+				<a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Dashboard">Admin area</a>
 			</li>
 		}
 	}

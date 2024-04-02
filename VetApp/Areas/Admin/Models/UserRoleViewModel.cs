@@ -1,4 +1,4 @@
-﻿namespace VetApp.Web.ViewModels.Administration
+﻿namespace VetApp.Areas.Admin.Models
 {
 	public class UserRoleViewModel
 	{

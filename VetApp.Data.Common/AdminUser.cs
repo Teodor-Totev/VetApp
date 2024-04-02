@@ -10,5 +10,6 @@
 	{
 		public const string AdminRoleName = "Admin";
 		public const string AdminUserName = "Admin";
+		public const string AdminAreaName = "Admin";
 	}
 }
