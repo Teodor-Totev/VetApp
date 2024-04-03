@@ -54,7 +54,8 @@
 
 		public async Task<string> AddPetAsync(AddPetViewModel model, string ownerId, string doctorId)
 		{
-			Owner owner = await this.context.Owners.FirstAsync(o => o.Id.ToString() == ownerId);
+			Owner owner = await this.context.Owners
+				.FirstAsync(o => o.Id.ToString() == ownerId && o.IsActive);
 
 			Patient patient = new Patient()
 			{
@@ -79,7 +80,7 @@
 		public async Task EditPatientAsync(PatientEditViewModel model, string patientId)
 		{
 			Patient targetPatient = await context.Patients
-				.FirstAsync(p => p.Id.ToString() == patientId);
+				.FirstAsync(p => p.Id.ToString() == patientId && p.IsActive);
 
 			targetPatient.Name = model.Name;
 			targetPatient.Type = model.Type;
@@ -94,7 +95,7 @@
 		}
 
 		public async Task<bool> PatientExistsAsync(string patientId)
-			=> await context.Patients.AnyAsync(p => p.Id.ToString() == patientId);
+			=> await context.Patients.AnyAsync(p => p.Id.ToString() == patientId && p.IsActive);
 
 		public async Task<AllPatientsOrderedAndPagedServiceModel> GetAllPatientsAsync(AllPatientsQueryModel queryModel)
 		{
@@ -199,7 +200,7 @@
 				.Include(e => e.Doctor)
 				.Include(e => e.Patient)
 				.Include(e => e.Patient.Owner)
-				.Where(e => e.DoctorId.ToString() == doctorId)
+				.Where(e => e.DoctorId.ToString() == doctorId && e.Patient.IsActive == true)
 				.Select(e => e.Patient)
 				.AsQueryable();
 
@@ -255,9 +256,9 @@
 		{
 			Owner owner = await this.context.Owners
 				.Include(o => o.Patients)
-				.FirstAsync(o => o.Id.ToString() == ownerId);
+				.FirstAsync(o => o.Id.ToString() == ownerId && o.IsActive);
 
-			return owner.Patients.Any(p => p.Name == patientName);
+			return owner.Patients.Any(p => p.Name == patientName && p.IsActive);
 		}
 
 		public async Task<OwnerPetsServiceModel> GetOwnerPetsAsync(string ownerId, int currentPage)

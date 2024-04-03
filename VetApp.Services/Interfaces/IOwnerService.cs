@@ -8,9 +8,9 @@
 	{
 		Task<AllOwnersOrderedAndPagedServiceModel> GetAllOwnersAsync(AllOwnersQueryModel model);
 
-		Task<OwnerFormModel> GetOwnerForEditByIdAsync(string ownerId);
+		Task<OwnerViewModel> GetOwnerForEditByIdAsync(string ownerId);
 
-		Task EditOwnerAsync(OwnerFormModel model, string ownerId);
+		Task EditOwnerAsync(OwnerViewModel model);
 
 		Task<bool> OwnerExistsAsync (string ownerId);
 

@@ -60,7 +60,6 @@
 				}
 
 				var model = await ownerService.GetOwnerForEditByIdAsync(ownerId);
-				ViewBag.OwnerId = ownerId;
 
 				return View(model);
 			}
@@ -72,9 +71,9 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(OwnerFormModel model, string ownerId)
+		public async Task<IActionResult> Edit(OwnerViewModel model)
 		{
-			if (string.IsNullOrEmpty(ownerId))
+			if (string.IsNullOrEmpty(model.Id))
 			{
 				TempData["error"] = "Owner Id is required.";
 				return RedirectToAction("All", "Owner");
@@ -82,7 +81,7 @@
 
 			try
 			{
-				if (!await this.ownerService.OwnerExistsAsync(ownerId))
+				if (!await this.ownerService.OwnerExistsAsync(model.Id))
 				{
 					TempData["error"] = "Owner does not exist.";
 					return RedirectToAction("All", "Owner");
@@ -93,7 +92,7 @@
 					return View(model);
 				}
 
-				await this.ownerService.EditOwnerAsync(model, ownerId);
+				await this.ownerService.EditOwnerAsync(model);
 				TempData["success"] = "Owner was edited successfully.";
 
 				return RedirectToAction("All", "Owner");
@@ -122,7 +121,7 @@
 				Pager pager = new(currentPage, 2, serviceModel.TotalItems);
 				ViewBag.Pager = pager;
 
-				OwnerDetailsViewModel model = new OwnerDetailsViewModel()
+				OwnerDetailsViewModel model = new()
 				{
 					Owner = owner,
 					Patients = serviceModel.Patients

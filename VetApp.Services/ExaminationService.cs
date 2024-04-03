@@ -1,16 +1,16 @@
 ﻿namespace VetApp.Services
 {
-	using Microsoft.EntityFrameworkCore;
-	using System.Threading.Tasks;
-	using VetApp.Data;
-	using VetApp.Data.Models;
-	using VetApp.Services.Extensions;
-	using VetApp.Services.Interfaces;
-	using VetApp.Services.Models.Examination;
-	using VetApp.Web.ViewModels.Examination;
-	using Web.ViewModels.Examination.Enums;
+    using Microsoft.EntityFrameworkCore;
+    using System.Threading.Tasks;
+    using VetApp.Data;
+    using VetApp.Data.Models;
+    using VetApp.Services.Extensions.Examination;
+    using VetApp.Services.Interfaces;
+    using VetApp.Services.Models.Examination;
+    using VetApp.Web.ViewModels.Examination;
+    using Web.ViewModels.Examination.Enums;
 
-	public class ExaminationService : IExaminationService
+    public class ExaminationService : IExaminationService
 	{
 		private readonly VetAppDbContext context;
 
@@ -22,7 +22,7 @@
 		public async Task AddAsync(ExaminationFormModel model, string patientId, string doctorId)
 		{
 			Patient patient = await context.Patients
-				.FirstAsync(p => p.Id.ToString() == patientId);
+				.FirstAsync(p => p.Id.ToString() == patientId && p.IsActive);
 
 			Examination examination = new()
 			{
@@ -228,7 +228,7 @@
 					queryModel.OrderBy(e => e.Doctor.LastName),
 				ExaminationSorting.DoctorLastNameDescending =>
 					queryModel.OrderByDescending(e => e.Doctor.LastName),
-				_ => queryModel.OrderByDescending(e => e.CreatedOn)
+				_ => queryModel.OrderBy(e => e.Status.Name)
 
 			};
 

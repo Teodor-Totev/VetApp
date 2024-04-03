@@ -94,12 +94,6 @@
 					return View(model);
 				}
 
-				if (model.Examination.StatusId != 4)
-				{
-					TempData["error"] = "Examination status must be 'New' for adding a new examination.";
-					return RedirectToAction("Index", "Home");
-				}
-
 				await this.examinationService.AddAsync(model.Examination, patientId, User.Id());
 				TempData["success"] = "Examination was added successfully.";
 

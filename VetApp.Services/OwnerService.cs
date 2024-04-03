@@ -8,6 +8,7 @@
 	using VetApp.Services.Models.Owner;
 	using VetApp.Web.ViewModels.Owner;
 	using VetApp.Web.ViewModels.Patient;
+	using VetApp.Services.Extensions.Owner;
 
 	public class OwnerService : IOwnerService
 	{
@@ -62,14 +63,7 @@
 			IEnumerable<OwnerViewModel> owners = await query
 				.Skip((model.CurrentPage - 1) * model.OwnersPerPage)
 				.Take(model.OwnersPerPage)
-				.Select(o => new OwnerViewModel()
-				{
-					Id = o.Id.ToString(),
-					Name = o.Name,
-					Address = o.Address,
-					PhoneNumber = o.PhoneNumber,
-					Email = o.Email,
-				})
+				.Select(o => o.ToViewModel())
 				.ToArrayAsync();
 
 			return new AllOwnersOrderedAndPagedServiceModel()
@@ -80,37 +74,24 @@
 		}
 
 		public async Task<bool> OwnerExistsAsync(string ownerId)
-			=> await context.Owners.AnyAsync(o => o.Id.ToString() == ownerId);
+			=> await context.Owners.AnyAsync(o => o.Id.ToString() == ownerId && o.IsActive);
 
 		public async Task<bool> CheckOwnerExistsByNameAndPhoneNumberAsync(string name, string phoneNumber)
-			=> await context.Owners.AnyAsync(o => o.Name == name && o.PhoneNumber == phoneNumber);
+			=> await context.Owners.AnyAsync(o => o.Name == name && o.PhoneNumber == phoneNumber && o.IsActive);
 
 		public async Task<IEnumerable<OwnerViewModel>> GetAllExistingOwnersAsync()
 		{
 			return await context.Owners
 				.Where(o => o.IsActive == true)
-				.Select(o => new OwnerViewModel()
-				{
-					Id = o.Id.ToString(),
-					Name = o.Name,
-					Email = o.Email,
-					Address = o.Address,
-					PhoneNumber = o.PhoneNumber
-				})
+				.Select(o => o.ToViewModel())
 				.ToArrayAsync();
 		}
 
-		public async Task<OwnerFormModel> GetOwnerForEditByIdAsync(string ownerId)
+		public async Task<OwnerViewModel> GetOwnerForEditByIdAsync(string ownerId)
 		{
 			return await context.Owners
 				.Where(o => o.Id.ToString() == ownerId && o.IsActive == true)
-				.Select(o => new OwnerFormModel()
-				{
-					Name = o.Name,
-					Address = o.Address,
-					PhoneNumber = o.PhoneNumber,
-					Email = o.Email
-				})
+				.Select(o => o.ToViewModel())
 				.FirstAsync();
 		}
 
@@ -118,21 +99,14 @@
 		{
 			return await this.context.Owners
 				.Where(o => o.Id.ToString() == ownerId && o.IsActive == true)
-				.Select(o => new OwnerViewModel()
-				{
-					Id = o.Id.ToString(),
-					Name = o.Name,
-					Address = o.Address,
-					PhoneNumber = o.PhoneNumber,
-					Email = o.Email
-				})
+				.Select(o => o.ToViewModel())
 				.FirstAsync ();
 		}
 
-		public async Task EditOwnerAsync(OwnerFormModel model, string ownerId)
+		public async Task EditOwnerAsync(OwnerViewModel model)
 		{
 			Owner ownerToEdit = await this.context.Owners
-				.FirstAsync(o => o.Id.ToString() == ownerId);
+				.FirstAsync(o => o.Id.ToString() == model.Id && o.IsActive);
 
 			ownerToEdit.Name = model.Name;
 			ownerToEdit.Address = model.Address;
