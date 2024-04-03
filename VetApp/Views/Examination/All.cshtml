@@ -53,35 +53,35 @@
 	</div>
 </form>
 
-<div class="card border-secondary mb-3" style="margin: 10px 0px">
-	<h3 class="card-header text-center">Examinations</h3>
+<div class="card border-dark m-3">
+	<h3 class="card-title m-0 text-center p-2">Examinations</h3>
 
-	<div class="card-body">
+	<div class="card-body pt-0">
 		@if (Model.Examinations.Any())
 		{
-			<div class="table-responsive">
-				<table class="table table-secondary">
+			<div class="table-responsive" style="border-radius: 5px;">
+				<table class="table table-hover m-0">
 					<thead>
 						<tr>
-							<th>
+							<th scope="col" class="text-white">
 								Created On
 							</th>
-							<th>
+							<th scope="col" class="text-white">
 								Reason
 							</th>
-							<th>
+							<th scope="col" class="text-white">
 								Doctor
 							</th>
-							<th>
+							<th scope="col" class="text-white">
 								Status
 							</th>
-							<th>
+							<th scope="col" class="text-white">
 								Details
 							</th>
-							<th>
+							<th scope="col" class="text-white">
 								Edit
 							</th>
-							<th>
+							<th scope="col" class="text-white">
 								Delete
 							</th>
 						</tr>
@@ -89,27 +89,26 @@
 					<tbody>
 						@foreach (var examination in Model.Examinations)
 						{
-							<tr class="table-dark">
-								<td>
+							<tr class="table-active">
+								<td class="text-white">
 									@examination.CreatedOn.ToString("yyyy-MM-dd")
 								</td>
-								<td>
+								<td class="text-white" >
 									@examination.Reason
 								</td>
-								<td>
+								<td class="text-white">
 									@examination.DoctorName
 								</td>
-								<td>
+								<td class="text-white">
 									@examination.StatusName
 								</td>
-								<td>
+								<td class="text-white">
 									<a class="btn btn-outline-primary btn-sm text-white" asp-controller="Examination" asp-action="Details" asp-route-examinationId="@examination.Id">Details</a>
 								</td>
-								<td>
+								<td class="text-white">
 									<a class="btn btn-outline-warning btn-sm text-white" asp-controller="Examination" asp-action="Edit" asp-route-examinationId="@examination.Id" asp-route-patientId="@examination.PatientId">Edit</a>
 								</td>
-								<td>
-
+								<td class="text-white">
 									<a class="btn btn-outline-danger btn-sm text-white @(examination.StatusName == "Done" ? "disabled" : string.Empty)" asp-controller="Examination" asp-action="Delete" asp-route-examinationId="@examination.Id">Delete</a>
 								</td>
 							</tr>
