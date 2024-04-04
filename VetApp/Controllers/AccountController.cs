@@ -137,6 +137,6 @@ public class AccountController : BaseController
 	[AllowAnonymous]
 	public IActionResult AccessDenied()
 	{
-		return LocalRedirect("/Home/Error?statusCode=401");
+		return RedirectToAction("Error", "Home", new { statusCode = 401 });
 	}
 }
