@@ -1,21 +1,20 @@
-﻿namespace VetApp.Controllers
+﻿namespace VetApp.Areas.Admin.Controllers
 {
-	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.EntityFrameworkCore;
+
 	using VetApp.Areas.Admin.Models;
 	using VetApp.Data.Models;
 	using VetApp.Extensions;
-	using static VetApp.Data.Common.AdminUser;
 
-	[Authorize(Roles = AdminRoleName)]
-	public class AdministrationController : BaseController
+	public class ManageRolesController : AdminBaseController
 	{
 		private readonly RoleManager<IdentityRole<Guid>> roleManager;
 		private readonly UserManager<ApplicationUser> userManager;
 
-		public AdministrationController(RoleManager<IdentityRole<Guid>> roleManager,
+		public ManageRolesController(
+			RoleManager<IdentityRole<Guid>> roleManager,
 			UserManager<ApplicationUser> userManager)
 		{
 			this.roleManager = roleManager;
@@ -52,7 +51,7 @@
 
 					if (result.Succeeded)
 					{
-						return RedirectToAction("All", "Administration");
+						return RedirectToAction("All");
 					}
 
 					foreach (IdentityError error in result.Errors)

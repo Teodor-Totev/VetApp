@@ -7,6 +7,7 @@
 	using VetApp.Services;
 	using Microsoft.AspNetCore.Identity;
 	using static VetApp.Data.Common.AdminUser;
+	using Microsoft.AspNetCore.Authentication.Cookies;
 
 	public static class ServiceCollectionExtension
 	{
@@ -47,12 +48,11 @@
 				.AddRoles<IdentityRole<Guid>>()
 				.AddEntityFrameworkStores<VetAppDbContext>()
 				.AddDefaultTokenProviders();
-
+			
 			services.AddAuthentication()
 				.AddCookie(options =>
 				{
 					options.LoginPath = "/Account/Login";
-					options.AccessDeniedPath = "/Account/Login";
 				});
 
 			var serviceProvider = services.BuildServiceProvider();

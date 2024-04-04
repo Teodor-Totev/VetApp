@@ -11,7 +11,7 @@
 	<div class="col-md-6 card p-3">
 		<div class="row mb-2">
 			<div class="col">
-				<a class="btn btn-primary @(Model.Any() == false ? "d-none" : "")" asp-area="Admin" asp-controller="Home" asp-action="AddRole">Add Role</a>
+				<a class="btn btn-primary @(Model.Any() == false ? "d-none" : "")" asp-area="Admin" asp-controller="ManageRoles" asp-action="AddRole">Add Role</a>
 			</div>
 			<div class="col">
 				<h3 class="card-title text-center text-info">@ViewData["Title"]</h3>
@@ -30,7 +30,8 @@
 					<div class="card-footer">
 						<a class="btn btn-primary"
 						   asp-area="Admin" asp-action="EditRole"
-						   asp-controller="Home" asp-route-roleId="@role.Id">Edit
+						   asp-controller="ManageRoles" asp-route-roleId="@role.Id">
+							Edit
 						</a>
 					</div>
 				</div>
@@ -45,7 +46,7 @@
 				<div class="card-body">
 					<h5 class="card-title">Use the button below to create a role</h5>
 				</div>
-				<a class="btn btn-primary col-2 m-2 flex-end" asp-area="Admin" asp-action="AddRole" asp-controller="Home">Add Role</a>
+				<a class="btn btn-primary col-2 m-2 flex-end" asp-area="Admin" asp-action="AddRole" asp-controller="ManageRoles">Add Role</a>
 			</div>
 		}
 	</div>
