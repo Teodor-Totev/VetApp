@@ -83,7 +83,7 @@ public class AccountController : BaseController
 	[AllowAnonymous]
 	public IActionResult Register()
 	{
-		if (this.signInManager.IsSignedIn(User))
+		if (this.signInManager.IsSignedIn(User) && !User.IsInRole(AdminRoleName))
 		{
 			return RedirectToAction("Index", "Home");
 		}
@@ -120,6 +120,11 @@ public class AccountController : BaseController
 			}
 
 			return View(model);
+		}
+
+		if (this.signInManager.IsSignedIn(User) && User.IsInRole(AdminRoleName))
+		{
+			return RedirectToAction("All", "ManageUsers", new { Area = AdminAreaName });
 		}
 
 		await this.signInManager.SignInAsync(user, false);

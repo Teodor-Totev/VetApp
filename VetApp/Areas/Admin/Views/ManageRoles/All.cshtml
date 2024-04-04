@@ -33,6 +33,11 @@
 						   asp-controller="ManageRoles" asp-route-roleId="@role.Id">
 							Edit
 						</a>
+						<a class="btn btn-danger"
+						   asp-area="Admin" asp-action="DeleteRole"
+						   asp-controller="ManageRoles" asp-route-userId="@role.Id">
+							Delete
+						</a>
 					</div>
 				</div>
 			}
