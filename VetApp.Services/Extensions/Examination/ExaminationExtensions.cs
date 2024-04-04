@@ -12,6 +12,7 @@
                 Id = examination.Id.ToString(),
                 CreatedOn = examination.CreatedOn,
                 Reason = examination.Reason,
+                PatientName = examination.Patient.Name,
                 DoctorName = examination.Doctor.FirstName + " " + examination.Doctor.LastName,
                 StatusName = examination.Status.Name,
                 PatientId = examination.PatientId.ToString()

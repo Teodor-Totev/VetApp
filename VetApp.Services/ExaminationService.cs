@@ -177,6 +177,7 @@
 			var patientExamination = await this.context.Examinations
 				.Include(e => e.Doctor)
 				.Include(e => e.Status)
+				.Include(e => e.Patient)
 				.Where(e => e.PatientId.ToString() == patientId && e.IsActive == true)
 				.OrderByDescending(e => e.CreatedOn)
 				.Skip((currentPage - 1) * 4)
@@ -201,6 +202,7 @@
 				.Where(o => o.IsActive == true)
 				.Include(e => e.Doctor)
 				.Include(e => e.Status)
+				.Include(e => e.Patient)
 				.AsQueryable();
 
 			if (!string.IsNullOrEmpty(model.SearchString))
