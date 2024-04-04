@@ -19,6 +19,11 @@
 		[AllowAnonymous]
 		public IActionResult Error(int statusCode)
 		{
+			if (statusCode == 401)
+			{
+				return View("Error401");
+			}
+
 			if (statusCode == 404)
 			{
 				return View("Error404");
