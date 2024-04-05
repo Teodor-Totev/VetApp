@@ -2,8 +2,8 @@
 {
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
+
 	using VetApp.Data.Models;
-	using VetApp.Extensions;
 
 	public class ManageUsersController : AdminBaseController
 	{
