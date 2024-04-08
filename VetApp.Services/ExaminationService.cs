@@ -97,7 +97,7 @@
 		public async Task EditExaminationAsync(ExaminationFormModel model, string examinationId)
 		{
 			Examination targetExamination = await context.Examinations
-				.FirstAsync(e => e.Id.ToString() == examinationId);
+				.FirstAsync(e => e.Id.ToString() == examinationId && e.IsActive == true);
 
 			targetExamination.Weight = model.Weight;
 			targetExamination.Reason = model.Reason;
@@ -117,7 +117,7 @@
 
 		public async Task<ExaminationDetailsViewModel> GetExaminationDetailsByIdAsync(string examinationId)
 			=> await context.Examinations
-				.Where(e => e.Id.ToString() == examinationId)
+				.Where(e => e.Id.ToString() == examinationId && e.IsActive == true)
 				.Select(e => new ExaminationDetailsViewModel
 				{
 					Id = e.Id.ToString(),
