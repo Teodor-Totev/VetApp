@@ -19,10 +19,10 @@ VetTrackingSystem is an advanced ASP.NET Core MVC application designed to revolu
 
 - **Tracking Past Examinations**
 
-- **User-Friendly Interface:**
-  
-   VetApp boasts an intuitive and user-friendly interface, ensuring a smooth experience for doctors navigating through patient records and application features.
+- **User-Friendly Interface**
 
+- **Responsive design**
+  
 ## Database Schema
 
 ![Database Schema](https://github.com/Teodor-Totev/VetApp/assets/117727332/d1db4422-0bf3-47a6-b6b4-60ba52645c69)
