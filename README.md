@@ -1,8 +1,7 @@
 # VetTrackingSystem
 
-## Project Overview
+VetTrackingSystem is an advanced ASP.NET Core MVC application designed to revolutionize the way veterinary clinics manage patient care and practice operations. This intuitive software offers a comprehensive set of features tailored to meet the unique requirements of veterinary professionals, allowing them to streamline workflows, access vital information and improve the overall efficiency of their practice.
 
-VetApp is an ASP.NET Core MVC project designed to streamline the patient management process for veterinary medicine doctors. With VetApp, doctors can easily access information, track, view intervention history, and manage their practice seamlessly.
 
 ## Features
 
