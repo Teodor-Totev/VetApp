@@ -6,26 +6,34 @@ VetApp is an ASP.NET Core MVC project designed to streamline the patient managem
 
 ## Features
 
-- **Custom Registration and Login**
+- **Configured login and registration functionality**
 
 - **Patient Management**
 
-- **Tracking Past Problems and Interventions**
+- **Owner Management**
+
+- **Examination Management**
+
+- **Admin Area**
+
+- **Password requirements are made for a developer environment**
+
+- **Tracking Past Examinations**
 
 - **User-Friendly Interface:**
   
    VetApp boasts an intuitive and user-friendly interface, ensuring a smooth experience for doctors navigating through patient records and application features.
 
-## Contributing
-
-   We welcome contributions to enhance and improve VetApp. If you find any bugs or have suggestions for new features, please submit an issue or create a pull request.
 
 ## Technologies Used
 
 - ASP.NET Core
 - ASP.NET Core Identity
+- ASP.NET Web API
 - Entity Framework
 - Microsoft SQL Server
 - HTML
 - CSS
 - Bootstrap
+- jQuery
+- C#
