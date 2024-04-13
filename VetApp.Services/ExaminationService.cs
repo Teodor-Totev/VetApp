@@ -152,6 +152,7 @@
 				Id = examination.Id.ToString(),
 				StatusName = examination.Status.Name,
 				PatientName = examination.Patient.Name,
+				PatientId = examination.Patient.Id.ToString(),
 				DoctorName = examination.Doctor.FirstName + " " +
 							examination.Doctor.LastName,
 				CreatedOn = examination.CreatedOn,

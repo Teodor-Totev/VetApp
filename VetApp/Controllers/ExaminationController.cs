@@ -301,7 +301,7 @@
 
 				if (model.StatusName == "Done")
 				{
-					TempData["error"] = "Can not delete examinations with status Done.";
+					TempData["error"] = "Can not delete examinations with status 'Done'.";
 					return RedirectToAction("All");
 				}
 

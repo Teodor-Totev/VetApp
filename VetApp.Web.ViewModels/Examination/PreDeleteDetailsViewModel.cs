@@ -15,7 +15,9 @@
 		[Display(Name = "Patient")]
 		public string PatientName { get; set; } = null!;
 
-		public string Reason { get; set; } = null!;
+		public string PatientId { get; set; } = null!;
+
+        public string Reason { get; set; } = null!;
 
 		public double Weight { get; set; }
 
