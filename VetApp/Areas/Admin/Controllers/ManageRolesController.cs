@@ -189,5 +189,33 @@
 
 			return RedirectToAction("EditRole", new { roleId });
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteRole(string roleId)
+		{
+			var role = await roleManager.FindByIdAsync(roleId);
+
+			if (role == null)
+			{
+				TempData["error"] = "Role cannot be found";
+				return RedirectToAction("All");
+			}
+
+			var result = await roleManager.DeleteAsync(role);
+
+			if (result.Succeeded)
+			{
+				TempData["success"] = "Successfully delete role";
+				return RedirectToAction("All");
+			}
+
+			foreach (var error in result.Errors)
+			{
+				ModelState.AddModelError(string.Empty, error.Description);
+			}
+
+			return RedirectToAction("All");
+		}
+
 	}
 }

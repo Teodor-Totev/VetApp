@@ -28,16 +28,14 @@
 						<h5 class="card-title">@role.Name</h5>
 					</div>
 					<div class="card-footer">
-						<a class="btn btn-primary"
-						   asp-area="Admin" asp-action="EditRole"
-						   asp-controller="ManageRoles" asp-route-roleId="@role.Id">
-							Edit
-						</a>
-						<a class="btn btn-danger"
-						   asp-area="Admin" asp-action="DeleteRole"
-						   asp-controller="ManageRoles" asp-route-userId="@role.Id">
-							Delete
-						</a>
+						<form asp-action="DeleteRole" asp-area="Admin" method="post" asp-controller="ManageRoles" asp-route-roleId="@role.Id">
+							<a class="btn btn-primary"
+							   asp-area="Admin" asp-action="EditRole"
+							   asp-controller="ManageRoles" asp-route-roleId="@role.Id">
+								Edit
+							</a>
+							<button type="submit" class="btn btn-danger">Delete</button>
+						</form>
 					</div>
 				</div>
 			}
