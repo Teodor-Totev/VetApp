@@ -6,7 +6,7 @@
 
 	public class OwnerViewModel
 	{
-		public string Id { get; set; } = null!;
+		public string? Id { get; set; } 
 
 		[Required]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength)]

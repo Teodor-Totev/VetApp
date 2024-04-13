@@ -22,7 +22,7 @@
 			<dd class="col-7 card-text">
 				@if (Model.BirthDate != null)
 				{
-					Model.BirthDate.ToString("dd/MM/yyyy");
+					@Model.BirthDate.ToString("yyyy-MM-dd");
 				}
 			</dd>
 
