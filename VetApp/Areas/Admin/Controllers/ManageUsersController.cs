@@ -7,14 +7,11 @@
 
 	public class ManageUsersController : AdminBaseController
 	{
-		private readonly RoleManager<IdentityRole<Guid>> roleManager;
 		private readonly UserManager<ApplicationUser> userManager;
 
 		public ManageUsersController(
-			RoleManager<IdentityRole<Guid>> roleManager,
 			UserManager<ApplicationUser> userManager)
 		{
-			this.roleManager = roleManager;
 			this.userManager = userManager;
 		}
 		public IActionResult Index()
@@ -27,6 +24,33 @@
 		{
 			var model = userManager.Users.ToArray();
 			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteUser(string userId)
+		{
+			var user = await userManager.FindByIdAsync(userId);
+
+			if (user == null)
+			{
+				TempData["error"] = "User cannot be found";
+				return RedirectToAction("All");
+			}
+
+			var result = await userManager.DeleteAsync(user);
+
+			if (result.Succeeded)
+			{
+				TempData["success"] = "Successfully delete user";
+				return RedirectToAction("All");
+			}
+
+			foreach (var error in result.Errors)
+			{
+				ModelState.AddModelError(string.Empty, error.Description);
+			}
+
+			return RedirectToAction("All");
 		}
 	}
 }
