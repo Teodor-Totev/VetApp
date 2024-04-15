@@ -8,6 +8,7 @@
 	using VetApp.Services;
 	using VetApp.Services.Interfaces;
 	using VetApp.Web.ViewModels.Examination;
+	using VetApp.Web.ViewModels.Examination.Enums;
 
 	[TestFixture]
 	public class ExaminationServiceTests : UnitTestsBase
@@ -191,9 +192,11 @@
 		{
 			string examinationId = Examination.Id.ToString();
 
-			var result = await service.GetExaminationForDeleteByIdAsync(examinationId);
+			PreDeleteDetailsViewModel result = 
+				await service.GetExaminationForDeleteByIdAsync(examinationId);
 
-			Assert.IsNotNull(result, "Result should not be null.");
+			Assert.IsNotNull(result);
+			Assert.That(result.GetType(), Is.EqualTo(typeof(PreDeleteDetailsViewModel)));
 			Assert.That(result.Id, Is.EqualTo(examinationId));
 			Assert.That(result.StatusName, Is.EqualTo(Status.Name));
 			Assert.That(result.PatientName, Is.EqualTo(Patient.Name));
@@ -202,5 +205,85 @@
 			Assert.That(result.Reason, Is.EqualTo(Examination.Reason));
 			Assert.That(result.Weight, Is.EqualTo(Examination.Weight));
 		}
+
+		[Test]
+		public async Task DeleteExaminationByIdAsync_ShouldSetIsActiveToFalse()
+		{
+			string examinationId = Examination.Id.ToString();
+
+			await service.DeleteExaminationByIdAsync(examinationId);
+
+			Examination deletedExamination = await context.Examinations
+				.FirstOrDefaultAsync(e => e.Id.ToString() == examinationId);
+
+			Assert.IsNotNull(deletedExamination);
+			Assert.IsFalse(deletedExamination.IsActive);
+		}
+
+		[Test]
+		public async Task GetPatientExaminationsByIdAsync_ShouldReturnCorrectExaminationsAndTotalCount()
+		{
+			string patientId = Patient.Id.ToString();
+			int currentPage = 1;
+			int pageSize = 4; 
+
+			var result = await service.GetPatientExaminationsByIdAsync(patientId, currentPage);
+
+			var patientExaminations = await context.Examinations
+				.Where(e => e.PatientId.ToString() == patientId && e.IsActive == true)
+				.OrderByDescending(e => e.CreatedOn)
+				.Skip((currentPage - 1) * pageSize)
+				.Take(pageSize)
+				.ToArrayAsync();
+
+			var totalCount = await context.Examinations
+				.Where(e => e.PatientId.ToString() == patientId && e.IsActive == true)
+				.CountAsync();
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual(patientExaminations.Length, result.PatientExaminations.Count());
+
+			Assert.AreEqual(totalCount, result.TotalItems);
+		}
+
+		[Test]
+		public async Task GetAllExaminationsAsync_ShouldReturnCorrectExaminationsBasedOnQueryModel()
+		{
+			var queryModel = new AllExaminationsQueryModel
+			{
+				CurrentPage = 1,
+				ExaminationsPerPage = 4,
+				ExaminationSorting = ExaminationSorting.CreatedOnDescending,
+				SearchString = "test"
+			};
+
+			var result = await service.GetAllExaminationsAsync(queryModel);
+
+			var filteredExaminations = await context.Examinations
+				.Where(e => e.IsActive == true &&
+							(EF.Functions.Like(e.Reason.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
+							 EF.Functions.Like(e.Status.Name.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
+							 EF.Functions.Like(e.Doctor.FirstName!.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
+							 EF.Functions.Like(e.Doctor.LastName!.ToLower(), $"%{queryModel.SearchString.ToLower()}%")))
+				.OrderByDescending(e => e.CreatedOn)
+				.Skip((queryModel.CurrentPage - 1) * queryModel.ExaminationsPerPage)
+				.Take(queryModel.ExaminationsPerPage)
+				.ToArrayAsync();
+
+			var totalCount = await context.Examinations
+				.Where(e => e.IsActive == true &&
+							(EF.Functions.Like(e.Reason.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
+							 EF.Functions.Like(e.Status.Name.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
+							 EF.Functions.Like(e.Doctor.FirstName!.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
+							 EF.Functions.Like(e.Doctor.LastName!.ToLower(), $"%{queryModel.SearchString.ToLower()}%")))
+				.CountAsync();
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual(filteredExaminations.Length, result.Examinations.Count());
+
+			Assert.AreEqual(totalCount, result.TotalItems);
+		}
+
+
 	}
 }

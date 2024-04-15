@@ -82,7 +82,7 @@
 				Type = "Dog",
 				Gender = PatientGender.Male,
 				Neutered = PatientNeutered.No,
-				OwnerId = Guid.Parse("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
+				OwnerId = Guid.Parse("owner"),
 				IsActive = true,
 			};
 			context.Patients.Add(Patient);
