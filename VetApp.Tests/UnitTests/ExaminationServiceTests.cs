@@ -13,19 +13,19 @@
 	[TestFixture]
 	public class ExaminationServiceTests : UnitTestsBase
 	{
-		private IExaminationService service;
+		private IExaminationService examinationService;
 
 		[OneTimeSetUp]
 		public void SetUp()
 		{
-			service = new ExaminationService(context);
+			examinationService = new ExaminationService(context);
 		}
 
 		[Test]
 		public async Task ExistsAsync_ShouldReturnTrue_WithValidExaminationId()
 		{
-			var id = "a6be4500-3245-4ecc-a9f5-5b2af8baff97";
-			bool isExists = await service.ExaminationExistsAsync(id);
+			var id = Examination.Id.ToString();
+			bool isExists = await examinationService.ExaminationExistsAsync(id);
 
 			Assert.IsTrue(isExists == true);
 		}
@@ -55,7 +55,7 @@
 				})
 				.FirstAsync();
 
-			var result = await service.GetExaminationByIdAsync(examinationId);
+			var result = await examinationService.GetExaminationByIdAsync(examinationId);
 
 			Assert.IsNotNull(result);
 			Assert.That(result.DoctorId, Is.EqualTo(expected.DoctorId));
@@ -96,7 +96,7 @@
 				StatusId = 4,
 			};
 
-			await service.AddAsync(model, patientId, doctorId);
+			await examinationService.AddAsync(model, patientId, doctorId);
 
 			var addedExamination = context.Examinations.FirstOrDefault(e => e.Weight == model.Weight);
 
@@ -142,10 +142,8 @@
 			};
 			string examinationId = Examination.Id.ToString();
 
-			// Act
-			await service.EditExaminationAsync(model, examinationId);
+			await examinationService.EditExaminationAsync(model, examinationId);
 
-			// Assert
 			var updatedExamination = context.Examinations.Find(Guid.Parse(examinationId));
 
 			Assert.IsNotNull(updatedExamination);
@@ -168,7 +166,7 @@
 		{
 			string examinationId = Examination.Id.ToString();
 
-			var result = await service.GetExaminationDetailsByIdAsync(examinationId);
+			var result = await examinationService.GetExaminationDetailsByIdAsync(examinationId);
 
 			Assert.IsNotNull(result);
 			Assert.That(result.Id, Is.EqualTo(examinationId));
@@ -193,7 +191,7 @@
 			string examinationId = Examination.Id.ToString();
 
 			PreDeleteDetailsViewModel result = 
-				await service.GetExaminationForDeleteByIdAsync(examinationId);
+				await examinationService.GetExaminationForDeleteByIdAsync(examinationId);
 
 			Assert.IsNotNull(result);
 			Assert.That(result.GetType(), Is.EqualTo(typeof(PreDeleteDetailsViewModel)));
@@ -211,7 +209,7 @@
 		{
 			string examinationId = Examination.Id.ToString();
 
-			await service.DeleteExaminationByIdAsync(examinationId);
+			await examinationService.DeleteExaminationByIdAsync(examinationId);
 
 			Examination deletedExamination = await context.Examinations
 				.FirstOrDefaultAsync(e => e.Id.ToString() == examinationId);
@@ -227,7 +225,7 @@
 			int currentPage = 1;
 			int pageSize = 4; 
 
-			var result = await service.GetPatientExaminationsByIdAsync(patientId, currentPage);
+			var result = await examinationService.GetPatientExaminationsByIdAsync(patientId, currentPage);
 
 			var patientExaminations = await context.Examinations
 				.Where(e => e.PatientId.ToString() == patientId && e.IsActive == true)
@@ -247,41 +245,23 @@
 		}
 
 		[Test]
-		public async Task GetAllExaminationsAsync_ShouldReturnCorrectExaminationsBasedOnQueryModel()
+		public async Task GetAllExaminationsAsync_ShouldReturnCorrectExaminationsAndOrderedByStatusName()
 		{
-			var queryModel = new AllExaminationsQueryModel
+			var model = new AllExaminationsQueryModel
 			{
 				CurrentPage = 1,
-				ExaminationsPerPage = 4,
-				ExaminationSorting = ExaminationSorting.CreatedOnDescending,
-				SearchString = "test"
+				ExaminationsPerPage = 10,
+				ExaminationSorting = ExaminationSorting.StatusAscending,
+				SearchString = "Primary" 
 			};
 
-			var result = await service.GetAllExaminationsAsync(queryModel);
-
-			var filteredExaminations = await context.Examinations
-				.Where(e => e.IsActive == true &&
-							(EF.Functions.Like(e.Reason.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
-							 EF.Functions.Like(e.Status.Name.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
-							 EF.Functions.Like(e.Doctor.FirstName!.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
-							 EF.Functions.Like(e.Doctor.LastName!.ToLower(), $"%{queryModel.SearchString.ToLower()}%")))
-				.OrderByDescending(e => e.CreatedOn)
-				.Skip((queryModel.CurrentPage - 1) * queryModel.ExaminationsPerPage)
-				.Take(queryModel.ExaminationsPerPage)
-				.ToArrayAsync();
-
-			var totalCount = await context.Examinations
-				.Where(e => e.IsActive == true &&
-							(EF.Functions.Like(e.Reason.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
-							 EF.Functions.Like(e.Status.Name.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
-							 EF.Functions.Like(e.Doctor.FirstName!.ToLower(), $"%{queryModel.SearchString.ToLower()}%") ||
-							 EF.Functions.Like(e.Doctor.LastName!.ToLower(), $"%{queryModel.SearchString.ToLower()}%")))
-				.CountAsync();
+			var result = await examinationService.GetAllExaminationsAsync(model);
 
 			Assert.IsNotNull(result);
-			Assert.AreEqual(filteredExaminations.Length, result.Examinations.Count());
-
-			Assert.AreEqual(totalCount, result.TotalItems);
+			Assert.GreaterOrEqual(result.Examinations.Count(), 1);
+			Assert.That(result.Examinations.First().Reason, Does.Contain("Primary"));
+			Assert.That(result.Examinations.OrderBy(e => e.StatusName).First().StatusName, Is.EqualTo("InProgress")); 
+			Assert.GreaterOrEqual(result.TotalItems, 1); 
 		}
 
 

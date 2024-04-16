@@ -124,7 +124,7 @@
 				PatientSorting.OwnerNameDescending => query
 					.OrderByDescending(p => p.Owner.Name),
 				_ => query
-					.OrderByDescending(p => p.Id)
+					.OrderByDescending(p => p.Examinations.Count())
 			};
 
 			ICollection<PatientViewModel> patients = await query
@@ -288,5 +288,6 @@
 				TotalItems = totalCount
 			};
 		}
+
 	}
 }

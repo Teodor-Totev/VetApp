@@ -42,12 +42,12 @@
 
             var actual = context.Statuses.ToList();
 
-            Assert.AreEqual(expected.Count(), actual.Count);
+            Assert.That(expected.Count(), Is.EqualTo(actual.Count));
 
             for (int i = 0; i < expected.Count(); i++)
             {
-                Assert.AreEqual(expected.ElementAt(i).Id, actual.ElementAt(i).Id);
-                Assert.AreEqual(expected.ElementAt(i).Name, actual.ElementAt(i).Name);
+                Assert.That(actual.ElementAt(i).Id, Is.EqualTo(expected.ElementAt(i).Id));
+                Assert.That(actual.ElementAt(i).Name, Is.EqualTo(expected.ElementAt(i).Name));
             }
         }
     }

@@ -30,26 +30,6 @@
 
 		private void SeedDatabase()
 		{
-			Examination = new Examination()
-			{
-				Id = Guid.Parse("a6be4500-3245-4ecc-a9f5-5b2af8baff97"),
-				Weight = 12,
-				Reason = "Primary",
-				CreatedOn = DateTime.UtcNow.AddDays(-7),
-				MedicalHistory = "With an unstable state",
-				CurrentCondition = "CurrentCondition Is Very Good",
-				SpecificCondition = "SpecificCondition is good also",
-				Research = "Saome research if...",
-				Diagnosis = "some diagnosis here",
-				Surgery = "No surgery",
-				Therapy = "No",
-				Exit = "sumnitelen",
-				StatusId = 1,
-				DoctorId = Guid.Parse("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
-				PatientId = Guid.Parse("b19105c4-9a4e-4583-973a-642b8bc06916"),
-				IsActive = true,
-			};
-			context.Examinations.Add(Examination);
 			Doctor = new ApplicationUser()
 			{
 				Id = Guid.Parse("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
@@ -82,11 +62,38 @@
 				Type = "Dog",
 				Gender = PatientGender.Male,
 				Neutered = PatientNeutered.No,
-				OwnerId = Guid.Parse("owner"),
+				OwnerId = Guid.Parse("e90872c9-5b9b-412c-a5a5-ee871bbe9299"),
 				IsActive = true,
 			};
 			context.Patients.Add(Patient);
+			Examination = new Examination()
+			{
+				Id = Guid.Parse("a6be4500-3245-4ecc-a9f5-5b2af8baff97"),
+				Weight = 12,
+				Reason = "Primary",
+				CreatedOn = DateTime.UtcNow.AddDays(-7),
+				MedicalHistory = "With an unstable state",
+				CurrentCondition = "CurrentCondition Is Very Good",
+				SpecificCondition = "SpecificCondition is good also",
+				Research = "Saome research if...",
+				Diagnosis = "some diagnosis here",
+				Surgery = "No surgery",
+				Therapy = "No",
+				Exit = "sumnitelen",
+				StatusId = 1,
+				DoctorId = Guid.Parse("051ff0f3-4490-4676-ae7c-09cdea604ac1"),
+				PatientId = Guid.Parse("b19105c4-9a4e-4583-973a-642b8bc06916"),
+				IsActive = true,
+			};
+			context.Examinations.Add(Examination);
 			context.SaveChanges();
+		}
+
+		protected void ResetDatabase()
+		{
+			context.Dispose();
+			context = DataBaseMock.Instance;
+			SeedDatabase();
 		}
 
 		[OneTimeTearDown]
