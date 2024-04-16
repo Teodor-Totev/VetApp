@@ -5,7 +5,6 @@
 	using Extensions;
 	using Services.Interfaces;
 	using Services.Models.Patient;
-	using Web.ViewModels.Examination;
 	using Web.ViewModels.Patient;
 	using VetApp.Web.Common.Helpers;
 	using VetApp.Services.Models.Examination;

@@ -2,9 +2,9 @@
 {
 	public enum PatientSorting
 	{
-		PatientNameAscending = 0,
-		PatientNameDescending = 1,
-		OwnerNameAscending = 2,
-		OwnerNameDescending = 3,
+		PatientNameAscending = 1,
+		PatientNameDescending = 2,
+		OwnerNameAscending = 3,
+		OwnerNameDescending = 4,
 	}
 }
