@@ -11,13 +11,16 @@
 			<div class="card-body">
 				<dl class="row">
 					<dt class="col-5 card-title">Created on:</dt>
-					<dd class="col-7 card-text">@Model.CreatedOn.ToString("dd/MM/yyyy")</dd>
+					<dd class="col-7 card-text">@Model.CreatedOn.ToString("yyyy-MM-dd")</dd>
 
 					<dt class="col-5 card-title">Doctor:</dt>
 					<dd class="col-7 card-text">@Model.DoctorName</dd>
 
 					<dt class="col-5 card-title">Status:</dt>
 					<dd class="col-7 card-text">@Model.StatusName</dd>
+					
+					<dt class="col-5 card-title">Patient:</dt>
+					<dd class="col-7 card-text">@Model.PatientName</dd>
 
 					<dt class="col-5 card-title">Weight:</dt>
 					<dd class="col-7 card-text">@Model.Weight</dd>
