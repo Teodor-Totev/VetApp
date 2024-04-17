@@ -63,28 +63,28 @@
 				<table class="table table-hover m-0">
 					<thead>
 						<tr>
-							<th scope="col" class="text-white">
+							<th scope="col" class="text-primary">
 								Created On
 							</th>
-							<th scope="col" class="text-white">
+							<th scope="col" class="text-primary">
 								Reason
 							</th>
-							<th scope="col" class="text-white">
+							<th scope="col" class="text-primary">
 								Doctor
 							</th>
-							<th scope="col" class="text-white">
+							<th scope="col" class="text-primary">
 								Patient
 							</th>
-							<th scope="col" class="text-white">
+							<th scope="col" class="text-primary">
 								Status
 							</th>
-							<th scope="col" class="text-white">
+							<th scope="col" class="text-primary">
 								Details
 							</th>
-							<th scope="col" class="text-white">
+							<th scope="col" class="text-primary">
 								Edit
 							</th>
-							<th scope="col" class="text-white">
+							<th scope="col" class="text-primary">
 								Delete
 							</th>
 						</tr>
@@ -93,28 +93,28 @@
 						@foreach (var examination in Model.Examinations)
 						{
 							<tr class="table-active">
-								<td class="text-white">
+								<td class="text-secondary">
 									@examination.CreatedOn.ToString("yyyy-MM-dd")
 								</td>
-								<td class="text-white" >
+								<td class="text-secondary">
 									@examination.Reason
 								</td>
-								<td class="text-white">
+								<td class="text-secondary">
 									@examination.DoctorName
 								</td>
-								<td class="text-white">
+								<td class="text-secondary">
 									@examination.PatientName
 								</td>
-								<td class="text-white">
+								<td class="text-secondary">
 									@examination.StatusName
 								</td>
-								<td class="text-white">
+								<td class="text-secondary">
 									<a class="btn btn-outline-primary btn-sm text-white" asp-controller="Examination" asp-action="Details" asp-route-examinationId="@examination.Id">Details</a>
 								</td>
-								<td class="text-white">
+								<td class="text-secondary">
 									<a class="btn btn-outline-warning btn-sm text-white" asp-controller="Examination" asp-action="Edit" asp-route-examinationId="@examination.Id" asp-route-patientId="@examination.PatientId">Edit</a>
 								</td>
-								<td class="text-white">
+								<td class="text-secondary">
 									<a class="btn btn-outline-danger btn-sm text-white @(examination.StatusName == "Done" ? "disabled" : string.Empty)" asp-controller="Examination" asp-action="Delete" asp-route-examinationId="@examination.Id">Delete</a>
 								</td>
 							</tr>
