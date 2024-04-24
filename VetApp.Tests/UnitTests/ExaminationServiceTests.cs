@@ -31,10 +31,8 @@
 		[Test]
 		public async Task GetExaminationAsync_ShouldReturnModel_WithValidExaminationId()
 		{
-			var examinationId = "a6be4500-3245-4ecc-a9f5-5b2af8baff97";
-
 			var expected = await this.context.Examinations
-				.Where(e => e.Id.ToString() == examinationId && e.IsActive == true)
+				.Where(e => e.Id.ToString() == Examination.Id.ToString() && e.IsActive == true)
 				.Select(e => new ExaminationFormModel()
 				{
 					DoctorId = e.DoctorId.ToString(),
@@ -53,7 +51,7 @@
 				})
 				.FirstAsync();
 
-			var result = await examinationService.GetExaminationByIdAsync(examinationId);
+			var result = await examinationService.GetExaminationByIdAsync(Examination.Id.ToString());
 
 			Assert.IsNotNull(result);
 			Assert.That(result.DoctorId, Is.EqualTo(expected.DoctorId));
